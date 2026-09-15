@@ -2459,7 +2459,7 @@ summary(mod)
     ::: {style="font-size: 0.85em;"}
     $\longrightarrow$ [[Interprétation :]{.underline}]{.smallcaps} Quand le lobe frontal (FL) mesure $0$cm, la carapace (CL) en mesure $1.038$ {Pas forcément d'interprétation sensée}.
     :::
-    
+
 ```{=html}
 <div style="height:5px;"></div>
 ```
