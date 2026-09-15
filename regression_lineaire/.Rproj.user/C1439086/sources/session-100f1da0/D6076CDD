@@ -1,0 +1,33 @@
+{
+    "id": "D6076CDD",
+    "path": "~/Leçons/regression_lineaire/regression_lineaire_simple.qmd",
+    "project_path": "regression_lineaire_simple.qmd",
+    "type": "quarto_markdown",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1788533190479.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "rmdVisualMode": "false",
+        "rmdVisualWrapConfigured": "true",
+        "source_window_id": "",
+        "Source": "Source",
+        "docOutlineVisible": "1",
+        "rmdVisualCollapsedChunks": "",
+        "rmdVisualModeLocation": "42236:40885.76171875",
+        "cursorPosition": "1510,0",
+        "scrollLine": "1509",
+        "last_setup_crc32": "",
+        "ignored_words": "Homoscédasticité\n"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1789122501,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1789285424459,
+    "read_only": false,
+    "read_only_alternatives": []
+}

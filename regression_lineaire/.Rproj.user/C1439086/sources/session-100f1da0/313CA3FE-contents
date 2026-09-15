@@ -1,0 +1,73 @@
+
+.reveal {
+  font-size: 35px;
+}
+
+.reveal h1 {
+  font-size: 1.8em;
+}
+
+.reveal h2 {
+  font-size: 1.4em;
+}
+
+.reveal h3 {
+  font-size: 1.15em;
+}
+
+.reveal table {
+  font-size: 0.65em;
+}
+
+.reveal blockquote {
+  font-size: 0.8em;
+}
+
+.reveal .slides {
+  width: 90% !important;
+  height: 95% !important;
+  overflow: hidden;
+}
+
+
+#tableau-focus table tbody tr:nth-child(1),
+#tableau-focus table tbody tr:nth-child(2) {
+  background-color: #fff3cd !important;
+  font-weight: bold;
+}
+
+
+.center-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 100%;
+}
+
+.highlight-box {
+  background-color: #f8f9fa;
+  border: 4px solid #b2e3ff;
+  border-radius: 8px;
+  padding: 20px 30px;
+  margin: 30px auto;
+  width: 95%;
+  text-align: center;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+.small-box {
+  background-color: #f8f9fa;
+  border: 3px solid #b2e3ff;
+  border-radius: 8px;
+  padding: 12px 20px;
+  margin: 20px auto;
+  width: 90%;
+  text-align: center;
+  font-size: 0.75em;
+}
+
+
+
+
