@@ -6,11 +6,11 @@ aspect_ratio: "16:9"
 format: 
   revealjs:
     slide-number: c/t
-    incremental: true
+    # incremental: true
     title-slide-attributes:
       data-background-image: figures/fond.png
       data-background-size: cover
-      syntax-highlighting: idiomatic  
+      syntax-highlighting: idiomatic
 editor: visual
 bibliography: references.bib
 ---
@@ -24,7 +24,7 @@ library(msos)
 library(patchwork)
 ```
 
-## 🔍 Introduction : Un modèle linéaire, qu'est-ce c'est ? {data-visibility="uncounted"}
+## 🔍 Introduction : Un modèle linéaire, qu'est-ce c'est ?
 
 ```{=html}
 <div style="height:5px;"></div>
@@ -80,15 +80,20 @@ Dans ce cours, on va se concentrer sur la [régression linéaire simple]{.smallc
 
 [[Jeu de données utilisé :]{.underline}]{.smallcaps} Mesures morphologiques chez les crabes *Leptograpsus variegatus*, collectés à Fremantle en Australie [@campbell1974].
 
-:::::: columns
-::: {.column width="60%"}
+. . .
+
+::::::: columns
+:::: {.column width="60%"}
 <br>
 
 -   200 crabes étudiés (50 $\times$ 2 sexes $\times$ 2 couleurs)
+
+::: fragment
 -   5 mesures morphologiques
 
 ![](figures/crab_dim.png){fig-align="center"}
 :::
+::::
 
 :::: {.column width="40%"}
 ::: columns
@@ -101,7 +106,7 @@ knitr::kable(head(crabs, 10))
 ```
 :::
 ::::
-::::::
+:::::::
 
 ## 🦀 Application : Question de recherche
 
@@ -119,7 +124,9 @@ knitr::kable(head(crabs, 10))
 <div style="height:5px;"></div>
 ```
 
-1.  Comment construire un modèle linéaire ? (Exemple & Définition)
+1.  Comment construire un modèle linéaire ? (Définition & Exemple)
+
+. . .
 
 ```{=html}
 <div style="height:5px;"></div>
@@ -127,23 +134,29 @@ knitr::kable(head(crabs, 10))
 
 2.  Comment trouver la droite qui décrit le mieux les données ? (Méthode des moindres carrés)
 
+. . .
+
 ```{=html}
 <div style="height:5px;"></div>
 ```
 
 3.  Comment savoir si cette droite est de bonne qualité ? (Coefficient de détermination R²)
 
-```{=html}
-<div style="height:5px;"></div>
-```
-
-4.  Application aux données de crabe
+. . .
 
 ```{=html}
 <div style="height:5px;"></div>
 ```
 
-5.  Conclusion & Exemples concrets de contributions scientifiques
+4.  Application aux données de crabe avec R
+
+. . .
+
+```{=html}
+<div style="height:5px;"></div>
+```
+
+5.  Conclusion & Exemple concret d'une contribution en sciences vétérinaire
 
 ## 1️⃣ Écriture du modèle : Définition
 
@@ -166,7 +179,7 @@ knitr::kable(head(crabs, 10))
 :::
 
 ::::: {.column width="30%"}
-:::: {style="border: 2px solid #D9E1F2;   border-radius: 25px;   padding: 0;   margin: 20px 0px 0px 50px;   background: transparent;   box-shadow: 0 2px 8px rgba(100,120,150,0.10);   overflow: hidden;"}
+:::: {style="border: 2px solid #D9E1F2;   border-radius: 25px;   padding: 0;   margin: 20px 0px 0px 50px;   background: white;   box-shadow: 0 2px 8px rgba(100,120,150,0.10);   overflow: hidden;"}
 ::: {.text-center style="text-align: center;   font-size: 0.75em;"}
 [[équation d'une droite :]{.underline}]{.smallcaps}
 
@@ -488,6 +501,8 @@ p %>%
 ```{=html}
 <div style="height:40px;"></div>
 ```
+
+. . .
 
 2.  [[linéarité :]{.underline}]{.smallcaps} $\mathbf{E}(\epsilon) = 0$ $\longrightarrow$ à $x$ fixé, $\mathbf{E}(Y) = \beta_0 + \beta_1 x$
 
@@ -1298,8 +1313,8 @@ ggplot(data, aes(X, Y)) +
 <div style="height:5px;"></div>
 ```
 
-::::: columns
-::: {.column width="50%"}
+:::::::: columns
+:::::: {.column width="50%"}
 ```{=html}
 <div style="height:40px;"></div>
 ```
@@ -1310,20 +1325,26 @@ ggplot(data, aes(X, Y)) +
 <div style="height:5px;"></div>
 ```
 
+::: fragment
 -   [[Linéarité :]{.underline}]{.smallcaps} ✅ A $x$ fixé, la moyenne des $y$ correspond à la droite.
 
 ```{=html}
 <div style="height:5px;"></div>
 ```
+:::
 
+::: fragment
 -   [[Normalité :]{.underline}]{.smallcaps} ✅ A $x$ fixé, les $y$ sont normalement distribués.
 
 ```{=html}
 <div style="height:5px;"></div>
 ```
+:::
 
+::: fragment
 -   [[Homoscédasticité :]{.underline}]{.smallcaps} ✅ La dispersion des $y$ est constante.
 :::
+::::::
 
 ::: {.column width="50%"}
 ```{r}
@@ -1507,7 +1528,7 @@ ggplot(crabs, aes(FL, CL)) +
   )
 ```
 :::
-:::::
+::::::::
 
 ## 2️⃣ Estimation par moindres carrés : Intuition
 
@@ -1687,8 +1708,8 @@ p %>%
 <div style="height:5px;"></div>
 ```
 
-::::: columns
-::: {.column width="60%"}
+::::::: columns
+::::: {.column width="60%"}
 ```{=html}
 <div style="height:5px;"></div>
 ```
@@ -1699,12 +1720,16 @@ p %>%
 
     $\longrightarrow \hat{\beta_0}$ et $\hat{\beta_1}$ sont les [paramètres **prédits**]{.smallcaps}
 
+::: fragment
 -   $y_i$ est l'[observation]{.smallcaps} pour l'individu $i$
 
     $\longrightarrow \hat{y_i}$ est l'[observation **prédite**]{.smallcaps} pour l'individu $i$
+:::
 
+::: fragment
 -   $e_i = y_i - \hat{y_i}$ est l'[erreur]{.smallcaps}/le [résidu]{.smallcaps} pour l'individu $i$
 :::
+:::::
 
 ::: {.column width="40%"}
 ```{r}
@@ -1830,7 +1855,7 @@ ggplot(data, aes(X, Y)) +
   )
 ```
 :::
-:::::
+:::::::
 
 ```{=html}
 <div style="margin-top: -15px;"></div>
@@ -1915,7 +1940,7 @@ $$
 
     $= 32.106 - \hat{\beta_1} \times 15.583$
 
-    $= 1.039 ( = \text{ordonnée à l'origine}).$
+    $= 1.039 \quad ( = \text{ordonnée à l'origine}).$
 ::::
 
 ::: {.column width="50%"}
@@ -2241,23 +2266,25 @@ La valeur du $R^2$ vaut entre $0$ et $1$ et décrit la proportion de variabilit�
 
 ## 3️⃣ Qualité de la droite de régression avec $R^2$ : Calcul
 
-```{=html}
-<div style="height:10px;"></div>
-```
-
 $$
 R^2 = \frac{\sum_{i = 1}^{N} (\hat{y_i} - \bar{y})^2}{\sum_{i = 1}^{N} (\hat{y_i} - y_i)^2} = 1 - \frac{\sum_{i = 1}^{N} (y_i - \bar{y})^2}{\sum_{i = 1}^{N} (y_i - \bar{y})^2},
 $$
 
 où :
 
+. . .
+
 -   $\sum_{i = 1}^{N} (\hat{y_i} - \bar{y})^2 =$ somme des carrés expliqués
 
     $\longrightarrow$ Ce que le modèle [**explique**]{.smallcaps}.
 
+. . .
+
 -   $\sum_{i = 1}^{N} (y_i - \bar{y})^2 =$ somme des erreurs/résidus
 
     $\longrightarrow$ Ce que le modèle [**n'explique pas**]{.smallcaps}.
+
+. . .
 
 -   $\sum_{i = 1}^{N} (y_i - \bar{y})^2 =$ variabilité totale
 
@@ -2371,13 +2398,19 @@ La corrélation est **différente** d'un modèle linéaire :
 
     <br>
 
+. . .
+
 2.  Vérification des hypothèses du modèle
 
     <br>
 
+. . .
+
 3.  Calcul de la régression et analyse de sa qualité
 
     <br>
+
+. . .
 
 4.  Interprétation
 
@@ -2435,11 +2468,11 @@ ggplot(
 ## 🦀 Application aux données de crabe - 3 & 4 - Régression
 
 ```{=html}
-<div style="height:5px;"></div>
+<div style="height:45px;"></div>
 ```
 
-::::: columns
-::: {.column width="45%"}
+::::::: columns
+:::: {.column width="45%"}
 ``` r
 # Régression linéaire
 mod <- lm(CL ~ FL, data = crabs) 
@@ -2464,14 +2497,16 @@ summary(mod)
 <div style="height:5px;"></div>
 ```
 
+::: fragment
 -   $\color{#009E73}{\hat{\beta_1}} = 1.993$
 
     ::: {style="font-size: 0.85em;"}
     $\longrightarrow$ [[Interprétation :]{.underline}]{.smallcaps} Si le lobe frontal (FL) grandit d'1cm, la carapace va grandir de $1.993$cm.
     :::
 :::
+::::
 
-::: {.column width="55%"}
+:::: {.column width="55%"}
 ```{r}
 #| echo: false
 #| message: false
@@ -2492,13 +2527,15 @@ summary(mod)
 <div style="height:15px;"></div>
 ```
 
+::: fragment
 -   $R^2 = 0.958$
 
     ::: {style="font-size: 0.85em;"}
     $\longrightarrow$ [[Interprétation :]{.underline}]{.smallcaps} On explique $95.8\%$ des données avec la droite.
     :::
 :::
-:::::
+::::
+:::::::
 
 ## 🦀 Application aux données de crabe - 4 - Visualisation finale
 
@@ -2576,6 +2613,8 @@ ggplot(
     $\longrightarrow$ Construction d'un [intervalle de prédiction]{.smallcaps}.
 
     <br>
+
+. . .
 
 -   [Estimer la moyenne de]{.smallcaps} $Y$ [pour une valeur fixée]{.smallcaps} $x$ [de]{.smallcaps} $X$ - *Quelle est la longueur moyenne de la carapace des crabes dont le lobe frontal mesure 15 mm ?*
 

@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="anova_1_facteur_files/libs/clipboard/clipboard.min.js"></script>
+<script src="anova_1_facteur_files/libs/quarto-html/tabby.min.js"></script>
+<script src="anova_1_facteur_files/libs/quarto-html/popper.min.js"></script>
+<script src="anova_1_facteur_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="anova_1_facteur_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="anova_1_facteur_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="anova_1_facteur_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="anova_1_facteur_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.5.57">
+
+  <meta name="author" content="Hanna Bacave">
+  <title>ANOVA à 1 facteur</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="anova_1_facteur_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="anova_1_facteur_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="anova_1_facteur_files/libs/revealjs/dist/theme/quarto.css">
+  <link rel="stylesheet" href="style.css">
+  <link href="anova_1_facteur_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="anova_1_facteur_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="anova_1_facteur_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="anova_1_facteur_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-titled.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-titled) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-titled.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-titled .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-titled .callout-title  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-titled.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-titled.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-title {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-title {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-title {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-titled .callout-body > .callout-content > :last-child {
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
+  }
+
+  .callout.callout-titled .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-titled) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-title {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-title {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-title {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-title {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-title {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <link href="anova_1_facteur_files/libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
+  <script src="anova_1_facteur_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+  <script src="anova_1_facteur_files/libs/plotly-binding-4.10.4/plotly.js"></script>
+
+  <script src="anova_1_facteur_files/libs/typedarray-0.1/typedarray.min.js"></script>
+
+  <script src="anova_1_facteur_files/libs/jquery-3.5.1/jquery.min.js"></script>
+
+  <link href="anova_1_facteur_files/libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+
+  <script src="anova_1_facteur_files/libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+
+  <link href="anova_1_facteur_files/libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+
+  <script src="anova_1_facteur_files/libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-image="figures/fond.png" data-background-size="cover" syntax-highlighting="idiomatic" class="quarto-title-block center">
+  <h1 class="title">ANOVA à 1 facteur</h1>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Hanna Bacave 
+</div>
+</div>
+</div>
+
+</section>
+<section id="introduction-lanova-quest-ce-cest" class="slide level2">
+<h2>🔍 Introduction : L’ANOVA, qu’est-ce c’est ?</h2>
+<div style="height:5px;"></div>
+<blockquote>
+<p>L’<span class="smallcaps">analyse de variance</span> (ANOVA) permet de déterminer l’influence de <span class="math inline">\(k\)</span> modalités d’une ou plusieurs variables explicatives (appelées <span class="smallcaps">facteurs</span>) sur la moyenne d’une variable quantitative à expliquer <span class="math inline">\(Y\)</span>.</p>
+</blockquote>
+<div style="height:10px;"></div>
+<div class="fragment">
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Questions de recherche</th>
+<th>Facteur(s) {modalités}</th>
+<th><span class="math inline">\(Y\)</span> = variable expliquée</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Le type d’alimentation (granules, foin, …) <span class="smallcaps">influence</span>-t-il la vitesse de croissance de l’animal ?</td>
+<td>Type d’alimentation {granules, foin, …}</td>
+<td>Vitesse de croissance</td>
+</tr>
+<tr class="even">
+<td>Le quartier a-t-il un <span class="smallcaps">effet</span> sur le prix d’un logement ?</td>
+<td>Quartier {Capitole, Purpan, …}</td>
+<td>Prix du logement</td>
+</tr>
+<tr class="odd">
+<td>La durée de guérison de la souris <span class="smallcaps">diffère</span>-t-elle selon son sexe et/ou le type de traitement reçu ?</td>
+<td>Sexe {M stérilisé ou non / F stérilisé ou non} + Type de traitement reçu {Traitement A, B ou C}</td>
+<td>Durée de guérison</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>L’objectif de l’ANOVA est de comparer les moyennes de <span class="math inline">\(Y\)</span> pour chacun des groupes (<span class="math inline">\(=\)</span> facteur <span class="math inline">\(\times\)</span> modalité) afin de voir si le(s) facteur(s) étudié(s) a(ont) une influence sur <span class="math inline">\(Y\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="introduction-lanova-quest-ce-cest-1" class="slide level2" data-visibility="uncounted">
+<h2>🔍 Introduction : L’ANOVA, qu’est-ce c’est ?</h2>
+<div style="height:5px;"></div>
+<blockquote>
+<p>L’<span class="smallcaps">analyse de variance</span> (ANOVA) permet de déterminer l’influence de <span class="math inline">\(k\)</span> modalités d’une ou plusieurs variables explicatives (appelées <span class="smallcaps">facteurs</span>) sur la moyenne d’une variable quantitative à expliquer <span class="math inline">\(Y\)</span>.</p>
+</blockquote>
+<div style="height:10px;"></div>
+<div id="tableau-focus">
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Questions de recherche</th>
+<th>Facteur(s) {modalités}</th>
+<th><span class="math inline">\(Y\)</span> = variable expliquée</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Le type d’alimentation (granules, foin, …) <span class="smallcaps">influence</span>-t-il la vitesse de croissance de l’animal ?</td>
+<td>Type d’alimentation {granules, foin, …}</td>
+<td>Vitesse de croissance</td>
+</tr>
+<tr class="even">
+<td>Le quartier a-t-il un <span class="smallcaps">effet</span> sur le prix d’un logement ?</td>
+<td>Quartier {Capitole, Purpan, …}</td>
+<td>Prix du logement</td>
+</tr>
+<tr class="odd">
+<td>La durée de guérison de la souris <span class="smallcaps">diffère</span>-t-elle selon son sexe et/ou le type de traitement reçu ?</td>
+<td>Sexe {M stérilisé ou non /F stérilisé ou non} + Type de traitement reçu {Traitement A, B ou C}</td>
+<td>Durée de guérison</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="height:10px;"></div>
+<div class="fragment">
+<div class="small-box">
+<p>Dans ce cours, on va se concentrer sur l’<span class="smallcaps">ANOVA à un facteur</span> :</p>
+<p>Quel est l’effet d’<strong>UN facteur</strong> <strong>à</strong> <span class="math inline">\(k\)</span> <strong>modalités</strong> sur <strong>UNE variable</strong> <span class="math inline">\(Y\)</span>.</p>
+</div>
+</div>
+</section>
+<section id="application-présentation-des-données" class="slide level2">
+<h2>🐈 Application : Présentation des données</h2>
+<div style="height:5px;"></div>
+<p><span class="smallcaps"><u>Jeu de données utilisé :</u></span> Statut reproductif et âge des animaux, collectés dans trois hôpitaux vétérinaires universitaires du nord de l’Italie <span class="citation" data-cites="cozzi2017">(<a href="#/références" role="doc-biblioref" onclick="">Cozzi et al. 2017</a>)</span>.</p>
+<div class="fragment">
+<div class="columns">
+<div class="column" style="width:60%;">
+<div style="height:35px;"></div>
+<ul>
+<li><span class="math inline">\(12 853\)</span> chats sur les <span class="math inline">\(3\)</span> hôpitaux</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(Y =\)</span> âge de l’animal lors de sa visite</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Facteur <span class="math inline">\(=\)</span> Statut reproductif de l’animal à <span class="math inline">\(4\)</span> modalités</li>
+</ul>
+<table class="caption-top">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 58%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Modalité</th>
+<th>Définition</th>
+<th>Nombre d’individus</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>F</td>
+<td>Femelle <span class="smallcaps"><strong>non</strong></span> stérilisée</td>
+<td>2 788</td>
+</tr>
+<tr class="even">
+<td>M</td>
+<td>Mâle <span class="smallcaps"><strong>non</strong></span> stérilisé</td>
+<td>2 883</td>
+</tr>
+<tr class="odd">
+<td>S</td>
+<td>Femelle stérilisée</td>
+<td>3 479</td>
+</tr>
+<tr class="even">
+<td>C</td>
+<td>Mâle stérilisé</td>
+<td>3 703</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div><div class="column" style="width:40%;">
+<div class="columns">
+<div class="fragment">
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">ID</th>
+<th style="text-align: left;">Sex</th>
+<th style="text-align: right;">Age</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">C</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: right;">7</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</div>
+</section>
+<section id="application-question-de-recherche" class="slide level2">
+<h2>🦀 Application : Question de recherche</h2>
+<div class="center-text">
+<div class="highlight-box">
+<p><strong>Y a-t-il un effet du statut reproductif de l’animal sur son âge au moment de sa consultation ?</strong></p>
+</div>
+</div>
+</section>
+<section id="objectifs-du-cours" class="slide level2">
+<h2>📖 Objectifs du cours</h2>
+<p><br></p>
+<p><br></p>
+<ol type="1">
+<li>Du test d’hypothèse au modèle de l’ANOVA (Définitions &amp; Exemple)</li>
+</ol>
+<div class="fragment">
+<div style="height:5px;"></div>
+<ol start="2" type="1">
+<li>Ajustement du modèle (Méthode des moindres carrés)</li>
+</ol>
+</div>
+<div class="fragment">
+<div style="height:5px;"></div>
+<ol start="3" type="1">
+<li>Comment interpréter les effets ? (F-statistique et p-value)</li>
+</ol>
+</div>
+<div class="fragment">
+<div style="height:5px;"></div>
+<ol start="4" type="1">
+<li>Application aux données de chats avec R</li>
+</ol>
+</div>
+<div class="fragment">
+<div style="height:5px;"></div>
+<ol start="5" type="1">
+<li>Conclusion &amp; Exemples concrets de contributions en sciences vétérinaire</li>
+</ol>
+</div>
+</section>
+<section id="test-dhypothèse-bilatéral---rappel" class="slide level2">
+<h2>1️⃣ Test d’hypothèse bilatéral - Rappel</h2>
+<div style="height:15px;"></div>
+<div style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top: 1px;padding-bottom: 5px;">
+<p><span class="smallcaps"><u>Hypothèses :</u></span></p>
+<p><span class="math display">\[\small H_0:\mu=\mu_0 \qquad\qquad\qquad H_1:\mu\neq\mu_0\]</span></p>
+</div>
+<div style="height:35px;"></div>
+<div class="columns">
+<div class="column" style="width:33%;">
+<div style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top:1px;padding-bottom: 5px;">
+<p><span class="smallcaps"><u>erreurs :</u></span></p>
+<div style="height:22.75px;"></div>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Ne pas rejeter</strong> <span class="math inline">\(\small H_0\)</span></th>
+<th><strong>Rejeter</strong> <span class="math inline">\(\small H_0\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\small H_0\)</span> <strong>vraie</strong></td>
+<td>✅ Bonne décision</td>
+<td>❌ <strong>Type I :</strong> <span class="math inline">\(\small \alpha\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\small H_0\)</span> <strong>fausse</strong></td>
+<td>❌ <strong>Type II :</strong> <span class="math inline">\(\small \beta\)</span></td>
+<td>✅ Bonne décision</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[\small    \alpha    =        P(\text{rejeter }H_0\mid H_0\text{ vraie})\]</span></p>
+<p><span class="math display">\[\small    \beta    =        P(\text{ne pas rejeter }H_0\mid H_0\text{ fausse})\]</span></p>
+</div>
+</div><div class="column" style="width:33%;">
+<div style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top: 1px;padding-bottom: 5px;">
+<p><span class="smallcaps"><u>Statistique de test :</u></span></p>
+<div style="height:0.03px;"></div>
+<p><span class="math display">\[\small T = \frac{\bar X-\mu_0}{s/\sqrt n}\]</span></p>
+<blockquote>
+<p>La statistique de test mesure l’écart à <span class="math inline">\(\small H_0\)</span> relativement à la variabilité de l’estimation.</p>
+</blockquote>
+<p><span class="math display">\[\small H_0 \quad \Longrightarrow \quad T\sim \mathcal{N}(0, 1)\]</span></p>
+</div>
+</div><div class="column" style="width:33%;">
+<div style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top: 1px;padding-bottom: 5px;">
+<p><span class="smallcaps"><u>p-value et décision :</u></span></p>
+<div style="height:0.014px;"></div>
+<p><span class="math display">\[\small p = P_{H_0} \left( |T|\geq |T_{\mathrm{obs}}| \right)\]</span></p>
+<blockquote>
+<p>La p-valeur est le plus petit risque pour lequel on rejetterait <span class="math inline">\(\small H_0\)</span>.</p>
+</blockquote>
+<p><span class="math display">\[\small p&lt;\alpha \quad\Longrightarrow\quad \text{rejet de }H_0\]</span></p>
+<p><span class="math display">\[\small p\geq\alpha\quad\Longrightarrow\quad\text{non-rejet de }H_0\]</span></p>
+</div>
+</div></div>
+</section>
+<section id="quel-rapport-entre-lanova-et-un-test-bilatéral" class="slide level2">
+<h2>1️⃣ Quel rapport entre l’ANOVA et un test bilatéral ?</h2>
+<div style="height:15px;"></div>
+<div style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top: 1px;padding-bottom: 5px;">
+<p><span class="smallcaps"><u>Hypothèses :</u></span></p>
+<p><span class="math display">\[\small H_0:\mu_1=\mu_2=\cdots=\mu_J \qquad\qquad\qquad H_1:\text{au moins deux moyennes diffèrent} \]</span></p>
+</div>
+<div style="height:35px;"></div>
+<div class="columns">
+<div class="column" style="width:33%;">
+<div style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top:1px;padding-bottom: 5px;">
+<p><span class="smallcaps"><u>erreurs :</u></span></p>
+<div style="height:22.75px;"></div>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Ne pas rejeter</strong> <span class="math inline">\(\small H_0\)</span></th>
+<th><strong>Rejeter</strong> <span class="math inline">\(\small H_0\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\small H_0\)</span> <strong>vraie</strong></td>
+<td>✅ Bonne décision</td>
+<td>❌ <strong>Type I :</strong> <span class="math inline">\(\small \alpha\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\small H_0\)</span> <strong>fausse</strong></td>
+<td>❌ <strong>Type II :</strong> <span class="math inline">\(\small \beta\)</span></td>
+<td>✅ Bonne décision</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[\small    \alpha    =        P(\text{rejeter }H_0\mid H_0\text{ vraie})\]</span></p>
+<p><span class="math display">\[\small    \beta    =        P(\text{ne pas rejeter }H_0\mid H_0\text{ fausse})\]</span></p>
+</div>
+</div><div class="column" style="width:33%;">
+<div style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top: 1px;padding-bottom: 5px;">
+<p><span class="smallcaps"><u>Statistique de test :</u></span></p>
+<div style="height:0.03px;"></div>
+<p><span class="math display">\[
+\small F= \frac{\text{variabilité entre les groupes}}
+{\text{variabilité au sein des groupes}}
+\]</span></p>
+<blockquote>
+<p><span class="smallcaps">Nouvelle statistique de test adaptée aux données.</span></p>
+</blockquote>
+<p><span class="math display">\[
+\small H_0\Longrightarrow F\sim\mathcal{F}_{J-1,N-J}
+\]</span></p>
+</div>
+</div><div class="column" style="width:33%;">
+<div style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top: 1px;padding-bottom: 5px;">
+<p><span class="smallcaps"><u>p-value et décision :</u></span></p>
+<div style="height:0.014px;"></div>
+<p><span class="math display">\[\small p = P_{H_0} \left( F \geq F_{\mathrm{obs}} \right)\]</span></p>
+<p><span class="math display">\[\small p&lt;\alpha \quad\Longrightarrow\quad \text{rejet de }H_0\]</span></p>
+<p><span class="math display">\[\small p\geq\alpha\quad\Longrightarrow\quad\text{non-rejet de }H_0\]</span></p>
+</div>
+</div></div>
+</section>
+<section id="lanova-un-test-dhypothèse" class="slide level2">
+<h2>1️⃣ L’ANOVA un test d’hypothèse ?</h2>
+<div style="height:15px;"></div>
+<div class="column" style="width:60%;">
+<div style="height:15px;"></div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="anova_1_facteur_files/figure-revealjs/unnamed-chunk-2-1.png" width="1440"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<p><br> <br> <br></p>
+<div class="fragment">
+<div class="small-box">
+<p><span class="smallcaps"><u><strong>mais :</strong></u></span></p>
+<div class="fragment">
+<ul>
+<li>Comment quantifier ces différences ?</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><em>Quid</em> de la significativité ?</li>
+</ul>
+</div>
+</div>
+</div>
+</div></section>
+<section id="écriture-du-modèle-de-lanova-définition" class="slide level2">
+<h2>1️⃣ Écriture du modèle de l’ANOVA : Définition</h2>
+<div style="height:15px;"></div>
+<dl>
+<dt><span class="smallcaps"><u>Modèle d’analyse de variance</u></span></dt>
+<dd>
+<p>Considérons un individu <span class="math inline">\(i\)</span> appartenant au groupe <span class="math inline">\(j\)</span> (facteur <span class="math inline">\(\times\)</span> modalité) et une variable quantitative <span class="math inline">\(Y\)</span> mesurée sur cet individu. Le <span class="smallcaps">modèle d’analyse de variance</span> décrit la valeur de <span class="math inline">\(Y_{ij}\)</span> sous la forme:</p>
+<p><span class="math display">\[
+\underbrace{Y_{ij}}_{\text{valeur observée}} =
+\underbrace{\color{#CC79A7}{\mu}}_{\text{moyenne globale de $Y$}} +
+\underbrace{\color{#009E73}{\alpha_j}}_{\text{effet du groupe $j$}} +
+\underbrace{\epsilon_{ij}}_{\text{variabilité individuelle (bruit aléatoire)}}
+\]</span></p>
+</dd>
+</dl>
+<p>La moyenne de <span class="math inline">\(Y\)</span> dans le groupe <span class="math inline">\(j\)</span> est donnée par <span class="math inline">\(\mu_j = \color{#CC79A7}{\mu} + \color{#009E73}{\alpha_j}.\)</span></p>
+<div style="height:15px;"></div>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Modèle ≠ méthode :</strong> le <span class="smallcaps">modèle ANOVA</span> décrit la structure des données. La <span class="smallcaps">méthode ANOVA</span> permet d’ajuster ce modèle, de décomposer la variabilité et de tester les effets du facteur.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="écriture-du-modèle-de-lanova-exemple" class="slide level2">
+<h2>1️⃣ Écriture du modèle de l’ANOVA : Exemple</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><span class="math display">\[
+Y_{ij} = \underbrace{\color{#CC79A7}{\mu} + \color{#009E73}{\alpha_j}}_{= \mu_j {\small \text{ (moyenne du groupe } j)}} + \epsilon_{ij}.
+\]</span></p>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-d181a4be4b780ca9bcc5" style="width:696px;height:648px;"></div>
+<script type="application/json" data-for="htmlwidget-d181a4be4b780ca9bcc5">{"x":{"visdat":{"2684219b3890":["function () ","plotlyVisDat"],"268470916ea1":["function () ","data"],"26846c2be8c":["function () ","data"]},"cur_data":"26846c2be8c","attrs":{"268470916ea1":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"type":"scatter","mode":"markers","color":{},"colors":["#0072B2","#E69F00","#D55E00","#F0E442"],"marker":{"size":8,"opacity":0.59999999999999998},"text":{},"hoverinfo":"text","showlegend":false,"inherit":true},"268470916ea1.1":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":0.5,"y":6.2178479732358207,"xend":4.5,"yend":6.2178479732358207,"type":"scatter","mode":"lines","line":{"color":"#CC79A7","width":3,"dash":"dash"},"hoverinfo":"skip","showlegend":false,"inherit":true},"268470916ea1.2":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":1,"y":6.2178479732358207,"xend":1,"yend":7.9089927086146368,"type":"scatter","mode":"lines","line":{"color":"#009E73","width":5},"hoverinfo":"skip","showlegend":false,"inherit":true},"268470916ea1.3":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":2,"y":6.2178479732358207,"xend":2,"yend":3.5538020086083213,"type":"scatter","mode":"lines","line":{"color":"#009E73","width":5},"hoverinfo":"skip","showlegend":false,"inherit":true},"268470916ea1.4":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":3,"y":6.2178479732358207,"xend":3,"yend":3.4280263614290671,"type":"scatter","mode":"lines","line":{"color":"#009E73","width":5},"hoverinfo":"skip","showlegend":false,"inherit":true},"268470916ea1.5":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":4,"y":6.2178479732358207,"xend":4,"yend":8.8646162690428287,"type":"scatter","mode":"lines","line":{"color":"#009E73","width":5},"hoverinfo":"skip","showlegend":false,"inherit":true},"26846c2be8c":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"type":"scatter","mode":"markers","marker":{"size":14,"color":"black"},"hoverinfo":"skip","showlegend":false,"inherit":true}},"layout":{"margin":{"b":100,"l":100,"t":50,"r":80},"xaxis":{"domain":[0,1],"automargin":true,"title":{"text":"Statut reproductif","font":{"size":28}},"tickmode":"array","tickvals":[1,2,3,4],"ticktext":["C","F","M","S"],"tickfont":{"size":26},"range":[0.34999999999999998,4.6500000000000004],"showline":true,"linewidth":2,"linecolor":"black","showgrid":false,"zeroline":false,"fixedrange":true},"yaxis":{"domain":[0,1],"automargin":true,"title":{"text":"Âge","font":{"size":28}},"tickfont":{"size":26},"showline":true,"linewidth":2,"linecolor":"black","showgrid":false,"zeroline":false,"range":[-1,19],"fixedrange":true},"annotations":[{"x":4.2999999999999998,"y":6.6178479732358211,"text":"μ","showarrow":false,"font":{"size":30,"color":"#CC79A7"}},{"x":1.1699999999999999,"y":8.2589927086146364,"text":"μ<sub>C<\/sub>","showarrow":false,"font":{"size":27,"color":"black"}},{"x":0.82000000000000006,"y":7.0634203409252283,"text":"α<sub>C<\/sub>","showarrow":false,"xanchor":"right","font":{"size":27,"color":"#009E73"}},{"x":2.1699999999999999,"y":3.9038020086083214,"text":"μ<sub>F<\/sub>","showarrow":false,"font":{"size":27,"color":"black"}},{"x":1.8200000000000001,"y":4.885824990922071,"text":"α<sub>F<\/sub>","showarrow":false,"xanchor":"right","font":{"size":27,"color":"#009E73"}},{"x":3.1699999999999999,"y":3.7780263614290672,"text":"μ<sub>M<\/sub>","showarrow":false,"font":{"size":27,"color":"black"}},{"x":2.8199999999999998,"y":4.8229371673324444,"text":"α<sub>M<\/sub>","showarrow":false,"xanchor":"right","font":{"size":27,"color":"#009E73"}},{"x":4.1699999999999999,"y":9.2146162690428284,"text":"μ<sub>S<\/sub>","showarrow":false,"font":{"size":27,"color":"black"}},{"x":3.8199999999999998,"y":7.5412321211393252,"text":"α<sub>S<\/sub>","showarrow":false,"xanchor":"right","font":{"size":27,"color":"#009E73"}}],"hoverlabel":{"font":{"size":20},"align":"left"},"plot_bgcolor":"white","paper_bgcolor":"white","hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displayModeBar":false,"responsive":true},"data":[{"x":[0.88650191584602001,1.0697505552321673,0.81906545097008343,1.0803412349894643,0.94075545538216832,0.96357759917154906,1.1283805295825005,1.167542939260602,0.91301133204251528,1.1844419174827636,1.09135777130723,1.0745500328019262,0.82113757710903879,0.95808805385604501,0.99113815193995836,1.0241013054735959,1.0793046379461884,1.1662734153680503,1.0473404909484088,0.97136860350146892,1.0168321468867361,0.82339139543473716,0.90434274282306437,0.95886078132316466,0.87909789467230437,1.1327710251323879,0.86115488912910221,1.1213674168102443,1.0187304626218974,1.0649270568042994,0.86867939755320545,1.0532221439294518,0.92474789870902896,1.0898217385634781,0.9595759298652411,1.1877425644546746,1.1869593482464551,1.0906810156069695,0.90288669858127835,0.88871517386287446],"y":[13,9,5,2,7,7,13,5,7,7,13,3,13,1,11,1,13,8,17,1,3,17,10,9,17,10,17,11,6,8,3,11,2,8,7,8,3,12,4,12],"type":"scatter","mode":"markers","marker":{"color":"rgba(0,114,178,1)","size":8,"opacity":0.59999999999999998,"line":{"color":"rgba(0,114,178,1)"}},"text":["<b>Chat :<\/b> 9355<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 13<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 9499<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 9<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 8596<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 5<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 2662<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 2<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 842<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 7<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 10776<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 7<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 7188<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 13<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 4914<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 5<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 11824<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 7<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 5275<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 7<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 5336<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 13<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 4587<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 3<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 12022<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 13<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 3255<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 9858<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 11<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 6456<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 10161<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 13<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 4508<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 8<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 4830<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 17<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 4306<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 1621<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 3<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 4525<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 17<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 7913<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 10<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 5657<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 9<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 10522<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 17<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 8102<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 10<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 9649<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 17<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 5887<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 11<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 6646<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 6<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 7027<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 8<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 889<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 3<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 10770<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 11<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 6372<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 2<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 9827<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 8<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 2812<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 7<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 7430<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 8<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 1806<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 3<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 10532<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 12<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 4990<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 4<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22","<b>Chat :<\/b> 9707<br><b>Groupe :<\/b> C<br><i>Y<\/i><sub>ij<\/sub> = 12<br>μ<sub>j<\/sub> = 7.91<br>μ= 6.22"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text"],"showlegend":false,"name":"C","textfont":{"color":"rgba(0,114,178,1)"},"error_y":{"color":"rgba(0,114,178,1)"},"error_x":{"color":"rgba(0,114,178,1)"},"line":{"color":"rgba(0,114,178,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2.0372182606719433,1.9070085728541017,2.0124281595461069,2.1141166685149075,1.8672243242152036,1.961759672407061,1.9886305110529066,2.1472427227534352,2.1702831823378803,2.1527910237200558,2.0696747370064257,2.1800667917355896,2.0065779577009382,2.0306076085194946,1.9345324823632837,1.9389298525638878,1.8080097202211618,2.0011252182535828,2.1484173654578624,1.8025203135795891,1.8288228495977819,1.8656844899989664,2.1081336297094824,2.0940737223252652,2.1887502542696895,1.9865889507345855,1.8297538053244353,2.059527249727398,2.1034372678026556,1.8548424324020742,1.9586338378489017,1.8899941316805779,1.8231834242120386,1.9583570753224193,1.8259713199920953,1.8903545731678606,1.8218516436405481,2.0681128158234059,1.9190967130474745,1.8402886329218746],"y":[1,13,3,4,1,1,0,1,0,1,2,15,1,18,6,1,0,1,2,15,1,1,1,6,0,1,1,4,1,1,16,1,11,1,1,7,6,1,8,1],"type":"scatter","mode":"markers","marker":{"color":"rgba(230,159,0,1)","size":8,"opacity":0.59999999999999998,"line":{"color":"rgba(230,159,0,1)"}},"text":["<b>Chat :<\/b> 11266<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 7409<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 13<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 3139<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 3<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 7704<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 4<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 3735<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 1069<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 4770<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 0<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 609<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 748<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 0<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 5135<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 11971<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 2<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 8863<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 15<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 2058<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 6542<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 18<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 531<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 6<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 2472<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 562<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 0<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 1030<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 992<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 2<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 6005<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 15<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 109<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 10895<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 8939<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 1101<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 6<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 11537<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 0<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 11057<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 12066<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 4448<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 4<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 2567<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 1358<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 7611<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 16<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 8441<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 8674<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 11<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 1845<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 21<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 8856<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 7<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 8473<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 6<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 7816<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 2578<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 8<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22","<b>Chat :<\/b> 10784<br><b>Groupe :<\/b> F<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 3.55<br>μ= 6.22"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text"],"showlegend":false,"name":"F","textfont":{"color":"rgba(230,159,0,1)"},"error_y":{"color":"rgba(230,159,0,1)"},"error_x":{"color":"rgba(230,159,0,1)"},"line":{"color":"rgba(230,159,0,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2.8287616388872268,3.1521762275137006,3.101698960829526,3.1266423550434412,3.1928561494685708,2.8414398579858244,2.8396167317405343,3.1195326444692908,3.1138301066122951,2.8037719620391726,3.1116263531148434,3.0917562607675793,3.0520527411252258,2.9923643319867552,2.8626547405496239,2.8032862079329788,2.9809833576902749,2.9969173314981163,2.9558348446153104,2.9858663767576217,3.0853116002865137,2.8221207705326377,2.9419132390059533,3.1211249091662467,3.1342835348099469,2.8950997619889676,2.9415944410488009,3.1427541680634024,3.1415053495205938,2.9183581821620463,2.858819329831749,3.0815968245267866,2.8415226752869787,2.813491109199822,3.1997618111781776,2.8139499216340482,2.935356513503939,3.1660255046561359,3.0468941078521312,2.9145141394808887],"y":[11,0,15,2,0,2,0,1,0,0,2,3,0,2,1,8,0,0,0,2,0,0,2,4,1,0,0,2,1,1,2,1,1,1,12,4,4,0,0,3],"type":"scatter","mode":"markers","marker":{"color":"rgba(213,94,0,1)","size":8,"opacity":0.59999999999999998,"line":{"color":"rgba(213,94,0,1)"}},"text":["<b>Chat :<\/b> 4732<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 11<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 3693<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 0<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 3328<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 15<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 11376<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 2<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 9845<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 0<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 5254<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 2<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 2020<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 0<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 8779<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 3801<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 0<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 3602<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 0<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 5560<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 2<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 7559<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 3<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 5540<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 0<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 1466<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 2<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 8492<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 7462<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 8<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 7292<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 0<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 3682<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 0<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 494<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 0<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 3559<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 2<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 4974<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 0<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 9484<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 0<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 1807<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 2<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 10103<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 4<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 12321<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 361<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 0<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 9343<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 0<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 2060<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 2<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 7742<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 3021<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 9538<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 2<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 2637<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 3210<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 1842<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 7543<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 12<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 1453<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 4<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 7822<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 4<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 451<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 0<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 12053<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 0<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22","<b>Chat :<\/b> 6251<br><b>Groupe :<\/b> M<br><i>Y<\/i><sub>ij<\/sub> = 3<br>μ<sub>j<\/sub> = 3.43<br>μ= 6.22"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text"],"showlegend":false,"name":"M","textfont":{"color":"rgba(213,94,0,1)"},"error_y":{"color":"rgba(213,94,0,1)"},"error_x":{"color":"rgba(213,94,0,1)"},"line":{"color":"rgba(213,94,0,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[4.095118961203843,4.1336217236705126,3.9257083121687173,3.9970266191288828,4.0789495064876977,4.0565849415957924,4.0575691659934821,4.1911413619294766,3.9658941337838769,3.8477619119919835,4.0104118640534576,3.8900293403305115,3.9945647056214511,3.9480859193950892,4.1933400723151859,3.9553276460617779,3.8916979361325503,4.0493190185166892,3.8546160788275303,4.186987797729671,4.0060287231579421,3.8652281316928567,4.0487609180621806,4.1943816660903392,4.0675086069852116,3.9675663587637247,3.9293379972688856,4.1341021279804409,3.8575268174521624,3.8771263787522914,4.1586954730562864,3.9232478217221796,3.9453202174045146,4.1135785914957523,3.8773514719679953,3.8071063247509302,3.9626431465148926,3.993267067708075,3.9687379800714551,3.9371235206723214],"y":[16,7,17,1,8,16,3,16,13,5,17,6,10,16,2,11,4,2,13,15,3,2,4,2,1,14,16,7,14,12,10,14,3,8,1,9,1,10,12,2],"type":"scatter","mode":"markers","marker":{"color":"rgba(240,228,66,1)","size":8,"opacity":0.59999999999999998,"line":{"color":"rgba(240,228,66,1)"}},"text":["<b>Chat :<\/b> 10574<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 16<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 8716<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 7<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 12773<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 17<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 8702<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 9566<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 8<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 4539<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 16<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 1835<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 3<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 12433<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 16<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 10644<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 13<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 7947<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 5<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 5384<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 17<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 7240<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 6<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 5795<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 10<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 4377<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 16<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 8296<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 2<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 10764<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 11<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 4380<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 4<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 783<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 2<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 9660<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 13<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 7116<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 15<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 6531<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 3<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 2964<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 2<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 11766<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 4<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 7679<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 2<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 12777<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 8826<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 14<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 7278<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 16<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 3351<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 7<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 12445<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 14<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 6681<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 12<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 9826<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 10<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 12781<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 14<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 7342<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 3<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 1910<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 8<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 12516<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 9670<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 9<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 11186<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 1<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 11543<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 10<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 10950<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 12<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22","<b>Chat :<\/b> 1017<br><b>Groupe :<\/b> S<br><i>Y<\/i><sub>ij<\/sub> = 2<br>μ<sub>j<\/sub> = 8.86<br>μ= 6.22"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text"],"showlegend":false,"name":"S","textfont":{"color":"rgba(240,228,66,1)"},"error_y":{"color":"rgba(240,228,66,1)"},"error_x":{"color":"rgba(240,228,66,1)"},"line":{"color":"rgba(240,228,66,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[0.5,4.5],"y":[6.2178479732358207,6.2178479732358207],"type":"scatter","mode":"lines","line":{"color":"#CC79A7","width":3,"dash":"dash"},"hoverinfo":["skip","skip"],"showlegend":false,"marker":{"color":"rgba(148,103,189,1)","line":{"color":"rgba(148,103,189,1)"}},"error_y":{"color":"rgba(148,103,189,1)"},"error_x":{"color":"rgba(148,103,189,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[1,1],"y":[6.2178479732358207,7.9089927086146368],"type":"scatter","mode":"lines","line":{"color":"#009E73","width":5},"hoverinfo":["skip","skip"],"showlegend":false,"marker":{"color":"rgba(140,86,75,1)","line":{"color":"rgba(140,86,75,1)"}},"error_y":{"color":"rgba(140,86,75,1)"},"error_x":{"color":"rgba(140,86,75,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2,2],"y":[6.2178479732358207,3.5538020086083213],"type":"scatter","mode":"lines","line":{"color":"#009E73","width":5},"hoverinfo":["skip","skip"],"showlegend":false,"marker":{"color":"rgba(227,119,194,1)","line":{"color":"rgba(227,119,194,1)"}},"error_y":{"color":"rgba(227,119,194,1)"},"error_x":{"color":"rgba(227,119,194,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[3,3],"y":[6.2178479732358207,3.4280263614290671],"type":"scatter","mode":"lines","line":{"color":"#009E73","width":5},"hoverinfo":["skip","skip"],"showlegend":false,"marker":{"color":"rgba(127,127,127,1)","line":{"color":"rgba(127,127,127,1)"}},"error_y":{"color":"rgba(127,127,127,1)"},"error_x":{"color":"rgba(127,127,127,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[4,4],"y":[6.2178479732358207,8.8646162690428287],"type":"scatter","mode":"lines","line":{"color":"#009E73","width":5},"hoverinfo":["skip","skip"],"showlegend":false,"marker":{"color":"rgba(188,189,34,1)","line":{"color":"rgba(188,189,34,1)"}},"error_y":{"color":"rgba(188,189,34,1)"},"error_x":{"color":"rgba(188,189,34,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[1,2,3,4],"y":[7.9089927086146368,3.5538020086083213,3.4280263614290671,8.8646162690428287],"type":"scatter","mode":"markers","marker":{"color":"black","size":14,"line":{"color":"rgba(23,190,207,1)"}},"hoverinfo":["skip","skip","skip","skip"],"showlegend":false,"error_y":{"color":"rgba(23,190,207,1)"},"error_x":{"color":"rgba(23,190,207,1)"},"line":{"color":"rgba(23,190,207,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div></div>
+</section>
+<section id="les-hypothèses-du-modèle-à-vérifier-bien-sûr" class="slide level2">
+<h2>1️⃣ Les hypothèses du modèle (à vérifier bien sûr 😉)</h2>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<ol type="1">
+<li><span class="smallcaps"><u>indépendance :</u></span> Les <span class="math inline">\(\epsilon_{ij}\)</span> sont indépendants <span class="math inline">\(\longrightarrow\)</span> Les <span class="math inline">\(Y_{ij}\)</span> sont indépendants</li>
+</ol>
+<table class="caption-top">
+<colgroup>
+<col style="width: 100%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">La mesure prise sur un individu n’a pas d’influence sur celle prise sur un autre.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="les-hypothèses-du-modèle-à-vérifier-bien-sûr-1" class="slide level2">
+<h2>1️⃣ Les hypothèses du modèle (à vérifier bien sûr 😉)</h2>
+<p><br></p>
+<ol start="2" type="1">
+<li><span class="smallcaps"><u>normalité des résidus :</u></span> Pour chaque groupe <span class="math inline">\(j\)</span>, <span class="math inline">\(\epsilon_{ij}\sim\mathcal{N}(0,\sigma^2)\)</span> <span class="math inline">\(\longrightarrow\)</span> <span class="math inline">\(Y_{ij}\sim\mathcal{N}(\mu_j,\sigma^2)\)</span></li>
+</ol>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="anova_1_facteur_files/figure-revealjs/unnamed-chunk-4-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="anova_1_facteur_files/figure-revealjs/unnamed-chunk-5-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<table class="caption-top">
+<colgroup>
+<col style="width: 100%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Pour un groupe <span class="math inline">\(j\)</span> donné, les points observés <span class="math inline">\(y\)</span> sont distribués selon une distribution Normale centrée sur la moyenne du groupe.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="les-hypothèses-du-modèle-à-vérifier-bien-sûr-2" class="slide level2">
+<h2>1️⃣ Les hypothèses du modèle (à vérifier bien sûr 😉)</h2>
+<p><br></p>
+<ol start="3" type="1">
+<li><span class="smallcaps"><u>homoscédasticité :</u></span> La variance des <span class="math inline">\(\epsilon_{ij}\)</span> est la même dans tous les groupes <span class="math inline">\(\longrightarrow\)</span> La variance des <span class="math inline">\(Y_{ij}\)</span> est la même dans tous les groupes</li>
+</ol>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="anova_1_facteur_files/figure-revealjs/unnamed-chunk-6-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="anova_1_facteur_files/figure-revealjs/unnamed-chunk-7-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<table class="caption-top">
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">La dispersion des <span class="math inline">\(Y\)</span> est constante quel que soit le groupe.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="vérification-des-hypothèses-sur-les-données-de-crabes" class="slide level2">
+<h2>1️⃣ Vérification des hypothèses sur les données de crabes</h2>
+<div style="height:5px;"></div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><br> <br></p>
+<ul>
+<li><span class="smallcaps"><u>Indépendance :</u></span> ⚠️ Supposée : chaque visite est une nouvelle observation indépendante.</li>
+</ul>
+<div style="height:5px;"></div>
+<div class="fragment">
+<ul>
+<li><span class="smallcaps"><u>Normalité :</u></span> ✅ Dans chaque groupe, les âges sont normalement distribués.</li>
+</ul>
+<div style="height:5px;"></div>
+</div>
+<div class="fragment">
+<ul>
+<li><span class="smallcaps"><u>Homoscédasticité :</u></span> ✅ La dispersion des âges est similaire entre les groupes.</li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="anova_1_facteur_files/figure-revealjs/unnamed-chunk-8-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="références" class="slide level2 smaller scrollable">
+<h2>Références</h2>
+<div class="quarto-auto-generated-content">
+<div class="footer footer-default">
+
+</div>
+</div>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-cozzi2017" class="csl-entry" role="listitem">
+Cozzi, Bruno, Cristina Ballarin, Roberto Mantovani, and Ada Rota. 2017. <span>“Aging and Veterinary Care of Cats, Dogs, and Horses Through the Records of Three University Veterinary Hospitals.”</span> <em>Frontiers in Veterinary Science</em> 4 (February). <a href="https://doi.org/10.3389/fvets.2017.00014">https://doi.org/10.3389/fvets.2017.00014</a>.
+</div>
+</div>
+</section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="anova_1_facteur_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="anova_1_facteur_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="anova_1_facteur_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="anova_1_facteur_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="anova_1_facteur_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="anova_1_facteur_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="anova_1_facteur_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="anova_1_facteur_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="anova_1_facteur_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="anova_1_facteur_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const onCopySuccess = function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
+      });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>

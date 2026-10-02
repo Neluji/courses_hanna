@@ -29,6 +29,13 @@
   overflow: hidden;
 }
 
+.reveal .backgrounds .slide-background-content {
+  background-image: url("figures/fond2.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 
 #tableau-focus table tbody tr:nth-child(1),
 #tableau-focus table tbody tr:nth-child(2) {
@@ -68,6 +75,8 @@
   font-size: 0.75em;
 }
 
-
+.reveal .callout {
+  background-color: white;
+}
 
 
