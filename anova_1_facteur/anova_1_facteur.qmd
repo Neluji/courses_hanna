@@ -196,13 +196,11 @@ knitr::kable(head(cats, 10))
 ## 1️⃣ L'ANOVA, un test d'hypothèse ? Rappels sur les tests
 
 ```{=html}
-<div style="height:5px;"></div>
+<div style="height:35px;"></div>
 ```
 
-> L'ANOVA permet de [tester]{.smallcaps} si au moins une des $k$ modalités d'un facteur a une moyenne différente des autres.
-
 ```{=html}
-<div style="height:5px;"></div>
+<div style="height:15px;"></div>
 ```
 
 ::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top: 1px;padding-bottom: 5px;"}
@@ -247,7 +245,7 @@ $$\small T = \frac{\bar X-\mu_0}{s/\sqrt n}$$
 
 > La statistique de test mesure l'écart à $\small H_0$ relativement à la variabilité de l'estimation.
 
-$$\small H_0 \quad \Longrightarrow \quad T\sim \mathcal{N}(0, 1)$$
+$$\small H_0 \quad \Longrightarrow \quad T\sim \mathcal{t}(0, 1)$$
 :::
 ::::
 
@@ -263,9 +261,13 @@ $$\small p = P_{H_0} \left( |T|\geq |T_{\mathrm{obs}}| \right)$$
 
 > La p-valeur est le plus petit risque pour lequel on rejetterait $\small H_0$.
 
-$$\small p<\alpha \quad\Longrightarrow\quad \text{rejet de }H_0$$
-
-$$\small p\geq\alpha\quad\Longrightarrow\quad\text{non-rejet de }H_0$$
+$$
+\small
+\begin{cases}
+p < \alpha & \Longrightarrow \text{rejet de } H_0\\
+p \geq \alpha & \Longrightarrow \text{non-rejet de } H_0
+\end{cases}
+$$
 :::
 ::::
 :::::::::
@@ -343,9 +345,13 @@ $$
 
 $$\small p = P_{H_0} \left( F \geq F_{\mathrm{obs}} \right)$$
 
-$$\small p<\alpha \quad\Longrightarrow\quad \text{rejet de }H_0$$
-
-$$\small p\geq\alpha\quad\Longrightarrow\quad\text{non-rejet de }H_0$$
+$$
+\small
+\begin{cases}
+p < \alpha & \Longrightarrow \text{rejet de } H_0\\
+p \geq \alpha & \Longrightarrow \text{non-rejet de } H_0
+\end{cases}
+$$
 :::
 ::::
 :::::::::
@@ -461,10 +467,20 @@ ggplot(
 
 ## 1️⃣ Les hypothèses à vérifier avant le test
 
-<br>
+```{=html}
+<div style="height:15px;"></div>
+```
 
 ::: callout-note
 Comme toujours avant un test, il faut s'assurer que les données présentent les bonnes propriétés pour garantir la validité des résultats et des conclusions.
+:::
+
+```{=html}
+<div style="height:15px;"></div>
+```
+
+::: {style="font-size: 0.85em;"}
+Soit $i$ le numéro de l'individu observé (où $i = 1, ..., n_{j}$) et $j$ la modalité du facteur  (où $j = 1, ..., J$).
 :::
 
 <br>
@@ -477,7 +493,17 @@ Comme toujours avant un test, il faut s'assurer que les données présentent les
 
 ## 1️⃣ Les hypothèses à vérifier avant le test
 
-<br>
+```{=html}
+<div style="height:15px;"></div>
+```
+
+::: {style="font-size: 0.85em;"}
+Soit $i$ le numéro de l'individu observé (où $i = 1, ..., n_{j}$) et $j$ la modalité du facteur  (où $j = 1, ..., J$).
+:::
+
+```{=html}
+<div style="height:35px;"></div>
+```
 
 2.  [[normalité des résidus :]{.underline}]{.smallcaps} Pour chaque groupe $j$, $\epsilon_{ij}\sim\mathcal{N}(0,\sigma^2)$ $\longrightarrow$ $Y_{ij}\sim\mathcal{N}(\mu_j,\sigma^2)$
 
@@ -914,7 +940,18 @@ ggplot() +
 
 ## 1️⃣ Les hypothèses à vérifier avant le test
 
-<br>
+
+```{=html}
+<div style="height:15px;"></div>
+```
+
+::: {style="font-size: 0.85em;"}
+Soit $i$ le numéro de l'individu observé (où $i = 1, ..., n_{j}$) et $j$ la modalité du facteur  (où $j = 1, ..., J$).
+:::
+
+```{=html}
+<div style="height:25px;"></div>
+```
 
 3.  [[homoscédasticité :]{.underline}]{.smallcaps} La variance des $\epsilon_{ij}$ est la même dans tous les groupes $\longrightarrow$ La variance des $Y_{ij}$ est la même dans tous les groupes
 
@@ -2063,9 +2100,8 @@ $$
   } = {\small \frac{\text{variabilité entre les groupes}}{\text{variabilité au sein des groupes}}}.
   $$
 
-## 2️⃣ Calcul de la statistique de Fisher - Exemple[^1]
+## 2️⃣ Calcul de la statistique de Fisher - Exemple
 
-[^1]: Ici, le nombre d'observations a été réduit à $40$ pour plus de lisibilité.
 
 ```{=html}
 <div style="height:5px;"></div>
@@ -2074,7 +2110,7 @@ $$
 ::::::::: columns
 ::::: {.column width="50%"}
 ::: {style="text-align:center;"}
-[[Variabilité intra-groupe :]{.underline}]{.smallcaps}
+[[Variabilité résiduelle :]{.underline}]{.smallcaps}
 :::
 
 ```{r}
@@ -2083,129 +2119,92 @@ $$
 #| warning: false
 #| fig-height: 4.25
 
-## CALCULS : 
 # Données utilisées pour l'ANOVA
-cats_anova <- cats %>%
-    dplyr::filter(!is.na(Age), !is.na(Sex))
+mice_anova <- data_mice %>%
+  filter(!is.na(Y), !is.na(A), !is.na(B)) %>%
+  mutate(
+    A = factor(A),
+    B = factor(B),
+    groupe = interaction(A, B, sep = " - ", drop = TRUE)
+  )
 
-# Nombre total d'observations
-N <- nrow(cats_anova)
-
-# Nombre de groupes
-J <- nlevels(droplevels(cats_anova$Sex))
+# Effectifs et degrés de liberté
+N <- nrow(mice_anova)
+G <- nlevels(mice_anova$groupe)
 
 # Moyenne globale
-mu_global <- mean(cats_anova$Age)
+mu_global <- mean(mice_anova$Y)
 
-# Moyennes et effectifs par groupe
-means_cats <- cats_anova %>%
-    dplyr::group_by(Sex) %>%
-    dplyr::summarise(
-        n_j = dplyr::n(),
-        mu_hat = mean(Age),
-        .groups = "drop"
-    )
-
-# ---------------------------------------------------
-# Somme des carrés intra-groupe
-# ---------------------------------------------------
-
-cats_anova <- cats_anova %>%
-    dplyr::left_join(
-        means_cats %>% dplyr::select(Sex, mu_hat),
-        by = "Sex"
-    )
-
-SC_intra <- sum(
-    (cats_anova$Age - cats_anova$mu_hat)^2
-)
-
-# Carré moyen intra-groupe
-CM_intra <- SC_intra / (N - J)
-
-
-# ---------------------------------------------------
-# Somme des carrés inter-groupe
-# ---------------------------------------------------
-
-SC_inter <- sum(
-    means_cats$n_j *
-        (means_cats$mu_hat - mu_global)^2
-)
-
-# Carré moyen inter-groupe
-CM_inter <- SC_inter / (J - 1)
-
-
-# ---------------------------------------------------
-# Statistique de Fisher
-# ---------------------------------------------------
-
-F_obs <- CM_inter / CM_intra
-
-
-
-# Moyennes par groupe calculées sur l'ensemble des données
-means_cats <- cats %>%
-  dplyr::filter(!is.na(Age), !is.na(Sex)) %>%
-  dplyr::group_by(Sex) %>%
-  dplyr::summarise(
-    mu_hat = mean(Age),
+# Moyennes et effectifs de chaque combinaison
+means_mice <- mice_anova %>%
+  group_by(groupe) %>%
+  summarise(
+    n_ij = n(),
+    mu_hat = mean(Y),
     .groups = "drop"
   ) %>%
-  dplyr::mutate(
-    x_group = as.numeric(Sex)
+  mutate(x_group = as.numeric(groupe))
+
+# Ajouter les moyennes aux observations
+mice_anova <- mice_anova %>%
+  left_join(
+    means_mice %>% select(groupe, mu_hat),
+    by = "groupe"
   )
 
-# Sous-échantillon uniquement pour la représentation graphique :
-# 10 chats par groupe = 40 chats au total
+# Variabilité résiduelle
+SC_residuelle <- sum(
+  (mice_anova$Y - mice_anova$mu_hat)^2
+)
+
+CM_residuelle <- SC_residuelle / (N - G)
+
+# Variabilité entre les groupes
+SC_groupes <- sum(
+  means_mice$n_ij *
+    (means_mice$mu_hat - mu_global)^2
+)
+
+CM_groupes <- SC_groupes / (G - 1)
+
+# Statistique de Fisher globale
+F_obs <- CM_groupes / CM_residuelle
+
+# Sous-échantillon uniquement pour les graphiques
 set.seed(123)
 
-cats_plot <- cats %>%
-  dplyr::filter(!is.na(Age), !is.na(Sex)) %>%
-  dplyr::group_by(Sex) %>%
-  dplyr::slice_sample(n = 10) %>%
-  dplyr::ungroup() %>%
-  dplyr::mutate(
-    x_group = as.numeric(Sex),
+mice_plot <- mice_anova %>%
+  group_by(groupe) %>%
+  slice_sample(n = min(n(), 10)) %>%
+  ungroup() %>%
+  mutate(
+    x_group = as.numeric(groupe),
     x = jitter(x_group, amount = 0.18)
-  ) %>%
-  dplyr::left_join(
-    means_cats %>% dplyr::select(Sex, mu_hat),
-    by = "Sex"
   )
 
-# Graphique de la variabilité intra-groupe
-ggplot() +
+# Couleurs
+colors_groups <- c(
+  "#0072B2", "#E69F00",
+  "#009E73", "#CC79A7"
+)
 
-  # Écarts entre chaque observation et la moyenne de son groupe
+names(colors_groups) <- levels(mice_anova$groupe)
+
+ggplot() +
   geom_segment(
-    data = cats_plot,
-    aes(
-      x = x,
-      xend = x,
-      y = mu_hat,
-      yend = Age
-    ),
+    data = mice_plot,
+    aes(x = x, xend = x, y = mu_hat, yend = Y),
     colour = "#E69F00",
     linewidth = 1.2,
     alpha = 0.8
   ) +
-
-  # Observations
   geom_point(
-    data = cats_plot,
-    aes(
-      x = x,
-      y = Age,
-      colour = Sex
-    ),
-    size = 4
+    data = mice_plot,
+    aes(x = x, y = Y, colour = groupe),
+    size = 3.5
   ) +
-
-  # Moyenne de chaque groupe
   geom_segment(
-    data = means_cats,
+    data = means_mice,
     aes(
       x = x_group - 0.28,
       xend = x_group + 0.28,
@@ -2215,64 +2214,40 @@ ggplot() +
     colour = "black",
     linewidth = 2
   ) +
-
-  # Labels des moyennes
-  geom_text(
-    data = means_cats,
-    aes(
-      x = x_group + 0.4,
-      y = mu_hat,
-      label = paste0("hat(mu)[", Sex, "]")
-    ),
-    parse = TRUE,
-    size = 10,
-    colour = "black"
-  ) +
-
-  # Couleurs des groupes
-  scale_colour_manual(
-    values = colors_groups
-  ) +
-
-  # Axe des x
+  scale_colour_manual(values = colors_groups) +
   scale_x_continuous(
-    breaks = seq_along(levels(cats$Sex)),
-    labels = levels(cats$Sex)
+    breaks = seq_len(G),
+    labels = levels(mice_anova$groupe)
   ) +
-
-  coord_cartesian(
-    xlim = c(0.6, length(levels(cats$Sex)) + 0.5)
-  ) +
-
-  labs(
-    x = "Statut reproductif",
-    y = "Âge"
-  ) +
-
+  coord_cartesian(xlim = c(0.6, G + 0.4)) +
+  labs(x = "Combinaison des facteurs", y = "Y") +
   theme_minimal(base_size = 20) +
-
   theme(
     legend.position = "none",
     axis.title = element_text(size = 22),
-    axis.text = element_text(size = 19)
+    axis.text = element_text(size = 16),
+    axis.text.x = element_text(angle = 30, hjust = 1)
   )
 ```
 
-::: {style="font-size: 0.75em; margin-top: -20px;"}
+::: {style="font-size: 0.80em; margin-top: -20px;"}
 $$
 \color{#E69F00}{
-CM_{\mathrm{intra}}
+CM_{\mathrm{résiduelle}}
 =
-\frac{\sum\limits_{j=1}^{J}
-\sum\limits_{i=1}^{n_j}
-\left(y_{ij}-\hat{\mu}_j\right)^2}{N-J} = \frac{290266.3}{12853 - 4} = 22.59.}
+\frac{SC_{\mathrm{résiduelle}}}{N-IJ}
+=
+\frac{`r round(SC_residuelle, 2)`}{`r N`-`r G`}
+=
+`r round(CM_residuelle, 2)`
+}
 $$
 :::
 :::::
 
 ::::: {.column width="50%"}
 ::: {style="text-align:center;"}
-[[Variabilité inter-groupe :]{.underline}]{.smallcaps}
+[[Variabilité entre les groupes :]{.underline}]{.smallcaps}
 :::
 
 ```{r}
@@ -2281,57 +2256,15 @@ $$
 #| warning: false
 #| fig-height: 4.25
 
-# Moyennes par groupe calculées sur l'ensemble des données
-means_cats <- cats %>%
-  dplyr::filter(!is.na(Age), !is.na(Sex)) %>%
-  dplyr::group_by(Sex) %>%
-  dplyr::summarise(
-    mu_hat = mean(Age),
-    .groups = "drop"
-  ) %>%
-  dplyr::mutate(
-    x_group = as.numeric(Sex)
-  )
-
-# Moyenne globale calculée sur l'ensemble des données
-mu_global <- cats %>%
-  dplyr::filter(!is.na(Age), !is.na(Sex)) %>%
-  dplyr::summarise(
-    mu_global = mean(Age)
-  ) %>%
-  dplyr::pull(mu_global)
-
-# Sous-échantillon uniquement pour la représentation graphique :
-# 10 chats par groupe = 40 chats au total
-set.seed(123)
-
-cats_plot <- cats %>%
-  dplyr::filter(!is.na(Age), !is.na(Sex)) %>%
-  dplyr::group_by(Sex) %>%
-  dplyr::slice_sample(n = 10) %>%
-  dplyr::ungroup() %>%
-  dplyr::mutate(
-    x_group = as.numeric(Sex),
-    x = jitter(x_group, amount = 0.18)
-  )
-
-# Graphique de la variabilité inter-groupe
 ggplot() +
-
-  # Observations
   geom_point(
-    data = cats_plot,
-    aes(
-      x = x,
-      y = Age,
-      colour = Sex
-    ),
-    size = 4
+    data = mice_plot,
+    aes(x = x, y = Y, colour = groupe),
+    size = 3.5,
+    alpha = 0.65
   ) +
-
-  # Écarts entre la moyenne globale et les moyennes des groupes
   geom_segment(
-    data = means_cats,
+    data = means_mice,
     aes(
       x = x_group,
       xend = x_group,
@@ -2341,10 +2274,8 @@ ggplot() +
     colour = "#CC79A7",
     linewidth = 3
   ) +
-
-  # Moyenne de chaque groupe
   geom_segment(
-    data = means_cats,
+    data = means_mice,
     aes(
       x = x_group - 0.28,
       xend = x_group + 0.28,
@@ -2354,86 +2285,64 @@ ggplot() +
     colour = "black",
     linewidth = 2
   ) +
-
-  # Moyenne globale
   geom_hline(
     yintercept = mu_global,
     linetype = "dashed",
     linewidth = 1.3,
     colour = "grey30"
   ) +
-
-  # Labels des moyennes des groupes
-  geom_text(
-    data = means_cats,
-    aes(
-      x = x_group + 0.4,
-      y = mu_hat,
-      label = paste0("hat(mu)[", Sex, "]")
-    ),
-    parse = TRUE,
-    size = 10,
-    colour = "black"
-  ) +
-
-  # Label de la moyenne globale
-  annotate(
-    "text",
-    x = length(levels(cats$Sex)) + 0.25,
-    y = mu_global + 0.4,
-    label = "bar(y)",
-    parse = TRUE,
-    size = 6,
-    colour = "grey20"
-  ) +
-
-  # Couleurs des groupes
-  scale_colour_manual(
-    values = colors_groups
-  ) +
-
-  # Axe des x
+  scale_colour_manual(values = colors_groups) +
   scale_x_continuous(
-    breaks = seq_along(levels(cats$Sex)),
-    labels = levels(cats$Sex)
+    breaks = seq_len(G),
+    labels = levels(mice_anova$groupe)
   ) +
-
-  coord_cartesian(
-    xlim = c(0.6, length(levels(cats$Sex)) + 0.5)
-  ) +
-
-  labs(
-    x = "Statut reproductif",
-    y = "Âge"
-  ) +
-
+  coord_cartesian(xlim = c(0.6, G + 0.4)) +
+  labs(x = "Combinaison des facteurs", y = "Y") +
   theme_minimal(base_size = 20) +
-
   theme(
     legend.position = "none",
     axis.title = element_text(size = 22),
-    axis.text = element_text(size = 19)
+    axis.text = element_text(size = 16),
+    axis.text.x = element_text(angle = 30, hjust = 1)
   )
 ```
 
-::: {style="font-size: 0.75em; margin-top: -20px;"}
+::: {style="font-size: 0.80em; margin-top: -20px;"}
 $$
 \color{#CC79A7}{
-CM_{\mathrm{inter}}
+CM_{\mathrm{groupes}}
 =
-\frac{\sum\limits_{j=1}^{J}
-n_j
-\left(\hat{\mu}_j-\bar y\right)^2
-}{J - 1} = \frac{77187.72}{4-1} = 25729.24.}
+\frac{SC_{\mathrm{groupes}}}{IJ-1}
+=
+\frac{`r round(SC_groupes, 2)`}{`r G`-1}
+=
+`r round(CM_groupes, 2)`
+}
 $$
 :::
 :::::
 :::::::::
 
-::: {style="text-align:center;font-size: 0.9em;"}
-[[Statistique de Fisher]{.underline}]{.smallcaps} [:]{.underline} $\quad F_{\mathrm{obs}} = \frac{\color{#CC79A7}{CM_{\mathrm{inter}}}
-}{\color{#E69F00}{CM_{\mathrm{intra}}}} = \frac{\color{#CC79A7}{25729.24}
-}{\color{#E69F00}{22.59}} = 1138.94 {\small \color{#4D4D4D}{\quad >> 1 \Longrightarrow CM_{\mathrm{inter}} >> CM_{\mathrm{intra}}.}}$
+::: {style="text-align:center; font-size: 0.90em;"}
+[[Statistique de Fisher]{.underline}]{.smallcaps} :
+
+$$
+F_{\mathrm{obs}}
+=
+\frac{
+\color{#CC79A7}{CM_{\mathrm{groupes}}}
+}{
+\color{#E69F00}{CM_{\mathrm{résiduelle}}}
+}
+=
+\frac{
+\color{#CC79A7}{`r round(CM_groupes, 2)`}
+}{
+\color{#E69F00}{`r round(CM_residuelle, 2)`}
+}
+=
+`r round(F_obs, 2)`
+$$
 :::
 
 ## 2️⃣ Choix du risque de première espèce $\alpha$
@@ -3267,16 +3176,14 @@ ggplot(
 
 ## 🐈 Application aux données de chats - Vérif. des hypothèses - 1
 
-<br>
-<br>
-<br>
-
+<br> <br> <br>
 
 - [[Normalité :]{.underline}]{.smallcaps} En pratique, on utilise le test de Shapiro-Wilk défini tel que : \n
 
 ::: {style="font-size: 0.85em; text-align:center;"}
 $H_0$ : Les résidus sont normalement distribués *vs.* $H_1$ : Les résidus ne sont pas normalement distribués
 :::
+
 $\Longrightarrow$ [Objectif :]{.underline} Ne pas rejeter $H_0$ (i.e avoir une p-value \> 0.05)
 
 <br>
@@ -3306,9 +3213,7 @@ shapiro.test(anova$residuals)
 
 ## 🐈 Application aux données de chats - Vérif. des hypothèses - 2
 
-<br>
-<br>
-
+<br> <br>
 
 - [[Homoscédasticité :]{.underline}]{.smallcaps} En pratique, on utilise le test de Levene défini tel que : \n
 
@@ -3342,10 +3247,7 @@ leveneTest(Age ~ Sex, data = cats)
 
 ## 🐈 Application aux données de chats - ANOVA & Conclusion
 
-<br>
-<br>
-<br>
-<br>
+<br> <br> <br> <br>
 
 ::::: columns
 ::: {.column width="50%"}

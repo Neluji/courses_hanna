@@ -1,0 +1,2756 @@
+---
+title: "ANOVA à 2 facteurs"
+author: Hanna Bacave
+css: style.css
+aspect_ratio: "16:9"
+format: 
+  revealjs:
+    slide-number: c/t
+    # incremental: true
+    title-slide-attributes:
+      data-background-image: figures/fond.png
+      data-background-size: cover
+      syntax-highlighting: idiomatic
+editor: visual
+#bibliography: references.bib
+bibliography: references.bib
+---
+
+```{r setup}
+
+library(readxl)
+library(ggplot2)
+library(tidyr)
+library(plotly)
+library(dplyr)
+library(patchwork)
+library(car)
+```
+
+## 🔍 Introduction : L'ANOVA, qu'est-ce que c'est ?
+
+```{=html}
+<div style="height:5px;"></div>
+```
+
+> L'[analyse de variance]{.smallcaps} (ANOVA) permet de déterminer l'influence de $k$ modalités d'une ou plusieurs variables explicatives (appelées [facteurs]{.smallcaps}) sur la moyenne d'une variable quantitative à expliquer $Y$.
+
+```{=html}
+<div style="height:10px;"></div>
+```
+
+. . .
+
+| Questions de recherche | Facteur(s) {modalités} | $Y$ = variable expliquée |
+|------------------------|------------------------|------------------------|
+| Le type d'alimentation et le médicament donné [influencent]{.smallcaps}-ils la durée de guérison de l'animal ? | Type d'alimentation {granules, foin, ...} +/$\times$ Médicament {A, B} | Durée de guérison |
+| La ville et le quartier ont-ils un [effet]{.smallcaps} sur le prix d'un logement ? | Ville {Montpellier, Paris, Toulouse} +/$\times$ Type de quartier {Hyper-centre, Universités, Périphérie} | Prix du logement |
+| L'espérance de vie d'un animal [diffère]{.smallcaps}-t-elle selon son sexe ? | Sexe {M stérilisé ou non / F stérilisé ou non} | Espérance de vie |
+
+. . .
+
+::: callout-note
+L'objectif de l'ANOVA est de comparer les moyennes de $Y$ pour chacun des groupes ($=$ facteur $\times$ modalité) afin de voir si le(s) facteur(s) étudié(s) a(ont) une influence sur $Y$.
+:::
+
+## 🔍 Introduction : L'ANOVA, qu'est-ce que c'est ? {data-visibility="uncounted"}
+
+```{=html}
+<div style="height:5px;"></div>
+```
+
+> L'[analyse de variance]{.smallcaps} (ANOVA) permet de déterminer l'influence de $k$ modalités d'une ou plusieurs variables explicatives (appelées [facteurs]{.smallcaps}) sur la moyenne d'une variable quantitative à expliquer $Y$.
+
+```{=html}
+<div style="height:10px;"></div>
+```
+
+::: {#tableau-focus}
+| Questions de recherche | Facteur(s) {modalités} | $Y$ = variable expliquée |
+|------------------------|------------------------|------------------------|
+| Le type d'alimentation et le médicament donné [influencent]{.smallcaps}-ils la durée de guérison de l'animal ? | Type d'alimentation {granules, foin, ...} +/$\times$ Médicament {A, B} | Durée de guérison |
+| La ville et le quartier ont-ils un [effet]{.smallcaps} sur le prix d'un logement ? | Ville {Montpellier, Paris, Toulouse} +/$\times$ Type de quartier {Hyper-centre, Universités, Périphérie} | Prix du logement |
+| L'espérance de vie d'un animal [diffère]{.smallcaps}-t-elle selon son sexe ? | Sexe {M stérilisé ou non / F stérilisé ou non} | Espérance de vie |
+:::
+
+```{=html}
+<div style="height:10px;"></div>
+```
+
+. . .
+
+::: small-box
+Dans ce cours, on va se concentrer sur l'[ANOVA à deux facteurs]{.smallcaps} :
+
+Quels sont les effets de **chacun des 2 facteurs A et B** et celui de leur **interaction** sur **1 variable** $Y$ ?
+:::
+
+## 🐁 Application : Présentation des données
+
+```{=html}
+<div style="height:5px;"></div>
+```
+
+[[Jeu de données utilisé :]{.underline}]{.smallcaps} Sexe, habitat et durée de contact avec des congénères de $40$ souris, collectés à l'Université de Basel (Suisse) [@smolensky2024] .
+
+. . .
+
+::::::::: columns
+::::: {.column width="65%"}
+```{=html}
+<div style="height:30px;"></div>
+```
+
+::: fragment
+- $Y =$ Durée de contact avec d'autres congénères
+:::
+
+::: fragment
+- Facteurs :
+  - Housing $=$ Type d'hébergement à $2$ modalités
+  - Sex $=$ Sexe à $2$ modalités
+
+| Facteur     | Modalité           | Définition                  | Nb. d'individus |
+|------------------|------------------|--------------------|------------------|
+| Housing (A) | Group ($k_{A,1}$)  | Souris vivant en communauté | 10              |
+| Housing (A) | Single ($k_{A,2}$) | Souris vivant isolée        | 10              |
+| Sex (B)     | Female ($k_{B,1}$) | Souris femelle              | 10              |
+| Sex (B)     | Male ($k_{B,2}$)   | Souris mâle                 | 10              |
+:::
+:::::
+
+::::: {.column width="35%"}
+:::: columns
+::: fragment
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+data_mice <- read_excel("data_mice.xlsx", sheet = "Social interaction")
+
+### ON COMPLETE LES DONNES
+data_mice$Sex[c(2:20)] <- "Male"
+data_mice$Sex[c(22:40)] <- "Female"
+
+data_mice$Housing[c(2:10, 22:30)] <- "Group"
+data_mice$Housing[c(12:20, 32:40)] <- "Single"
+
+data_mice <- data_mice %>%
+  mutate(
+    Sex = factor(Sex, levels = c("Male", "Female")),
+    Housing = factor(Housing, levels = c("Group", "Single"))
+  ) %>%
+  dplyr::select(Mouse, Sex, Housing, contact_time)
+
+colors_groups <- c(
+  "Male" = "#009E73",          # vert
+  "Female" = "#E69F00",        # orange
+  "Group" = "#0072B2",  # bleu
+  "Single" = "#CC79A7"  # violet
+)
+
+knitr::kable(data_mice[c(20:23, 17:19, 38:40), ])
+```
+:::
+::::
+:::::
+:::::::::
+
+## 🐁 Application : Question de recherche
+
+:::: center-text
+::: highlight-box
+**Le sexe et le type d’hébergement des souris ont-ils un effet sur la durée de leurs interactions sociales ? Existe-t-il un effet combiné de ces deux facteurs ?**
+:::
+::::
+
+## 📖 Objectifs du cours
+
+<br>
+
+<br>
+
+1.  L'ANOVA, un test d'hypothèse ? (Rappel, Définition & Exemple)
+
+. . .
+
+```{=html}
+<div style="height:5px;"></div>
+```
+
+2.  Comment réaliser une ANOVA à deux facteurs et interpréter ses effets ? (Statistiques F et p-values)
+
+. . .
+
+```{=html}
+<div style="height:5px;"></div>
+```
+
+3.  Application aux données de souris avec R
+
+. . .
+
+```{=html}
+<div style="height:5px;"></div>
+```
+
+4.  Conclusion & Exemples concrets de contributions en sciences vétérinaire
+
+## 1️⃣ L'ANOVA, un test d'hypothèse ? Rappels sur les tests
+
+```{=html}
+<div style="height:25px;"></div>
+```
+
+```{=html}
+<div style="height:5px;"></div>
+```
+
+::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top: 1px;padding-bottom: 5px;"}
+[[Hypothèses (test bilatéral):]{.underline}]{.smallcaps}
+
+$$\small H_0:\mu=\mu_0 \qquad\qquad\qquad H_1:\mu\neq\mu_0$$
+:::
+
+```{=html}
+<div style="height:20px;"></div>
+```
+
+::::::::: columns
+:::: {.column width="33%"}
+::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top: 1px;padding-bottom: 5px;"}
+[[erreurs :]{.underline}]{.smallcaps}
+
+```{=html}
+<div style="height:22.75px;"></div>
+```
+
+|   | **Ne pas rejeter** $\small H_0$ | **Rejeter** $\small H_0$ |
+|------------------------|------------------------|------------------------|
+| $\small H_0$ **vraie** | ✅ Bonne décision | ❌ **Type I :** $\small \alpha$ |
+| $\small H_0$ **fausse** | ❌ **Type II :** $\small \beta$ | ✅ Bonne décision |
+
+$$\small    \alpha    =        P(\text{rejeter }H_0\mid H_0\text{ vraie})$$
+
+$$\small    \beta    =        P(\text{ne pas rejeter }H_0\mid H_0\text{ fausse})$$
+:::
+::::
+
+:::: {.column width="33%"}
+::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top:1px;padding-bottom: 5px;"}
+[[Statistique de test :]{.underline}]{.smallcaps}
+
+```{=html}
+<div style="height:0.03px;"></div>
+```
+
+$$\small T = \frac{\bar X-\mu_0}{s/\sqrt n}$$
+
+> La statistique de test mesure l'écart à $\small H_0$ relativement à la variabilité de l'estimation.
+
+$$\small H_0 \quad \Longrightarrow \quad T\sim \mathcal{t}(0, 1)$$
+:::
+::::
+
+:::: {.column width="33%"}
+::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top: 1px;padding-bottom: 5px;"}
+[[p-value et décision :]{.underline}]{.smallcaps}
+
+```{=html}
+<div style="height:0.014px;"></div>
+```
+
+$$\small p = P_{H_0} \left( |T|\geq |T_{\mathrm{obs}}| \right)$$
+
+> La p-valeur est le plus petit risque pour lequel on rejetterait $\small H_0$.
+
+$$
+\small
+\begin{cases}
+p < \alpha & \Longrightarrow \text{rejet de } H_0\\
+p \geq \alpha & \Longrightarrow \text{non-rejet de } H_0
+\end{cases}
+$$
+:::
+::::
+:::::::::
+
+## 1️⃣ Quel rapport entre l'ANOVA et un test bilatéral ?
+
+```{=html}
+<div style="height:5px;"></div>
+```
+
+> L'ANOVA à 2 facteurs permet de [tester]{.smallcaps} si au moins une moyenne diffère des autres selon les modalités du facteur A, du facteur B, ou si l’effet d’un facteur dépend des modalités de l’autre (interaction).
+
+```{=html}
+<div style="height:5px;"></div>
+```
+
+::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top: 1px;padding-bottom: 5px;"}
+[[Hypothèses :]{.underline}]{.smallcaps}
+
+$$
+\small
+\begin{aligned}
+H_0^A &: \mu_{1\cdot}=\mu_{2\cdot}=\cdots=\mu_{I\cdot}
+\qquad H_1^A : \text{au moins deux moyennes diffèrent}\\[8pt]
+H_0^B &: \mu_{\cdot1}=\mu_{\cdot2}=\cdots=\mu_{\cdot J}
+\qquad H_1^B : \text{au moins deux moyennes diffèrent}\\[8pt]
+H_0^{A\times B} &: \mu_{ij}-\mu_{i\cdot}-\mu_{\cdot j}+\mu_{\cdot\cdot}=0,\ \forall i,j
+\qquad H_1^{A\times B} : \text{au moins une interaction est non nulle}
+\end{aligned}
+$$
+:::
+
+```{=html}
+<div style="height:10px;"></div>
+```
+
+::::::::: columns
+:::: {.column width="33%"}
+::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top: 1px;padding-bottom: 5px;"}
+[[erreurs :]{.underline}]{.smallcaps}
+
+```{=html}
+<div style="height:22.75px;"></div>
+```
+
+$$\small    \alpha    =        P(\text{rejeter }H_0\mid H_0\text{ vraie})$$
+
+$$\small    \beta    =        P(\text{ne pas rejeter }H_0\mid H_0\text{ fausse})$$
+:::
+::::
+
+:::: {.column width="33%"}
+::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top:1px;padding-bottom: 5px;"}
+[[Statistique de test :]{.underline}]{.smallcaps}
+
+```{=html}
+<div style="height:0.03px;"></div>
+```
+
+$$
+\small F= \frac{\text{variabilité entre les groupes}}
+{\text{variabilité au sein des groupes}}
+$$
+
+$$
+\small H_0\Longrightarrow F\sim\mathcal{F}_{J-1,N-J}
+$$
+:::
+::::
+
+:::: {.column width="33%"}
+::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top: 1px;padding-bottom: 5px;"}
+[[p-value et décision :]{.underline}]{.smallcaps}
+
+```{=html}
+<div style="height:0.014px;"></div>
+```
+
+$$\small p = P_{H_0} \left( F \geq F_{\mathrm{obs}} \right)$$
+
+$$
+\small
+\begin{cases}
+p < \alpha & \Longrightarrow \text{rejet de } H_0\\
+p \geq \alpha & \Longrightarrow \text{non-rejet de } H_0
+\end{cases}
+$$
+:::
+::::
+:::::::::
+
+## 1️⃣L'ANOVA, un test d'hypothèse ? Exemple
+
+<br>
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-align: center
+#| fig-width: 27
+#| fig-height: 10
+#| out-width: 100%
+
+# Données complètes uniquement
+data_plot <- data_mice %>%
+  filter(
+    !is.na(Sex),
+    !is.na(Housing),
+    !is.na(contact_time)
+  )
+
+# Moyenne globale
+mean_global <- mean(data_plot$contact_time)
+
+# Style commun
+theme_anova <- theme_anova <- theme_classic() +
+  theme(
+    axis.text = element_text(size = 37),
+    axis.title = element_text(size = 39),
+    plot.title = element_text(
+      size = 42,
+      face = "bold",
+      hjust = 0.5
+    ),
+    legend.text = element_text(size = 36),
+    legend.title = element_blank(),
+    legend.position = "bottom",
+    plot.margin = margin(10, 15, 10, 15)
+    )
+
+# 1. Effet du sexe
+p_sex <- ggplot(
+  data_plot,
+  aes(x = Sex, y = contact_time, colour = Sex, fill = Sex)
+) +
+  geom_boxplot(
+    alpha = 0.5,
+    outlier.alpha = 0,
+    linewidth = 1
+  ) +
+  geom_jitter(width = 0.15, size = 4.5) +
+  stat_summary(
+    fun = mean,
+    geom = "point",
+    shape = 16,
+    colour = "black",
+    size = 8
+  ) +
+  geom_hline(
+    yintercept = mean_global,
+    linetype = "dashed",
+    linewidth = 1
+  ) +
+  scale_colour_manual(values = colors_groups) +
+  scale_fill_manual(values = colors_groups) +
+  labs(
+    title = "Effet du facteur Sex",
+    x = "Sexe",
+    y = "Durée des contacts sociaux"
+  ) +
+  theme_anova +
+  theme(legend.position = "none")
+
+# 2. Effet de l'hébergement
+p_housing <- ggplot(
+  data_plot,
+  aes(x = Housing, y = contact_time,
+      colour = Housing, fill = Housing)
+) +
+  geom_boxplot(
+    alpha = 0.5,
+    outlier.alpha = 0,
+    linewidth = 1
+  ) +
+  geom_jitter(width = 0.15, size = 4.5) +
+  stat_summary(
+    fun = mean,
+    geom = "point",
+    shape = 16,
+    colour = "black",
+    size = 8
+  ) +
+  geom_hline(
+    yintercept = mean_global,
+    linetype = "dashed",
+    linewidth = 1
+  ) +
+  scale_colour_manual(values = colors_groups) +
+  scale_fill_manual(values = colors_groups) +
+  labs(
+    title = "Effet du facteur Housing",
+    x = "Hébergement",
+    y = "Durée des contacts sociaux"
+  ) +
+  theme_anova +
+  theme(legend.position = "none")
+
+# 3. Interaction sexe × hébergement
+p_interaction <- ggplot(
+  data_plot,
+  aes(
+    x = Housing,
+    y = contact_time,
+    colour = Sex,
+    group = Sex
+  )
+) +
+  stat_summary(
+    fun = mean,
+    geom = "line",
+    linewidth = 3.5
+  ) +
+  stat_summary(
+    fun = mean,
+    geom = "point",
+    size = 8
+  ) +
+  scale_colour_manual(values = colors_groups) +
+  labs(
+    title = "Effet de l'interaction",
+    x = "Hébergement",
+    y = "Durée moyenne des contacts"
+  ) +
+  theme_anova
+
+# Affichage côte à côte
+p_sex + plot_spacer() +
+  p_housing + plot_spacer() +
+  p_interaction +
+  plot_layout(
+    ncol = 5,
+    widths = c(2.5, 1.25, 2.5, 1.25, 2.5)
+  )
+```
+
+```{=html}
+<div style="height:35px;"></div>
+```
+
+::: callout-note
+- Si on teste uniquement l'effet des facteurs **individuels**, on parle de modèle/test [additif]{.smallcaps}
+
+- Si on teste les effets des facteurs **individuels** et celui de l'**interaction**, on parle de modèle/test [complet]{.smallcaps}
+:::
+
+## 1️⃣ ANOVA à 2 facteurs : avec ou sans interaction ?
+
+```{=html}
+<div style="height:5px;"></div>
+```
+
+::::::: columns
+:::: {.column width="50%"}
+::: {style="text-align: center;"}
+[[sans interaction :]{.underline}]{.smallcaps}
+:::
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-width: 5
+#| fig-height: 4
+
+
+data_sans <- expand.grid(
+  A = factor(c("A1", "A2"), levels = c("A1", "A2")),
+  B = factor(c("B1", "B2"), levels = c("B1", "B2"))
+) %>%
+  mutate(
+    Y = c(30, 45, 50, 65)
+  )
+
+ggplot(
+  data_sans,
+  aes(x = A, y = Y, colour = B, group = B)
+) +
+  geom_line(linewidth = 2) +
+  geom_point(size = 6) +
+  scale_colour_manual(
+    values = c("B1" = "#0072B2", "B2" = "#E69F00")
+  ) +
+  coord_cartesian(ylim = c(20, 75)) +
+  labs(
+    x = "Facteur A",
+    y = "Réponse moyenne",
+    colour = "Facteur B"
+  ) +
+  theme_classic(base_size = 16) +
+  theme(
+    axis.text = element_text(size = 18),
+    axis.title = element_text(size = 18),
+    legend.position = "bottom",
+    plot.margin = margin(10, 15, 10, 15)
+  )
+```
+::::
+
+:::: {.column width="50%"}
+::: {style="text-align: center;"}
+[[avec interaction :]{.underline}]{.smallcaps}
+:::
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-width: 5
+#| fig-height: 4
+
+data_avec <- expand.grid(
+  A = factor(c("A1", "A2"), levels = c("A1", "A2")),
+  B = factor(c("B1", "B2"), levels = c("B1", "B2"))
+) %>%
+  mutate(
+    Y = c(30, 65, 60, 40)
+  )
+
+ggplot(
+  data_avec,
+  aes(x = A, y = Y, colour = B, group = B)
+) +
+  geom_line(linewidth = 2) +
+  geom_point(size = 6) +
+  scale_colour_manual(
+    values = c("B1" = "#0072B2", "B2" = "#E69F00")
+  ) +
+  coord_cartesian(ylim = c(20, 75)) +
+  labs(
+    x = "Facteur A",
+    y = "Réponse moyenne",
+    colour = "Facteur B"
+  ) +
+  theme_classic(base_size = 16) +
+  theme(
+    axis.text = element_text(size = 18),
+    axis.title = element_text(size = 18),
+    legend.position = "bottom",
+    plot.margin = margin(10, 15, 10, 15)
+  )
+```
+::::
+:::::::
+
+
+::: fragment
+:::: callout-important
+Tester l'interaction permet de savoir si l'effet d'un facteur dépend de l'autre et adapter l'interprétation des résultats.
+:::
+::::
+
+
+## 1️⃣ Les hypothèses à vérifier avant le test
+
+```{=html}
+<div style="height:15px;"></div>
+```
+
+::: callout-note
+Comme toujours avant un test, il faut s'assurer que les données présentent les bonnes propriétés pour garantir la validité des résultats et des conclusions.
+:::
+
+```{=html}
+<div style="height:15px;"></div>
+```
+
+::: {style="font-size: 0.85em;"}
+Soit $i$ la modalité du facteur A (où $i = 1, ..., I$), $j$ celle du facteur B (où $j = 1, ..., J$) et $k$ le numéro de l'individu observé (où $k = 1, ..., n_{ij}$).
+:::
+
+<br>
+
+1.  [[indépendance :]{.underline}]{.smallcaps} Les $\epsilon_{ijk}$ sont indépendants $\longrightarrow$ Les $Y_{ijk}$ sont indépendants
+
+|  |
+|:----------------------------------------------------------------------:|
+| La mesure prise sur un individu n'a pas d'influence sur celle prise sur un autre. |
+
+## 1️⃣ Les hypothèses à vérifier avant le test
+
+```{=html}
+<div style="height:15px;"></div>
+```
+
+::: {style="font-size: 0.85em;"}
+Soit $i$ la modalité du facteur A (où $i = 1, ..., I$), $j$ celle du facteur B (où $j = 1, ..., J$) et $k$ le numéro de l'individu observé (où $k = 1, ..., n_{ij}$).
+:::
+
+```{=html}
+<div style="height:35px;"></div>
+```
+
+2.  [[normalité des résidus :]{.underline}]{.smallcaps} Pour chaque $(i,j)$, $\epsilon_{ijk}\sim\mathcal{N}(0,\sigma^2)$ $\longrightarrow$ $Y_{ijk}\sim\mathcal{N}(\mu_{ij},\sigma^2)$
+
+::::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+set.seed(123)
+
+# -------------------------
+# Paramètres
+# -------------------------
+
+n <- 30
+
+mu_group <- c(
+  "A1B1" = 6,
+  "A1B2" = 10,
+  "A2B1" = 12,
+  "A2B2" = 16
+)
+
+sigma <- 1.5
+
+colors_groups_ex <- c(
+  "A1B1" = "#0072B2",
+  "A1B2" = "#E69F00",
+  "A2B1" = "#009E73",
+  "A2B2" = "#CC79A7"
+)
+
+# -------------------------
+# Données normales
+# -------------------------
+
+data_normal <- data.frame(
+  Group = rep(names(mu_group), each = n)
+)
+
+data_normal$Group <- factor(
+  data_normal$Group,
+  levels = names(mu_group)
+)
+
+data_normal$x <- as.numeric(data_normal$Group)
+
+data_normal$mu_ij <- mu_group[
+  as.character(data_normal$Group)
+]
+
+data_normal$Y <- rnorm(
+  nrow(data_normal),
+  mean = data_normal$mu_ij,
+  sd = sigma
+)
+
+data_normal$x_plot <- data_normal$x +
+  runif(nrow(data_normal), -0.18, 0.18)
+
+# -------------------------
+# Distributions normales
+# pour chaque combinaison
+# -------------------------
+
+normal_curves <- do.call(
+  rbind,
+  lapply(1:4, function(j) {
+
+    mu_j <- mu_group[j]
+
+    y_grid <- seq(
+      mu_j - 4 * sigma,
+      mu_j + 4 * sigma,
+      length.out = 300
+    )
+
+    dens <- dnorm(
+      y_grid,
+      mean = mu_j,
+      sd = sigma
+    )
+
+    dens_scaled <- dens / max(dens) * 0.40
+
+    data.frame(
+      Group = names(mu_group)[j],
+      X = j + dens_scaled,
+      Y = y_grid
+    )
+  })
+)
+
+# -------------------------
+# Moyennes
+# -------------------------
+
+means_group <- data.frame(
+  Group = names(mu_group),
+  x = 1:4,
+  xend = 1:4 + 0.40,
+  y = unname(mu_group),
+  yend = unname(mu_group),
+  label = c(
+    "mu[11]",
+    "mu[12]",
+    "mu[21]",
+    "mu[22]"
+  )
+)
+
+# -------------------------
+# Graphique
+# -------------------------
+
+ggplot() +
+
+  geom_point(
+    data = data_normal,
+    aes(
+      x = x_plot,
+      y = Y,
+      colour = Group
+    ),
+    alpha = 0.65,
+    size = 5
+  ) +
+
+  geom_path(
+    data = normal_curves,
+    aes(
+      x = X,
+      y = Y,
+      group = Group
+    ),
+    colour = "black",
+    linewidth = 1.5
+  ) +
+
+  geom_segment(
+    data = means_group,
+    aes(
+      x = x,
+      xend = xend,
+      y = y,
+      yend = yend
+    ),
+    colour = "black",
+    linetype = "dashed",
+    linewidth = 1.2
+  ) +
+
+  geom_text(
+    data = means_group,
+    aes(
+      x = x,
+      y = y,
+      label = label
+    ),
+    parse = TRUE,
+    colour = "black",
+    size = 8,
+    nudge_x = -0.15,
+    nudge_y = 0.7
+  ) +
+
+  scale_colour_manual(
+    values = colors_groups_ex
+  ) +
+
+  scale_x_continuous(
+    breaks = 1:4,
+    labels = names(mu_group)
+  ) +
+
+  coord_cartesian(
+    xlim = c(0.5, 4.6),
+    ylim = c(0, 23)
+  ) +
+
+  labs(
+    title = "Cas normal",
+    x = "Groupe",
+    y = "Y"
+  ) +
+
+  theme_minimal(base_size = 20) +
+
+  theme(
+    plot.title = element_text(
+      size = 28,
+      face = "bold",
+      hjust = 0.5
+    ),
+    axis.title = element_text(size = 24),
+    axis.text = element_text(size = 20),
+    legend.position = "none"
+  )
+
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+set.seed(123)
+
+# -------------------------
+# Paramètres
+# -------------------------
+
+n <- 30
+
+mu_group <- c(
+  "A1B1" = 6,
+  "A1B2" = 10,
+  "A2B1" = 12,
+  "A2B2" = 16
+)
+
+sigma <- 1.5
+
+colors_groups_ex <- c(
+  "A1B1" = "#0072B2",
+  "A1B2" = "#E69F00",
+  "A2B1" = "#009E73",
+  "A2B2" = "#CC79A7"
+)
+
+# -------------------------
+# Données NON normales
+# -------------------------
+
+data_non_normal <- data.frame(
+  Group = rep(names(mu_group), each = n)
+)
+
+data_non_normal$Group <- factor(
+  data_non_normal$Group,
+  levels = names(mu_group)
+)
+
+data_non_normal$x <- as.numeric(data_non_normal$Group)
+
+data_non_normal$mu_ij <- mu_group[
+  as.character(data_non_normal$Group)
+]
+
+# -------------------------
+# Erreurs non normales
+# -------------------------
+
+eps <- rexp(
+  nrow(data_non_normal),
+  rate = 1 / sigma
+) - sigma
+
+data_non_normal$Y <-
+  data_non_normal$mu_ij + eps
+
+data_non_normal$x_plot <- data_non_normal$x +
+  runif(nrow(data_non_normal), -0.18, 0.18)
+
+# -------------------------
+# Distributions non normales
+# -------------------------
+
+non_normal_curves <- do.call(
+  rbind,
+  lapply(1:4, function(j) {
+
+    mu_j <- mu_group[j]
+
+    y_grid <- seq(
+      mu_j - sigma,
+      mu_j + 5 * sigma,
+      length.out = 300
+    )
+
+    dens <- dexp(
+      y_grid - mu_j + sigma,
+      rate = 1 / sigma
+    )
+
+    dens_scaled <- dens / max(dens) * 0.40
+
+    data.frame(
+      Group = names(mu_group)[j],
+      X = j + dens_scaled,
+      Y = y_grid
+    )
+  })
+)
+
+# -------------------------
+# Moyennes
+# -------------------------
+
+means_group <- data.frame(
+  Group = names(mu_group),
+  x = 1:4,
+  xend = 1:4 + 0.40,
+  y = unname(mu_group),
+  yend = unname(mu_group),
+  label = c(
+    "mu[11]",
+    "mu[12]",
+    "mu[21]",
+    "mu[22]"
+  )
+)
+
+# -------------------------
+# Graphique
+# -------------------------
+
+ggplot() +
+
+  geom_point(
+    data = data_non_normal,
+    aes(
+      x = x_plot,
+      y = Y,
+      colour = Group
+    ),
+    alpha = 0.65,
+    size = 5
+  ) +
+
+  geom_path(
+    data = non_normal_curves,
+    aes(
+      x = X,
+      y = Y,
+      group = Group
+    ),
+    colour = "black",
+    linewidth = 1.5
+  ) +
+
+  geom_segment(
+    data = means_group,
+    aes(
+      x = x,
+      xend = xend,
+      y = y,
+      yend = yend
+    ),
+    colour = "black",
+    linetype = "dashed",
+    linewidth = 1.2
+  ) +
+
+  geom_text(
+    data = means_group,
+    aes(
+      x = x,
+      y = y,
+      label = label
+    ),
+    parse = TRUE,
+    colour = "black",
+    size = 8,
+    nudge_x = -0.15,
+    nudge_y = 0.7
+  ) +
+
+  scale_colour_manual(
+    values = colors_groups_ex
+  ) +
+
+  scale_x_continuous(
+    breaks = 1:4,
+    labels = names(mu_group)
+  ) +
+
+  coord_cartesian(
+    xlim = c(0.5, 4.6),
+    ylim = c(0, 23)
+  ) +
+
+  labs(
+    title = "Cas non normal",
+    x = "Groupe",
+    y = "Y"
+  ) +
+
+  theme_minimal(base_size = 20) +
+
+  theme(
+    plot.title = element_text(
+      size = 28,
+      face = "bold",
+      hjust = 0.5
+    ),
+    axis.title = element_text(size = 24),
+    axis.text = element_text(size = 20),
+    legend.position = "none"
+  )
+```
+:::
+:::::
+
+|  |
+|:----------------------------------------------------------------------:|
+| Pour chaque groupe $(i,j)$, les observations $Y$ suivent une loi normale centrée sur la moyenne $\mu_{ij}$ du groupe. |
+
+## 1️⃣ Les hypothèses à vérifier avant le test
+
+```{=html}
+<div style="height:15px;"></div>
+```
+
+::: {style="font-size: 0.85em;"}
+Soit $i$ la modalité du facteur A (où $i = 1, ..., I$), $j$ celle du facteur B (où $j = 1, ..., J$) et $k$ le numéro de l'individu observé (où $k = 1, ..., n_{ij}$).
+:::
+
+```{=html}
+<div style="height:25px;"></div>
+```
+
+3.  [[homoscédasticité :]{.underline}]{.smallcaps} La variance des $\epsilon_{ijk}$ est la même dans tous les groupes $\longrightarrow$ La variance des $Y_{ijk}$ est la même dans tous les groupes
+
+::::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+set.seed(123)
+
+# -------------------------
+# Paramètres
+# -------------------------
+
+n <- 30
+
+mu_group <- c(
+  "A1B1" = 6,
+  "A1B2" = 10,
+  "A2B1" = 12,
+  "A2B2" = 16
+)
+
+sigma <- 1.5
+
+colors_groups_ex <- c(
+  "A1B1" = "#0072B2",
+  "A1B2" = "#E69F00",
+  "A2B1" = "#009E73",
+  "A2B2" = "#CC79A7"
+)
+
+# -------------------------
+# Données
+# -------------------------
+
+data <- data.frame(
+  Group = rep(names(mu_group), each = n)
+)
+
+data$Group <- factor(
+  data$Group,
+  levels = names(mu_group)
+)
+
+data$mu_ij <- mu_group[
+  as.character(data$Group)
+]
+
+# -------------------------
+# Variance constante
+# -------------------------
+
+eps <- rnorm(
+  nrow(data),
+  mean = 0,
+  sd = sigma
+)
+
+eps <- ave(
+  eps,
+  data$Group,
+  FUN = function(z) {
+    (z - mean(z)) / sd(z) * sigma
+  }
+)
+
+data$Y <- data$mu_ij + eps
+
+# -------------------------
+# Min et max par groupe
+# -------------------------
+
+width_data <- aggregate(
+  Y ~ Group,
+  data = data,
+  FUN = function(y) c(
+    min = min(y),
+    max = max(y)
+  )
+)
+
+width_data <- do.call(
+  data.frame,
+  width_data
+)
+
+names(width_data) <- c(
+  "Group",
+  "Y_min",
+  "Y_max"
+)
+
+# -------------------------
+# Graphique
+# -------------------------
+
+ggplot(
+  data,
+  aes(
+    x = Group,
+    y = Y,
+    colour = Group
+  )
+) +
+
+  geom_errorbar(
+    data = width_data,
+    aes(
+      x = Group,
+      ymin = Y_min,
+      ymax = Y_max
+    ),
+    width = 0.35,
+    colour = "black",
+    linetype = "dashed",
+    linewidth = 1.3,
+    inherit.aes = FALSE
+  ) +
+
+  geom_jitter(
+    width = 0.18,
+    alpha = 0.75,
+    size = 5
+  ) +
+
+  scale_colour_manual(
+    values = colors_groups_ex
+  ) +
+
+  coord_cartesian(
+    ylim = c(0, 23)
+  ) +
+
+  labs(
+    title = "Cas homoscédastique",
+    x = "Groupe",
+    y = "Y"
+  ) +
+
+  theme_minimal(base_size = 20) +
+
+  theme(
+    plot.title = element_text(
+      size = 28,
+      face = "bold",
+      hjust = 0.5
+    ),
+    axis.title = element_text(size = 24),
+    axis.text = element_text(size = 20),
+    legend.position = "none"
+  )
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+set.seed(123)
+
+# -------------------------
+# Paramètres
+# -------------------------
+
+n <- 30
+
+mu_group <- c(
+  "A1B1" = 6,
+  "A1B2" = 10,
+  "A2B1" = 12,
+  "A2B2" = 16
+)
+
+sigma_group <- c(
+  "A1B1" = 0.6,
+  "A1B2" = 1.5,
+  "A2B1" = 2.5,
+  "A2B2" = 3.5
+)
+
+colors_groups_ex <- c(
+  "A1B1" = "#0072B2",
+  "A1B2" = "#E69F00",
+  "A2B1" = "#009E73",
+  "A2B2" = "#CC79A7"
+)
+
+# -------------------------
+# Données
+# -------------------------
+
+data <- data.frame(
+  Group = rep(names(mu_group), each = n)
+)
+
+data$Group <- factor(
+  data$Group,
+  levels = names(mu_group)
+)
+
+data$mu_ij <- mu_group[
+  as.character(data$Group)
+]
+
+data$sigma_ij <- sigma_group[
+  as.character(data$Group)
+]
+
+# -------------------------
+# Variances différentes
+# -------------------------
+
+eps <- rnorm(
+  nrow(data),
+  mean = 0,
+  sd = data$sigma_ij
+)
+
+data$Y <- data$mu_ij + eps
+
+# -------------------------
+# Min et max par groupe
+# -------------------------
+
+width_data <- aggregate(
+  Y ~ Group,
+  data = data,
+  FUN = function(y) c(
+    min = min(y),
+    max = max(y)
+  )
+)
+
+width_data <- do.call(
+  data.frame,
+  width_data
+)
+
+names(width_data) <- c(
+  "Group",
+  "Y_min",
+  "Y_max"
+)
+
+# -------------------------
+# Graphique
+# -------------------------
+
+ggplot(
+  data,
+  aes(
+    x = Group,
+    y = Y,
+    colour = Group
+  )
+) +
+
+  geom_errorbar(
+    data = width_data,
+    aes(
+      x = Group,
+      ymin = Y_min,
+      ymax = Y_max
+    ),
+    width = 0.35,
+    colour = "black",
+    linetype = "dashed",
+    linewidth = 1.3,
+    inherit.aes = FALSE
+  ) +
+
+  geom_jitter(
+    width = 0.18,
+    alpha = 0.75,
+    size = 5
+  ) +
+
+  scale_colour_manual(
+    values = colors_groups_ex
+  ) +
+
+  coord_cartesian(
+    ylim = c(0, 23)
+  ) +
+
+  labs(
+    title = "Cas hétéroscédastique",
+    x = "Groupe",
+    y = "Y"
+  ) +
+
+  theme_minimal(base_size = 20) +
+
+  theme(
+    plot.title = element_text(
+      size = 28,
+      face = "bold",
+      hjust = 0.5
+    ),
+    axis.title = element_text(size = 24),
+    axis.text = element_text(size = 20),
+    legend.position = "none"
+  )
+```
+:::
+:::::
+
+|  |
+|:----------------------------------------------------------------------:|
+| La dispersion des $Y$ autour de leur moyenne est constante quelle que soit la combinaison des deux facteurs. |
+
+## 1️⃣ Vérification des hypothèses sur les données de souris
+
+```{=html}
+<div style="height:5px;"></div>
+```
+
+:::::::: columns
+:::::: {.column width="50%"}
+<br>
+
+::: fragment
+- [[Indépendance :]{.underline}]{.smallcaps} ⚠️ Supposée : les observations sont considérées comme indépendantes.
+:::
+
+```{=html}
+<div style="height:5px;"></div>
+```
+
+::: fragment
+- [[Normalité :]{.underline}]{.smallcaps} ✅ Dans chaque groupe, les durées de contact sont normalement distribués (p-value Shapiro-Wilk $= 0.414$).
+:::
+
+```{=html}
+<div style="height:5px;"></div>
+```
+
+::: fragment
+- [[Homoscédasticité :]{.underline}]{.smallcaps} La dispersion des urées de contact est similaire entre les groupes (p-value Levene $= 0.914$).
+:::
+::::::
+
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-width: 10
+#| fig-height: 9
+
+
+# --------------------------------------------------
+# Préparation des données
+# --------------------------------------------------
+
+colors_groups <- c(
+  "#0072B2",  # bleu
+  "#E69F00",  # orange
+  "#009E73",  # vert
+  "#CC79A7"   # violet
+)
+
+mice_plot <- data_mice %>%
+  filter(
+    !is.na(contact_time),
+    !is.na(Sex),
+    !is.na(Housing)
+  ) %>%
+  mutate(
+    Sex = factor(Sex),
+    Housing = factor(Housing),
+    Groupe = interaction(Sex, Housing, sep = " - ")
+  )
+
+# Couleurs associées aux groupes
+colors_groups <- setNames(
+  colors_groups,
+  levels(mice_plot$Groupe)
+)
+
+mice_plot <- mice_plot %>%
+  mutate(
+    x = as.numeric(Groupe),
+    color = colors_groups[as.character(Groupe)]
+  )
+
+# --------------------------------------------------
+# Statistiques par groupe
+# --------------------------------------------------
+
+group_stats <- mice_plot %>%
+  group_by(Groupe) %>%
+  summarise(
+    x = first(x),
+    mu = mean(contact_time),
+    sigma = sd(contact_time),
+    Y_min = min(contact_time),
+    Y_max = max(contact_time),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    label = paste0("mu[", seq_len(n()), "]")
+  )
+
+# --------------------------------------------------
+# Densités normales
+# --------------------------------------------------
+
+dens_data <- do.call(
+  rbind,
+  lapply(seq_len(nrow(group_stats)), function(j) {
+
+    mu_j <- group_stats$mu[j]
+    sigma_j <- group_stats$sigma[j]
+    x_j <- group_stats$x[j]
+
+    y_norm <- seq(
+      mu_j - 4 * sigma_j,
+      mu_j + 4 * sigma_j,
+      length.out = 300
+    )
+
+    dens <- dnorm(
+      y_norm,
+      mean = mu_j,
+      sd = sigma_j
+    )
+
+    dens_scaled <- dens / max(dens) * 0.35
+
+    data.frame(
+      Groupe = group_stats$Groupe[j],
+      x_curve = x_j + dens_scaled,
+      contact_time = y_norm
+    )
+  })
+)
+
+# --------------------------------------------------
+# Graphique
+# --------------------------------------------------
+
+ggplot() +
+
+  # Dispersion min-max : noir
+  geom_errorbar(
+    data = group_stats,
+    aes(
+      x = Groupe,
+      ymin = Y_min,
+      ymax = Y_max
+    ),
+    width = 0.30,
+    colour = "black",
+    linetype = "dashed",
+    linewidth = 1.5
+  ) +
+
+  # Observations : couleur propre à chaque groupe
+  geom_jitter(
+    data = mice_plot,
+    aes(
+      x = Groupe,
+      y = contact_time,
+      colour = color
+    ),
+    width = 0.18,
+    alpha = 0.25,
+    size = 4
+  ) +
+
+  scale_colour_identity() +
+
+  # Loi normale ajustée : noir
+  geom_path(
+    data = dens_data,
+    aes(
+      x = x_curve,
+      y = contact_time,
+      group = Groupe
+    ),
+    colour = "black",
+    linewidth = 2
+  ) +
+
+  # Moyenne : trait horizontal pointillé
+  geom_segment(
+    data = group_stats,
+    aes(
+      x = x - 0.25,
+      xend = x + 0.35,
+      y = mu,
+      yend = mu
+    ),
+    colour = "black",
+    linetype = "dashed",
+    linewidth = 1.8
+  ) +
+
+  # Moyennes des quatre combinaisons
+  geom_text(
+    data = group_stats,
+    aes(
+      x = x,
+      y = mu,
+      label = label
+    ),
+    parse = TRUE,
+    colour = "black",
+    size = 10,
+    fontface = "bold",
+    nudge_x = -0.35,
+    nudge_y = 0.7
+  ) +
+
+  labs(
+    x = "Sexe × Hébergement",
+    y = "Temps de contact"
+  ) +
+
+  theme_minimal(base_size = 22) +
+
+  theme(
+    axis.title = element_text(size = 26),
+    axis.text = element_text(size = 22),
+    legend.position = "none"
+  )
+
+```
+:::
+::::::::
+
+## 2️⃣ Pourquoi "Analyse de [*variance*]{.smallcaps}" : Intuition
+
+```{=html}
+<div style="height:5px;"></div>
+```
+
+> Comment déterminer si les moyennes des groupes estimées sont [suffisamment]{.smallcaps} différentes pour conclure à un effet significatif ?
+
+. . .
+
+::::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-height: 5
+
+# Nombre d'observations par combinaison
+n <- 50
+
+# Quatre combinaisons des facteurs A et B
+groupes <- c("A1B1", "A1B2", "A2B1", "A2B2")
+
+# Moyennes des quatre groupes
+mu <- c(5, 7, 9, 13)
+
+# Écarts symétriques autour de zéro
+z <- seq(-1, 1, length.out = n)
+
+# Données : forte variabilité résiduelle
+data_non_sig <- data.frame(
+  groupe = factor(
+    rep(groupes, each = n),
+    levels = groupes
+  ),
+  y = rep(mu, each = n) + 15 * rep(z, times = 4)
+)
+
+# Moyennes estimées
+means_non_sig <- data_non_sig %>%
+  group_by(groupe) %>%
+  summarise(
+    mu_hat = mean(y),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    label = paste0(
+      "bar(y)[", groupe, "] == ",
+      round(mu_hat, 1)
+    )
+  )
+
+# Graphique
+ggplot(
+  data_non_sig,
+  aes(x = groupe, y = y, colour = groupe)
+) +
+  geom_jitter(
+    width = 0.15,
+    size = 3.5,
+    alpha = 0.65
+  ) +
+  geom_crossbar(
+    data = means_non_sig,
+    aes(
+      x = groupe,
+      y = mu_hat,
+      ymin = mu_hat,
+      ymax = mu_hat
+    ),
+    inherit.aes = FALSE,
+    width = 0.5,
+    linewidth = 1.7,
+    colour = "black"
+  ) +
+  geom_text(
+    data = means_non_sig,
+    aes(
+      x = groupe,
+      y = mu_hat,
+      label = label
+    ),
+    inherit.aes = FALSE,
+    parse = TRUE,
+    nudge_y = 2.5,
+    size = 5,
+    colour = "black"
+  ) +
+  scale_colour_manual(
+    values = c(
+      "A1B1" = "#0072B2",
+      "A1B2" = "#E69F00",
+      "A2B1" = "#009E73",
+      "A2B2" = "#CC79A7"
+    )
+  ) +
+  coord_cartesian(ylim = c(-12, 30)) +
+  labs(
+    title = "Forte variabilité",
+    x = "Combinaison des facteurs",
+    y = "Y"
+  ) +
+  theme_minimal(base_size = 22) +
+  theme(
+    legend.position = "none",
+    plot.title = element_text(
+      size = 25,
+      face = "bold",
+      hjust = 0.5
+    ),
+    axis.title = element_text(size = 24),
+    axis.text = element_text(size = 20),
+    plot.margin = margin(10, 15, 10, 15)
+  )
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-height: 5
+
+# Données : faible variabilité résiduelle
+data_sig <- data.frame(
+  groupe = factor(
+    rep(groupes, each = n),
+    levels = groupes
+  ),
+  y = rep(mu, each = n) + rep(z, times = 4)
+)
+
+# Moyennes estimées
+means_sig <- data_sig %>%
+  group_by(groupe) %>%
+  summarise(
+    mu_hat = mean(y),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    label = paste0(
+      "bar(y)[", groupe, "] == ",
+      round(mu_hat, 1)
+    )
+  )
+
+# Graphique
+ggplot(
+  data_sig,
+  aes(x = groupe, y = y, colour = groupe)
+) +
+  geom_jitter(
+    width = 0.15,
+    size = 3.5,
+    alpha = 0.65
+  ) +
+  geom_crossbar(
+    data = means_sig,
+    aes(
+      x = groupe,
+      y = mu_hat,
+      ymin = mu_hat,
+      ymax = mu_hat
+    ),
+    inherit.aes = FALSE,
+    width = 0.5,
+    linewidth = 1.7,
+    colour = "black"
+  ) +
+  geom_text(
+    data = means_sig,
+    aes(
+      x = groupe,
+      y = mu_hat,
+      label = label
+    ),
+    inherit.aes = FALSE,
+    parse = TRUE,
+    nudge_y = 2.5,
+    size = 5,
+    colour = "black"
+  ) +
+  scale_colour_manual(
+    values = c(
+      "A1B1" = "#0072B2",
+      "A1B2" = "#E69F00",
+      "A2B1" = "#009E73",
+      "A2B2" = "#CC79A7"
+    )
+  ) +
+  coord_cartesian(ylim = c(-12, 30)) +
+  labs(
+    title = "Faible variabilité",
+    x = "Combinaison des facteurs",
+    y = "Y"
+  ) +
+  theme_minimal(base_size = 22) +
+  theme(
+    legend.position = "none",
+    plot.title = element_text(
+      size = 25,
+      face = "bold",
+      hjust = 0.5
+    ),
+    axis.title = element_text(size = 24),
+    axis.text = element_text(size = 25),
+    plot.margin = margin(10, 15, 10, 15)
+  )
+```
+:::
+:::::
+
+. . .
+
+::: callout-warning
+[**Comparer uniquement les moyennes ne suffit pas,**]{.smallcaps} il faut également prendre en compte la [variabilité des observations]{.smallcaps} au sein de chaque combinaison de facteurs.
+:::
+
+## 2️⃣ Variabilités expliquée et résiduelle
+
+```{=html}
+<div style="height:2px;"></div>
+```
+
+::: {style="font-size: 0.70em;"}
+Soient $I$ et $J$ les nombres de modalités des facteurs A et B, $n_{ij}$ l'effectif de la combinaison $A_iB_j$, $y_{ijk}$ sa $k$-ième observation, $\bar y_{A_iB_j}$ sa moyenne et $\bar y$ la moyenne globale.
+:::
+
+::::::::: columns
+::::: {.column width="50%"}
+
+::: {style="font-size: 0.95em; text-align:center;"}
+[[Variabilité résiduelle :]{.underline}]{.smallcaps}
+::: 
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-height: 4.25
+
+set.seed(123)
+
+n <- 12
+groupes <- c("A1B1", "A1B2", "A2B1", "A2B2")
+mu <- c(5, 7, 9, 11)
+
+data_var <- data.frame(
+  groupe = factor(rep(groupes, each = n), levels = groupes),
+  y = rep(mu, each = n) + rnorm(4 * n, sd = 1.5)
+) %>%
+  group_by(groupe) %>%
+  mutate(
+    x_group = as.numeric(groupe),
+    x = x_group + seq(-0.18, 0.18, length.out = n()),
+    mu_hat = mean(y)
+  ) %>%
+  ungroup()
+
+means_var <- data_var %>%
+  group_by(groupe) %>%
+  summarise(
+    x_group = first(x_group),
+    mu_hat = first(mu_hat),
+    .groups = "drop"
+  )
+
+mu_global <- mean(data_var$y)
+
+ggplot() +
+  geom_segment(
+    data = data_var,
+    aes(x = x, xend = x, y = mu_hat, yend = y),
+    colour = "#E69F00", linewidth = 1.2, alpha = 0.7
+  ) +
+  geom_point(
+    data = data_var,
+    aes(x = x, y = y, colour = groupe),
+    size = 3.5
+  ) +
+  geom_segment(
+    data = means_var,
+    aes(x = x_group - 0.28, xend = x_group + 0.28,
+        y = mu_hat, yend = mu_hat),
+    linewidth = 2, colour = "black"
+  ) +
+  geom_hline(
+    yintercept = mu_global,
+    linetype = "dashed", colour = "grey30"
+  ) +
+  scale_colour_manual(values = c(
+    "A1B1" = "#0072B2",
+    "A1B2" = "#E69F00",
+    "A2B1" = "#009E73",
+    "A2B2" = "#CC79A7"
+  )) +
+  scale_x_continuous(breaks = 1:4, labels = groupes) +
+  coord_cartesian(xlim = c(0.6, 4.4)) +
+  labs(x = "Combinaison des facteurs", y = "Y") +
+  theme_minimal(base_size = 20) +
+  theme(
+    legend.position = "none",
+    axis.title = element_text(size = 22),
+    axis.text = element_text(size = 19)
+  )
+```
+
+::: {style="font-size: 0.85em; margin-top: -22px;"}
+$$
+\color{#E69F00}{
+SC_{\mathrm{résiduelle}}
+=
+\sum_{i=1}^{I}\sum_{j=1}^{J}
+\sum_{k=1}^{n_{ij}}
+\left(y_{ijk}-\bar y_{A_iB_j}\right)^2
+}
+$$
+:::
+
+::: {style="font-size: 0.75em; text-align:center;"}
+$\longrightarrow$ **NON expliquée** : écarts des observations à la moyenne de leur groupe.
+:::
+:::::
+
+::::: {.column width="50%"}
+
+::: {style="font-size: 0.95em; text-align:center;"}
+[[Variabilité entre les groupes :]{.underline}]{.smallcaps}
+::: 
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-height: 4.25
+
+ggplot() +
+  geom_point(
+    data = data_var,
+    aes(x = x, y = y, colour = groupe),
+    size = 3.5, alpha = 0.65
+  ) +
+  geom_segment(
+    data = means_var,
+    aes(x = x_group, xend = x_group,
+        y = mu_global, yend = mu_hat),
+    colour = "#CC79A7", linewidth = 3
+  ) +
+  geom_segment(
+    data = means_var,
+    aes(x = x_group - 0.28, xend = x_group + 0.28,
+        y = mu_hat, yend = mu_hat),
+    linewidth = 2, colour = "black"
+  ) +
+  geom_hline(
+    yintercept = mu_global,
+    linetype = "dashed", colour = "grey30"
+  ) +
+  scale_colour_manual(values = c(
+    "A1B1" = "#0072B2",
+    "A1B2" = "#E69F00",
+    "A2B1" = "#009E73",
+    "A2B2" = "#CC79A7"
+  )) +
+  scale_x_continuous(breaks = 1:4, labels = groupes) +
+  coord_cartesian(xlim = c(0.6, 4.4)) +
+  labs(x = "Combinaison des facteurs", y = "Y") +
+  theme_minimal(base_size = 20) +
+  theme(
+    legend.position = "none",
+    axis.title = element_text(size = 22),
+    axis.text = element_text(size = 19)
+  )
+```
+
+::: {style="font-size: 0.85em; margin-top: -22px;"}
+$$
+\color{#CC79A7}{
+SC_{\mathrm{groupes}}
+=
+\sum_{i=1}^{I}\sum_{j=1}^{J}
+n_{ij}
+\left(\bar y_{A_iB_j}-\bar y\right)^2
+}
+$$
+:::
+
+::: {style="font-size: 0.75em; text-align:center;"}
+$\longrightarrow$ **Expliquée par les facteurs** : écarts des moyennes des groupes à la moyenne globale.
+:::
+:::::
+:::::::::
+
+
+## 2️⃣ Statistique de Fisher
+
+```{=html}
+<div style="height:5px;"></div>
+```
+
+
+::: callout-warning
+Pour comparer les variabilités, on divise chaque somme des carrés (SC) par ses **degrés de liberté** (= nombre d'informations indépendantes utilisées pour le calcul). On obtient ainsi un **carré moyen (CM)**.
+:::
+
+::::::: columns
+:::: {.column width="50%"}
+
+::: {style="font-size: 0.95em; text-align:center;"}
+[[Variabilité résiduelle (Carré Moyen) :]{.underline}]{.smallcaps}
+::: 
+
+::: {style="font-size: 0.85em; margin-top: 0px;"}
+$$
+\color{#E69F00}{
+CM_{\mathrm{résiduelle}}
+=
+\frac{SC_{\mathrm{résiduelle}}}{N-IJ}
+}
+$$
+:::
+
+::::
+
+:::: {.column width="50%"}
+
+::: {style="font-size: 0.95em; text-align:center;"}
+[[Variabilité entre les groupes (Carré Moyen) :]{.underline}]{.smallcaps}
+:::
+
+::: {style="font-size: 0.85em; margin-top: 0px;"}
+$$
+\color{#CC79A7}{
+CM_{\mathrm{groupes}}
+=
+\frac{SC_{\mathrm{groupes}}}{IJ-1}
+}
+$$
+:::
+::::
+:::::::
+
+. . .
+
+[Statistique de Fisher]{.smallcaps}
+
+La **statistique de Fisher** compare la variabilité entre les groupes à la variabilité résiduelle :
+
+$$
+F
+=
+\frac{
+\color{#CC79A7}{CM_{\mathrm{groupes}}}
+}{
+\color{#E69F00}{CM_{\mathrm{résiduelle}}}
+}
+=
+{\small
+\frac{\text{variabilité entre les groupes}}
+{\text{variabilité au sein des groupes}}
+}.
+$$
+
+
+## 2️⃣ Calcul de la statistique de Fisher - Exemple[^1]
+
+[^1]: Ici, le nombre d'observations a été réduit à $40$ pour plus de lisibilité.
+
+```{=html}
+<div style="height:5px;"></div>
+```
+
+::::::::: columns
+::::: {.column width="50%"}
+::: {style="text-align:center;"}
+[[Variabilité intra-groupe :]{.underline}]{.smallcaps}
+:::
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-height: 4.25
+
+print("à compléter :)")
+```
+
+::: {style="font-size: 0.75em; margin-top: -20px;"}
+$$
+\color{#E69F00}{
+CM_{\mathrm{intra}}
+=
+\frac{\sum\limits_{j=1}^{J}
+\sum\limits_{i=1}^{n_j}
+\left(y_{ij}-\hat{\mu}_j\right)^2}{N-J} = \frac{290266.3}{12853 - 4} = 22.59.}
+$$
+:::
+:::::
+
+::::: {.column width="50%"}
+::: {style="text-align:center;"}
+[[Variabilité inter-groupe :]{.underline}]{.smallcaps}
+:::
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+print("à compléter :)")
+```
+
+::: {style="font-size: 0.75em; margin-top: -20px;"}
+$$
+\color{#CC79A7}{
+CM_{\mathrm{inter}}
+=
+\frac{\sum\limits_{j=1}^{J}
+n_j
+\left(\hat{\mu}_j-\bar y\right)^2
+}{J - 1} = \frac{77187.72}{4-1} = 25729.24.}
+$$
+:::
+:::::
+:::::::::
+
+::: {style="text-align:center;font-size: 0.9em;"}
+[[Statistique de Fisher]{.underline}]{.smallcaps} [:]{.underline} $\quad F_{\mathrm{obs}} = \frac{\color{#CC79A7}{CM_{\mathrm{inter}}}
+}{\color{#E69F00}{CM_{\mathrm{intra}}}} = \frac{\color{#CC79A7}{25729.24}
+}{\color{#E69F00}{22.59}} = 1138.94 {\small \color{#4D4D4D}{\quad >> 1 \Longrightarrow CM_{\mathrm{inter}} >> CM_{\mathrm{intra}}.}}$
+:::
+
+## 2️⃣ Choix du risque de première espèce $\alpha$
+
+```{=html}
+<div style="height:15px;"></div>
+```
+
+::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top: 1px;padding-bottom: 5px;"}
+[[Rappel du test d'hypothèse :]{.underline}]{.smallcaps}
+
+$$\small H_0:\mu_C=\mu_F=\mu_M=\mu_S \qquad\qquad\qquad H_1:\text{au moins deux moyennes diffèrent} $$
+:::
+
+```{=html}
+<div style="height:15px;"></div>
+```
+
+|   | **Ne pas rejeter** $\small H_0$ | **Rejeter** $\small H_0$ |
+|------------------------|------------------------|------------------------|
+| $\small H_0$ **vraie** | ✅ Bonne décision | ❌ **Type I :** $\small \alpha$ |
+| $\small H_0$ **fausse** | ❌ **Type II :** $\small \beta$ | ✅ Bonne décision |
+
+> $\alpha$ est le [risque de première espèce]{.smallcaps} : le risque de conclure à un effet du statut reproductif sur l'âge alors qu'en réalité cet effet n'existe pas.
+
+$$\small    \alpha    =        P(\text{rejeter }H_0\mid H_0\text{ vraie})$$
+
+::: callout-note
+En pratique, on prend généralement $\alpha = 0.05 (5\%)$ ou $\alpha = 0.01 (1\%)$.
+:::
+
+## 2️⃣ Calcul de la p-value et conclusion - Définition
+
+```{=html}
+<div style="height:5px;"></div>
+```
+
+$$\text{Sous } H_0 \quad : \quad \mu_1=\mu_2=\cdots=\mu_J
+\qquad\Longrightarrow\qquad
+F\sim\mathcal F_{J-1,N-J}.$$
+
+:::::: columns
+:::: {.column width="55%"}
+[[p-value]{.underline}]{.smallcaps}
+
+La [p-value]{.smallcaps} correspond à la probabilité, **sous** $H_0$, d'observer une statistique $F$ au moins aussi grande que celle obtenue :
+
+$$
+p
+=
+\mathbb{P}_{H_0}
+\left(
+F\geq F_{\mathrm{obs}}\right)
+$$
+
+```{=html}
+<div style="height:20px;"></div>
+```
+
+::: fragment
+$\longrightarrow$ Graphiquement, la p-value correspond à **l'aire sous la courbe située à droite de** $F_{\mathrm{obs}}$.
+:::
+::::
+
+::: {.column width="45%"}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-height: 5
+#| fig-width: 6
+
+# Paramètres de la loi de Fisher
+ddl1 <- 3
+ddl2 <- 30
+
+# Valeurs de X
+x <- seq(0.01, 6, length.out = 800)
+
+# Densité de Fisher f(x)
+density_F <- df(
+  x,
+  df1 = ddl1,
+  df2 = ddl2
+)
+
+# Probabilité P(X > x)
+prob_sup <- pf(
+  x,
+  df1 = ddl1,
+  df2 = ddl2,
+  lower.tail = FALSE
+)
+
+# Informations affichées au survol
+hover_info <- paste0(
+  "X = ", round(x, 3),
+  "<br>Densité = ", round(density_F, 3),
+  "<br>P(X > ", round(x, 3), ") = ", round(prob_sup, 4)
+)
+
+# Graphique
+plot_ly(
+  x = x,
+  y = density_F,
+  type = "scatter",
+  mode = "lines",
+  
+  line = list(
+    color = "#4D4D4D",
+    width = 3
+  ),
+  
+  text = hover_info,
+  hoverinfo = "text"
+  
+) %>%
+  
+  layout(
+    
+    xaxis = list(
+      title = "Statistique F",
+      range = c(0, 6),
+      tickfont = list(size = 18),
+      titlefont = list(size = 20)
+    ),
+    
+    yaxis = list(
+      title = "Densité",
+      rangemode = "tozero",
+      tickfont = list(size = 18),
+      titlefont = list(size = 20)
+    ),
+    
+    showlegend = FALSE,
+    
+    # Permet de tracer des lignes à la main
+    dragmode = "drawline",
+    
+    newshape = list(
+      line = list(
+        color = "#E69F00",
+        width = 3
+      )
+    ),
+    
+    margin = list(
+      l = 70,
+      r = 20,
+      b = 60,
+      t = 20
+    )
+  ) %>%
+  
+  config(
+    displayModeBar = TRUE,
+    
+    modeBarButtonsToAdd = list(
+      "drawopenpath",
+      "eraseshape"
+    ),
+    
+    displaylogo = FALSE
+  )
+```
+:::
+::::::
+
+. . .
+
+[[**Conclusion :**]{.underline}]{.smallcaps} Si $p < \alpha$ on rejette $H_0$, sinon on ne rejette pas $H_0$ (on ne peut pas conclure).
+
+## 2️⃣ Calcul de la p-value et conclusion - Exemple
+
+```{=html}
+<div style="height:20px;"></div>
+```
+
+:::::::: columns
+:::::: {.column width="55%"}
+```{=html}
+<div style="height:25px;"></div>
+```
+
+::: fragment
+- [[degrés de libertés :]{.underline}]{.smallcaps} $J = 4$ et $N = 12853$\
+  $\longrightarrow \quad F \sim \mathcal{F}_{3, 12849}$.
+:::
+
+```{=html}
+<div style="height:5px;"></div>
+```
+
+::: fragment
+- [[Statistique observée :]{.underline}]{.smallcaps} $F_{\mathrm{obs}} = \frac{\color{#CC79A7}{CM_{\mathrm{inter}}}}{\color{#E69F00}{CM_{\mathrm{intra}}}} = 1138.94$.
+:::
+
+```{=html}
+<div style="height:5px;"></div>
+```
+
+::: fragment
+- [[p-value :]{.underline}]{.smallcaps} $p = \mathbb{P}_{H_0}\left(F\geq F_{\mathrm{obs}}\right) = \mathbb{P}_{H_0}\left(F \geq 1138.94 \right) \approx 0$.
+:::
+::::::
+
+::: {.column width="45%"}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-height: 5
+#| fig-width: 6
+#| fig-align: right
+
+
+# ---------------------------------------------------------
+# Paramètres
+# ---------------------------------------------------------
+
+N <- 12853
+J <- 4
+
+ddl1 <- J - 1       # 3
+ddl2 <- N - J       # 12849
+
+F_obs <- 1138.94
+
+# ---------------------------------------------------------
+# Distribution de Fisher sous H0
+# ---------------------------------------------------------
+
+x <- seq(0.001, 6, length.out = 2000)
+
+df_fisher <- data.frame(
+  x = x,
+  density = df(x, df1 = ddl1, df2 = ddl2)
+)
+
+# ---------------------------------------------------------
+# Graphique
+# ---------------------------------------------------------
+
+ggplot(df_fisher, aes(x = x, y = density)) +
+
+  # Loi de Fisher
+  geom_line(
+    colour = "#4D4D4D",
+    linewidth = 1.4
+  ) +
+
+  # Flèche montrant que F_obs est très loin à droite
+  annotate(
+    "segment",
+    x = 4.7,
+    xend = 5.9,
+    y = 0.08,
+    yend = 0.08,
+    colour = "#E69F00",
+    linewidth = 1.8,
+    arrow = arrow(
+      length = unit(0.3, "cm"),
+      type = "closed"
+    )
+  ) +
+
+  # Texte F_obs
+  annotate(
+    "text",
+    x = 5.3,
+    y = 0.14,
+    label = expression(F[obs] == 1138.94),
+    colour = "#E69F00",
+    size = 6
+  ) +
+
+  labs(
+    x = "Statistique F",
+    y = "Densité"
+  ) +
+
+  coord_cartesian(
+    xlim = c(0, 6),
+    clip = "off"
+  ) +
+
+  theme_minimal(base_size = 20) +
+
+  theme(
+    axis.title = element_text(size = 22),
+    axis.text = element_text(size = 18),
+    panel.grid.minor = element_blank(),
+    plot.margin = margin(10, 20, 10, 10)
+  )
+```
+:::
+::::::::
+
+. . .
+
+::: {style="margin-top: -15px;"}
+[[**Conclusion :**]{.underline}]{.smallcaps} $p \approx 0 < \alpha$ $\Longrightarrow$ on rejette $H_0 : \mu_C = \mu_F = \mu_M = \mu_S$, donc l'âge moyen au moment de la consultation **diffère [significativement]{.smallcaps}** selon le statut reproductif des chats.
+:::
+
+## ➕ Bonus : l'ANOVA est en fait un modèle linéaire
+
+```{=html}
+<div style="height:15px;"></div>
+```
+
+[[Modèle d'analyse de variance]{.underline}]{.smallcaps}
+
+: Considérons un individu $i$ appartenant au groupe $j$ (facteur $\times$ modalité) et une variable quantitative $Y$ mesurée sur cet individu. Le [modèle d'analyse de variance]{.smallcaps} décrit la valeur de $Y_{ij}$ sous la forme:
+
+  $$
+   \underbrace{Y_{ij}}_{\text{valeur observée}} =
+   \underbrace{\color{#CC79A7}{\mu}}_{\text{moyenne globale de $Y$}} +
+   \underbrace{\color{#009E73}{\alpha_j}}_{\text{effet du groupe $j$}} +
+   \underbrace{\epsilon_{ij}}_{\text{variabilité individuelle (bruit aléatoire)}}
+  $$
+
+La moyenne de $Y$ dans le groupe $j$ est donnée par $\mu_j = \color{#CC79A7}{\mu} + \color{#009E73}{\alpha_j}.$
+
+```{=html}
+<div style="height:15px;"></div>
+```
+
+::: callout-warning
+**Modèle ≠ méthode :** le [modèle ANOVA]{.smallcaps} décrit la structure des données. La [méthode ANOVA]{.smallcaps} permet d'ajuster ce modèle, de décomposer la variabilité et de tester les effets du facteur.
+:::
+
+## ➕ Bonnus : Écriture du modèle de l'ANOVA : Exemple[^2]
+
+[^2]: Ici, le nombre d'observations a été réduit à $40$ pour plus de lisibilité.
+
+::::: columns
+::: {.column width="50%"}
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+$$
+Y_{ij} = \underbrace{\color{#CC79A7}{\mu} + \color{#009E73}{\alpha_j}}_{= \mu_j {\small \text{ (moyenne du groupe } j)}} + \epsilon_{ij}.
+$$
+:::
+
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+print("à compélter")
+
+```
+:::
+:::::
+
+## 🐈 Application aux données de chats avec R
+
+<br>
+
+<br>
+
+[[**To Do :**]{.underline}]{.smallcaps}
+
+1.  Box-plot (boîte à moustache) pour voir à quoi ressemble nos données
+
+    <br>
+
+. . .
+
+2.  Vérification des hypothèses de normalité et d'homoscédasticité
+
+    <br>
+
+. . .
+
+3.  Déroulé de l'ANOVA et conclusion
+
+## 🐈 Application aux données de chats - Boxplot
+
+<br>
+
+::::: columns
+::: {.column width="45%"}
+```{=html}
+<div style="height:55px;"></div>
+```
+
+``` r
+ggplot(
+  cats,
+  aes(y = Age, x = Sex, colour = Sex, fill = Sex)
+) +
+  geom_boxplot(
+    alpha = 0.5,
+    outlier.alpha = 0,
+    linewidth = 1.25
+  ) +
+  geom_jitter(
+    width = 0.25
+  ) +
+  scale_x_discrete(
+    limits = c("C", "F", "M", "S")
+  )
+  
+```
+:::
+
+::: {.column width="55%"}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-height: 8
+
+print( "à compléter")
+```
+:::
+:::::
+
+## 🐈 Application aux données de chats - Vérif. des hypothèses - 1
+
+<br> <br> <br>
+
+- [[Normalité :]{.underline}]{.smallcaps} En pratique, on utilise le test de Shapiro-Wilk défini tel que : \n
+
+::: {style="font-size: 0.85em; text-align:center;"}
+$H_0$ : Les résidus sont normalement distribués *vs.* $H_1$ : Les résidus ne sont pas normalement distribués
+:::
+
+$\Longrightarrow$ [Objectif :]{.underline} Ne pas rejeter $H_0$ (i.e avoir une p-value \> 0.05)
+
+<br>
+
+::::: columns
+::: {.column width="50%"}
+```{=html}
+<div style="height:15px;"></div>
+```
+
+``` r
+anova <- aov(cats$Age ~ cats$Sex) 
+
+shapiro.test(anova$residuals)
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+
+print("à compléter")
+
+```
+:::
+:::::
+
+## 🐈 Application aux données de chats - Vérif. des hypothèses - 2
+
+<br> <br>
+
+- [[Homoscédasticité :]{.underline}]{.smallcaps} En pratique, on utilise le test de Levene défini tel que : \n
+
+::: {style="font-size: 0.85em; text-align:center;"}
+$H_0$ : Les données sont homogènement réparties *vs.* $H_1$ : Les données ne sont pas homogènement réparties
+:::
+
+$\Longrightarrow$ [Objectif :]{.underline} Ne pas rejeter $H_0$ (i.e avoir une p-value \> 0.05)
+
+<br>
+
+::::: columns
+::: {.column width="50%"}
+```{=html}
+<div style="height:15px;"></div>
+```
+
+``` r
+leveneTest(Age ~ Sex, data = cats)
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+
+print(" à compléter")
+```
+:::
+:::::
+
+## 🐈 Application aux données de chats - ANOVA & Conclusion
+
+<br> <br> <br> <br>
+
+::::: columns
+::: {.column width="50%"}
+```{=html}
+<div style="height:15px;"></div>
+```
+
+``` r
+aov <- aov(cats$Age ~ cats$Sex)
+summary(aov)
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+
+print(" à compléter")
+```
+:::
+:::::
+
+<br>
+
+::: small-box
+On peut conclure a un effet significatif du sexe sur l'âge moyen de visite (p-value \< $5\%$).
+:::
+
+## 📝 À quoi sert l'ANOVA ?
+
+<br>
+
+[[**Utilisations principales :**]{.underline}]{.smallcaps}
+
+- [Déterminer si un facteur est associé à des différences entre les moyennes de plusieurs groupes]{.smallcaps} - *L'âge moyen des chats au moment de leur consultation diffère-t-il selon leur statut reproductif ?*
+
+  $\longrightarrow$ Réalisation d'un [test ANOVA]{.smallcaps}.
+
+  <br>
+
+. . .
+
+- [Identifier les groupes dont les moyennes diffèrent significativement]{.smallcaps} - *Quels statuts reproductifs sont associés à des âges moyens significativement différents ?*
+
+  $\longrightarrow$ Réalisation de [tests post-hoc (ex. : test de Tukey)]{.smallcaps}.
+
+## 📑Exemple d'utilisation en sciences vétérinaires - 1
+
+```{=html}
+<div style="height:15px;"></div>
+```
+
+[[**Exemple issu de :**]{.underline}]{.smallcaps} @cozzi2017
+
+```{=html}
+<div style="height:10px;"></div>
+```
+
+![](figures/papier_ex_principal.png){fig-align="center"}
+
+```{=html}
+<div style="height:25px;"></div>
+```
+
+::: callout-note
+Dans l’ANOVA présentée dans cet article, on montre que : les animaux stérilisés sont significativement plus âgés lors de leur consultation que les animaux non stérilisés ($p<0.01$).
+:::
+
+::: {style="font-size: 0.85em;"}
+$\Longrightarrow$ Bonne nouvelle : on obtient la même conclusion que dans l'article 🎉
+:::
+
+## 📑Exemple d'utilisation en sciences vétérinaires - 2
+
+```{=html}
+<div style="height:15px;"></div>
+```
+
+[[**Exemple issu de :**]{.underline}]{.smallcaps} @kusaba2024
+
+```{=html}
+<div style="height:10px;"></div>
+```
+
+```{=html}
+<div style="height:25px;"></div>
+```
+
+::: callout-note
+Dans les ANOVA présentées dans cet article, on montre que certains biomarqueurs sanguins (adiponectine et activités enzymatiques GPx, SOD et MDH) présentent des différences significatives entre les groupes d'âge chez les chiens ($p < 0.05$).
+:::
+
+## 🎯 Conclusion
+
+<br>
+
+<br> <br>
+
+📌 [[**programme du prochain cours :**]{.underline}]{.smallcaps} Test de Tukey & ANOVA à 2 facteurs.
+
+## Références
