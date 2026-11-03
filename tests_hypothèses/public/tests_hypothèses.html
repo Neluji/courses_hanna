@@ -1,0 +1,1905 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="tests_hypothèses_files/libs/clipboard/clipboard.min.js"></script>
+<script src="tests_hypothèses_files/libs/quarto-html/tabby.min.js"></script>
+<script src="tests_hypothèses_files/libs/quarto-html/popper.min.js"></script>
+<script src="tests_hypothèses_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="tests_hypothèses_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="tests_hypothèses_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="tests_hypothèses_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
+
+  <meta name="author" content="Hanna Bacave">
+  <title>Tests d’hypothèses</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="tests_hypothèses_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="tests_hypothèses_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="tests_hypothèses_files/libs/revealjs/dist/theme/quarto-2740581606dc327e82f18f789b69d8a0.css">
+  <link rel="stylesheet" href="style.css">
+  <link href="tests_hypothèses_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="tests_hypothèses_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="tests_hypothèses_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="tests_hypothèses_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-image="figures/fond.png" data-background-size="cover" syntax-highlighting="idiomatic" class="quarto-title-block center">
+  <h1 class="title">Tests d’hypothèses</h1>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Hanna Bacave
+</div>
+</div>
+</div>
+
+</section>
+<section id="introduction-un-test-dhypothèse-quest-ce-cest" class="slide level2">
+<h2>🔍 Introduction : Un test d’hypothèse, qu’est-ce c’est ?</h2>
+<div style="height:30px;"></div>
+<blockquote>
+<p>Un <span class="smallcaps">test d’hypothèse</span> permet d’évaluer, à partir d’un échantillon, si les données apportent suffisamment d’éléments pour répondre par “oui” ou par “non” à une question sur la population.</p>
+</blockquote>
+<div class="fragment">
+<div style="height:50px;"></div>
+<table class="caption-top">
+<colgroup>
+<col style="width: 71%">
+<col style="width: 28%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><h1 id="question-de-recherche">Question de recherche</h1></td>
+<td><h1 id="méthode-utilisée">Méthode utilisée</h1></td>
+</tr>
+<tr class="even">
+<td>Le poids moyen des chats diffère-t-il selon leur sexe ?</td>
+<td>Test de Student</td>
+</tr>
+<tr class="odd">
+<td>La proportion de chiens présentant une maladie est-elle différente de 20 % ?</td>
+<td>Test d’une proportion</td>
+</tr>
+<tr class="even">
+<td>La présence d’une maladie est-elle associée au statut vaccinal ?</td>
+<td>Test <span class="math inline">\(\chi^2\)</span> d’indépendance</td>
+</tr>
+<tr class="odd">
+<td>Le type d’alimentation influence-t-il la durée de guérison de l’animal ?</td>
+<td>ANOVA</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment">
+<div style="height:50px;"></div>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>Il existe de nombreux tests d’hypothèse, dont le choix dépend de la question posée et de la nature des données.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="application-présentation-des-données" class="slide level2">
+<h2>🐈 Application : Présentation des données</h2>
+<div style="height:5px;"></div>
+<p><span class="smallcaps"><u>Jeu de données utilisé :</u></span> Mesures anatomiques chez <span class="math inline">\(144\)</span> chats adultes, disponibles dans le package R <em>MASS</em> <span class="citation" data-cites="MASS fisher1947">(<a href="#/références" role="doc-biblioref" onclick="">Venables and Ripley 2002</a>; <a href="#/références" role="doc-biblioref" onclick="">Fisher 1947</a>)</span>.</p>
+<div class="fragment">
+<div class="columns">
+<div class="column" style="width:60%;">
+<div style="height:40;"></div>
+<ul>
+<li>144 chats étudiés</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p>Sexe : Femelles (F), Mâles (M)</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>Femelles</th>
+<th>Males</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Nb. d’individus</td>
+<td>47</td>
+<td>97</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>2 mesures morphologiques :</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Nom</th>
+<th>Mesure</th>
+<th>Unité</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Bwt</td>
+<td>Poids corporel</td>
+<td>kg</td>
+</tr>
+<tr class="even">
+<td>Hwt</td>
+<td>Poids du coeur</td>
+<td>g</td>
+</tr>
+</tbody>
+</table></li>
+</ul>
+</div>
+</div><div class="column" style="width:40%;">
+<div class="columns">
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Sex</th>
+<th style="text-align: right;">Bwt</th>
+<th style="text-align: right;">Hwt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">7.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">7.4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">9.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">2.1</td>
+<td style="text-align: right;">7.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">2.1</td>
+<td style="text-align: right;">7.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">2.1</td>
+<td style="text-align: right;">7.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">2.1</td>
+<td style="text-align: right;">8.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">2.1</td>
+<td style="text-align: right;">8.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">2.1</td>
+<td style="text-align: right;">8.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">2.1</td>
+<td style="text-align: right;">8.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div></div>
+</div>
+<div class="fragment">
+<div style="height:15px;"></div>
+<div style="text-align: center; font-size: 0.85em;">
+<p>Dans la suite, on va se concentrer uniquement sur le poids corporel (Bwt) de l’ensemble des chats.</p>
+</div>
+</div>
+</section>
+<section id="application-question-de-recherche" class="slide level2">
+<h2>🐈 Application : Question de recherche</h2>
+<div class="center-text">
+<div class="highlight-box">
+<p>Le poids corporel moyen des chats diffère-t-il entre les mâles et les femelles ?</p>
+</div>
+</div>
+</section>
+<section id="objectifs-du-cours" class="slide level2">
+<h2>📖 Objectifs du cours</h2>
+<br>
+<br>
+<ol type="1">
+<li>Qu’est-ce qu’un test d’hypothèse ?</li>
+</ol>
+<div class="fragment">
+<div style="height:5px;"></div>
+<ol start="2" type="1">
+<li>Comment réaliser et interpréter un test d’hypothèse ?</li>
+</ol>
+</div>
+<div class="fragment">
+<div style="height:5px;"></div>
+<ol start="3" type="1">
+<li>Présentation des différents tests d’hypothèses</li>
+</ol>
+</div>
+<div class="fragment">
+<div style="height:5px;"></div>
+<ol start="4" type="1">
+<li>Application aux données avec R</li>
+</ol>
+</div>
+<div class="fragment">
+<div style="height:5px;"></div>
+<ol start="5" type="1">
+<li>Conclusion &amp; Exemple concret en sciences vétérinaires</li>
+</ol>
+</div>
+</section>
+<section id="quest-ce-quun-test-dhypothèse-intuition" class="slide level2">
+<h2>1️⃣ Qu’est-ce qu’un test d’hypothèse : Intuition</h2>
+<div style="height:5px;"></div>
+<blockquote>
+<p>Comment déterminer si les moyennes des groupes estimées sont <span class="smallcaps">suffisamment</span> différentes pour dire que c’est <em>significatif</em> ?</p>
+</blockquote>
+<div class="fragment">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="tests_hypothèses_files/figure-revealjs/unnamed-chunk-2-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div style="margin-top: -40px;">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="smallcaps"><strong>Comparer uniquement les moyennes ne suffit pas</strong></span> : il faut également tenir compte de la variabilité des observations et de la taille des échantillons.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="test-dhypothèse-définition" class="slide level2">
+<h2>1️⃣ Test d’hypothèse : Définition</h2>
+<div style="height:2px;"></div>
+<p><span class="smallcaps"><u>Notations :</u></span> Soit <span class="math inline">\(X\)</span> une variable aléatoire représentant une caractéristique quantitative d’intérêt dans une population et <span class="math inline">\(X_1,\ldots,X_n\)</span> l’échantillon associé. On pose :</p>
+<ul>
+<li><span class="math inline">\(\mu_{\mathrm{pop}}\)</span> : Moyenne inconnue de la population.</li>
+<li><span class="math inline">\(\mu_0\)</span> : Valeur de référence de la moyenne.</li>
+<li><span class="math inline">\(\mu_{\mathrm{éch}}=\frac{1}{n}\sum_{i=1}^n X_i\)</span> : Moyenne de l’échantillon.</li>
+</ul>
+<p><span class="smallcaps"><u>Hypothèses (test bilatéral) :</u></span></p>
+<div style="margin-top: -20px;">
+<p><span class="math display">\[
+\underbrace{H_0:\mu_{\mathrm{pop}}=\mu_0}_{\substack{\text{Hypothèse nulle}\\
+\text{Hypothèse de référence à tester}}}
+\qquad\qquad
+\underbrace{H_1:\mu_{\mathrm{pop}}\neq\mu_0}_{\substack{\text{Hypothèse alternative}\\
+\text{Opposée à }H_0}}
+\]</span></p>
+</div>
+<div class="small-box">
+<p>Un test d’hypothèse conduit à deux décisions possibles : rejeter <span class="math inline">\(H_0\)</span> ou ne pas rejeter <span class="math inline">\(H_0\)</span>.</p>
+</div>
+</section>
+<section id="test-dhypothèse-exemple" class="slide level2">
+<h2>1️⃣ Test d’hypothèse : Exemple</h2>
+<div style="height:10px;"></div>
+<p><span class="smallcaps"><u>Notations :</u></span></p>
+<ul>
+<li><p><span class="math inline">\(X_{F,1},\ldots,X_{F,n_F}\)</span> : Poids corporels des <span class="math inline">\(n_F=47\)</span> femelles de l’échantillon.</p></li>
+<li><p><span class="math inline">\(X_{M,1},\ldots,X_{M,n_M}\)</span> : Poids corporels des <span class="math inline">\(n_M=97\)</span> mâles de l’échantillon.</p></li>
+<li><p><span class="math inline">\(\mu_F\)</span> et <span class="math inline">\(\mu_M\)</span> : Poids corporels moyens inconnus des populations.</p></li>
+</ul>
+<div style="height:2px;"></div>
+<p><span class="smallcaps"><u>Hypothèses (test bilatéral) :</u></span> <span class="math display">\[
+\boxed{
+\underbrace{H_0:\mu = \mu_F-\mu_M=0}_{\substack{\text{Hypothèse nulle}\\
+\text{Hypothèse de référence à tester}}}
+\qquad\qquad
+\underbrace{H_1:\mu = \mu_F-\mu_M\neq 0}_{\substack{\text{Hypothèse alternative}}}
+}
+\]</span></p>
+</section>
+<section id="méthode-basée-sur-les-ic-intuition" class="slide level2">
+<h2>2️⃣ Méthode basée sur les IC : Intuition</h2>
+<div style="height:2px;"></div>
+<p><span class="smallcaps"><u>Rappel des hypothèses (test bilatéral) :</u></span> <span class="math inline">\(\ H_0:\mu_{\mathrm{pop}}=\mu_0 \qquad H_1:\mu_{\mathrm{pop}}\neq\mu_0\)</span></p>
+<div style="height:10px;"></div>
+<p><span class="smallcaps"><u>Objectif :</u></span> Construire un intervalle de confiance pour <span class="math inline">\(\mu_{\mathrm{pop}}\)</span> et vérifier s’il contient la valeur <span class="math inline">\(\mu_0\)</span>.</p>
+<p><span class="math display">\[
+IC_{95\%}(\mu_\mathrm{pop})
+=
+\left[
+\mu_{\mathrm{éch}}-1.96\frac{\sigma_{\mathrm{pop}}}{\sqrt{n}}
+\ ;\
+\mu_{\mathrm{éch}}+1.96\frac{\sigma_{\mathrm{pop}}}{\sqrt{n}}
+\right]
+\]</span></p>
+<div style="height:5px;"></div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="text-align: center">
+<p><span class="smallcaps"><u>Cas 1 :</u></span> <span class="math inline">\(\ \mu_0 \in IC_{95\%}(\mu_{\mathrm{pop}})\)</span> et <span class="math inline">\(n\)</span> grand</p>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="tests_hypothèses_files/figure-revealjs/unnamed-chunk-3-1.png" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div style="text-align: center">
+<p><span class="smallcaps"><u>Cas 2 :</u></span> <span class="math inline">\(\ \mu_0 \notin IC_{95\%}(\mu_{\mathrm{pop}})\)</span> et <span class="math inline">\(n\)</span> grand</p>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="tests_hypothèses_files/figure-revealjs/unnamed-chunk-4-1.png" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<div style="margin-top: -15px;">
+<div class="small-box">
+<p>Quelle décision prendre concernant <span class="math inline">\(H_0\)</span> selon que <span class="math inline">\(\mu_0\)</span> appartient ou non à l’intervalle de confiance ?</p>
+</div>
+</div>
+</section>
+<section id="méthode-basée-sur-les-ic-décision" class="slide level2">
+<h2>2️⃣ Méthode basée sur les IC : Décision</h2>
+<div style="height:5px;"></div>
+<p><span class="smallcaps"><u>Rappel des hypothèses (test bilatéral) :</u></span> <span class="math inline">\(\ H_0:\mu_{\mathrm{pop}}=\mu_0 \qquad H_1:\mu_{\mathrm{pop}}\neq\mu_0\)</span></p>
+<div style="height:10px;"></div>
+<p><span class="smallcaps"><u>Règle de décision</u></span> <u>(risque <span class="math inline">\(\alpha=5\%\)</span>) :</u> <span class="math inline">\(\ \begin{cases}\mu_0 \in IC_{95\%}(\mu_{\mathrm{pop}})&amp;\Longrightarrow \text{Non-rejet de }H_0 \\[6pt]\mu_0 \notin IC_{95\%}(\mu_{\mathrm{pop}})&amp;\Longrightarrow \text{Rejet de }H_0\end{cases}\)</span></p>
+<div style="height:15px;"></div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="text-align: center">
+<p><span class="smallcaps"><u>Cas 1 :</u></span> <span class="math inline">\(\ \mu_0 \in IC_{95\%}(\mu_{\mathrm{pop}})\)</span> et <span class="math inline">\(n\)</span> grand</p>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="tests_hypothèses_files/figure-revealjs/unnamed-chunk-5-1.png" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div style="text-align: center; margin-top: -10px;">
+<p><span class="math inline">\(\Longrightarrow\)</span> <strong>Non-rejet de</strong> <span class="math inline">\(H_0\)</span></p>
+</div>
+</div><div class="column" style="width:50%;">
+<div style="text-align: center">
+<p><span class="smallcaps"><u>Cas 2 :</u></span> <span class="math inline">\(\ \mu_0 \notin IC_{95\%}(\mu_{\mathrm{pop}})\)</span> et <span class="math inline">\(n\)</span> grand</p>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="tests_hypothèses_files/figure-revealjs/unnamed-chunk-6-1.png" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div style="text-align: center; margin-top: -10px;">
+<p><span class="math inline">\(\Longrightarrow\)</span> <strong>Rejet de</strong> <span class="math inline">\(H_0\)</span></p>
+</div>
+</div></div>
+<div class="fragment">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="smallcaps"><strong>Attention à la taille de l’échantillon</strong></span><span class="math inline">\(n\)</span> : Si <span class="math inline">\(n\)</span> est trop petit, l’IC peut être trop large pour conclure.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="méthode-basée-sur-les-ic-exemple" class="slide level2">
+<h2>2️⃣ Méthode basée sur les IC : Exemple</h2>
+<div style="height:5px;"></div>
+<p><span class="smallcaps"><u>Rappel des hypothèses :</u></span> <span class="math inline">\(\ H_0:\mu = \mu_F-\mu_M=0 \qquad H_1: \mu = \mu_F-\mu_M\neq 0\)</span></p>
+<div style="height:10px;"></div>
+<div class="fragment">
+<p><span class="smallcaps"><u>Construction de l’IC à 95 % :</u></span></p>
+<div style="margin-top: -20px;font-size: 0.9em">
+<p><span class="math display">\[
+IC_{95\%}(\mu)
+=
+\left[
+(\underbrace{\mu_{\mathrm{éch},F}-\mu_{\mathrm{éch},M}}_{\mu_{\mathrm{ech}}})
+\pm
+1.96\sqrt{
+\frac{\sigma_F^2}{\color{#E69F00}{47}}+
+\frac{\sigma_M^2}{\color{#E69F00}{97}}
+}
+\right]
+\]</span></p>
+</div>
+<div style="height:5px;"></div>
+<p><span class="smallcaps"><u>Règle de décision</u></span> <u>(risque <span class="math inline">\(\alpha=5\%\)</span>) :</u> <span class="math inline">\(\begin{cases}0\in IC_{95\%}(\mu)&amp;\Longrightarrow \text{Non-rejet de }H_0\\[6pt]0\notin IC_{95\%}(\mu)&amp;\Longrightarrow \text{Rejet de }H_0\end{cases}\)</span></p>
+</div>
+<div class="fragment">
+<div style="height:5px;"></div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="tests_hypothèses_files/figure-revealjs/unnamed-chunk-7-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p><br></p>
+<p><span class="math inline">\(\Longrightarrow\)</span> <strong>Rejet de</strong> <span class="math inline">\(H_0\)</span></p>
+<p>Les poids des mâles et des femelles sont <span class="math inline">\(\ne\)</span>.</p>
+</div></div>
+</div>
+</section>
+<section id="méthode-basée-sur-les-observations-atypiques-intuition" class="slide level2">
+<h2>2️⃣ Méthode basée sur les observations atypiques : Intuition</h2>
+<div style="height:2px;"></div>
+<p><span class="smallcaps"><u>Rappel des hypothèses (test bilatéral) :</u></span> <span class="math inline">\(H_0:\mu_{\mathrm{pop}}=\mu_0 \qquad H_1:\mu_{\mathrm{pop}}\neq\mu_0\)</span></p>
+<div style="height:10px;"></div>
+<p><span class="smallcaps"><u>Objectif :</u></span> Déterminer quelles valeurs de <span class="math inline">\(\mu_{\mathrm{éch}}\)</span> sont atypiques lorsque <span class="math inline">\(H_0\)</span> est supposée vraie.</p>
+<div class="fragment">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="tests_hypothèses_files/figure-revealjs/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div style="margin-top: -75px;">
+<div class="small-box">
+<p>À partir de quand l’écart entre <span class="math inline">\(\mu_\mathrm{éch}\)</span> et <span class="math inline">\(\mu_0\)</span> est-il suffisamment important pour rejeter <span class="math inline">\(H_0\)</span> ?</p>
+</div>
+</div>
+</div>
+</section>
+<section id="méthode-basée-sur-les-obs.-atypiques-statistique-de-test" class="slide level2">
+<h2>2️⃣ Méthode basée sur les obs. atypiques : Statistique de test</h2>
+<div style="height:5px;"></div>
+<div style="font-size: 0.85em">
+<p>On considère un échantillon <span class="math inline">\(X_1,\ldots,X_n\)</span> de v.a. indépendantes et de même loi, avec <span class="math inline">\(n\)</span> grand.</p>
+</div>
+<div style="height:10px;"></div>
+<dl>
+<dt><span class="smallcaps">Statistique de test</span></dt>
+<dd>
+<p>Une <span class="smallcaps">statistique de test</span> est une v.a., qui dépend de l’échantillon. Elle est utilisée pour construire une règle de décision sur <span class="math inline">\(H_0\)</span>. Pour un test bilatéral, on utilise la statistique de test suivante :</p>
+</dd>
+</dl>
+<p><span class="math display">\[
+T=\frac{\mu_{\mathrm{éch}}-\mu_0} {\sigma_{\mathrm{pop}}/\sqrt{n}},
+\]</span> où <span class="math inline">\(\sigma_{\mathrm{pop}}/\sqrt{n}\)</span> est l’écart-type de la moyenne d’échantillon.</p>
+<div style="height:10px;"></div>
+<div class="fragment">
+<p><span class="smallcaps"><u>Application du théorème central limite :</u></span> Sous <span class="math inline">\(H_0\)</span>, <span class="math inline">\(T \sim \mathcal{N}(0, 1)\)</span>.</p>
+<div style="text-align:center; font-size: 0.85em">
+<p>Si <span class="math inline">\(\ T \approx 0\)</span>, <span class="math inline">\(\mu_{\mathrm{éch}}\)</span> est proche de <span class="math inline">\(\mu_0\)</span> et si <span class="math inline">\(\ |T|\)</span> est grand, <span class="math inline">\(\mu_{\mathrm{éch}}\)</span> est une observation atypique.</p>
+</div>
+</div>
+</section>
+<section id="méthode-basée-sur-les-obs.-atypiques-risques-derreur" class="slide level2">
+<h2>2️⃣ Méthode basée sur les obs. atypiques : Risques d’erreur</h2>
+<div style="height:5px;"></div>
+<p><span class="smallcaps"><u>Explication :</u></span> Un test d’hypothèse repose sur une décision prise à partir d’un échantillon, il peut donc être erroné.</p>
+<div style="height:5px;"></div>
+<p><span class="smallcaps"><u>Objectif :</u></span> Contrôler les erreurs.</p>
+<div style="height:5px;"></div>
+<div style="text-align: center">
+<table class="caption-top" style="width:99%;">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 35%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Ne pas rejeter</strong> <span class="math inline">\(\small H_0\)</span></th>
+<th><strong>Rejeter</strong> <span class="math inline">\(\small H_0\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\small H_0\)</span> <strong>vraie</strong></td>
+<td>✅ Bonne décision</td>
+<td>❌ <strong>Type I :</strong> <span class="math inline">\(\small \alpha\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\small H_0\)</span> <strong>fausse</strong></td>
+<td>❌ <strong>Type II :</strong> <span class="math inline">\(\small \beta\)</span></td>
+<td>✅ Bonne décision</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="height:5px;"></div>
+<p><span class="smallcaps"><u>On distingue deux risques :</u></span></p>
+<ul>
+<li>Risque de première espèce : <span class="math inline">\(\alpha=\mathbb{P}(\text{rejeter }H_0\mid H_0\text{ vraie})\)</span></li>
+<li>Risque de deuxième espèce : <span class="math inline">\(\beta=\mathbb{P}(\text{ne pas rejeter }H_0\mid H_1\text{ vraie})\)</span></li>
+</ul>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>En pratique, on fixe généralement le risque de première espèce <span class="math inline">\(\alpha=5\,\%\)</span> ou <span class="math inline">\(\alpha=1\,\%\)</span> avant de réaliser le test.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="méthode-basée-sur-les-obs.-atypiques-décision-avec-t_mathrmobs" class="slide level2">
+<h2>2️⃣ Méthode basée sur les obs. atypiques : Décision avec <span class="math inline">\(T_\mathrm{obs}\)</span></h2>
+<div style="height:2px;"></div>
+<div style="font-size: 0.85em; text-align: center;">
+<p>Sous <span class="math inline">\(H_0\)</span>, <span class="math inline">\(T \sim \mathcal{N}(0, 1)\)</span>, donc <span class="math inline">\(\mathbb{P}(-1.96\leq T\leq1.96)=0.95\)</span>.</p>
+</div>
+<div style="height:2px;"></div>
+<p><span class="smallcaps"><u>Règle de décision (risque</u></span> <u><span class="math inline">\(\alpha=5\%\)</span>) :</u></p>
+<div style="margin-top: -20px; margin-bottom: -20px;font-size: 0.9em">
+<p><span class="math display">\[
+\begin{cases}
+|T_{\mathrm{obs}}|\leq1.96
+&amp;\Longrightarrow \text{Non-rejet de }H_0 \\[6pt]
+|T_{\mathrm{obs}}|&gt;1.96
+&amp;\Longrightarrow \text{Rejet de }H_0
+\end{cases}
+\]</span></p>
+</div>
+<div class="grande-fig">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="tests_hypothèses_files/figure-revealjs/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div style="margin-top: -60px; ">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>Ne pas rejeter <span class="math inline">\(H_0\)</span> ne signifie pas que <span class="math inline">\(H_0\)</span> est vraie.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="méthode-basée-sur-les-obs.-atyp.-décision-avec-la-p-valeur" class="slide level2">
+<h2>2️⃣ Méthode basée sur les obs. atyp. : Décision avec la p-valeur</h2>
+<div style="height:10px;"></div>
+<dl>
+<dt><span class="smallcaps"><u>p-valeur</u></span></dt>
+<dd>
+<p>La <span class="smallcaps">p-valeur</span> est la probabilité, sous <span class="math inline">\(H_0\)</span>, d’obtenir une statistique de test au moins aussi extrême que celle observée. C’est le plus petit risque pour lequel on rejetterait <span class="math inline">\(H_0\)</span>.</p>
+</dd>
+</dl>
+<p><span class="math display">\[
+p=\mathbb{P}_{H_0}\left(|T|\geq|T_{\mathrm{obs}}|\right)  
+\]</span></p>
+<p><span class="smallcaps"><u>Règle de décision (risque</u></span> <u><span class="math inline">\(\alpha=5\%\)</span>) :</u></p>
+<p><span class="math display">\[
+    \boxed{
+        \begin{cases}
+        p&lt;0.05 &amp;\Longrightarrow \text{Rejet de }H_0\\[6pt]
+        p\geq0.05 &amp;\Longrightarrow \text{Non-rejet de }H_0
+        \end{cases}
+    }
+\]</span></p>
+<div style="height:5px;"></div>
+<div class="fragment">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>La p-valeur n’est pas la probabilité que <span class="math inline">\(H_0\)</span> soit vraie.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="méthode-basée-sur-les-obs.-atypiques-exemple" class="slide level2">
+<h2>2️⃣ Méthode basée sur les obs. atypiques : Exemple</h2>
+<div style="height:5px;"></div>
+<p><span class="smallcaps"><u>Rappel des hypothèses :</u></span> <span class="math inline">\(\ H_0:\mu=\mu_F-\mu_M=0 \qquad H_1:\mu=\mu_F-\mu_M\neq0\)</span></p>
+<div style="height:15px;"></div>
+<div class="fragment">
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="text-align:center;">
+<p><span class="smallcaps"><u>Calcul de la statistique de test :</u></span></p>
+</div>
+<p><span class="math display">\[
+T_{\mathrm{obs}}=
+\frac{
+\mu_{\mathrm{éch}
+}}{
+\sqrt{
+\frac{s_F^2}{\color{#E69F00}{47}}+
+\frac{s_M^2}{\color{#E69F00}{97}}
+}
+}
+\]</span></p>
+</div><div class="column" style="width:50%;">
+<div style="text-align:center;">
+<p><span class="smallcaps"><u>Règle de décision</u></span> <u>(risque <span class="math inline">\(\alpha=5\%\)</span>) :</u></p>
+</div>
+<p><span class="math display">\[
+\begin{cases}
+p\geq0.05 &amp;\Longrightarrow \text{Non-rejet de }H_0\\[6pt]
+p&lt;0.05 &amp;\Longrightarrow \text{Rejet de }H_0
+\end{cases}
+\]</span></p>
+</div></div>
+</div>
+<div class="fragment">
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><br></p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="tests_hypothèses_files/figure-revealjs/unnamed-chunk-10-1.png" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p><br></p>
+<div style="height:15px;"></div>
+<p><span class="math inline">\(T_{\mathrm{obs}}=-8.71\)</span> et <span class="math inline">\(p=8.83e-15\)</span>.</p>
+<p><span class="math inline">\(\Longrightarrow\)</span> <strong>Rejet de <span class="math inline">\(H_0\)</span></strong></p>
+<p>Le poids moyen diffère significativement entre mâles et femelles.</p>
+</div></div>
+</div>
+</section>
+<section id="comparaison-des-deux-approches" class="slide level2">
+<h2>2️⃣ Comparaison des deux approches</h2>
+<div style="height:35px;"></div>
+<table class="caption-top" style="width:99%;">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 32%">
+<col style="width: 48%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;"><strong>Méthode basée sur les IC</strong></th>
+<th style="text-align: left;"><strong>Méthode basée sur les obs. atypiques</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Principe</strong></td>
+<td style="text-align: left;">Construire un IC pour <span class="math inline">\(\mu_{\mathrm{pop}}\)</span></td>
+<td style="text-align: left;">Mesurer l’écart entre <span class="math inline">\(\mu_{\mathrm{éch}}\)</span> et <span class="math inline">\(\mu_0\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Outil</strong></td>
+<td style="text-align: left;">Intervalle de confiance</td>
+<td style="text-align: left;">Statistique de test</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Décision directe</strong></td>
+<td style="text-align: left;">Rejeter <span class="math inline">\(H_0\)</span> si <span class="math inline">\(\mu_0\)</span> n’appartient pas à l’IC</td>
+<td style="text-align: left;">Rejeter <span class="math inline">\(H_0\)</span> si la statistique observée appartient à la région de rejet</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Décision avec p-valeur</strong></td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">Rejeter <span class="math inline">\(H_0\)</span> si <span class="math inline">\(p&lt;\alpha\)</span></td>
+</tr>
+</tbody>
+</table>
+<div style="height:25px;"></div>
+<p><span class="smallcaps"><u>À retenir :</u></span> Pour le test bilatéral considéré, avec un risque <span class="math inline">\(\alpha=5\%\)</span>, les deux approches conduisent à la <strong>même décision</strong> :</p>
+<p><span class="math display">\[
+\boxed{
+\mu_0\notin IC_{95\%}(\mu_{\mathrm{pop}})
+\quad\Longleftrightarrow\quad
+|T_{\mathrm{obs}}|&gt;1.96
+\quad\Longleftrightarrow\quad
+p&lt;0.05
+}
+\]</span></p>
+<div style="height:25px;"></div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>En pratique, on utilise la méthode basée sur les observations atypiques et on décide avec la p-valeur.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="les-principaux-tests-dhypothèses" class="slide level2">
+<h2>3️⃣ Les principaux tests d’hypothèses</h2>
+<div style="height:5px;"></div>
+<table class="caption-top" style="width:99%;">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 23%">
+<col style="width: 20%">
+<col style="width: 18%">
+<col style="width: 24%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Test</strong></th>
+<th style="text-align: left;"><strong>Objectif</strong></th>
+<th style="text-align: left;"><strong>Nature des variables</strong></th>
+<th style="text-align: left;"><strong>Taille de l’échantillon</strong></th>
+<th style="text-align: left;"><strong>Hypothèses statistiques</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Test Z</strong></td>
+<td style="text-align: left;">Comparer une moyenne à une valeur de référence</td>
+<td style="text-align: left;">1 variable quantitative</td>
+<td style="text-align: left;">Tout <span class="math inline">\(n\)</span> si normalité et variance connue</td>
+<td style="text-align: left;"><span class="math inline">\(H_0:\mu=\mu_0\)</span> ; <span class="math inline">\(H_1:\mu\neq\mu_0\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Student (1 échantillon)</strong></td>
+<td style="text-align: left;">Comparer une moyenne à une valeur de référence</td>
+<td style="text-align: left;">1 variable quantitative</td>
+<td style="text-align: left;"><span class="math inline">\(n\geq2\)</span> ; normalité requise pour un petit <span class="math inline">\(n\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(H_0:\mu=\mu_0\)</span> ; <span class="math inline">\(H_1:\mu\neq\mu_0\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Student (2 échantillons)</strong></td>
+<td style="text-align: left;">Comparer deux moyennes</td>
+<td style="text-align: left;">1 variable quantitative + 1 qualitative (2 groupes)</td>
+<td style="text-align: left;"><span class="math inline">\(n_1,n_2\geq2\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(H_0:\mu_1=\mu_2\)</span> ; <span class="math inline">\(H_1:\mu_1\neq\mu_2\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Welch</strong></td>
+<td style="text-align: left;">Comparer deux moyennes (variances possiblement différentes)</td>
+<td style="text-align: left;">1 variable quantitative + 1 qualitative (2 groupes)</td>
+<td style="text-align: left;"><span class="math inline">\(n_1,n_2\geq2\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(H_0:\mu_1=\mu_2\)</span> ; <span class="math inline">\(H_1:\mu_1\neq\mu_2\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Student apparié</strong></td>
+<td style="text-align: left;">Comparer deux mesures sur les mêmes individus</td>
+<td style="text-align: left;">2 mesures quantitatives appariées</td>
+<td style="text-align: left;"><span class="math inline">\(n\geq2\)</span> paires</td>
+<td style="text-align: left;"><span class="math inline">\(H_0:\mu_D=0\)</span> ; <span class="math inline">\(H_1:\mu_D\neq0\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>ANOVA à 1 facteur</strong></td>
+<td style="text-align: left;">Comparer plusieurs moyennes</td>
+<td style="text-align: left;">1 quantitative + 1 qualitative (<span class="math inline">\(k\geq3\)</span> groupes)</td>
+<td style="text-align: left;">Effectifs suffisants dans chaque groupe</td>
+<td style="text-align: left;"><span class="math inline">\(H_0:\mu_1=\cdots=\mu_k\)</span> ; <span class="math inline">\(H_1:\)</span> au moins une moyenne diffère</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Shapiro-Wilk</strong></td>
+<td style="text-align: left;">Tester la normalité d’une distribution</td>
+<td style="text-align: left;">1 variable quantitative</td>
+<td style="text-align: left;"><span class="math inline">\(3\leq n\leq5000\)</span> sous R</td>
+<td style="text-align: left;"><span class="math inline">\(H_0:\)</span> normalité ; <span class="math inline">\(H_1:\)</span> non-normalité</td>
+</tr>
+</tbody>
+</table>
+<p><span class="smallcaps"><u>Conditions d’application :</u></span> Indépendance et normalité des observations (ou des différences appariées). Égalité des variances pour le Student à deux échantillons et l’ANOVA classique.</p>
+</section>
+<section id="bonus-cest-quoi-avoir-suffisamment-dobservation" class="slide level2">
+<h2>➕ Bonus : C’est quoi “<em>avoir suffisamment d’observation”</em> ?</h2>
+<div style="height:2px;"></div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>Dans ce cours, on utilise beaucoup la formulation <em>“pour</em> <span class="math inline">\(n\)</span> <em>grand”</em>, mais en pratique à partir de quelle taille <span class="math inline">\(n\)</span> est-il <span class="smallcaps">vraiment</span> grand ?</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div style="height:10px;"></div>
+<div style="text-align: center;">
+<p><strong>⁉️ Il n’y a pas de réponse universelle à cette question, tout dépend du problème ⁉️</strong></p>
+</div>
+</div>
+<div class="fragment">
+<div style="height:10px;"></div>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Valeur de <span class="math inline">\(n\)</span></th>
+<th>Suffisant ou non ?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>10</td>
+<td>❌</td>
+</tr>
+<tr class="even">
+<td>20</td>
+<td>❌</td>
+</tr>
+<tr class="odd">
+<td>30</td>
+<td>ça peut aller</td>
+</tr>
+<tr class="even">
+<td>45</td>
+<td>ça peut aller</td>
+</tr>
+<tr class="odd">
+<td>50</td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td>100 et +</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<div style="height:10px;"></div>
+</div>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>Dans tous les cas, on attend une vision critique du nombre d’observations disponibles.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="application-aux-données-de-chats-avec-r" class="slide level2">
+<h2>🐈 Application aux données de chats avec R</h2>
+<p><br></p>
+<p><strong>To Do :</strong></p>
+<div class="fragment">
+<ol type="1">
+<li>Formulation des hypothèses <span class="math inline">\(H_0\)</span> et <span class="math inline">\(H_1\)</span> et reflexion sur la taille de l’échantillon <span class="math inline">\(n\)</span></li>
+</ol>
+<div style="height:10px;"></div>
+</div>
+<div class="fragment">
+<ol start="2" type="1">
+<li>Visualisation des données</li>
+</ol>
+<div style="height:10px;"></div>
+</div>
+<div class="fragment">
+<ol start="3" type="1">
+<li>Choix du test statistique et calcul de la statistique de test</li>
+</ol>
+<div style="height:10px;"></div>
+</div>
+<div class="fragment">
+<ol start="4" type="1">
+<li>Calcul de la p-valeur et prise de décision au seuil de 5 %</li>
+</ol>
+<div style="height:10px;"></div>
+</div>
+<div class="fragment">
+<ol start="5" type="1">
+<li>Interprétation des résultats dans le contexte de l’étude</li>
+</ol>
+</div>
+</section>
+<section id="application-aux-données-de-chats---1---hypothèses" class="slide level2">
+<h2>🐈 Application aux données de chats - 1 - Hypothèses</h2>
+<div style="height:5px;"></div>
+<p><span class="smallcaps"><u>Question :</u></span> Le poids corporel moyen des chats diffère-t-il entre les mâles et les femelles ?</p>
+<div style="height:5px;"></div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="smallcaps"><u>Hypothèse nulle</u></span> <u><span class="math inline">\(H_0\)</span> :</u></p>
+<p>Le poids corporel moyen est identique chez les chats mâles et femelles.</p>
+<p><span class="math display">\[
+\boxed{H_0:\mu_F-\mu_M=0}
+\]</span></p>
+</div><div class="column" style="width:50%;">
+<p><span class="smallcaps"><u>Hypothèse alternative</u></span> <u><span class="math inline">\(H_1\)</span> :</u></p>
+<p>Le poids corporel moyen diffère entre les chats mâles et femelles.</p>
+<p><span class="math display">\[
+\boxed{H_1:\mu_F-\mu_M\neq0}
+\]</span></p>
+</div></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>On réalise un <strong>test bilatéral</strong>, car on cherche une différence sans présumer de son sens. La taille des échantillons influence la précision des estimations et la capacité du test à détecter une différence.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>Avec <span class="math inline">\(n_F=47\)</span> femelles et <span class="math inline">\(n_M=97\)</span> mâles, les effectifs permettent d’envisager un test de comparaison des moyennes.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="application-aux-données-de-chats---2---visualisation" class="slide level2">
+<h2>🐈 Application aux données de chats - 2 - Visualisation</h2>
+<p><br> <br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="" aria-label="1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb1-2"><a href="" aria-label="2"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="" aria-label="3"></a></span>
+<span id="cb1-4"><a href="" aria-label="4"></a><span class="fu">data</span>(cats)</span>
+<span id="cb1-5"><a href="" aria-label="5"></a></span>
+<span id="cb1-6"><a href="" aria-label="6"></a><span class="co"># Visualisation des poids selon le sexe</span></span>
+<span id="cb1-7"><a href="" aria-label="7"></a><span class="fu">ggplot</span>(cats, <span class="fu">aes</span>(<span class="at">x =</span> Sex, <span class="at">y =</span> Bwt, <span class="at">fill =</span> Sex)) <span class="sc">+</span></span>
+<span id="cb1-8"><a href="" aria-label="8"></a>  <span class="fu">geom_boxplot</span>(</span>
+<span id="cb1-9"><a href="" aria-label="9"></a>    <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
+<span id="cb1-10"><a href="" aria-label="10"></a>    <span class="at">width =</span> <span class="fl">0.5</span>,</span>
+<span id="cb1-11"><a href="" aria-label="11"></a>    <span class="at">outlier.shape =</span> <span class="cn">NA</span></span>
+<span id="cb1-12"><a href="" aria-label="12"></a>  ) <span class="sc">+</span></span>
+<span id="cb1-13"><a href="" aria-label="13"></a>  <span class="fu">geom_jitter</span>(</span>
+<span id="cb1-14"><a href="" aria-label="14"></a>    <span class="at">width =</span> <span class="fl">0.12</span>,</span>
+<span id="cb1-15"><a href="" aria-label="15"></a>    <span class="at">size =</span> <span class="fl">2.5</span>,</span>
+<span id="cb1-16"><a href="" aria-label="16"></a>    <span class="at">alpha =</span> <span class="fl">0.7</span></span>
+<span id="cb1-17"><a href="" aria-label="17"></a>  ) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:50%;">
+<p><br></p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="tests_hypothèses_files/figure-revealjs/unnamed-chunk-12-1.png" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="application-aux-données-de-chats---3---choix-du-test-et-calcul" class="slide level2">
+<h2>🐈 Application aux données de chats - 3 - Choix du test et calcul</h2>
+<div style="height:25px;"></div>
+<p><span class="smallcaps"><u>Choix du test :</u></span> On utilise le <strong>test t de Welch</strong> pour comparer les poids moyens de deux groupes indépendants, sans supposer l’égalité des variances.</p>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="" aria-label="1"></a><span class="co"># Test de Welch</span></span>
+<span id="cb2-2"><a href="" aria-label="2"></a>test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(</span>
+<span id="cb2-3"><a href="" aria-label="3"></a>  Bwt <span class="sc">~</span> Sex,</span>
+<span id="cb2-4"><a href="" aria-label="4"></a>  <span class="at">data =</span> cats,</span>
+<span id="cb2-5"><a href="" aria-label="5"></a>  <span class="at">var.equal =</span> <span class="cn">FALSE</span></span>
+<span id="cb2-6"><a href="" aria-label="6"></a>)</span>
+<span id="cb2-7"><a href="" aria-label="7"></a></span>
+<span id="cb2-8"><a href="" aria-label="8"></a><span class="co"># Statistique de test</span></span>
+<span id="cb2-9"><a href="" aria-label="9"></a>T_obs <span class="ot">&lt;-</span> <span class="fu">unname</span>(test<span class="sc">$</span>statistic)</span>
+<span id="cb2-10"><a href="" aria-label="10"></a>T_obs</span>
+<span id="cb2-11"><a href="" aria-label="11"></a></span>
+<span id="cb2-12"><a href="" aria-label="12"></a><span class="co"># Degrés de liberté</span></span>
+<span id="cb2-13"><a href="" aria-label="13"></a>ddl <span class="ot">&lt;-</span> <span class="fu">unname</span>(test<span class="sc">$</span>parameter)</span>
+<span id="cb2-14"><a href="" aria-label="14"></a>ddl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:50%;">
+<div style="text-align: center;">
+<p><span class="smallcaps"><u>Statistique de test :</u></span></p>
+</div>
+<p><span class="math display">\[
+T_{\mathrm{obs}} =
+\frac{
+\mu_{\mathrm{éch},F}-\mu_{\mathrm{éch},M}
+}{
+\sqrt{
+\frac{s_F^2}{47}+\frac{s_M^2}{97}
+}
+}
+\]</span></p>
+<p><span class="math display">\[T_{\mathrm{obs}} = -8.709\]</span></p>
+<p><span class="math display">\[\nu \approx 136.84\]</span></p>
+</div></div>
+</section>
+<section id="application-aux-données-de-chats---4---p-valeur-et-décision" class="slide level2">
+<h2>🐈 Application aux données de chats - 4 - p-valeur et décision</h2>
+<div style="height:10px;"></div>
+<p><span class="smallcaps"><u>Règle de décision (risque</u></span> <u><span class="math inline">\(\alpha=5\%\)</span>) :</u> <span class="math inline">\(\begin{cases}p &lt; 0.05 &amp;\Longrightarrow \text{Rejet de }H_0\\[6pt]p \geq 0.05 &amp;\Longrightarrow \text{Non-rejet de }H_0\end{cases}\)</span></p>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="" aria-label="1"></a></span>
+<span id="cb3-2"><a href="" aria-label="2"></a><span class="co"># Test de Welch</span></span>
+<span id="cb3-3"><a href="" aria-label="3"></a>test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(</span>
+<span id="cb3-4"><a href="" aria-label="4"></a>  Bwt <span class="sc">~</span> Sex,</span>
+<span id="cb3-5"><a href="" aria-label="5"></a>  <span class="at">data =</span> cats,</span>
+<span id="cb3-6"><a href="" aria-label="6"></a>  <span class="at">var.equal =</span> <span class="cn">FALSE</span></span>
+<span id="cb3-7"><a href="" aria-label="7"></a>)</span>
+<span id="cb3-8"><a href="" aria-label="8"></a></span>
+<span id="cb3-9"><a href="" aria-label="9"></a><span class="co"># Extraction de la p-valeur</span></span>
+<span id="cb3-10"><a href="" aria-label="10"></a>p_value <span class="ot">&lt;-</span> test<span class="sc">$</span>p.value</span>
+<span id="cb3-11"><a href="" aria-label="11"></a>p_value</span>
+<span id="cb3-12"><a href="" aria-label="12"></a></span>
+<span id="cb3-13"><a href="" aria-label="13"></a><span class="co"># Décision au seuil de 5 %</span></span>
+<span id="cb3-14"><a href="" aria-label="14"></a>p_value <span class="sc">&lt;</span> <span class="fl">0.05</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:50%;">
+<div style="text-align: center;">
+<p><span class="smallcaps"><u>Résultats :</u></span></p>
+<p><span class="math display">\[p &lt;0.001\]</span></p>
+<p><span class="math inline">\(\Longrightarrow\)</span> <strong>Rejet de <span class="math inline">\(H_0\)</span></strong></p>
+<p>La différence entre les poids moyens des mâles et des femelles est statistiquement significative au seuil de 5 %.</p>
+</div>
+</div></div>
+</section>
+<section id="application-aux-données-de-chats---5---interprétation" class="slide level2">
+<h2>🐈 Application aux données de chats - 5 - Interprétation</h2>
+<div style="height:10px;"></div>
+<p><span class="smallcaps"><u>Question de recherche :</u></span> Le poids corporel moyen des chats diffère-t-il entre les mâles et les femelles ?</p>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="" aria-label="1"></a><span class="co"># Moyennes par sexe</span></span>
+<span id="cb4-2"><a href="" aria-label="2"></a><span class="fu">aggregate</span>(Bwt <span class="sc">~</span> Sex, <span class="at">data =</span> cats, <span class="at">FUN =</span> mean)</span>
+<span id="cb4-3"><a href="" aria-label="3"></a></span>
+<span id="cb4-4"><a href="" aria-label="4"></a><span class="co"># Différence des moyennes</span></span>
+<span id="cb4-5"><a href="" aria-label="5"></a>diff_moy <span class="ot">&lt;-</span> <span class="fu">with</span>(</span>
+<span id="cb4-6"><a href="" aria-label="6"></a>  cats,</span>
+<span id="cb4-7"><a href="" aria-label="7"></a>  <span class="fu">mean</span>(Bwt[Sex <span class="sc">==</span> <span class="st">"F"</span>]) <span class="sc">-</span></span>
+<span id="cb4-8"><a href="" aria-label="8"></a>  <span class="fu">mean</span>(Bwt[Sex <span class="sc">==</span> <span class="st">"M"</span>])</span>
+<span id="cb4-9"><a href="" aria-label="9"></a>)</span>
+<span id="cb4-10"><a href="" aria-label="10"></a></span>
+<span id="cb4-11"><a href="" aria-label="11"></a>diff_moy</span>
+<span id="cb4-12"><a href="" aria-label="12"></a></span>
+<span id="cb4-13"><a href="" aria-label="13"></a><span class="co"># Intervalle de confiance à 95 %</span></span>
+<span id="cb4-14"><a href="" aria-label="14"></a>test<span class="sc">$</span>conf.int</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:50%;">
+<p><span class="smallcaps"><u>Résultats et interprétation :</u></span></p>
+<ul>
+<li><p>Poids moyen des femelles : <strong>2.36 kg</strong></p></li>
+<li><p>Poids moyen des mâles : <strong>2.9 kg</strong></p></li>
+</ul>
+<p>Au seuil de 5 %, on rejette <span class="math inline">\(H_0\)</span>. Les poids moyens des mâles et des femelles diffèrent significativement.</p>
+</div></div>
+<p><br></p>
+<div style="text-align: center;">
+<p>Dans cet échantillon, les mâles sont en moyenne plus lourds que les femelles.</p>
+</div>
+</section>
+<section id="à-quoi-servent-les-tests-dhypothèses" class="slide level2">
+<h2>📝 À quoi servent les tests d’hypothèses ?</h2>
+<div style="height:20px;"></div>
+<p><span class="smallcaps"><u><strong>Utilisations principales :</strong></u></span></p>
+<ul>
+<li><p><span class="smallcaps">Comparer une moyenne à une valeur de référence</span> - <em>Le poids moyen des chats est-il différent de 4 kg ?</em></p>
+<p><span class="math inline">\(\longrightarrow\)</span> Réalisation d’un <span class="smallcaps">test sur une moyenne</span>.</p></li>
+</ul>
+<div style="height:10px;"></div>
+<div class="fragment">
+<ul>
+<li><p><span class="smallcaps">Comparer les moyennes de deux groupes</span> - <em>Le poids moyen des chats diffère-t-il entre les mâles et les femelles ?</em></p>
+<p><span class="math inline">\(\longrightarrow\)</span> Réalisation d’un <span class="smallcaps">test de Student ou de Welch</span>.</p></li>
+</ul>
+<div style="height:10px;"></div>
+</div>
+<div class="fragment">
+<ul>
+<li><p><span class="smallcaps">Comparer les moyennes de plusieurs groupes</span> - <em>Le poids moyen diffère-t-il selon la race des chats ?</em></p>
+<p><span class="math inline">\(\longrightarrow\)</span> Réalisation d’une <span class="smallcaps">ANOVA</span>.</p></li>
+</ul>
+</div>
+</section>
+<section id="exemple-dutilisation-en-sciences-vétérinaires" class="slide level2">
+<h2>📑 Exemple d’utilisation en sciences vétérinaires</h2>
+<div style="height:20px;"></div>
+<p><span class="smallcaps"><u><strong>Exemple issu de :</strong></u></span> <span class="citation" data-cites="murphy2023">Murphy et al. (<a href="#/références" role="doc-biblioref" onclick="">2023</a>)</span></p>
+<div style="height:20px;"></div>
+
+<img data-src="figures/papier_ex.png" class="quarto-figure quarto-figure-center r-stretch"><div style="height:20px;"></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Dans cet article, les ateur.es utilisent un <strong>t-Test</strong> pour mettre en évidence une différence significative entre les poids moyens des chats mâles et femelles (<span class="math inline">\(p&lt;0{,}01\)</span>).</p>
+</div>
+</div>
+</div>
+</section>
+<section id="conclusion" class="slide level2">
+<h2>🎯 Conclusion</h2>
+<p><br></p>
+<p><span class="smallcaps"><u><strong>Les étapes d’un test d’hypothèse :</strong></u></span></p>
+<ol type="1">
+<li>Formuler les hypothèses <span class="math inline">\(H_0\)</span> et <span class="math inline">\(H_1\)</span>.</li>
+<li>Choisir un test et vérifier ses conditions d’application (en particulier la valeur de <span class="math inline">\(n\)</span>).</li>
+<li>Calculer la statistique de test et la p-valeur.</li>
+<li>Décider au seuil <span class="math inline">\(\alpha\)</span> et interpréter les résultats.</li>
+</ol>
+<div style="height:10px;"></div>
+<div class="small-box">
+<p><span class="smallcaps"><u><strong>Règle de décision :</strong></u></span> <span class="math inline">\(p&lt;\alpha\)</span> <span class="math inline">\(\Rightarrow\)</span> Rejet de <span class="math inline">\(H_0\)</span> ; sinon, Non-rejet de <span class="math inline">\(H_0\)</span>.</p>
+</div>
+<p><br></p>
+<p>📌 <span class="smallcaps"><u><strong>Programme du prochain cours :</strong></u></span> Catalogue de test &amp; ANOVA à 1 facteur.</p>
+</section>
+<section id="références" class="slide level2 smaller scrollable">
+<h2>Références</h2>
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-fisher1947" class="csl-entry" role="listitem">
+Fisher, R. A. 1947. <span>“The Analysis of Covariance Method for the Relation Between a Part and the Whole.”</span> <em>Biometrics</em> 3 (2): 65. <a href="https://doi.org/10.2307/3001641">https://doi.org/10.2307/3001641</a>.
+</div>
+<div id="ref-murphy2023" class="csl-entry" role="listitem">
+Murphy, B. J., M. A. Stevenson, and C. S. Mansfield. 2023. <span>“Bodyweight and Body Condition Scores of Australian British Shorthaired Cats, 2008<span></span>2017.”</span> <em>Frontiers in Veterinary Science</em> 10 (October). <a href="https://doi.org/10.3389/fvets.2023.1241080">https://doi.org/10.3389/fvets.2023.1241080</a>.
+</div>
+<div id="ref-MASS" class="csl-entry" role="listitem">
+Venables, W. N., and B. D. Ripley. 2002. <em>Modern Applied Statistics with s</em>. <a href="https://www.stats.ox.ac.uk/pub/MASS4/">https://www.stats.ox.ac.uk/pub/MASS4/</a>.
+</div>
+</div>
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="tests_hypothèses_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="tests_hypothèses_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="tests_hypothèses_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="tests_hypothèses_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="tests_hypothèses_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="tests_hypothèses_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="tests_hypothèses_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="tests_hypothèses_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="tests_hypothèses_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="tests_hypothèses_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

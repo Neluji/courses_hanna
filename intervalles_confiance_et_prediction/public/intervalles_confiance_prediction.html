@@ -1,0 +1,2031 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="intervalles_confiance_prediction_files/libs/clipboard/clipboard.min.js"></script>
+<script src="intervalles_confiance_prediction_files/libs/quarto-html/tabby.min.js"></script>
+<script src="intervalles_confiance_prediction_files/libs/quarto-html/popper.min.js"></script>
+<script src="intervalles_confiance_prediction_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="intervalles_confiance_prediction_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="intervalles_confiance_prediction_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="intervalles_confiance_prediction_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
+
+  <meta name="author" content="Hanna Bacave">
+  <title>Intervalles de confiance et de prédiction</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="intervalles_confiance_prediction_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="intervalles_confiance_prediction_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="intervalles_confiance_prediction_files/libs/revealjs/dist/theme/quarto-2740581606dc327e82f18f789b69d8a0.css">
+  <link rel="stylesheet" href="style.css">
+  <link href="intervalles_confiance_prediction_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="intervalles_confiance_prediction_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="intervalles_confiance_prediction_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="intervalles_confiance_prediction_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <link href="intervalles_confiance_prediction_files/libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
+  <script src="intervalles_confiance_prediction_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+  <script src="intervalles_confiance_prediction_files/libs/plotly-binding-4.10.4/plotly.js"></script>
+
+  <script src="intervalles_confiance_prediction_files/libs/typedarray-0.1/typedarray.min.js"></script>
+
+  <script src="intervalles_confiance_prediction_files/libs/jquery-3.5.1/jquery.min.js"></script>
+
+  <link href="intervalles_confiance_prediction_files/libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+
+  <script src="intervalles_confiance_prediction_files/libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+
+  <link href="intervalles_confiance_prediction_files/libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+
+  <script src="intervalles_confiance_prediction_files/libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-image="figures/fond.png" data-background-size="cover" syntax-highlighting="idiomatic" class="quarto-title-block center">
+  <h1 class="title">Intervalles de confiance et de prédiction</h1>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Hanna Bacave
+</div>
+</div>
+</div>
+
+</section>
+<section id="intro-intervalle-de-confiance-de-prédiction-quest-ce-cest" class="slide level2">
+<h2>🔍 Intro : Intervalle de confiance / de prédiction, qu’est-ce c’est ?</h2>
+<div style="height:5px;"></div>
+<blockquote>
+<p>Les <span class="smallcaps">intervalles de confiance et de prédiction</span> permettent de quantifier l’incertitude associée à l’estimation d’une caractéristique d’une population ou à la prédiction d’une nouvelle observation.</p>
+</blockquote>
+<div style="height:20px;"></div>
+<div class="fragment">
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Question de recherche</th>
+<th>Méthode utilisée</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Quel est le poids moyen des chats persans adulte et en bonne santé ?</td>
+<td>Intervalle de confiance</td>
+</tr>
+<tr class="even">
+<td>Un propriétaire consulte pour un chiot Labrador de 4 mois. Dans quel intervalle peut-on prédire son poids à 6 mois à partir de données de croissance ?</td>
+<td>Intervalle de prédiction</td>
+</tr>
+<tr class="odd">
+<td>Vous étudiez deux traitements contre l’arthrose chez le chien. Quelle est la différence moyenne de réduction du score de douleur entre les deux traitements ?</td>
+<td>Intervalle de confiance</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment">
+<div style="height:30px;"></div>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Intervalle de confiance et intervalle de prédiction ne sont pas interchangeables</strong> : l’un permet d’estimer un paramètre inconnu, tandis que l’autre permet d’encadrer une nouvelle observation.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="application-présentation-des-données" class="slide level2">
+<h2>🐈 Application : Présentation des données</h2>
+<div style="height:5px;"></div>
+<p><span class="smallcaps"><u>Jeu de données utilisé :</u></span> Mesures anatomiques chez <span class="math inline">\(144\)</span> chats adultes, disponibles dans le package R <em>MASS</em> <span class="citation" data-cites="fisher1947">(<a href="#/références" role="doc-biblioref" onclick="">Fisher 1947</a>)</span>.</p>
+<div class="fragment">
+<div class="columns">
+<div class="column" style="width:60%;">
+<div style="height:40;"></div>
+<ul>
+<li>144 chats étudiés</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p>Sexe : Femelles (F), Mâles (M)</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>Femelles</th>
+<th>Males</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Nb. d’individus</td>
+<td>47</td>
+<td>97</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>2 mesures morphologiques :</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Nom</th>
+<th>Mesure</th>
+<th>Unité</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Bwt</td>
+<td>Poids corporel</td>
+<td>kg</td>
+</tr>
+<tr class="even">
+<td>Hwt</td>
+<td>Poids du coeur</td>
+<td>g</td>
+</tr>
+</tbody>
+</table></li>
+</ul>
+</div>
+</div><div class="column" style="width:40%;">
+<div class="columns">
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Sex</th>
+<th style="text-align: right;">Bwt</th>
+<th style="text-align: right;">Hwt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">7.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">7.4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">9.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">2.1</td>
+<td style="text-align: right;">7.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">2.1</td>
+<td style="text-align: right;">7.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">2.1</td>
+<td style="text-align: right;">7.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">2.1</td>
+<td style="text-align: right;">8.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">2.1</td>
+<td style="text-align: right;">8.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">2.1</td>
+<td style="text-align: right;">8.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">2.1</td>
+<td style="text-align: right;">8.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div></div>
+</div>
+<div class="fragment">
+<div style="height:15px;"></div>
+<div style="text-align: center; font-size: 0.85em;">
+<p>Dans la suite, on va se concentrer uniquement sur le poids corporel (Bwt) de l’ensemble des chats.</p>
+</div>
+</div>
+</section>
+<section id="application-questions-de-recherche" class="slide level2">
+<h2>🐈 Application : Questions de recherche</h2>
+<div class="center-text">
+<div class="highlight-box">
+<ol type="1">
+<li><strong>Quel est le poids corporel moyen des animaux de la population étudiée ?</strong></li>
+<li><strong>Dans quel intervalle peut-on prédire le poids corporel d’un nouvel animal issue de cette même population ?</strong></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="objectifs-du-cours" class="slide level2">
+<h2>📖 Objectifs du cours</h2>
+<br>
+<br>
+<div style="height:5px;"></div>
+<ol type="1">
+<li>Pourquoi utiliser des intervalles de confiance et de prédiction ? (Vocabulaire &amp; Objectif)</li>
+</ol>
+<div class="fragment">
+<div style="height:5px;"></div>
+<ol start="2" type="1">
+<li>Comment construire un intervalle de confiance ?</li>
+</ol>
+</div>
+<div class="fragment">
+<div style="height:5px;"></div>
+<ol start="3" type="1">
+<li>Comment construire un intervalle de prédiction ?</li>
+</ol>
+</div>
+<div class="fragment">
+<div style="height:5px;"></div>
+<ol start="4" type="1">
+<li>Application aux données de chats avec R</li>
+</ol>
+</div>
+<div class="fragment">
+<div style="height:5px;"></div>
+<ol start="5" type="1">
+<li>Conclusion &amp; Exemple concret d’une contribution en sciences vétérinaire</li>
+</ol>
+</div>
+</section>
+<section id="vocabulaire-de-léchantillonnage" class="slide level2">
+<h2>1️⃣ Vocabulaire de l’échantillonnage</h2>
+<div style="position: absolute; top: 0px; right: 0px; width: 400px;">
+<img src="figures/population_echantillon.png" style="width: 100%; height: auto; display: block;">
+</div>
+<p><br> <br></p>
+<div style="height:25px;"></div>
+<p>Soit <span class="math inline">\(X\)</span> une variable aléatoire (v.a.) décrivant la caractéristique étudiée (poids, taille, etc.) dans la <span class="smallcaps"><strong>population</strong></span>. On considère un <span class="smallcaps"><strong>échantillon</strong></span> <span class="math inline">\(X_1,\ldots,X_n\)</span> de v.a. indépendantes et de même loi (que <span class="math inline">\(X\)</span>), où <span class="math inline">\(X_i\)</span> désigne la mesure sur le <span class="math inline">\(i\)</span>-ème individu.</p>
+<div style="height:30px;"></div>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;">Population (paramètre inconnu)</th>
+<th style="text-align: center;">Échantillon (estimateur)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Moyenne</td>
+<td style="text-align: center;"><span class="math inline">\(\mu_\mathrm{pop} =\mathbb E(X)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\displaystyle M_\mathrm{ech} =\frac1n\sum_{i=1}^nX_i\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Variance</td>
+<td style="text-align: center;"><span class="math inline">\(\sigma^2_\mathrm{pop} =\operatorname{Var}(X)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\displaystyle S^2_\mathrm{ech} =\frac1{n-1}\sum_{i=1}^n(X_i-\mu_{\mathrm{ech}})^2\)</span></td>
+</tr>
+</tbody>
+</table>
+<div style="height:30px;"></div>
+<div style="text-align: center;">
+<p>On note <span class="math inline">\(x_1, \ldots, x_n\)</span> les observations (réalisations de <span class="math inline">\(X_1,\ldots,X_n\)</span>). A partir de ces dernières, on peut calculer <span class="math inline">\(\mu_\mathrm{ech}\)</span> et <span class="math inline">\(s^2_\mathrm{ech}\)</span> les <span class="smallcaps">estimations ponctuelles</span> de <span class="math inline">\(\mu\)</span> et de <span class="math inline">\(\sigma^2\)</span>.</p>
+</div>
+</section>
+<section id="vocabulaire-de-léchantillonnage--exemple" class="slide level2">
+<h2>1️⃣ Vocabulaire de l’échantillonnage- Exemple</h2>
+<p><br></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Notion</th>
+<th style="text-align: left;">Application aux données de chats</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="smallcaps">Population</span></td>
+<td style="text-align: left;">Les <span class="math inline">\(N = 144\)</span> chats du jeu de données <code>cats</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="smallcaps">Échantillon</span></td>
+<td style="text-align: left;">Un sous-ensemble de chats tirés aléatoirement, de taille <span class="math inline">\(n\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">&nbsp;</td>
+<td style="text-align: left;">&nbsp;</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="smallcaps">Variable aléatoire</span> <span class="math inline">\(X\)</span></td>
+<td style="text-align: left;">Poids corporel (en kg)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">&nbsp;</td>
+<td style="text-align: left;">&nbsp;</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="smallcaps">Moyenne</span> <span class="math inline">\(\mu_{\mathrm{pop}}\)</span> (inconnue)</td>
+<td style="text-align: left;">Poids corporel moyen des <span class="math inline">\(N\)</span> chats</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Estimateur <span class="math inline">\(M_{\mathrm{ech}}\)</span></td>
+<td style="text-align: left;">Moyenne empirique d’un échantillon de chats</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Estimation ponctuelle <span class="math inline">\(\mu_{\mathrm{ech}}\)</span> (calculée)</td>
+<td style="text-align: left;">Moyenne <strong>calculée</strong> à partir des chats de l’échantillon</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">&nbsp;</td>
+<td style="text-align: left;">&nbsp;</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="smallcaps">Variance</span> <span class="math inline">\(\sigma_{\mathrm{pop}}^2\)</span> (inconnue)</td>
+<td style="text-align: left;">Variance des poids corporels des <span class="math inline">\(N\)</span> chats</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Estimateur <span class="math inline">\(S_{\mathrm{ech}}^2\)</span></td>
+<td style="text-align: left;">Variance empirique corrigée d’un échantillon de chats</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Estimation ponctuelle <span class="math inline">\(s_{\mathrm{ech}}^2\)</span> (calculée)</td>
+<td style="text-align: left;">Variance empirique corrigée <strong>calculée</strong> à partir des chats de l’échantillon</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="pourquoi-construire-ce-genre-dintervalles" class="slide level2">
+<h2>1️⃣ Pourquoi construire ce genre d’intervalles ?</h2>
+<div style="height:35px;"></div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div title="Intervalle de confiance">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Intervalle de confiance</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Problème :</strong> Comment estimer une caractéristique inconnue d’une population à partir d’un échantillon ?</p>
+<p><strong>Objectif :</strong> Quantifier l’incertitude associée à cette estimation.</p>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div title="Intervalle de prédiction">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Intervalle de prédiction</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Problème :</strong> Comment prévoir la valeur d’une caractéristique chez un nouvel individu ?</p>
+<p><strong>Objectif :</strong> Quantifier l’incertitude associée à cette prédiction.</p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+<div class="fragment">
+<div class="small-box">
+<p>Dans ce cours, on suppose que les observations sont <span class="smallcaps"><strong>indépendantes</strong></span> et <span class="smallcaps"><strong>suivent une loi normale</strong></span>.</p>
+</div>
+<div style="height:25px;"></div>
+<div class="grande-fig">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="intervalles_confiance_prediction_files/figure-revealjs/unnamed-chunk-2-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="pourquoi-une-estimation-ponctuelle-ne-suffit-elle-pas" class="slide level2">
+<h2>2️⃣ Pourquoi une estimation ponctuelle ne suffit-elle pas ?</h2>
+<div style="height:10px;"></div>
+<p>Supposons qu’on cherche à estimer le poids moyen des <span class="math inline">\(144\)</span> chats à partir de <span class="math inline">\(5\)</span> échantillons aléatoires composés de <span class="math inline">\(5\)</span> chats.</p>
+<div style="height:10px;"></div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;"><span class="math inline">\(x_1\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(x_2\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(x_3\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(x_4\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(x_5\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\mu_{\mathrm{ech}}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Échantillon 1</td>
+<td style="text-align: center;">2.2</td>
+<td style="text-align: center;">2.1</td>
+<td style="text-align: center;">3.2</td>
+<td style="text-align: center;">2.9</td>
+<td style="text-align: center;">3.9</td>
+<td style="text-align: center;">2.86</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Échantillon 2</td>
+<td style="text-align: center;">3.2</td>
+<td style="text-align: center;">2.8</td>
+<td style="text-align: center;">2.8</td>
+<td style="text-align: center;">3.8</td>
+<td style="text-align: center;">2.8</td>
+<td style="text-align: center;">3.08</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Échantillon 3</td>
+<td style="text-align: center;">3.6</td>
+<td style="text-align: center;">2.9</td>
+<td style="text-align: center;">2.5</td>
+<td style="text-align: center;">2.3</td>
+<td style="text-align: center;">2.1</td>
+<td style="text-align: center;">2.68</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Échantillon 4</td>
+<td style="text-align: center;">3.6</td>
+<td style="text-align: center;">2.6</td>
+<td style="text-align: center;">2.7</td>
+<td style="text-align: center;">2.9</td>
+<td style="text-align: center;">3.0</td>
+<td style="text-align: center;">2.96</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Échantillon 5</td>
+<td style="text-align: center;">3.2</td>
+<td style="text-align: center;">2.6</td>
+<td style="text-align: center;">2.4</td>
+<td style="text-align: center;">3.1</td>
+<td style="text-align: center;">2.1</td>
+<td style="text-align: center;">2.68</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div style="font-size: 0.85em; color: gris;text-align: center">
+<p><span class="math inline">\(\boxed{ \mu_\mathrm{ech} = \frac1n\sum_{i=1}^n x_i}\)</span></p>
+</div>
+<div class="fragment">
+<div style="height:5px;"></div>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="smallcaps"><strong>La moyenne empirique varie d’un échantillon à un autre</strong></span> <strong>:</strong> il faut donner des marges d’erreurs.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="espérance-et-écart-type-de-la-moyenne-déchantillon-m_mathrmech" class="slide level2">
+<h2>2️⃣ Espérance et écart-type de la moyenne d’échantillon <span class="math inline">\(M_\mathrm{ech}\)</span></h2>
+<div style="height:5px;"></div>
+<div style="font-size: 0.85em;">
+<p>Soit un échantillon <span class="math inline">\(X_1,\ldots,X_n\)</span> de v.a. indépendantes et de même loi, d’espérance <span class="math inline">\(\mu_{\mathrm{pop}}\)</span> et de variance <span class="math inline">\(\sigma_{\mathrm{pop}}^2\)</span>. On note <span class="math inline">\(\displaystyle M_\mathrm{ech} =\frac1n\sum_{i=1}^nX_i\)</span> l’estimateur de la moyenne et <span class="math inline">\(\mu_\mathrm{ech}\)</span> son estimation ponctuelle.</p>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="text-align: center;">
+<p><span class="smallcaps"><u>Espérance</u></span></p>
+</div>
+<p><span class="math display">\[
+\mathbb E(M_{\mathrm{ech}})=\mu_{\mathrm{pop}}
+\]</span></p>
+</div><div class="column" style="width:50%;">
+<div style="text-align: center;">
+<p><span class="smallcaps"><u>Ecart-type</u></span></p>
+</div>
+<p><span class="math display">\[
+\operatorname{sd}(M_{\mathrm{ech}})
+=\frac{\sigma_{\mathrm{pop}}}{\sqrt n}
+\]</span></p>
+</div></div>
+<div class="fragment">
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="left">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="intervalles_confiance_prediction_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-left" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="right">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-right">
+<figure>
+<p><img data-src="intervalles_confiance_prediction_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-right" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</div>
+</section>
+<section id="théorème-central-limite" class="slide level2">
+<h2>2️⃣ Théorème central limite</h2>
+<div class="small-box">
+<p><u><strong>Théorème central limite (TCL) :</strong></u> Soit <span class="math inline">\(X_1,X_2,\ldots,X_n\)</span> un échantillon de <span class="math inline">\(n\)</span> valeurs tirées aléatoirement et indépendamment dans une population de moyenne <span class="math inline">\(\mu_{\mathrm{pop}}\)</span> et d’écart-type <span class="math inline">\(\sigma_{\mathrm{pop}}\)</span>.</p>
+<p>Alors, lorsque <span class="math inline">\(n\to+\infty\)</span>, la moyenne d’échantillon <span class="math inline">\(\displaystyle M_{\mathrm{ech}}=\frac{1}{n}\sum_{i=1}^{n}X_i\)</span> vérifie :</p>
+<p><span class="math display">\[
+\mathbb P\left(
+a\leq
+\frac{M_{\mathrm{ech}}-\mu_{\mathrm{pop}}}
+{\sigma_{\mathrm{pop}}/\sqrt{n}}
+\leq b
+\right)
+\xrightarrow[n\to+\infty]{}
+\mathbb P(a\leq Z\leq b),
+\]</span> où <span class="math inline">\(Z\sim\mathcal N(0,1)\)</span>.</p>
+</div>
+<div class="grande-fig">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="intervalles_confiance_prediction_files/figure-revealjs/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="intervalles-de-fluctuation" class="slide level2">
+<h2>2️⃣ Intervalles de fluctuation</h2>
+<div style="height:5px;"></div>
+<div class="columns">
+<div class="column" style="width:65%;">
+<div style="font-size: 0.9em; padding: 0; margin: 0;">
+<ol type="1">
+<li>D’après le <span class="smallcaps">Théorème central limite</span>, on a :</li>
+</ol>
+<div style="font-size: 0.85em; margin-top: -27px; margin-bottom: -25px;">
+<p><span class="math display">\[
+\frac{M_{\mathrm{ech}}-\mu_{\mathrm{pop}}}
+{\sigma_{\mathrm{pop}}/\sqrt n}
+\overset{\mathrm{approx.}}{\sim}\mathcal N(0,1).
+\]</span></p>
+</div>
+<ol start="2" type="1">
+<li>On cherche <span class="math inline">\(a\)</span> et <span class="math inline">\(b\)</span> tels que :</li>
+</ol>
+<div style="font-size: 0.85em; margin-top: -27px; margin-bottom: -25px;">
+<p><span class="math display">\[
+\mathbb P\left(
+a\leq\frac{M_{\mathrm{ech}}-\mu_{\mathrm{pop}}}
+{\sigma_{\mathrm{pop}}/\sqrt n}\leq b
+\right)\approx 1-\alpha.
+\]</span></p>
+</div>
+<ol start="3" type="1">
+<li>En réarrangeant les inéquations, on obtient :</li>
+</ol>
+<div style="font-size: 0.85em; margin-top: -27px;">
+<p><span class="math display">\[
+\mathbb P\left(
+\mu_{\mathrm{pop}}+a\frac{\sigma_{\mathrm{pop}}}{\sqrt n}
+\leq M_{\mathrm{ech}}\leq
+\mu_{\mathrm{pop}}+b\frac{\sigma_{\mathrm{pop}}}{\sqrt n}
+\right)\approx 1-\alpha.
+\]</span></p>
+</div>
+<p>Et finalement,</p>
+</div>
+</div></div>
+<div class="column" style="width:30%;">
+<div style="border: 2px solid #D9E1F2;   border-radius: 25px;   padding: 0;   margin: 20px 0px 0px 50px;   background: white;   box-shadow: 0 2px 8px rgba(100,120,150,0.10);   overflow: hidden;">
+<div class="text-center" style="text-align: center;   font-size: 0.75em;">
+<p><span class="smallcaps">valeurs de</span> <span class="math inline">\(a\)</span> <span class="smallcaps">et</span> <span class="math inline">\(b\)</span> <span class="smallcaps">par niveau de confiance :</span></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(1-\alpha\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(a\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(b\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">95 %</td>
+<td style="text-align: center;"><span class="math inline">\(-1{,}96\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1{,}96\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">99 %</td>
+<td style="text-align: center;"><span class="math inline">\(-2{,}576\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2{,}576\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="intervalles_confiance_prediction_files/figure-revealjs/unnamed-chunk-7-1.png" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div style="margin-top: -30px; margin-bottom: -30px;">
+<p><span class="math display">\[
+\color{#0072B2}{
+\boxed{
+IF_{95\%}=
+\left[
+\mu_{\mathrm{pop}}-1{,}96\frac{\sigma_{\mathrm{pop}}}{\sqrt n}
+\,;\,
+\mu_{\mathrm{pop}}+1{,}96\frac{\sigma_{\mathrm{pop}}}{\sqrt n}
+\right]
+}
+}
+\]</span></p>
+</div>
+</section>
+<section id="intervalle-de-confiance" class="slide level2">
+<h2>2️⃣ Intervalle de confiance</h2>
+<div style="height:5px;"></div>
+<p><span class="smallcaps"><u><strong>Objectif :</strong></u></span> Encadrer la moyenne inconnue <span class="math inline">\(\mu_\mathrm{obs}\)</span> à partir de la moyenne empirique calculée sur les observations <span class="math inline">\(\mu_\mathrm{ech}\)</span>.</p>
+<ul>
+<li><span class="math inline">\(\sigma_{\mathrm{pop}}\)</span> connu :</li>
+</ul>
+<div style="font-size: 0.95em; margin-top: -30px; margin-bottom: -30px;">
+<p><span class="math display">\[
+\color{#0072B2}{\boxed{
+IC_{95\%}=
+\left[
+\mu_{\mathrm{ech}}-1{,}96\frac{\sigma_{\mathrm{pop}}}{\sqrt n}
+\,;\,
+\mu_{\mathrm{ech}}+1{,}96\frac{\sigma_{\mathrm{pop}}}{\sqrt n}
+\right]
+}}
+\]</span></p>
+</div>
+<ul>
+<li><span class="math inline">\(\sigma_{\mathrm{pop}}\)</span> inconnu :</li>
+</ul>
+<div style="font-size: 0.95em; margin-top: -30px;">
+<p><span class="math display">\[
+\color{#D17A57}{
+\boxed{
+IC_{95\%}=
+\left[
+\mu_{\mathrm{ech}}-t_{0{,}975,n-1}\frac{s_{\mathrm{ech}}}{\sqrt n}
+\,;\,
+\mu_{\mathrm{ech}}+t_{0{,}975,n-1}\frac{s_{\mathrm{ech}}}{\sqrt n}
+\right]
+}}
+\]</span></p>
+</div>
+<div title="Interprétation">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Interprétation</strong></p>
+</div>
+<div class="callout-content">
+<p>Sur un grand nombre d’échantillons indépendants, environ 95 % des IC construits contiendraient la véritable moyenne <span class="math inline">\(\mu_{\mathrm{pop}}\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="intervalle-de-confiance---exemple" class="slide level2">
+<h2>2️⃣ I️ntervalle de confiance - Exemple</h2>
+<div style="height:2px;"></div>
+<div style="font-size: 0.9em;">
+<p>On tire un échantillon de <span class="math inline">\(50\)</span> chats parmi les <span class="math inline">\(144\)</span>.</p>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="font-size: 0.9em; padding: 0; margin: 0;">
+<ul>
+<li><u>Moyenne empirique :</u></li>
+</ul>
+<div style="font-size: 0.9em; margin-top: -30px; margin-bottom: -30px;">
+<p><span class="math display">\[
+\mu_{\mathrm{ech}}
+=\frac{1}{50}\sum_{i=1}^{50}x_i
+= 2.628
+\]</span></p>
+</div>
+<ul>
+<li><u>Écart-type empirique :</u></li>
+</ul>
+<div style="font-size: 0.9em; margin-top: -30px; margin-bottom: -30px;">
+<p><span class="math display">\[
+s_{\mathrm{ech}}
+=\sqrt{\frac{1}{49}\sum_{i=1}^{50}(x_i-\mu_{\mathrm{ech}})^2}
+= 0.469
+\]</span></p>
+</div>
+<ul>
+<li><u>Quantile de Student :</u></li>
+</ul>
+<div style="font-size: 0.9em; margin-top: -30px; margin-bottom: -30px;">
+<p><span class="math display">\[
+t_{0{,}975;49}=2.001
+\]</span></p>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-14ce28ae593bde0f735d" style="width:95%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-14ce28ae593bde0f735d">{"x":{"visdat":{"7090156d465c":["function () ","plotlyVisDat"]},"cur_data":"7090156d465c","attrs":{"7090156d465c":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":[2.2000000000000002,2.1000000000000001,3.2000000000000002,2.8999999999999999,3.8999999999999999,3.7999999999999998,2.7999999999999998,2.7999999999999998,3.6000000000000001,2.7999999999999998,2.8999999999999999,2.5,2.2999999999999998,2.1000000000000001,2.6000000000000001,2.7000000000000002,3.7999999999999998,3,3.2000000000000002,2.6000000000000001,2.2000000000000002,2.3999999999999999,3,3.1000000000000001,3.5,2.1000000000000001,2.7000000000000002,2.6000000000000001,2.2999999999999998,2.2999999999999998,2.3999999999999999,2.2000000000000002,3.2000000000000002,3.1000000000000001,3.2000000000000002,2.8999999999999999,2.6000000000000001,2.7999999999999998,2.3999999999999999,2.7999999999999998,2.5,3.5,3.2999999999999998,2.3999999999999999,2.2000000000000002,2.7000000000000002,2.8999999999999999,3.6000000000000001,2.2999999999999998,3],"type":"histogram","xbins":{"size":0.20000000000000001},"marker":{"color":"#0072B2","line":{"color":"white","width":1}},"opacity":0.80000000000000004,"name":"Poids des chats","hovertemplate":"Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","inherit":true},"7090156d465c.1":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":[2.7999999999999998,2.7999999999999998],"y":[0,8.8000000000000007],"type":"scatter","mode":"lines","line":{"color":"#E69F00","width":3},"name":"Moyenne de l'échantillon","hovertemplate":"Moyenne : 2.8 kg<extra><\/extra>","inherit":true}},"layout":{"margin":{"b":45,"l":55,"t":75,"r":10,"autoexpand":false},"font":{"size":22,"family":"Arial","color":"black"},"title":{"text":"Poids des chats de l'échantillon","x":0.5,"xanchor":"center","font":{"size":24}},"xaxis":{"domain":[0,1],"automargin":true,"title":{"text":"Poids (kg)","font":{"size":20}},"tickfont":{"size":20}},"yaxis":{"domain":[0,1],"automargin":true,"title":{"text":"Effectif","font":{"size":20}},"tickfont":{"size":20},"range":[0,8.8000000000000007]},"bargap":0.050000000000000003,"showlegend":false,"hovermode":"closest","hoverlabel":{"font":{"size":20}}},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[2.2000000000000002,2.1000000000000001,3.2000000000000002,2.8999999999999999,3.8999999999999999,3.7999999999999998,2.7999999999999998,2.7999999999999998,3.6000000000000001,2.7999999999999998,2.8999999999999999,2.5,2.2999999999999998,2.1000000000000001,2.6000000000000001,2.7000000000000002,3.7999999999999998,3,3.2000000000000002,2.6000000000000001,2.2000000000000002,2.3999999999999999,3,3.1000000000000001,3.5,2.1000000000000001,2.7000000000000002,2.6000000000000001,2.2999999999999998,2.2999999999999998,2.3999999999999999,2.2000000000000002,3.2000000000000002,3.1000000000000001,3.2000000000000002,2.8999999999999999,2.6000000000000001,2.7999999999999998,2.3999999999999999,2.7999999999999998,2.5,3.5,3.2999999999999998,2.3999999999999999,2.2000000000000002,2.7000000000000002,2.8999999999999999,3.6000000000000001,2.2999999999999998,3],"type":"histogram","xbins":{"size":0.20000000000000001},"marker":{"color":"#0072B2","line":{"color":"white","width":1}},"opacity":0.80000000000000004,"name":"Poids des chats","hovertemplate":["Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>"],"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2.7999999999999998,2.7999999999999998],"y":[0,8.8000000000000007],"type":"scatter","mode":"lines","line":{"color":"#E69F00","width":3},"name":"Moyenne de l'échantillon","hovertemplate":["Moyenne : 2.8 kg<extra><\/extra>","Moyenne : 2.8 kg<extra><\/extra>"],"marker":{"color":"rgba(255,127,14,1)","line":{"color":"rgba(255,127,14,1)"}},"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div></div>
+<div class="fragment">
+<div style="font-size: 0.9em;">
+<p><span class="math display">\[
+IC_{95\%}\approx
+\left[
+\mu_{\mathrm{ech}}-
+t_{0{,}975;49}\frac{s_{\mathrm{ech}}}{\sqrt{50}}
+\sqrt{\frac{94}{143}}
+\,;\,
+\mu_{\mathrm{ech}}+
+t_{0{,}975;49}\frac{s_{\mathrm{ech}}}{\sqrt{50}}
+\sqrt{\frac{94}{143}}
+\right]
+=
+\boxed{[2{,}688\,;\,2{,}912] \ \mathrm{kg}}
+\]</span></p>
+</div>
+</div>
+</section>
+<section id="sources-de-variabilité-à-prendre-en-compte-dans-la-prédiction" class="slide level2">
+<h2>3️⃣ Sources de variabilité à prendre en compte dans la prédiction</h2>
+<div style="height:5px;"></div>
+<p><span class="smallcaps"><u><strong>Objectif :</strong></u></span> Prédire le poids d’un <strong>nouveau chat</strong>, noté <span class="math inline">\(X_{\mathrm{new}}\)</span>, à partir de notre échantillon <span class="math inline">\(X_1, \ldots, X_n\)</span>.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="text-align: center;">
+<p><span class="smallcaps"><u>Incertitude sur la moyenne estimée</u></span></p>
+</div>
+<div style="font-size: 0.9em; margin-top: -20px;">
+<p><span class="math display">\[
+\operatorname{Var}(M_{\mathrm{ech}})
+=\frac{\sigma_{\mathrm{pop}}^2}{n}
+\]</span></p>
+</div>
+<div style="font-size:0.85em; text-align: center;">
+<p><span class="math inline">\(\Longrightarrow\)</span> la moyenne de l’échantillon varie d’un échantillon à l’autre.</p>
+</div>
+</div><div class="column" style="width:50%;">
+<div style="text-align: center;">
+<p><span class="smallcaps"><u>Variabilité individuelle</u></span></p>
+</div>
+<div style="font-size: 0.9em;">
+<p><span class="math display">\[
+\operatorname{Var}(X_{\mathrm{new}})
+=\sigma_{\mathrm{pop}}^2
+\]</span></p>
+</div>
+<div style="font-size: 0.85em; text-align: center;">
+<p><span class="math inline">\(\Longrightarrow\)</span> les valeurs individuelles varient autour de la moyenne de la population.</p>
+</div>
+</div></div>
+<div style="font-size: 0.9em; margin-top: -15px;">
+<p><span class="math display">\[
+\boxed{\operatorname{Var}(X_{\mathrm{new}}-M_{\mathrm{ech}})
+=
+\sigma_{\mathrm{pop}}^2+
+\frac{\sigma_{\mathrm{pop}}^2}{n}
+=
+\sigma_{\mathrm{pop}}^2\left(1+\frac{1}{n}\right)}
+\]</span></p>
+</div>
+<div class="small-box">
+<p>Plutôt que de prédire une valeur exacte, on cherche un <strong>intervalle dans lequel le poids du nouveau chat pourrait se situer</strong>.</p>
+</div>
+</section>
+<section id="intervalle-de-prédiction" class="slide level2">
+<h2>3️⃣ Intervalle de prédiction</h2>
+<div style="height:5px;"></div>
+<div style="font-size: 0.9em; padding: 0; margin: 0;">
+<ol type="1">
+<li><p>D’après les propriétés de la <span class="smallcaps">loi normale</span>, on a :</p>
+<div style="font-size: 0.85em; margin-top: -27px; margin-bottom: -27px;">
+<p><span class="math display">\[
+\frac{X_{\mathrm{new}}-M_{\mathrm{ech}}}
+{\sigma_{\mathrm{pop}}\sqrt{1+\frac{1}{n}}}
+\sim\mathcal N(0,1).
+\]</span></p>
+</div></li>
+<li><p>On cherche <span class="math inline">\(a\)</span> et <span class="math inline">\(b\)</span> tels que :</p>
+<div style="font-size: 0.85em; margin-top: -27px; margin-bottom: -27px;">
+<p><span class="math display">\[
+\mathbb P\left(
+a\leq
+\frac{X_{\mathrm{new}}-M_{\mathrm{ech}}}
+{\sigma_{\mathrm{pop}}\sqrt{1+\frac{1}{n}}}
+\leq b
+\right)=1-\alpha.
+\]</span></p>
+</div></li>
+<li><p>En réarrangeant les inéquations, on obtient :</p>
+<div style="font-size: 0.85em; margin-top: -27px; margin-bottom: -27px;">
+<p><span class="math display">\[
+\mathbb P\left(
+M_{\mathrm{ech}}+a\,\sigma_{\mathrm{pop}}\sqrt{1+\frac{1}{n}}
+\leq X_{\mathrm{new}}\leq
+M_{\mathrm{ech}}+b\,\sigma_{\mathrm{pop}}\sqrt{1+\frac{1}{n}}
+\right)=1-\alpha.
+\]</span></p>
+</div></li>
+</ol>
+<p>D’où :</p>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="math inline">\(\sigma_{\mathrm{pop}}\)</span> connu :</p>
+<div style="font-size: 0.80em; margin-top: -27px; margin-bottom: -27px;">
+<p><span class="math display">\[
+\color{#0072B2}{
+\boxed{
+IP_{95\%}
+=
+\mu_{\mathrm{ech}}
+\pm 1{,}96\,\sigma_{\mathrm{pop}}
+\sqrt{1+\frac{1}{n}}
+}}
+\]</span></p>
+</div>
+</div><div class="column" style="width:50%;">
+<p><span class="math inline">\(\sigma_{\mathrm{pop}}\)</span> inconnu :</p>
+<div style="font-size: 0.80em; margin-top: -27px; margin-bottom: -27px;">
+<p><span class="math display">\[
+\color{#D17A57}{
+\boxed{
+IP_{95\%}
+=
+\mu_{\mathrm{ech}}
+\pm t_{0{,}975,n-1}\,s_{\mathrm{ech}}
+\sqrt{1+\frac{1}{n}}
+}}
+\]</span></p>
+</div>
+</div></div>
+</section>
+<section id="intervalle-de-prédiction---exemple" class="slide level2">
+<h2>3️⃣ Intervalle de prédiction - Exemple</h2>
+<div style="height:2px;"></div>
+<div style="font-size: 0.9em;">
+<p>À partir de notre échantillon de <span class="math inline">\(50\)</span> chats, on souhaite prédire le <strong>poids d’un nouveau chat</strong>.</p>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="font-size: 0.9em; padding: 0; margin: 0;">
+<ul>
+<li><u>Moyenne empirique :</u></li>
+</ul>
+<div style="font-size: 0.9em; margin-top: -30px; margin-bottom: -30px;">
+<p><span class="math display">\[
+\mu_{\mathrm{ech}}=2.8\ \mathrm{kg}
+\]</span></p>
+</div>
+<ul>
+<li><u>Écart-type empirique :</u></li>
+</ul>
+<div style="font-size: 0.9em; margin-top: -30px; margin-bottom: -30px;">
+<p><span class="math display">\[
+s_{\mathrm{ech}}=0.487\ \mathrm{kg}
+\]</span></p>
+</div>
+<ul>
+<li><u>Quantile de Student :</u></li>
+</ul>
+<div style="font-size: 0.9em; margin-top: -30px; margin-bottom: -30px;">
+<p><span class="math display">\[
+t_{0{,}975;49}=2.01
+\]</span></p>
+</div>
+<ul>
+<li><u>Marge de prédiction :</u></li>
+</ul>
+<div style="font-size: 0.9em; margin-top: -30px; margin-bottom: -30px;">
+<p><span class="math display">\[
+m=t_{0{,}975;49}\,s_{\mathrm{ech}}
+\sqrt{1+\frac{1}{50}}
+=0.988
+\]</span></p>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-05eac75555269eefd075" style="width:95%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-05eac75555269eefd075">{"x":{"visdat":{"709055875297":["function () ","plotlyVisDat"]},"cur_data":"709055875297","attrs":{"709055875297":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":[2.2000000000000002,2.1000000000000001,3.2000000000000002,2.8999999999999999,3.8999999999999999,3.7999999999999998,2.7999999999999998,2.7999999999999998,3.6000000000000001,2.7999999999999998,2.8999999999999999,2.5,2.2999999999999998,2.1000000000000001,2.6000000000000001,2.7000000000000002,3.7999999999999998,3,3.2000000000000002,2.6000000000000001,2.2000000000000002,2.3999999999999999,3,3.1000000000000001,3.5,2.1000000000000001,2.7000000000000002,2.6000000000000001,2.2999999999999998,2.2999999999999998,2.3999999999999999,2.2000000000000002,3.2000000000000002,3.1000000000000001,3.2000000000000002,2.8999999999999999,2.6000000000000001,2.7999999999999998,2.3999999999999999,2.7999999999999998,2.5,3.5,3.2999999999999998,2.3999999999999999,2.2000000000000002,2.7000000000000002,2.8999999999999999,3.6000000000000001,2.2999999999999998,3],"type":"histogram","xbins":{"size":0.20000000000000001},"marker":{"color":"#0072B2","line":{"color":"white","width":1}},"opacity":0.80000000000000004,"name":"Poids des chats","hovertemplate":"Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","inherit":true},"709055875297.1":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":[2.7999999999999998,2.7999999999999998],"y":[0,8.8000000000000007],"type":"scatter","mode":"lines","line":{"color":"#E69F00","width":3},"name":"Moyenne de l'échantillon","hovertemplate":"Moyenne : 2.8 kg<extra><\/extra>","inherit":true}},"layout":{"margin":{"b":45,"l":55,"t":75,"r":10,"autoexpand":false},"font":{"size":22,"family":"Arial","color":"black"},"title":{"text":"Poids des chats de l'échantillon","x":0.5,"xanchor":"center","font":{"size":24}},"xaxis":{"domain":[0,1],"automargin":true,"title":{"text":"Poids (kg)","font":{"size":20}},"tickfont":{"size":20}},"yaxis":{"domain":[0,1],"automargin":true,"title":{"text":"Effectif","font":{"size":20}},"tickfont":{"size":20},"range":[0,8.8000000000000007]},"shapes":[{"type":"rect","x0":1.8116531546240513,"x1":3.7883468453759486,"y0":0,"y1":1,"yref":"paper","fillcolor":"#D17A57","opacity":0.14999999999999999,"line":{"width":0},"layer":"below"},{"type":"line","x0":1.8116531546240513,"x1":1.8116531546240513,"y0":0,"y1":1,"yref":"paper","line":{"color":"#D17A57","dash":"dash","width":2}},{"type":"line","x0":3.7883468453759486,"x1":3.7883468453759486,"y0":0,"y1":1,"yref":"paper","line":{"color":"#D17A57","dash":"dash","width":2}}],"bargap":0.050000000000000003,"showlegend":false,"hovermode":"closest","hoverlabel":{"font":{"size":20}}},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[2.2000000000000002,2.1000000000000001,3.2000000000000002,2.8999999999999999,3.8999999999999999,3.7999999999999998,2.7999999999999998,2.7999999999999998,3.6000000000000001,2.7999999999999998,2.8999999999999999,2.5,2.2999999999999998,2.1000000000000001,2.6000000000000001,2.7000000000000002,3.7999999999999998,3,3.2000000000000002,2.6000000000000001,2.2000000000000002,2.3999999999999999,3,3.1000000000000001,3.5,2.1000000000000001,2.7000000000000002,2.6000000000000001,2.2999999999999998,2.2999999999999998,2.3999999999999999,2.2000000000000002,3.2000000000000002,3.1000000000000001,3.2000000000000002,2.8999999999999999,2.6000000000000001,2.7999999999999998,2.3999999999999999,2.7999999999999998,2.5,3.5,3.2999999999999998,2.3999999999999999,2.2000000000000002,2.7000000000000002,2.8999999999999999,3.6000000000000001,2.2999999999999998,3],"type":"histogram","xbins":{"size":0.20000000000000001},"marker":{"color":"#0072B2","line":{"color":"white","width":1}},"opacity":0.80000000000000004,"name":"Poids des chats","hovertemplate":["Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>","Poids : %{x} kg<br>Effectif : %{y}<extra><\/extra>"],"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2.7999999999999998,2.7999999999999998],"y":[0,8.8000000000000007],"type":"scatter","mode":"lines","line":{"color":"#E69F00","width":3},"name":"Moyenne de l'échantillon","hovertemplate":["Moyenne : 2.8 kg<extra><\/extra>","Moyenne : 2.8 kg<extra><\/extra>"],"marker":{"color":"rgba(255,127,14,1)","line":{"color":"rgba(255,127,14,1)"}},"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div></div>
+<div class="fragment">
+<div style="font-size: 0.9em;">
+<p><span class="math display">\[
+IP_{95\%}=
+\left[
+\mu_{\mathrm{ech}}-
+t_{0{,}975;49}s_{\mathrm{ech}}\sqrt{1+\frac{1}{50}}
+\,;\,
+\mu_{\mathrm{ech}}+
+t_{0{,}975;49}s_{\mathrm{ech}}\sqrt{1+\frac{1}{50}}
+\right]
+=
+\color{#D17A57}{
+\boxed{
+[1.812\,;\,3.788]\ \mathrm{kg}
+}}
+\]</span></p>
+</div>
+</div>
+</section>
+<section id="bonus-cest-quoi-avoir-suffisamment-dobservation" class="slide level2">
+<h2>➕ Bonus : C’est quoi “<em>avoir suffisamment d’observation”</em> ?</h2>
+<div style="height:2px;"></div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>Dans ce cours, on utilise beaucoup la formulation <em>“pour</em> <span class="math inline">\(n\)</span> <em>grand”</em>, mais en pratique à partir de quelle taille <span class="math inline">\(n\)</span> est-il <span class="smallcaps">vraiment</span> grand ?</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div style="height:10px;"></div>
+<div style="text-align: center;">
+<p><strong>⁉️ Il n’y a pas de réponse universelle à cette question, tout dépend du problème ⁉️</strong></p>
+</div>
+</div>
+<div class="fragment">
+<div style="height:10px;"></div>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Valeur de <span class="math inline">\(n\)</span></th>
+<th>Suffisant ou non ?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>10</td>
+<td>❌</td>
+</tr>
+<tr class="even">
+<td>20</td>
+<td>❌</td>
+</tr>
+<tr class="odd">
+<td>30</td>
+<td>ça peut aller</td>
+</tr>
+<tr class="even">
+<td>45</td>
+<td>ça peut aller</td>
+</tr>
+<tr class="odd">
+<td>50</td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td>100 et +</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<div style="height:10px;"></div>
+</div>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>Dans tous les cas, on attend une vision critique du nombre d’observations disponibles.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="application-aux-données-de-chats-avec-r" class="slide level2">
+<h2>🐈 Application aux données de chats avec R</h2>
+<p><br></p>
+<p><strong>To Do :</strong></p>
+<div class="fragment">
+<ol type="1">
+<li><p>Tirage aléatoire d’un échantillon et visualisation des données</p>
+<p><br></p></li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="2" type="1">
+<li><p>Calcul des estimations ponctuelles : moyenne et écart-type</p>
+<p><br></p></li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="3" type="1">
+<li><p>Construction des intervalles de confiance et de prédiction à 95 %</p>
+<p><br></p></li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="4" type="1">
+<li>Interprétation et comparaison des intervalles</li>
+</ol>
+</div>
+</section>
+<section id="application-aux-données-de-chats---1---visualisation" class="slide level2">
+<h2>🐈 Application aux données de chats - 1 - Visualisation</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="" aria-label="1"></a><span class="co"># Tirage de 50 chats parmi les 144</span></span>
+<span id="cb1-2"><a href="" aria-label="2"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1-3"><a href="" aria-label="3"></a></span>
+<span id="cb1-4"><a href="" aria-label="4"></a>echantillon <span class="ot">&lt;-</span> cats[</span>
+<span id="cb1-5"><a href="" aria-label="5"></a>  <span class="fu">sample</span>(<span class="fu">nrow</span>(cats), <span class="dv">50</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb1-6"><a href="" aria-label="6"></a>]</span>
+<span id="cb1-7"><a href="" aria-label="7"></a></span>
+<span id="cb1-8"><a href="" aria-label="8"></a><span class="co"># Histogramme des poids</span></span>
+<span id="cb1-9"><a href="" aria-label="9"></a><span class="fu">ggplot</span>(echantillon, <span class="fu">aes</span>(<span class="at">x =</span> Bwt)) <span class="sc">+</span></span>
+<span id="cb1-10"><a href="" aria-label="10"></a>  <span class="fu">geom_histogram</span>(</span>
+<span id="cb1-11"><a href="" aria-label="11"></a>    <span class="at">binwidth =</span> <span class="fl">0.2</span>,</span>
+<span id="cb1-12"><a href="" aria-label="12"></a>    <span class="at">fill =</span> <span class="st">"#0072B2"</span>,</span>
+<span id="cb1-13"><a href="" aria-label="13"></a>    <span class="at">color =</span> <span class="st">"white"</span></span>
+<span id="cb1-14"><a href="" aria-label="14"></a>  ) <span class="sc">+</span></span>
+<span id="cb1-15"><a href="" aria-label="15"></a>  <span class="fu">labs</span>(</span>
+<span id="cb1-16"><a href="" aria-label="16"></a>    <span class="at">x =</span> <span class="st">"Poids (kg)"</span>,</span>
+<span id="cb1-17"><a href="" aria-label="17"></a>    <span class="at">y =</span> <span class="st">"Effectif"</span></span>
+<span id="cb1-18"><a href="" aria-label="18"></a>  ) <span class="sc">+</span></span>
+<span id="cb1-19"><a href="" aria-label="19"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="intervalles_confiance_prediction_files/figure-revealjs/unnamed-chunk-10-1.png" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="application-aux-données-de-chats---2---estimations" class="slide level2">
+<h2>🐈 Application aux données de chats - 2 - Estimations</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="" aria-label="1"></a><span class="co"># Taille de l'échantillon</span></span>
+<span id="cb2-2"><a href="" aria-label="2"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(echantillon<span class="sc">$</span>Bwt)</span>
+<span id="cb2-3"><a href="" aria-label="3"></a></span>
+<span id="cb2-4"><a href="" aria-label="4"></a><span class="co"># Moyenne empirique</span></span>
+<span id="cb2-5"><a href="" aria-label="5"></a>mu_ech <span class="ot">&lt;-</span> <span class="fu">mean</span>(echantillon<span class="sc">$</span>Bwt)</span>
+<span id="cb2-6"><a href="" aria-label="6"></a></span>
+<span id="cb2-7"><a href="" aria-label="7"></a><span class="co"># Écart-type empirique corrigé</span></span>
+<span id="cb2-8"><a href="" aria-label="8"></a>s_ech <span class="ot">&lt;-</span> <span class="fu">sd</span>(echantillon<span class="sc">$</span>Bwt)</span>
+<span id="cb2-9"><a href="" aria-label="9"></a></span>
+<span id="cb2-10"><a href="" aria-label="10"></a>n</span>
+<span id="cb2-11"><a href="" aria-label="11"></a>mu_ech</span>
+<span id="cb2-12"><a href="" aria-label="12"></a>s_ech</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:50%;">
+<p><span class="smallcaps"><u>Sortie :</u></span></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 50</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.8</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4869732</code></pre>
+</div>
+</div>
+</div></div>
+</section>
+<section id="application-aux-données-de-chats---3---intervalles" class="slide level2">
+<h2>🐈 Application aux données de chats - 3 - Intervalles</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="" aria-label="1"></a><span class="co"># IC à 95 % avec correction de population finie</span></span>
+<span id="cb6-2"><a href="" aria-label="2"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(echantillon)</span>
+<span id="cb6-3"><a href="" aria-label="3"></a>N <span class="ot">&lt;-</span> <span class="fu">nrow</span>(cats)</span>
+<span id="cb6-4"><a href="" aria-label="4"></a></span>
+<span id="cb6-5"><a href="" aria-label="5"></a>mu_ech <span class="ot">&lt;-</span> <span class="fu">mean</span>(echantillon<span class="sc">$</span>Bwt)</span>
+<span id="cb6-6"><a href="" aria-label="6"></a>s_ech <span class="ot">&lt;-</span> <span class="fu">sd</span>(echantillon<span class="sc">$</span>Bwt)</span>
+<span id="cb6-7"><a href="" aria-label="7"></a>t_crit <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb6-8"><a href="" aria-label="8"></a></span>
+<span id="cb6-9"><a href="" aria-label="9"></a>correction <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((N <span class="sc">-</span> n) <span class="sc">/</span> (N <span class="sc">-</span> <span class="dv">1</span>))</span>
+<span id="cb6-10"><a href="" aria-label="10"></a></span>
+<span id="cb6-11"><a href="" aria-label="11"></a>IC <span class="ot">&lt;-</span> mu_ech <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span></span>
+<span id="cb6-12"><a href="" aria-label="12"></a>  t_crit <span class="sc">*</span> s_ech <span class="sc">/</span> <span class="fu">sqrt</span>(n) <span class="sc">*</span> correction</span>
+<span id="cb6-13"><a href="" aria-label="13"></a></span>
+<span id="cb6-14"><a href="" aria-label="14"></a><span class="co"># IP à 95 % : formule du modèle i.i.d. normal</span></span>
+<span id="cb6-15"><a href="" aria-label="15"></a>IP <span class="ot">&lt;-</span> mu_ech <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span></span>
+<span id="cb6-16"><a href="" aria-label="16"></a>  t_crit <span class="sc">*</span> s_ech <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span>n)</span>
+<span id="cb6-17"><a href="" aria-label="17"></a></span>
+<span id="cb6-18"><a href="" aria-label="18"></a>IC</span>
+<span id="cb6-19"><a href="" aria-label="19"></a>IP</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:50%;">
+<p><span class="smallcaps"><u>Sortie :</u></span></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>IC à 95 % : 2.688 2.912 kg</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>IP à 95 % : 1.812 3.788 kg</code></pre>
+</div>
+</div>
+</div></div>
+</section>
+<section id="application-aux-données-de-chats---4---interprétation" class="slide level2">
+<h2>🐈 Application aux données de chats - 4 - Interprétation</h2>
+<p><br></p>
+<ul>
+<li>On cherche à estimer <strong>le poids moyen des 144 chats</strong>.</li>
+</ul>
+<p><span class="math display">\[
+IC_{95\%}\approx
+[2.688\,;\,2.912]\ \mathrm{kg}
+\]</span> <br></p>
+<ul>
+<li>On cherche à prédire <strong>le poids d’un nouveau chat</strong>.</li>
+</ul>
+<p><span class="math display">\[
+IP_{95\%}\approx
+[1.812\,;\,3.788]\ \mathrm{kg}
+\]</span></p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>L’intervalle de prédiction est plus large que l’intervalle de confiance</strong> car il tient compte de la variabilité individuelle.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="à-quoi-servent-les-intervalles-de-confiance-et-de-prédiction" class="slide level2">
+<h2>📝 À quoi servent les intervalles de confiance et de prédiction ?</h2>
+<p><br> <br></p>
+<p><span class="smallcaps"><u><strong>Utilisations principales :</strong></u></span></p>
+<ul>
+<li><p><span class="smallcaps">Estimer une caractéristique inconnue de la population</span> - <em>Quel est le poids moyen des chats de la population ?</em></p>
+<p><span class="math inline">\(\longrightarrow\)</span> Construction d’un <span class="smallcaps">intervalle de confiance</span>.</p>
+<p><br></p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p><span class="smallcaps">Prédire la valeur d’une nouvelle observation</span> - <em>Quel sera le poids d’un nouveau chat ?</em></p>
+<p><span class="math inline">\(\longrightarrow\)</span> Construction d’un <span class="smallcaps">intervalle de prédiction</span>.</p></li>
+</ul>
+</div>
+</section>
+<section id="exemple-dutilisation-en-sciences-vétérinaires" class="slide level2">
+<h2>📑 Exemple d’utilisation en sciences vétérinaires</h2>
+<div style="height:20px;"></div>
+<p><span class="smallcaps"><u><strong>Exemple issu de :</strong></u></span> <span class="citation" data-cites="häggström2016">Häggström et al. (<a href="#/références" role="doc-biblioref" onclick="">2016</a>)</span></p>
+<div style="height:15px;"></div>
+
+<img data-src="figures/papier_ex.png" class="quarto-figure quarto-figure-center r-stretch"><div style="height:15px;"></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Dans la régression linéaire présentée dans cet article on s’intéresse à la question : <em>La production de lait en début de lactation permet-elle d’expliquer la production de lait sur l’ensemble de la lactation ?</em></p>
+</div>
+</div>
+</div>
+</section>
+<section id="conclusion" class="slide level2">
+<h2>🎯 Conclusion</h2>
+<div style="height:5px;"></div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="text-align: center;">
+<p><span class="smallcaps"><u><strong>Intervalle de confiance (IC)</strong></u></span></p>
+</div>
+<p><span class="smallcaps"><u>Objectif :</u></span> Encadrer la moyenne de la population.</p>
+<ul>
+<li><span class="math inline">\(\sigma_{\mathrm{pop}}\)</span> <strong>connu</strong> :</li>
+</ul>
+<div style="font-size: 0.80em; margin-top: -27px; margin-bottom: -27px;">
+<p><span class="math display">\[
+\color{#0072B2}{
+\boxed{
+IC_{95\%}=
+\mu_{\mathrm{ech}}\pm
+1{,}96\frac{\sigma_{\mathrm{pop}}}{\sqrt n}
+}}
+\]</span></p>
+</div>
+<ul>
+<li><span class="math inline">\(\sigma_{\mathrm{pop}}\)</span> <strong>inconnu</strong> :</li>
+</ul>
+<div style="font-size: 0.80em; margin-top: -27px; margin-bottom: -27px;">
+<p><span class="math display">\[
+\color{#D17A57}{
+\boxed{
+IC_{95\%}=
+\mu_{\mathrm{ech}}\pm
+t_{0{,}975,n-1}\frac{s_{\mathrm{ech}}}{\sqrt n}
+}}
+\]</span></p>
+</div>
+</div><div class="column" style="width:50%;">
+<div style="text-align: center;">
+<p><span class="smallcaps"><u><strong>Intervalle de prédiction (IP)</strong></u></span></p>
+</div>
+<p><span class="smallcaps"><u>Objectif :</u></span> Encadrer la prédiction d’une nouvelle observation.</p>
+<ul>
+<li><span class="math inline">\(\sigma_{\mathrm{pop}}\)</span> <strong>connu</strong> :</li>
+</ul>
+<div style="font-size: 0.80em; margin-top: -27px; margin-bottom: -27px;">
+<p><span class="math display">\[
+\color{#0072B2}{
+\boxed{
+IP_{95\%}=
+\mu_{\mathrm{ech}}\pm
+1{,}96\,\sigma_{\mathrm{pop}}
+\sqrt{1+\frac1n}
+}}
+\]</span></p>
+</div>
+<ul>
+<li><span class="math inline">\(\sigma_{\mathrm{pop}}\)</span> <strong>inconnu</strong> :</li>
+</ul>
+<div style="font-size: 0.80em; margin-top: -27px; margin-bottom: -27px;">
+<p><span class="math display">\[
+\color{#D17A57}{
+\boxed{
+IP_{95\%}=
+\mu_{\mathrm{ech}}\pm
+t_{0{,}975,n-1}s_{\mathrm{ech}}
+\sqrt{1+\frac1n}
+}}
+\]</span></p>
+</div>
+</div></div>
+<div style="height:45px;"></div>
+<p>📌 <span class="smallcaps"><u><strong>programme du prochain cours :</strong></u></span> Tests d’hypothèses</p>
+</section>
+<section id="références" class="slide level2 smaller scrollable">
+<h2>Références</h2>
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-fisher1947" class="csl-entry" role="listitem">
+Fisher, R. A. 1947. <span>“The Analysis of Covariance Method for the Relation Between a Part and the Whole.”</span> <em>Biometrics</em> 3 (2): 65. <a href="https://doi.org/10.2307/3001641">https://doi.org/10.2307/3001641</a>.
+</div>
+<div id="ref-häggström2016" class="csl-entry" role="listitem">
+Häggström, J., Å.O. Andersson, T. Falk, et al. 2016. <span>“Effect of Body Weight on Echocardiographic Measurements in 19,866 Pure-Bred Cats with or Without Heart Disease.”</span> <em>Journal of Veterinary Internal Medicine</em> 30 (5): 1601–11. <a href="https://doi.org/10.1111/jvim.14569">https://doi.org/10.1111/jvim.14569</a>.
+</div>
+</div>
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="intervalles_confiance_prediction_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="intervalles_confiance_prediction_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="intervalles_confiance_prediction_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="intervalles_confiance_prediction_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="intervalles_confiance_prediction_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="intervalles_confiance_prediction_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="intervalles_confiance_prediction_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="intervalles_confiance_prediction_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="intervalles_confiance_prediction_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="intervalles_confiance_prediction_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

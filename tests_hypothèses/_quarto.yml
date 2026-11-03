@@ -1,0 +1,5 @@
+project:
+  title: "regression_lineaire"
+  output-dir: public
+
+editor: visual

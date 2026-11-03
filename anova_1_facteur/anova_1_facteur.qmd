@@ -42,7 +42,7 @@ library(car)
 . . .
 
 | Questions de recherche | Facteur(s) {modalités} | $Y$ = variable expliquée |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | Le type d'alimentation (granules, foin, ...) [influence]{.smallcaps}-t-il la vitesse de croissance de l'animal ? | Type d'alimentation {granules, foin, ...} | Vitesse de croissance |
 | Le quartier a-t-il un [effet]{.smallcaps} sur le prix d'un logement ? | Quartier {Capitole, Purpan, ...} | Prix du logement |
 | La durée de guérison de la souris [diffère]{.smallcaps}-t-elle selon son sexe et/ou le type de traitement reçu ? | Sexe {M stérilisé ou non / F stérilisé ou non} +/$\times$ Type de traitement reçu {Traitement A, B ou C} | Durée de guérison |
@@ -67,7 +67,7 @@ L'objectif de l'ANOVA est de comparer les moyennes de $Y$ pour chacun des groupe
 
 ::: {#tableau-focus}
 | Questions de recherche | Facteur(s) {modalités} | $Y$ = variable expliquée |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | Le type d'alimentation (granules, foin, ...) [influence]{.smallcaps}-t-il la vitesse de croissance de l'animal ? | Type d'alimentation {granules, foin, ...} | Vitesse de croissance |
 | Le quartier a-t-il un [effet]{.smallcaps} sur le prix d'un logement ? | Quartier {Capitole, Purpan, ...} | Prix du logement |
 | La durée de guérison de la souris [diffère]{.smallcaps}-t-elle selon son sexe et/ou le type de traitement reçu ? | Sexe {M stérilisé ou non /F stérilisé ou non} +/$\times$ Type de traitement reçu {Traitement A, B ou C} | Durée de guérison |
@@ -223,7 +223,7 @@ $$\small H_0:\mu=\mu_0 \qquad\qquad\qquad H_1:\mu\neq\mu_0$$
 ```
 
 |   | **Ne pas rejeter** $\small H_0$ | **Rejeter** $\small H_0$ |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | $\small H_0$ **vraie** | ✅ Bonne décision | ❌ **Type I :** $\small \alpha$ |
 | $\small H_0$ **fausse** | ❌ **Type II :** $\small \beta$ | ✅ Bonne décision |
 
@@ -304,7 +304,7 @@ $$\small H_0:\mu_1=\mu_2=\cdots=\mu_J \qquad\qquad\qquad H_1:\text{au moins deux
 ```
 
 |   | **Ne pas rejeter** $\small H_0$ | **Rejeter** $\small H_0$ |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | $\small H_0$ **vraie** | ✅ Bonne décision | ❌ **Type I :** $\small \alpha$ |
 | $\small H_0$ **fausse** | ❌ **Type II :** $\small \beta$ | ✅ Bonne décision |
 
@@ -480,7 +480,7 @@ Comme toujours avant un test, il faut s'assurer que les données présentent les
 ```
 
 ::: {style="font-size: 0.85em;"}
-Soit $i$ le numéro de l'individu observé (où $i = 1, ..., n_{j}$) et $j$ la modalité du facteur  (où $j = 1, ..., J$).
+Soit $i$ le numéro de l'individu observé (où $i = 1, ..., n_{j}$) et $j$ la modalité du facteur (où $j = 1, ..., J$).
 :::
 
 <br>
@@ -488,7 +488,7 @@ Soit $i$ le numéro de l'individu observé (où $i = 1, ..., n_{j}$) et $j$ la m
 1.  [[indépendance :]{.underline}]{.smallcaps} Les $\epsilon_{ij}$ sont indépendants $\longrightarrow$ Les $Y_{ij}$ sont indépendants
 
 |  |
-|:----------------------------------------------------------------------:|
+|:--:|
 | La mesure prise sur un individu n'a pas d'influence sur celle prise sur un autre. |
 
 ## 1️⃣ Les hypothèses à vérifier avant le test
@@ -498,7 +498,7 @@ Soit $i$ le numéro de l'individu observé (où $i = 1, ..., n_{j}$) et $j$ la m
 ```
 
 ::: {style="font-size: 0.85em;"}
-Soit $i$ le numéro de l'individu observé (où $i = 1, ..., n_{j}$) et $j$ la modalité du facteur  (où $j = 1, ..., J$).
+Soit $i$ le numéro de l'individu observé (où $i = 1, ..., n_{j}$) et $j$ la modalité du facteur (où $j = 1, ..., J$).
 :::
 
 ```{=html}
@@ -935,18 +935,17 @@ ggplot() +
 :::::
 
 |  |
-|:----------------------------------------------------------------------:|
+|:--:|
 | Pour un groupe $j$ donné, les points observés $y$ sont distribués selon une distribution Normale centrée sur la moyenne du groupe. |
 
 ## 1️⃣ Les hypothèses à vérifier avant le test
-
 
 ```{=html}
 <div style="height:15px;"></div>
 ```
 
 ::: {style="font-size: 0.85em;"}
-Soit $i$ le numéro de l'individu observé (où $i = 1, ..., n_{j}$) et $j$ la modalité du facteur  (où $j = 1, ..., J$).
+Soit $i$ le numéro de l'individu observé (où $i = 1, ..., n_{j}$) et $j$ la modalité du facteur (où $j = 1, ..., J$).
 :::
 
 ```{=html}
@@ -2102,7 +2101,6 @@ $$
 
 ## 2️⃣ Calcul de la statistique de Fisher - Exemple
 
-
 ```{=html}
 <div style="height:5px;"></div>
 ```
@@ -2362,7 +2360,7 @@ $$\small H_0:\mu_C=\mu_F=\mu_M=\mu_S \qquad\qquad\qquad H_1:\text{au moins deux 
 ```
 
 |   | **Ne pas rejeter** $\small H_0$ | **Rejeter** $\small H_0$ |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | $\small H_0$ **vraie** | ✅ Bonne décision | ❌ **Type I :** $\small \alpha$ |
 | $\small H_0$ **fausse** | ❌ **Type II :** $\small \beta$ | ✅ Bonne décision |
 
@@ -2674,9 +2672,9 @@ La moyenne de $Y$ dans le groupe $j$ est donnée par $\mu_j = \color{#CC79A7}{\m
 **Modèle ≠ méthode :** le [modèle ANOVA]{.smallcaps} décrit la structure des données. La [méthode ANOVA]{.smallcaps} permet d'ajuster ce modèle, de décomposer la variabilité et de tester les effets du facteur.
 :::
 
-## ➕ Bonnus : Écriture du modèle de l'ANOVA : Exemple[^2]
+## ➕ Bonnus : Écriture du modèle de l'ANOVA : Exemple[^1]
 
-[^2]: Ici, le nombre d'observations a été réduit à $40$ pour plus de lisibilité.
+[^1]: Ici, le nombre d'observations a été réduit à $40$ pour plus de lisibilité.
 
 ::::: columns
 ::: {.column width="50%"}
@@ -3203,6 +3201,10 @@ shapiro.test(anova$residuals)
 
 ::: {.column width="50%"}
 ```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
 anova <- aov(cats$Age ~ cats$Sex) 
 
 shapiro.test(anova$residuals)
@@ -3238,9 +3240,11 @@ leveneTest(Age ~ Sex, data = cats)
 
 ::: {.column width="50%"}
 ```{r}
+#| echo: false
+#| message: false
+#| warning: false
 
 leveneTest(Age ~ Sex, data = cats)
-
 ```
 :::
 :::::
@@ -3263,6 +3267,10 @@ summary(aov)
 
 ::: {.column width="50%"}
 ```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
 aov <- aov(cats$Age ~ cats$Sex)
 summary(aov)
 ```
@@ -3312,7 +3320,7 @@ On peut conclure a un effet significatif du sexe sur l'âge moyen de visite (p-v
 ```
 
 ::: callout-note
-Dans l’ANOVA présentée dans cet article, on montre que : les animaux stérilisés sont significativement plus âgés lors de leur consultation que les animaux non stérilisés ($p<0.01$).
+Dans l’ANOVA présentée dans cet article, les auteur.es montrent que : les animaux stérilisés sont significativement plus âgés lors de leur consultation que les animaux non stérilisés ($p<0.01$).
 :::
 
 ::: {style="font-size: 0.85em;"}

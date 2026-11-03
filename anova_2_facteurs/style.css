@@ -80,3 +80,10 @@
 }
 
 
+.reveal .grande-fig img {
+  width: 850px !important;
+  max-width: none !important;
+  height: auto !important;
+  max-height: none !important;
+  margin-bottom: 0 !important;
+}
