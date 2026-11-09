@@ -1,4 +1,4 @@
-# courses
+# Cours :
 
 - acp
 - anova_1_facteur
