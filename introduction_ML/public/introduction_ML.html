@@ -1,0 +1,2174 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="introduction_ML_files/libs/clipboard/clipboard.min.js"></script>
+<script src="introduction_ML_files/libs/quarto-html/tabby.min.js"></script>
+<script src="introduction_ML_files/libs/quarto-html/popper.min.js"></script>
+<script src="introduction_ML_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="introduction_ML_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="introduction_ML_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="introduction_ML_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
+
+  <meta name="author" content="Hanna Bacave">
+  <title>Introduction au machine learning</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="introduction_ML_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="introduction_ML_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="introduction_ML_files/libs/revealjs/dist/theme/quarto-2740581606dc327e82f18f789b69d8a0.css">
+  <link rel="stylesheet" href="style.css">
+  <link href="introduction_ML_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="introduction_ML_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="introduction_ML_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="introduction_ML_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-image="figures/fond.png" data-background-size="cover" syntax-highlighting="idiomatic" class="quarto-title-block center">
+  <h1 class="title">Introduction au machine learning</h1>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Hanna Bacave
+</div>
+</div>
+</div>
+
+</section>
+<section id="introduction-le-machine-learning-ml-quest-ce-que-cest" class="slide level2">
+<h2>🔍 Introduction : Le Machine Learning (ML), qu’est-ce que c’est ?</h2>
+<div style="height:2px;"></div>
+<blockquote>
+<p>Le <span class="smallcaps">machine learning (ML)</span> ou <span class="smallcaps">apprentissage automatique</span>, regroupe des méthodes permettant d’apprendre des relations ou des structures à partir de données, notamment pour réaliser des prédictions sur de nouvelles observations.</p>
+</blockquote>
+<div style="height:7px;"></div>
+<div class="fragment">
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Question de recherche</th>
+<th>Type de méthode associé</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Peut-on prédire le prix de vente d’un appartement à partir de sa superficie, de sa localisation et du nombre de pièces ?</td>
+<td>Prédiction (régression)</td>
+</tr>
+<tr class="even">
+<td>Peut-on déterminer si un âne souffrant de coliques présente une infection à partir de sa température et de sa fréquence cardiaque ?</td>
+<td>Classification</td>
+</tr>
+<tr class="odd">
+<td>Peut-on reconnaître le chiffre (de 0 à 9) représenté sur une image manuscrite ?</td>
+<td>Reconnaissance d’image (classification)</td>
+</tr>
+<tr class="even">
+<td>Peut-on identifier différents profils cliniques parmi les animaux hospitalisés dans un même CHUV à partir de leur bilan sanguin ?</td>
+<td>Classification non supervisée</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment">
+<div style="height:10px;"></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Il existe <span class="smallcaps">différentes méthodes de ML</span>, dont le choix dépend de la question de recherche, de la nature des données et de l’objectif de l’analyse.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="application-présentation-des-données" class="slide level2">
+<h2>🐎 Application : Présentation des données</h2>
+<div style="height:5px;"></div>
+<p><span class="smallcaps"><u>Jeu de données utilisé :</u></span> Données cliniques de <span class="math inline">\(368\)</span> chevaux souffrant de coliques, issues de <span class="citation" data-cites="marymcleish1989">Mary McLeish (<a href="#/références" role="doc-biblioref" onclick="">1989</a>)</span>, disponibles dans le package R <em>GSE</em>.</p>
+<div class="fragment">
+<div style="height:20px;"></div>
+<div class="columns">
+<div class="column" style="width:55%;">
+<ul>
+<li><p>7 mesures cliniques quantitatives <span class="math inline">\(X\)</span> :</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 58%">
+<col style="width: 41%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type de mesure</th>
+<th>Variables</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Signes vitaux</td>
+<td>Température rectale, fréquences cardiaque et respiratoire</td>
+</tr>
+<tr class="even">
+<td>Mesures digestives</td>
+<td>pH du reflux nasogastrique</td>
+</tr>
+<tr class="odd">
+<td>Analyses sanguines</td>
+<td>Hématocrite, protéines totales</td>
+</tr>
+<tr class="even">
+<td>Analyse du liquide abdominal</td>
+<td>Protéines totales</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>1 variable qualitative binaire <span class="math inline">\(Y\)</span> :</p>
+<p><strong>Présence d’une lésion chirurgicale</strong> : Oui / Non</p></li>
+</ul>
+</div><div class="column" style="width:45%;">
+<div style="height:5px;"></div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 12%">
+<col style="width: 3%">
+<col style="width: 10%">
+<col style="width: 14%">
+<col style="width: 12%">
+<col style="width: 8%">
+<col style="width: 17%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Hospital_Number</th>
+<th style="text-align: right;">Rectal_temperature</th>
+<th style="text-align: right;">Pulse</th>
+<th style="text-align: right;">Respiratory_rate</th>
+<th style="text-align: right;">Nasogastric_reflux_PH</th>
+<th style="text-align: right;">Packed_cell_volume</th>
+<th style="text-align: right;">Total_protein</th>
+<th style="text-align: right;">Abdomcentesis_total_protein</th>
+<th style="text-align: right;">surgical_lesion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">530101</td>
+<td style="text-align: right;">38.5</td>
+<td style="text-align: right;">66</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">8.4</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">534817</td>
+<td style="text-align: right;">39.2</td>
+<td style="text-align: right;">88</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">85.0</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">530334</td>
+<td style="text-align: right;">38.3</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">6.7</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5290409</td>
+<td style="text-align: right;">39.1</td>
+<td style="text-align: right;">164</td>
+<td style="text-align: right;">84</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">7.2</td>
+<td style="text-align: right;">5.3</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">530255</td>
+<td style="text-align: right;">37.3</td>
+<td style="text-align: right;">104</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">74</td>
+<td style="text-align: right;">7.4</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">528355</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">526802</td>
+<td style="text-align: right;">37.9</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">7.0</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">529607</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">8.3</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">530051</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">6.2</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5299629</td>
+<td style="text-align: right;">38.3</td>
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">6.2</td>
+<td style="text-align: right;">2.2</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div></div>
+</div>
+</section>
+<section id="application-questions-de-recherche" class="slide level2">
+<h2>🐎 Application : Questions de recherche</h2>
+<div class="center-text">
+<div class="highlight-box">
+<p><strong>Peut-on prédire si un cheval souffrant de coliques présente une lésion chirurgicale à partir de ses caractéristiques cliniques ?</strong></p>
+</div>
+</div>
+</section>
+<section id="objectifs-du-cours" class="slide level2">
+<h2>📖 Objectifs du cours</h2>
+<br>
+<br>
+<div style="height:5px;"></div>
+<ol type="1">
+<li>Pourquoi utiliser le machine learning ? (Définitions &amp; Objectifs)</li>
+</ol>
+<div class="fragment">
+<div style="height:5px;"></div>
+<ol start="2" type="1">
+<li>Comment construire un modèle de ML et évaluer sa qualité ? (Théorie)</li>
+</ol>
+</div>
+<div class="fragment">
+<div style="height:5px;"></div>
+<ol start="3" type="1">
+<li>En pratique : Faire du Machine Learning avec R</li>
+</ol>
+</div>
+<div class="fragment">
+<div style="height:5px;"></div>
+<ol start="4" type="1">
+<li>Conclusion &amp; Exemple concret d’une contribution en sciences vétérinaires</li>
+</ol>
+</div>
+</section>
+<section id="pourquoi-utiliser-le-ml---intuition" class="slide level2">
+<h2>1️⃣ Pourquoi utiliser le ML ? - Intuition</h2>
+<div style="height:30px;"></div>
+<p>Le <span class="smallcaps">machine learning</span> est particulièrement intéressant pour :</p>
+<ul>
+<li><p><strong>Analyser des données complexes et de grande dimension</strong> : nombreuses variables, relations non linéaires et interactions.</p>
+<p><em>Exemple : prédire une maladie à partir de milliers de mesures génomiques.</em></p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p><strong>Améliorer les performances prédictives</strong> : construire des modèles capables de prédire correctement de nouvelles observations.</p>
+<p><em>Exemple : prédire le risque de complications chez un cheval souffrant de coliques.</em></p></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><p><strong>Exploiter des données non structurées</strong> : images, textes ou signaux.</p>
+<p><em>Exemple : détecter des anomalies sur des radiographies vétérinaires.</em></p></li>
+</ul>
+</div>
+</section>
+<section id="statistique-ml-et-deep-learning-quelles-relations" class="slide level2">
+<h2>1️⃣ Statistique, ML et Deep-Learning : quelles relations ?</h2>
+<div style="height:30px;"></div>
+
+<img data-src="figures/schema_stat_ml_dl.jpg" class="quarto-figure quarto-figure-center r-stretch" style="width:160.0%"><div style="text-align: center; font-size: 0.6em; color: gray;">
+<p>Figure Prakasha S. (2026).</p>
+</div>
+<div style="height:10px;"></div>
+<table class="caption-top">
+<colgroup>
+<col style="width: 36%">
+<col style="width: 63%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Domaine</th>
+<th>Définition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Statistique</strong></td>
+<td>Décrire, modéliser et analyser des données pour réaliser des inférences et des prédictions.</td>
+</tr>
+<tr class="even">
+<td><strong>Machine learning (ML)</strong></td>
+<td>Apprendre des relations ou des structures à partir des données, notamment pour prédire.</td>
+</tr>
+<tr class="odd">
+<td><strong>Deep learning (DL)</strong></td>
+<td>Sous-domaine du ML utilisant des réseaux de neurones à plusieurs couches.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="quelles-méthodes-de-ml-pour-quelles-questions" class="slide level2">
+<h2>1️⃣ Quelles méthodes de ML pour quelles questions ?</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="text-align: center;">
+<p><span class="smallcaps"><u><strong>Apprentissage supervisé</strong></u></span></p>
+<div style="height:30px;"></div>
+<p>La variable réponse <span class="math inline">\(Y\)</span> est connue.</p>
+<div style="height:20px;"></div>
+<ul>
+<li>Prédire un rendement,</li>
+<li>Prédire un type de cancer,</li>
+<li>Sélectionner des bio-marqueurs.</li>
+</ul>
+<div style="height:40px;"></div>
+<p><span class="math inline">\(\color{#E69F00}{\Longrightarrow}\)</span> Régression, classification</p>
+</div>
+</div><div class="column" style="width:50%;">
+<div style="text-align: center;">
+<p><span class="smallcaps"><u><strong>Apprentissage non supervisé</strong></u></span></p>
+<div style="height:20px;"></div>
+<p>Aucune variable réponse <span class="math inline">\(Y\)</span> n’est définie.</p>
+<div style="height:20px;"></div>
+<ul>
+<li>Découvrir des groupes,</li>
+<li>Étudier les similarités,</li>
+<li>Visualiser des données.</li>
+</ul>
+<div style="height:40px;"></div>
+<p><span class="math inline">\(\color{#E69F00}{\Longrightarrow}\)</span> Clustering, visualisation</p>
+</div>
+</div></div>
+</section>
+<section id="définir-le-problème-quelles-sont-les-données-x-et-y" class="slide level2">
+<h2>2️⃣ Définir le problème : Quelles sont les données <span class="math inline">\(X\)</span> et <span class="math inline">\(Y\)</span> ?</h2>
+<div style="height:2px;"></div>
+<p>En <span class="smallcaps">apprentissage supervisé</span>, on dispose d’un échantillon de <span class="math inline">\(n\)</span> individus supposés i.i.d., pour lesquels on observe <span class="math inline">\(p\)</span> variables explicatives et une variable réponse.</p>
+<div style="height:10px;"></div>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div style="text-align: center;">
+<p><span class="smallcaps"><strong>Matrice des variables explicatives</strong></span></p>
+</div>
+<div style="margin-top: -10px; margin-bottom: -20px;">
+<p><span class="math display">\[
+X =
+\begin{pmatrix}
+x_{11} &amp; \cdots &amp; x_{1p} \\
+\vdots &amp; \ddots &amp; \vdots \\
+x_{n1} &amp; \cdots &amp; x_{np}
+\end{pmatrix}
+\]</span></p>
+</div>
+</div><div class="column" style="width:40%;">
+<div style="text-align: center;">
+<p><span class="smallcaps"><strong>Vecteur des réponses</strong></span></p>
+<div style="margin-top: -10px; margin-bottom: -20px;">
+<p><span class="math display">\[
+Y =
+\begin{pmatrix}
+y_1 \\
+\vdots \\
+y_n
+\end{pmatrix}
+\]</span></p>
+</div>
+<ul>
+<li><p><span style="color: #009E73;"><span class="math inline">\(Y\)</span> quantitatif : Régression</span></p></li>
+<li><p><span style="color: #CC79A7;"><span class="math inline">\(Y\)</span> qualitatif : Classification</span></p></li>
+</ul>
+</div>
+</div></div>
+<div class="fragment">
+<div style="margin-top: -10px; margin-bottom: -20px;">
+<div class="small-box">
+<p><span class="smallcaps"><u><strong>Objectif :</strong></u></span> à partir des couples observés <span class="math inline">\((x_i,y_i)\)</span>, apprendre une <span class="smallcaps">fonction de prédiction/</span> un <span class="smallcaps">modèle</span> pour prédire la réponse d’un <strong>nouvel individu</strong> à partir de ses variables explicatives.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="choisir-un-modèle-comment-prédire-y" class="slide level2">
+<h2>2️⃣ Choisir un modèle : Comment prédire <span class="math inline">\(Y\)</span> ?</h2>
+<div style="margin-bottom: -25px;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/donnees_fonction_sorties.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+<div class="fragment">
+<dl>
+<dt><span class="smallcaps"><u>modèle de prédiction</u></span></dt>
+<dd>
+<p>En apprentissage supervisé, on choisit une famille de fonctions, de <span class="smallcaps">modèles de prédiction</span> <span class="math inline">\(h_\theta\)</span>, paramétrés par <span class="math inline">\(\theta\)</span>, tels que :</p>
+</dd>
+</dl>
+<div style="margin-top: -20px; margin-bottom: -20px;">
+<p><span class="math display">\[
+  h_\theta : x \longmapsto \hat y = h_\theta(x)
+\]</span></p>
+</div>
+<p>où <span class="math inline">\(\theta\)</span> désigne les paramètres inconnus à estimer à partir des données.</p>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>En pratique, le <span class="smallcaps">modèle de prédiction</span> qu’on utilise dépend de la nature de la sortie et de l’objectif.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="différents-modèles-pour-prédire-y" class="slide level2">
+<h2>2️⃣Différents modèles pour prédire <span class="math inline">\(Y\)</span></h2>
+<div style="height:5px;"></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>En pratique, le <span class="smallcaps">modèle de prédiction</span> qu’on utilise dépend de la nature de la sortie et de l’objectif.</p>
+</div>
+</div>
+</div>
+<div style="height:50px;"></div>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Type de sortie <span class="math inline">\(Y\)</span></th>
+<th style="text-align: left;">Objectif</th>
+<th style="text-align: left;">Exemple de modèle</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Quantitative</td>
+<td style="text-align: left;">Régression</td>
+<td style="text-align: left;">Régression linéaire</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Quantitative</td>
+<td style="text-align: left;">Régression</td>
+<td style="text-align: left;">Arbre de régression</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Quantitative</td>
+<td style="text-align: left;">Régression</td>
+<td style="text-align: left;">Forêt aléatoire</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Binaire</td>
+<td style="text-align: left;">Classification</td>
+<td style="text-align: left;">Régression logistique</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Binaire</td>
+<td style="text-align: left;">Classification</td>
+<td style="text-align: left;">Arbre de classification</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Binaire</td>
+<td style="text-align: left;">Classification</td>
+<td style="text-align: left;">Forêt aléatoire</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Qualitative (plusieurs classes)</td>
+<td style="text-align: left;">Classification</td>
+<td style="text-align: left;">Régression logistique multinomiale</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Qualitative (plusieurs classes)</td>
+<td style="text-align: left;">Classification</td>
+<td style="text-align: left;">Arbre de classification</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Qualitative (plusieurs classes)</td>
+<td style="text-align: left;">Classification</td>
+<td style="text-align: left;">Forêt aléatoire</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="définition-du-problème-et-choix-du-modèle---exemple" class="slide level2">
+<h2>2️⃣ Définition du problème et choix du modèle - Exemple</h2>
+<div style="margin-bottom: -20px;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/donnees_fonction_sorties.png" class="quarto-figure quarto-figure-center" style="height:4cm"></p>
+</figure>
+</div>
+</div>
+<p><span class="smallcaps"><u>Données d’entrée :</u></span> <span class="math inline">\(7\)</span> variables explicatives <span class="math inline">\(x\)</span> (données cliniques).</p>
+<div style="height:5px;"></div>
+<p><span class="smallcaps"><u>Sortie :</u></span> <span class="math inline">\(1\)</span> variable réponse binaire <span class="math inline">\(y\)</span> (présence d’une lésion : Oui/Non).</p>
+<div style="height:10px;"></div>
+<p><span class="smallcaps"><u>Modèle de prédiction :</u></span> La <span class="smallcaps"><strong>régression logistique</strong></span> est utilisée pour la <strong>classification binaire</strong>, et est définie par:</p>
+<div style="margin-top: -20px; margin-bottom: -20px;">
+<p><span class="math display">\[
+\begin{aligned}
+h_\theta : \mathbb{R}^p &amp;\longrightarrow ]0,1[\\
+x &amp;\longmapsto
+\frac{1}{1+\exp\left(-\left(\theta_0+\sum_{j=1}^{p}\theta_j x_j\right)\right)}
+\end{aligned}
+\]</span></p>
+</div>
+</section>
+<section id="entraîner-le-modèle-comment-estimer-les-paramètres" class="slide level2">
+<h2>2️⃣ Entraîner le modèle : Comment estimer les paramètres ?</h2>
+<div style="height:5px;"></div>
+<p><span class="smallcaps"><u><strong>Objectif :</strong></u></span> Déterminer les paramètres <span class="math inline">\(\theta\)</span> de la fonction de prédiction <span class="math inline">\(h_\theta\)</span> à partir des données observées.</p>
+<div style="height:10px;"></div>
+<p><span class="smallcaps"><u><strong>Deux approches mathématiques :</strong></u></span></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 44%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Méthode</th>
+<th style="text-align: center;">Problème résolu</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Minimisation d’une erreur de prédiction</strong></td>
+<td style="text-align: center;"><span class="math inline">\(\displaystyle \hat{\theta}=\arg\min_{\theta\in\Theta}\sum_{i=1}^{n} ||y_i-h_\theta(x_i))||\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Maximum de vraisemblance</strong></td>
+<td style="text-align: center;"><span class="math inline">\(\displaystyle \hat{\theta}=\arg\max_{\theta\in\Theta}\prod_{i=1}^{n}\mathbb{P}_\theta(Y_i=y_i\mid X_i=x_i)\)</span></td>
+</tr>
+</tbody>
+</table>
+<div style="height:10px;"></div>
+<div class="fragment">
+<p><span class="smallcaps"><u><strong>Deux modes de résolution :</strong></u></span></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Mode</th>
+<th style="text-align: left;">Principe</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Solution analytique</strong></td>
+<td style="text-align: left;">Formule explicite permettant de calculer <span class="math inline">\(\hat{\theta}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Résolution numérique</strong></td>
+<td style="text-align: left;">Algorithme d’optimisation permettant d’approcher <span class="math inline">\(\hat{\theta}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="entraînement-du-modèle-exemple" class="slide level2">
+<h2>2️⃣ Entraînement du modèle — Exemple</h2>
+<div style="height:5px;"></div>
+<p><span class="smallcaps"><u><strong>Objectif :</strong></u></span> On cherche à prédire la présence d’une lésion chirurgicale (<span class="math inline">\(Y=1\)</span>) chez un cheval à partir de <span class="math inline">\(7\)</span> variables cliniques, avec une régression logistique :</p>
+<div style="margin-top: -20px;">
+<p><span class="math display">\[
+h_\theta(x_i)=\mathbb{P}_\theta(Y_i=1\mid X_i=x_i)
+\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="smallcaps"><u><strong>Méthode choisie : Maximum de vraisemblance</strong></u></span></p>
+<p>On suppose que <span class="math inline">\(Y_i \mid X_i=x_i\)</span> suit une loi de Bernoulli de paramètre <span class="math inline">\(h_\theta(x_i)\)</span>. La log-vraisemblance s’écrit :</p>
+<div style="margin-top: -20px; ">
+<p><span class="math display">\[
+\ell(\theta)=
+\sum_{i=1}^{n}
+\left[
+y_i\log h_\theta(x_i)
++(1-y_i)\log\left(1-h_\theta(x_i)\right)
+\right]
+\]</span></p>
+</div>
+</div>
+<div class="fragment">
+<p><span class="smallcaps"><u><strong>Estimation des paramètres :</strong></u></span> On résout <strong>numériquement</strong></p>
+<div style="margin-top: -20px;">
+<p><span class="math display">\[
+\hat{\theta} = \arg\max_{\theta\in\mathbb R^{p+1}} \ell(\theta)
+\]</span></p>
+</div>
+</div>
+</section>
+<section id="évaluer-le-modèle-comment-mesurer-la-qualité-des-prédictions" class="slide level2">
+<h2>2️⃣ Évaluer le modèle : Comment mesurer la qualité des prédictions ?</h2>
+<div style="height:2px;"></div>
+<p><span class="smallcaps"><u><strong>Objectif :</strong></u></span> Mesurer la qualité des prédictions <span class="math inline">\(\hat{y_i}\)</span> en les comparant aux réponses observées <span class="math inline">\(y_i\)</span>.</p>
+<div style="height:5px;"></div>
+<div class="fragment">
+<p><span class="smallcaps"><u><strong>Différents indicateurs selon le problème :</strong></u></span></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Type de problème</th>
+<th style="text-align: left;">Indicateur</th>
+<th style="text-align: left;">Principe</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Régression</strong></td>
+<td style="text-align: left;">Erreur quadratique moyenne (MSE)</td>
+<td style="text-align: left;">Moyenne des erreurs au carré</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Régression</strong></td>
+<td style="text-align: left;">Erreur absolue moyenne (MAE)</td>
+<td style="text-align: left;">Moyenne des erreurs absolues</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Régression</strong></td>
+<td style="text-align: left;">Coefficient <span class="math inline">\(R^2\)</span></td>
+<td style="text-align: left;">Qualité de l’ajustement par rapport à une prédiction constante</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Classification</strong></td>
+<td style="text-align: left;">Accuracy</td>
+<td style="text-align: left;">Proportion de prédictions correctes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Classification</strong></td>
+<td style="text-align: left;">Sensibilité</td>
+<td style="text-align: left;">Proportion de positifs correctement identifiés</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Classification</strong></td>
+<td style="text-align: left;">Spécificité</td>
+<td style="text-align: left;">Prop. de négatifs correctement identifiés</td>
+</tr>
+</tbody>
+</table>
+<div style="height:2px;"></div>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Les indicateurs de performance dépendent du <strong>type de problème</strong> et de <strong>l’objectif de prédiction</strong>. Ils sont généralement calculés sur des données non utilisées pour entraîner le modèle.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="quelles-sont-les-étapes-pour-entraîner-et-évaluer-un-modèle-de-ml" class="slide level2">
+<h2>3️⃣ Quelles sont les étapes pour entraîner et évaluer un modèle de ML ?</h2>
+<p><br></p>
+<p><strong>To Do :</strong></p>
+<div class="fragment">
+<ol type="1">
+<li>Préparer et nettoyer les données</li>
+</ol>
+<div style="height:5px;"></div>
+</div>
+<div class="fragment">
+<ol start="2" type="1">
+<li>Séparer les données en jeu d’entraînement et de test</li>
+</ol>
+<div style="height:5px;"></div>
+</div>
+<div class="fragment">
+<ol start="3" type="1">
+<li>Estimer les paramètres du modèle</li>
+</ol>
+<div style="height:5px;"></div>
+</div>
+<div class="fragment">
+<ol start="4" type="1">
+<li>Effectuer une validation croisée (si nécessaire)</li>
+</ol>
+<div style="height:5px;"></div>
+</div>
+<div class="fragment">
+<ol start="5" type="1">
+<li>Calculer et interpréter les indicateurs de performance sur les données de test</li>
+</ol>
+</div>
+</section>
+<section id="préparer-les-données-quelles-vérifications-effectuer" class="slide level2">
+<h2>3️⃣ Préparer les données : Quelles vérifications effectuer ?</h2>
+<p><br></p>
+<p><span class="smallcaps"><u><strong>Objectif :</strong></u></span> Obtenir des données exploitables pour entraîner un modèle de ML.</p>
+<p><br></p>
+<div class="fragment">
+<p><span class="smallcaps"><u><strong>Principales étapes :</strong></u></span></p>
+<ol type="1">
+<li><p><strong>Sélectionner les variables</strong> : identifier les variables explicatives <span class="math inline">\(X\)</span> et la réponse <span class="math inline">\(Y\)</span> (éventuellement la recoder).</p></li>
+<li><p><strong>Explorer les données</strong>.</p></li>
+<li><p><strong>Contrôler la qualité des données</strong> : repérer les valeurs manquantes, les incohérences et les doublons.</p></li>
+</ol>
+</div>
+</section>
+<section id="application---préparer-les-données" class="slide level2">
+<h2>3️⃣ Application - Préparer les données</h2>
+<div style="height:5px;"></div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="" aria-label="1"></a><span class="fu">library</span>(GSE)</span>
+<span id="cb1-2"><a href="" aria-label="2"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="" aria-label="3"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-4"><a href="" aria-label="4"></a></span>
+<span id="cb1-5"><a href="" aria-label="5"></a><span class="co"># 1. Récupérer les données</span></span>
+<span id="cb1-6"><a href="" aria-label="6"></a>donnees <span class="ot">&lt;-</span> <span class="fu">data</span>(<span class="st">"horse"</span>, <span class="at">package =</span> <span class="st">"GSE"</span>)  <span class="sc">%&gt;%</span></span>
+<span id="cb1-7"><a href="" aria-label="7"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-8"><a href="" aria-label="8"></a>    <span class="at">surgical_lesion =</span> <span class="fu">case_when</span>(</span>
+<span id="cb1-9"><a href="" aria-label="9"></a>      surgical_lesion <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="dv">1</span>L,</span>
+<span id="cb1-10"><a href="" aria-label="10"></a>      surgical_lesion <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="dv">0</span>L,</span>
+<span id="cb1-11"><a href="" aria-label="11"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_integer_</span></span>
+<span id="cb1-12"><a href="" aria-label="12"></a>    )</span>
+<span id="cb1-13"><a href="" aria-label="13"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb1-14"><a href="" aria-label="14"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(surgical_lesion))</span>
+<span id="cb1-15"><a href="" aria-label="15"></a></span>
+<span id="cb1-16"><a href="" aria-label="16"></a><span class="co"># 2. Explorer les données</span></span>
+<span id="cb1-17"><a href="" aria-label="17"></a><span class="fu">summary</span>(donnees)</span>
+<span id="cb1-18"><a href="" aria-label="18"></a></span>
+<span id="cb1-19"><a href="" aria-label="19"></a><span class="co"># 3. Contrôler la qualité</span></span>
+<span id="cb1-20"><a href="" aria-label="20"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(donnees))</span>
+<span id="cb1-21"><a href="" aria-label="21"></a><span class="fu">sum</span>(<span class="fu">duplicated</span>(donnees))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<colgroup>
+<col style="width: 1%">
+<col style="width: 9%">
+<col style="width: 11%">
+<col style="width: 8%">
+<col style="width: 10%">
+<col style="width: 13%">
+<col style="width: 11%">
+<col style="width: 8%">
+<col style="width: 16%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">Hospital_Number</th>
+<th style="text-align: left;">Rectal_temperature</th>
+<th style="text-align: left;">Pulse</th>
+<th style="text-align: left;">Respiratory_rate</th>
+<th style="text-align: left;">Nasogastric_reflux_PH</th>
+<th style="text-align: left;">Packed_cell_volume</th>
+<th style="text-align: left;">Total_protein</th>
+<th style="text-align: left;">Abdomcentesis_total_protein</th>
+<th style="text-align: left;">surgical_lesion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Min. : 514279</td>
+<td style="text-align: left;">Min. :35.40</td>
+<td style="text-align: left;">Min. : 30.00</td>
+<td style="text-align: left;">Min. : 8.00</td>
+<td style="text-align: left;">Min. :1.000</td>
+<td style="text-align: left;">Min. : 4.00</td>
+<td style="text-align: left;">Min. : 3.30</td>
+<td style="text-align: left;">Min. : 0.100</td>
+<td style="text-align: left;">Min. :0.0000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">1st Qu.: 528915</td>
+<td style="text-align: left;">1st Qu.:37.80</td>
+<td style="text-align: left;">1st Qu.: 48.00</td>
+<td style="text-align: left;">1st Qu.:18.00</td>
+<td style="text-align: left;">1st Qu.:3.500</td>
+<td style="text-align: left;">1st Qu.:37.25</td>
+<td style="text-align: left;">1st Qu.: 6.50</td>
+<td style="text-align: left;">1st Qu.: 2.000</td>
+<td style="text-align: left;">1st Qu.:0.0000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Median : 530299</td>
+<td style="text-align: left;">Median :38.10</td>
+<td style="text-align: left;">Median : 60.00</td>
+<td style="text-align: left;">Median :28.00</td>
+<td style="text-align: left;">Median :5.400</td>
+<td style="text-align: left;">Median :44.00</td>
+<td style="text-align: left;">Median : 7.50</td>
+<td style="text-align: left;">Median : 2.100</td>
+<td style="text-align: left;">Median :0.0000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Mean :1112334</td>
+<td style="text-align: left;">Mean :38.13</td>
+<td style="text-align: left;">Mean : 70.76</td>
+<td style="text-align: left;">Mean :30.52</td>
+<td style="text-align: left;">Mean :4.962</td>
+<td style="text-align: left;">Mean :45.66</td>
+<td style="text-align: left;">Mean :24.77</td>
+<td style="text-align: left;">Mean : 2.948</td>
+<td style="text-align: left;">Mean :0.3696</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">3rd Qu.: 534728</td>
+<td style="text-align: left;">3rd Qu.:38.50</td>
+<td style="text-align: left;">3rd Qu.: 88.00</td>
+<td style="text-align: left;">3rd Qu.:36.00</td>
+<td style="text-align: left;">3rd Qu.:6.500</td>
+<td style="text-align: left;">3rd Qu.:52.00</td>
+<td style="text-align: left;">3rd Qu.:58.00</td>
+<td style="text-align: left;">3rd Qu.: 3.900</td>
+<td style="text-align: left;">3rd Qu.:1.0000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Max. :5305629</td>
+<td style="text-align: left;">Max. :40.80</td>
+<td style="text-align: left;">Max. :184.00</td>
+<td style="text-align: left;">Max. :96.00</td>
+<td style="text-align: left;">Max. :8.500</td>
+<td style="text-align: left;">Max. :75.00</td>
+<td style="text-align: left;">Max. :89.00</td>
+<td style="text-align: left;">Max. :10.100</td>
+<td style="text-align: left;">Max. :1.0000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA’s :69</td>
+<td style="text-align: left;">NA’s :26</td>
+<td style="text-align: left;">NA’s :71</td>
+<td style="text-align: left;">NA’s :299</td>
+<td style="text-align: left;">NA’s :37</td>
+<td style="text-align: left;">NA’s :43</td>
+<td style="text-align: left;">NA’s :235</td>
+<td style="text-align: left;">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div></div>
+<div style="height:5px;"></div>
+<div class="fragment">
+<div style="font-size: 0.85em;">
+<p>On exclut les deux variables <code>Abdomcentesis_total_protein</code>, <code>Nasogastric_reflux_PH</code>.</p>
+</div>
+</div>
+</section>
+<section id="séparer-les-données-comment-organiser-lentraînement" class="slide level2">
+<h2>3️⃣ Séparer les données :Comment organiser l’entraînement ?</h2>
+<div style="height:15px;"></div>
+<p><span class="smallcaps"><u><strong>Objectif :</strong></u></span> Évaluer la capacité du modèle à prédire de nouvelles observations.</p>
+<div style="height:10px;"></div>
+<div class="fragment">
+<p><span class="smallcaps"><u><strong>1. Séparer les données :</strong></u></span> Diviser aléatoirement les données en deux ensembles :</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ensemble</th>
+<th style="text-align: left;">Utilisation</th>
+<th style="text-align: left;">Exemple de répartition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Entraînement (<em>train</em>)</strong></td>
+<td style="text-align: left;">Estimer les paramètres <span class="math inline">\(\theta\)</span> du modèle</td>
+<td style="text-align: left;"><span class="math inline">\(80\%\)</span> des observations</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Test (<em>test</em>)</strong></td>
+<td style="text-align: left;">Évaluer la qualité des prédictions sur de nouvelles observations</td>
+<td style="text-align: left;"><span class="math inline">\(20\%\)</span> des observations</td>
+</tr>
+</tbody>
+</table>
+<div style="height:10px;"></div>
+</div>
+<div class="fragment">
+<p><span class="smallcaps"><u><strong>2. Prétraiter les données :</strong></u></span></p>
+<ul>
+<li><p><strong>Données d’entraînement</strong> : Transformer les données de certaines colonnes (ex. imputation, standardisation, encodage) pour gérer les valeurs manquantes, les différences d’échelle et les variables qualitatives.</p></li>
+<li><p><strong>Données de test</strong> : Appliquer les mêmes transformations, en utilisant les valeurs calculées sur les données d’entraînement.</p></li>
+</ul>
+</div>
+</section>
+<section id="application---séparer-les-données" class="slide level2">
+<h2>3️⃣ Application - Séparer les données</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="" aria-label="1"></a><span class="co"># Conserver les 5 variables explicatives</span></span>
+<span id="cb2-2"><a href="" aria-label="2"></a>donnees <span class="ot">&lt;-</span> horse <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="" aria-label="3"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(</span>
+<span id="cb2-4"><a href="" aria-label="4"></a>    Rectal_temperature,</span>
+<span id="cb2-5"><a href="" aria-label="5"></a>    Pulse,</span>
+<span id="cb2-6"><a href="" aria-label="6"></a>    Respiratory_rate,</span>
+<span id="cb2-7"><a href="" aria-label="7"></a>    Packed_cell_volume,</span>
+<span id="cb2-8"><a href="" aria-label="8"></a>    Total_protein,</span>
+<span id="cb2-9"><a href="" aria-label="9"></a>    surgical_lesion</span>
+<span id="cb2-10"><a href="" aria-label="10"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb2-11"><a href="" aria-label="11"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(surgical_lesion))</span>
+<span id="cb2-12"><a href="" aria-label="12"></a></span>
+<span id="cb2-13"><a href="" aria-label="13"></a><span class="co"># Séparation entraînement / test</span></span>
+<span id="cb2-14"><a href="" aria-label="14"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># pour la reproductibilitlé</span></span>
+<span id="cb2-15"><a href="" aria-label="15"></a></span>
+<span id="cb2-16"><a href="" aria-label="16"></a>id_train <span class="ot">&lt;-</span> donnees <span class="sc">%&gt;%</span></span>
+<span id="cb2-17"><a href="" aria-label="17"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb2-18"><a href="" aria-label="18"></a>  <span class="fu">group_by</span>(surgical_lesion) <span class="sc">%&gt;%</span></span>
+<span id="cb2-19"><a href="" aria-label="19"></a>  <span class="fu">slice_sample</span>(<span class="at">prop =</span> <span class="fl">0.8</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-20"><a href="" aria-label="20"></a>  <span class="fu">pull</span>(id)</span>
+<span id="cb2-21"><a href="" aria-label="21"></a></span>
+<span id="cb2-22"><a href="" aria-label="22"></a>train <span class="ot">&lt;-</span> donnees[id_train, ]</span>
+<span id="cb2-23"><a href="" aria-label="23"></a>test <span class="ot">&lt;-</span> donnees[<span class="sc">-</span>id_train, ]</span>
+<span id="cb2-24"><a href="" aria-label="24"></a></span>
+<span id="cb2-25"><a href="" aria-label="25"></a><span class="co"># Traitement des valeurs manquantes</span></span>
+<span id="cb2-26"><a href="" aria-label="26"></a>variables <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(<span class="fu">names</span>(train), <span class="st">"surgical_lesion"</span>)</span>
+<span id="cb2-27"><a href="" aria-label="27"></a></span>
+<span id="cb2-28"><a href="" aria-label="28"></a>med <span class="ot">&lt;-</span> <span class="fu">sapply</span>(train[variables], median,</span>
+<span id="cb2-29"><a href="" aria-label="29"></a>              <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-30"><a href="" aria-label="30"></a></span>
+<span id="cb2-31"><a href="" aria-label="31"></a><span class="cf">for</span> (v <span class="cf">in</span> variables) {</span>
+<span id="cb2-32"><a href="" aria-label="32"></a>  train[[v]][<span class="fu">is.na</span>(train[[v]])] <span class="ot">&lt;-</span> med[v]</span>
+<span id="cb2-33"><a href="" aria-label="33"></a>  test[[v]][<span class="fu">is.na</span>(test[[v]])] <span class="ot">&lt;-</span> med[v]</span>
+<span id="cb2-34"><a href="" aria-label="34"></a>}</span>
+<span id="cb2-35"><a href="" aria-label="35"></a></span>
+<span id="cb2-36"><a href="" aria-label="36"></a><span class="co"># Effectifs</span></span>
+<span id="cb2-37"><a href="" aria-label="37"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2-38"><a href="" aria-label="38"></a>  <span class="at">Ensemble =</span> <span class="fu">c</span>(<span class="st">"Entraînement"</span>, <span class="st">"Test"</span>),</span>
+<span id="cb2-39"><a href="" aria-label="39"></a>  <span class="at">Effectif =</span> <span class="fu">c</span>(<span class="fu">nrow</span>(train), <span class="fu">nrow</span>(test))</span>
+<span id="cb2-40"><a href="" aria-label="40"></a>)</span>
+<span id="cb2-41"><a href="" aria-label="41"></a></span>
+<span id="cb2-42"><a href="" aria-label="42"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:50%;">
+<p><br> <br> <br> <br></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ensemble</th>
+<th style="text-align: right;">Effectif</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Entraînement</td>
+<td style="text-align: right;">293</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Test</td>
+<td style="text-align: right;">75</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div></div>
+</section>
+<section id="entraîner-le-modèle-comment-estimer-les-paramètres-en-pratique" class="slide level2">
+<h2>3️⃣ Entraîner le modèle : Comment estimer les paramètres en pratique ?</h2>
+<div style="height:20px;"></div>
+<p><span class="smallcaps"><u><strong>Objectif :</strong></u></span> Estimer les paramètres <span class="math inline">\(\theta\)</span> de la régression logistique à partir des données d’entraînement.</p>
+<div style="height:20px;"></div>
+<div class="fragment">
+<p><span class="smallcaps"><u><strong>Méthode utilisée :</strong></u></span></p>
+<ul>
+<li><strong>Critère d’estimation</strong> : maximisation de la log-vraisemblance.</li>
+<li><strong>Algorithme</strong> : moindres carrés itérativement repondérés (<em>IRLS</em>).</li>
+<li><strong>Principe</strong> : mettre à jour successivement les paramètres jusqu’à convergence.</li>
+</ul>
+</div>
+<div class="fragment">
+<div style="height:20px;"></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Dans R, la fonction <code>glm(..., family = binomial())</code> réalise automatiquement cette estimation numérique.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="application---entraîner-le-modèle" class="slide level2">
+<h2>3️⃣ Application - Entraîner le modèle</h2>
+<p><br> <br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="" aria-label="1"></a><span class="co"># Estimation de la régression logistique</span></span>
+<span id="cb3-2"><a href="" aria-label="2"></a>modele <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb3-3"><a href="" aria-label="3"></a>  surgical_lesion <span class="sc">~</span> .,</span>
+<span id="cb3-4"><a href="" aria-label="4"></a>  <span class="at">data =</span> train,</span>
+<span id="cb3-5"><a href="" aria-label="5"></a>  <span class="at">family =</span> <span class="fu">binomial</span>()</span>
+<span id="cb3-6"><a href="" aria-label="6"></a>)</span>
+<span id="cb3-7"><a href="" aria-label="7"></a></span>
+<span id="cb3-8"><a href="" aria-label="8"></a><span class="co"># Coefficients estimés</span></span>
+<span id="cb3-9"><a href="" aria-label="9"></a><span class="fu">round</span>(<span class="fu">coef</span>(modele), <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>       (Intercept) Rectal_temperature              Pulse   Respiratory_rate 
+            -9.080              0.294             -0.013             -0.029 
+Packed_cell_volume      Total_protein 
+            -0.025              0.004 </code></pre>
+</div>
+</div>
+</div></div>
+<p><br></p>
+<div class="fragment">
+<div title="Interprétation">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Interprétation</strong></p>
+</div>
+<div class="callout-content">
+<p>Puisqu’on s’intéresse à la qualité de prédiction, on n’interprète pas les coefficients estimés.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="validation-croisée-comment-optimiser-les-performances" class="slide level2">
+<h2>3️⃣ Validation croisée : Comment optimiser les performances ?</h2>
+<div style="height:5px;"></div>
+<p><span class="smallcaps"><u><strong>Objectif :</strong></u></span> Évaluer la capacité du modèle à prédire de nouvelles observations et, si nécessaire, <strong>sélectionner les hyperparamètres</strong> offrant les meilleures performances.</p>
+<div class="fragment">
+<div style="height:15px;"></div>
+<p><span class="smallcaps"><u><strong>Principe : Validation croisée à</strong></u></span> <u><span class="math inline">\(K\)</span> blocs</u></p>
+<ol type="1">
+<li><p>Diviser les données d’entraînement en <span class="math inline">\(K\)</span> blocs.</p></li>
+<li><p>Estimer les paramètres sur <span class="math inline">\(K-1\)</span> blocs et évaluer les prédictions sur le bloc restant.</p></li>
+<li><p>Répéter l’opération <span class="math inline">\(K\)</span> fois, en changeant le bloc utilisé pour l’évaluation.</p></li>
+<li><p>Calculer la <strong>performance moyenne</strong> obtenue sur les <span class="math inline">\(K\)</span> blocs.</p></li>
+</ol>
+</div>
+<div class="fragment">
+<div style="height:10px;"></div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>En pratique, la validation croisée est <strong>facultative</strong> pour la régression logistique sans hyperparamètre, mais on va la réaliser avec <span class="math inline">\(K = 5\)</span> et calculer l’<span class="smallcaps">accuracy</span> (i.e le % de bonnes prédictions) pour évaluer la qualité.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="application---validation-croisée" class="slide level2">
+<h2>3️⃣ Application - Validation croisée</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="" aria-label="1"></a><span class="co"># Données avant imputation</span></span>
+<span id="cb5-2"><a href="" aria-label="2"></a>train_cv <span class="ot">&lt;-</span> donnees[id_train, ]</span>
+<span id="cb5-3"><a href="" aria-label="3"></a></span>
+<span id="cb5-4"><a href="" aria-label="4"></a><span class="co"># Création de 5 blocs</span></span>
+<span id="cb5-5"><a href="" aria-label="5"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb5-6"><a href="" aria-label="6"></a>K <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb5-7"><a href="" aria-label="7"></a>blocs <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">rep</span>(</span>
+<span id="cb5-8"><a href="" aria-label="8"></a>  <span class="dv">1</span><span class="sc">:</span>K, <span class="at">length.out =</span> <span class="fu">nrow</span>(train_cv)</span>
+<span id="cb5-9"><a href="" aria-label="9"></a>))</span>
+<span id="cb5-10"><a href="" aria-label="10"></a></span>
+<span id="cb5-11"><a href="" aria-label="11"></a><span class="co"># Validation croisée</span></span>
+<span id="cb5-12"><a href="" aria-label="12"></a>accuracy <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>K, <span class="cf">function</span>(k) {</span>
+<span id="cb5-13"><a href="" aria-label="13"></a></span>
+<span id="cb5-14"><a href="" aria-label="14"></a>  app <span class="ot">&lt;-</span> train_cv[blocs <span class="sc">!=</span> k, ]</span>
+<span id="cb5-15"><a href="" aria-label="15"></a>  val <span class="ot">&lt;-</span> train_cv[blocs <span class="sc">==</span> k, ]</span>
+<span id="cb5-16"><a href="" aria-label="16"></a></span>
+<span id="cb5-17"><a href="" aria-label="17"></a>  <span class="co"># Imputation</span></span>
+<span id="cb5-18"><a href="" aria-label="18"></a>  med <span class="ot">&lt;-</span> <span class="fu">sapply</span>(app[variables],</span>
+<span id="cb5-19"><a href="" aria-label="19"></a>                median, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-20"><a href="" aria-label="20"></a></span>
+<span id="cb5-21"><a href="" aria-label="21"></a>  <span class="cf">for</span> (v <span class="cf">in</span> variables) {</span>
+<span id="cb5-22"><a href="" aria-label="22"></a>    app[[v]][<span class="fu">is.na</span>(app[[v]])] <span class="ot">&lt;-</span> med[v]</span>
+<span id="cb5-23"><a href="" aria-label="23"></a>    val[[v]][<span class="fu">is.na</span>(val[[v]])] <span class="ot">&lt;-</span> med[v]</span>
+<span id="cb5-24"><a href="" aria-label="24"></a>  }</span>
+<span id="cb5-25"><a href="" aria-label="25"></a></span>
+<span id="cb5-26"><a href="" aria-label="26"></a>  <span class="co"># Estimation</span></span>
+<span id="cb5-27"><a href="" aria-label="27"></a>  m <span class="ot">&lt;-</span> <span class="fu">glm</span>(surgical_lesion <span class="sc">~</span> .,</span>
+<span id="cb5-28"><a href="" aria-label="28"></a>           <span class="at">data =</span> app,</span>
+<span id="cb5-29"><a href="" aria-label="29"></a>           <span class="at">family =</span> <span class="fu">binomial</span>())</span>
+<span id="cb5-30"><a href="" aria-label="30"></a></span>
+<span id="cb5-31"><a href="" aria-label="31"></a>  <span class="co"># Prédiction</span></span>
+<span id="cb5-32"><a href="" aria-label="32"></a>  pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(m, val,</span>
+<span id="cb5-33"><a href="" aria-label="33"></a>                  <span class="at">type =</span> <span class="st">"response"</span>) <span class="sc">&gt;=</span> <span class="fl">0.5</span></span>
+<span id="cb5-34"><a href="" aria-label="34"></a></span>
+<span id="cb5-35"><a href="" aria-label="35"></a>  <span class="fu">mean</span>(pred <span class="sc">==</span> val<span class="sc">$</span>surgical_lesion)</span>
+<span id="cb5-36"><a href="" aria-label="36"></a>})</span>
+<span id="cb5-37"><a href="" aria-label="37"></a></span>
+<span id="cb5-38"><a href="" aria-label="38"></a><span class="co"># Accuracy par bloc et moyenne</span></span>
+<span id="cb5-39"><a href="" aria-label="39"></a><span class="fu">round</span>(<span class="fu">c</span>(accuracy, <span class="at">Moyenne =</span> <span class="fu">mean</span>(accuracy)), <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:50%;">
+<p><br> <br></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Bloc</th>
+<th style="text-align: right;">Accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Bloc 1</td>
+<td style="text-align: right;">0.627</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bloc 2</td>
+<td style="text-align: right;">0.576</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Bloc 3</td>
+<td style="text-align: right;">0.644</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bloc 4</td>
+<td style="text-align: right;">0.707</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Bloc 5</td>
+<td style="text-align: right;">0.690</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Moyenne</td>
+<td style="text-align: right;">0.649</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div></div>
+<div class="fragment">
+<div title="Interprétation">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Interprétation</strong></p>
+</div>
+<div class="callout-content">
+<p>L’<span class="smallcaps"><strong>accuracy</strong></span> <strong>moyenne est de 64,9 %</strong> : le modèle classe donc correctement la présence de lésion pour 57 % à 70 % des chevaux, selon les découpages entrainement/test.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="évaluer-le-modèle-comment-mesurer-la-qualité-des-prédictions-1" class="slide level2">
+<h2>3️⃣ Évaluer le modèle : Comment mesurer la qualité des prédictions ?</h2>
+<div style="height:5px;"></div>
+<p><span class="smallcaps"><u><strong>Principe :</strong></u></span> Comparer les réponses observées <span class="math inline">\(y_i\)</span> aux classes prédites <span class="math inline">\(\hat y_i\)</span>, puis calculer des indicateurs de performance avec la <span class="smallcaps">matrice de confusion</span> :</p>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 35%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;">Prédit : <span class="math inline">\(Y=1\)</span> (présence de lésion)</th>
+<th style="text-align: center;">Prédit : <span class="math inline">\(Y=0\)</span> (absence de lésion)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Observé :</strong> <span class="math inline">\(Y=1\)</span> (présence de lésion)</td>
+<td style="text-align: center;">Vrai positif (VP)</td>
+<td style="text-align: center;">Faux négatif (FN)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Observé :</strong> <span class="math inline">\(Y=0\)</span> (absence de lésion)</td>
+<td style="text-align: center;">Faux positif (FP)</td>
+<td style="text-align: center;">Vrai négatif (VN)</td>
+</tr>
+</tbody>
+</table>
+<div style="height:15px;"></div>
+<div class="fragment">
+<p><span class="smallcaps"><u><strong>Indicateurs de performance :</strong></u></span></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 38%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Indicateur</th>
+<th style="text-align: center;">Formule</th>
+<th style="text-align: left;">Interprétation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Accuracy</strong></td>
+<td style="text-align: center;"><span class="math inline">\(\dfrac{VP+VN}{VP+VN+FP+FN}\)</span></td>
+<td style="text-align: left;">Proportion de prédictions correctes</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Sensibilité</strong></td>
+<td style="text-align: center;"><span class="math inline">\(\dfrac{VP}{VP+FN}\)</span></td>
+<td style="text-align: left;">Proportion de positifs correctement identifiés</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Spécificité</strong></td>
+<td style="text-align: center;"><span class="math inline">\(\dfrac{VN}{VN+FP}\)</span></td>
+<td style="text-align: left;">Proportion de négatifs correctement identifiés</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="application---évaluer-le-modèle" class="slide level2">
+<h2>3️⃣ Application - Évaluer le modèle</h2>
+<div style="height:10px;"></div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="" aria-label="1"></a><span class="co"># Prédictions sur les données de test</span></span>
+<span id="cb6-2"><a href="" aria-label="2"></a>prob <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
+<span id="cb6-3"><a href="" aria-label="3"></a>  modele,</span>
+<span id="cb6-4"><a href="" aria-label="4"></a>  <span class="at">newdata =</span> test,</span>
+<span id="cb6-5"><a href="" aria-label="5"></a>  <span class="at">type =</span> <span class="st">"response"</span></span>
+<span id="cb6-6"><a href="" aria-label="6"></a>)</span>
+<span id="cb6-7"><a href="" aria-label="7"></a></span>
+<span id="cb6-8"><a href="" aria-label="8"></a>pred <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(prob <span class="sc">&gt;=</span> <span class="fl">0.5</span>)</span>
+<span id="cb6-9"><a href="" aria-label="9"></a></span>
+<span id="cb6-10"><a href="" aria-label="10"></a><span class="co"># Matrice de confusion</span></span>
+<span id="cb6-11"><a href="" aria-label="11"></a>conf <span class="ot">&lt;-</span> <span class="fu">table</span>(</span>
+<span id="cb6-12"><a href="" aria-label="12"></a>  <span class="at">Observe =</span> <span class="fu">factor</span>(test<span class="sc">$</span>surgical_lesion,</span>
+<span id="cb6-13"><a href="" aria-label="13"></a>                   <span class="at">levels =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>),</span>
+<span id="cb6-14"><a href="" aria-label="14"></a>  <span class="at">Predit =</span> <span class="fu">factor</span>(pred, <span class="at">levels =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>)</span>
+<span id="cb6-15"><a href="" aria-label="15"></a>)</span>
+<span id="cb6-16"><a href="" aria-label="16"></a></span>
+<span id="cb6-17"><a href="" aria-label="17"></a>VN <span class="ot">&lt;-</span> conf[<span class="dv">1</span>, <span class="dv">1</span>]</span>
+<span id="cb6-18"><a href="" aria-label="18"></a>FP <span class="ot">&lt;-</span> conf[<span class="dv">1</span>, <span class="dv">2</span>]</span>
+<span id="cb6-19"><a href="" aria-label="19"></a>FN <span class="ot">&lt;-</span> conf[<span class="dv">2</span>, <span class="dv">1</span>]</span>
+<span id="cb6-20"><a href="" aria-label="20"></a>VP <span class="ot">&lt;-</span> conf[<span class="dv">2</span>, <span class="dv">2</span>]</span>
+<span id="cb6-21"><a href="" aria-label="21"></a></span>
+<span id="cb6-22"><a href="" aria-label="22"></a><span class="co"># Indicateurs de performance</span></span>
+<span id="cb6-23"><a href="" aria-label="23"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb6-24"><a href="" aria-label="24"></a>  <span class="at">Indicateur =</span> <span class="fu">c</span>(<span class="st">"Accuracy"</span>, <span class="st">"Sensibilité"</span>,</span>
+<span id="cb6-25"><a href="" aria-label="25"></a>                 <span class="st">"Spécificité"</span>),</span>
+<span id="cb6-26"><a href="" aria-label="26"></a>  <span class="at">Valeur =</span> <span class="fu">round</span>(<span class="fu">c</span>(</span>
+<span id="cb6-27"><a href="" aria-label="27"></a>    (VP <span class="sc">+</span> VN) <span class="sc">/</span> <span class="fu">sum</span>(conf),</span>
+<span id="cb6-28"><a href="" aria-label="28"></a>    VP <span class="sc">/</span> (VP <span class="sc">+</span> FN),</span>
+<span id="cb6-29"><a href="" aria-label="29"></a>    VN <span class="sc">/</span> (VN <span class="sc">+</span> FP)</span>
+<span id="cb6-30"><a href="" aria-label="30"></a>  ), <span class="dv">3</span>)</span>
+<span id="cb6-31"><a href="" aria-label="31"></a>)</span>
+<span id="cb6-32"><a href="" aria-label="32"></a></span>
+<span id="cb6-33"><a href="" aria-label="33"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:50%;">
+<p><br></p>
+<div style="height:15px;"></div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Indicateur</th>
+<th style="text-align: right;">Valeur</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Accuracy</td>
+<td style="text-align: right;">0.640</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sensibilité</td>
+<td style="text-align: right;">0.214</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Spécificité</td>
+<td style="text-align: right;">0.894</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div style="height:15px;"></div>
+<div title="Interprétation">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Interprétation</strong></p>
+</div>
+<div class="callout-content">
+<p>Le modèle détecte la présence de lésion pour <em>21,4 % des chevaux</em>, tandis qu’il détecte l’absence de lésion pour <em>89,4 % d’entre eux</em>.</p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+<div class="fragment">
+<div style="height:10px;"></div>
+<div title="Conclusion">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Conclusion</strong></p>
+</div>
+<div class="callout-content">
+<p>Malgré une <span class="smallcaps">accuracy</span> de 64 %, le modèle détecte mal la présence d’une lésion chirurgicale.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="à-quoi-sert-le-machine-learning" class="slide level2">
+<h2>📝 À quoi sert le Machine Learning ?</h2>
+<p><br></p>
+<p><span class="smallcaps"><u><strong>Utilisations principales :</strong></u></span></p>
+<ul>
+<li><p><span class="smallcaps">Prédire une valeur quantitative</span> - <em>Quelle sera la production laitière d’une vache ?</em></p>
+<p><span class="math inline">\(\longrightarrow\)</span> <span class="smallcaps">Régression</span>.</p></li>
+</ul>
+<div style="height:5px;"></div>
+<div class="fragment">
+<ul>
+<li><p><span class="smallcaps">Prédire une catégorie</span> - <em>Un cheval présentant des coliques a-t-il une lésion chirurgicale ?</em></p>
+<p><span class="math inline">\(\longrightarrow\)</span> <span class="smallcaps">Classification</span>.</p></li>
+</ul>
+<div style="height:5px;"></div>
+</div>
+<div class="fragment">
+<ul>
+<li><p><span class="smallcaps">Identifier des groupes dans les données</span> - <em>Existe-t-il différents profils cliniques parmi les animaux ?</em></p>
+<p><span class="math inline">\(\longrightarrow\)</span> <span class="smallcaps">Apprentissage non supervisé</span>.</p></li>
+</ul>
+</div>
+</section>
+<section id="exemple-dutilisation-en-sciences-vétérinaires" class="slide level2">
+<h2>📑 Exemple d’utilisation en sciences vétérinaires</h2>
+<div style="height:35px;"></div>
+<p><span class="smallcaps"><u><strong>Exemple issu de :</strong></u></span> <span class="citation" data-cites="macleod2025">Macleod et al. (<a href="#/références" role="doc-biblioref" onclick="">2025</a>)</span></p>
+<div style="height:15px;"></div>
+
+<img data-src="figures/papier_ex.png" class="quarto-figure quarto-figure-center r-stretch"><div style="height:35px;"></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Dans cet article, des modèles de <em>machine-learning</em>, notamment des forêts aléatoires, sont utilisés pour prédire la <em>survie de chevaux présentant des coliques à partir de données cliniques et de tests de coagulation</em>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="conclusion" class="slide level2">
+<h2>🎯 Conclusion</h2>
+<div style="height:20px;"></div>
+<p><span class="smallcaps"><u><strong>A retenir (5 étapes pour construire et évaluer la qualité d’un modèle) :</strong></u></span></p>
+<ol type="1">
+<li><strong>Préparer les données</strong> : sélectionner les variables et vérifier leur qualité.</li>
+<li><strong>Séparer les données</strong> : entraînement et test.</li>
+<li><strong>Entraîner le modèle</strong> : estimer ses paramètres.</li>
+<li><strong>Effectuer une validation croisée</strong> : évaluer les performances et ajuster les hyperparamètres si nécessaire.</li>
+<li><strong>Évaluer le modèle</strong> : mesurer les performances sur les données de test.</li>
+</ol>
+<div style="height:65px;"></div>
+<p>📌 <span class="smallcaps"><u><strong>Programme du prochain cours :</strong></u></span> Introduction à l’apprentissage non supervisé.</p>
+</section>
+<section id="références" class="slide level2 smaller scrollable">
+<h2>Références</h2>
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-macleod2025" class="csl-entry" role="listitem">
+Macleod, Brandi M., Pamela A. Wilkins, Annette M. McCoy, and Rebecca C. Bishop. 2025. <span>“Integration of Machine Learning and Viscoelastic Testing to Improve Survival Prediction in Horses Experiencing Acute Abdominal Pain at a Veterinary Teaching Hospital.”</span> <em>Equine Veterinary Journal</em> 58 (1): 105–14. <a href="https://doi.org/10.1111/evj.14517">https://doi.org/10.1111/evj.14517</a>.
+</div>
+<div id="ref-marymcleish1989" class="csl-entry" role="listitem">
+Mary McLeish, Matt Cecile. 1989. <em>Horse Colic</em>. UCI Machine Learning Repository. <a href="https://doi.org/10.24432/C58W23">https://doi.org/10.24432/C58W23</a>.
+</div>
+</div>
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="introduction_ML_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="introduction_ML_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="introduction_ML_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="introduction_ML_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="introduction_ML_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="introduction_ML_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="introduction_ML_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="introduction_ML_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="introduction_ML_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="introduction_ML_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

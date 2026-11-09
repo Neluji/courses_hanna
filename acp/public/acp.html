@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Hanna Bacave">
-  <title>ACP</title>
+  <title>Analyse en Composantes Principales (ACP)</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -34,7 +34,26 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-  </style>
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <link rel="stylesheet" href="acp_files/libs/revealjs/dist/theme/quarto-2740581606dc327e82f18f789b69d8a0.css">
   <link rel="stylesheet" href="style.css">
   <link href="acp_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -134,7 +153,7 @@
     <div class="slides">
 
 <section id="title-slide" data-background-image="figures/fond.png" data-background-size="cover" syntax-highlighting="idiomatic" class="quarto-title-block center">
-  <h1 class="title">ACP</h1>
+  <h1 class="title">Analyse en Composantes Principales (ACP)</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -144,6 +163,231 @@ Hanna Bacave
 </div>
 </div>
 
+</section>
+<section id="introduction-lanalyse-en-composantes-principales-acp-quest-ce-que-cest" class="slide level2">
+<h2>🔍 Introduction : L’Analyse en Composantes Principales (ACP), qu’est-ce que c’est ?</h2>
+<div style="height:2px;"></div>
+<blockquote>
+<p>L’<span class="smallcaps">Analyse en Composantes Principales (ACP)</span> est une méthode statistique exploratoire permettant de <span class="smallcaps">résumer et visualiser plusieurs variables quantitatives simultanément</span>, en conservant un maximum de leur variabilité.</p>
+</blockquote>
+<div style="height:7px;"></div>
+<div class="fragment">
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Question de recherche</th>
+<th>Objectif de l’ACP</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Peut-on identifier des appartements similaires à partir de leur superficie, de leur nombre de pièces et de leur DPE ?</td>
+<td>Exploration des individus</td>
+</tr>
+<tr class="even">
+<td>Peut-on résumer les mesures morphologiques (bec, nageoires, masse) de plusieurs manchots ?</td>
+<td>Réduction de dimension</td>
+</tr>
+<tr class="odd">
+<td>Quelles mesures corporelles sont associées entre elles chez les bovins ?</td>
+<td>Exploration des variables</td>
+</tr>
+<tr class="even">
+<td>Peut-on visualiser les différences morphologiques entre plusieurs races de chevaux ?</td>
+<td>Visualisation des données</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment">
+<div style="height:10px;"></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>L’ACP est une <span class="smallcaps">méthoe variable réponsede non supervisée</span> : elle explore la structure des données.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="application-présentation-des-données" class="slide level2">
+<h2>🐧 Application : Présentation des données</h2>
+<div style="height:5px;"></div>
+<p><span class="smallcaps"><u>Jeu de données utilisé :</u></span> Mesures morphologiques de <span class="math inline">\(344\)</span> manchots appartenant à <span class="math inline">\(3\)</span> espèces (Adélie, Chinstrap et Gentoo), disponibles dans le package R <code>palmerpenguins</code> <span class="citation" data-cites="palmerpenguins">(<a href="#/références" role="doc-biblioref" onclick="">Horst et al. 2020</a>)</span>.</p>
+<div class="fragment">
+<div style="height:40px;"></div>
+<div class="columns">
+<div class="column" style="width:55%;">
+<ul>
+<li><p>4 mesures morphologiques quantitatives <span class="math inline">\(X\)</span> :</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Type de mesure</th>
+<th>Variables</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Bec</td>
+<td>Longueur et profondeur (mm)</td>
+</tr>
+<tr class="even">
+<td>Nageoires</td>
+<td>Longueur (mm)</td>
+</tr>
+<tr class="odd">
+<td>Masse corporelle</td>
+<td>Masse (g)</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>1 variable qualitative d’espèce :</p></li>
+</ul>
+<div style="font-size: 0.9em; text-align: center;">
+<p>Adélie / Chinstrap / Gentoo</p>
+</div>
+</div><div class="column" style="width:45%;">
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Espèce</th>
+<th style="text-align: right;">Bec L.</th>
+<th style="text-align: right;">Bec P.</th>
+<th style="text-align: right;">Nageoire</th>
+<th style="text-align: right;">Masse</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: right;">39.1</td>
+<td style="text-align: right;">18.7</td>
+<td style="text-align: right;">181</td>
+<td style="text-align: right;">3750</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: right;">39.5</td>
+<td style="text-align: right;">17.4</td>
+<td style="text-align: right;">186</td>
+<td style="text-align: right;">3800</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: right;">40.3</td>
+<td style="text-align: right;">18.0</td>
+<td style="text-align: right;">195</td>
+<td style="text-align: right;">3250</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: right;">36.7</td>
+<td style="text-align: right;">19.3</td>
+<td style="text-align: right;">193</td>
+<td style="text-align: right;">3450</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: right;">39.3</td>
+<td style="text-align: right;">20.6</td>
+<td style="text-align: right;">190</td>
+<td style="text-align: right;">3650</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: right;">38.9</td>
+<td style="text-align: right;">17.8</td>
+<td style="text-align: right;">181</td>
+<td style="text-align: right;">3625</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: right;">39.2</td>
+<td style="text-align: right;">19.6</td>
+<td style="text-align: right;">195</td>
+<td style="text-align: right;">4675</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: right;">34.1</td>
+<td style="text-align: right;">18.1</td>
+<td style="text-align: right;">193</td>
+<td style="text-align: right;">3475</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: right;">42.0</td>
+<td style="text-align: right;">20.2</td>
+<td style="text-align: right;">190</td>
+<td style="text-align: right;">4250</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div></div>
+</div>
+</section>
+<section id="application-question-de-recherche" class="slide level2">
+<h2>🐧 Application : Question de recherche</h2>
+<div class="center-text">
+<div class="highlight-box">
+<p><strong>Peut-on résumer les mesures morphologiques des manchots pour visualiser leurs ressemblances et leurs différences selon les espèces ?</strong></p>
+</div>
+</div>
+</section>
+<section id="objectifs-du-cours" class="slide level2">
+<h2>📖 Objectifs du cours</h2>
+<br>
+<br>
+<div style="height:5px;"></div>
+<ol type="1">
+<li>Pourquoi utiliser l’Analyse en Composantes Principales ? (Définition &amp; Objectifs)</li>
+</ol>
+<div class="fragment">
+<div style="height:5px;"></div>
+<ol start="2" type="1">
+<li>Comment construire une ACP ? (Intuition &amp; Théorie)</li>
+</ol>
+</div>
+<div class="fragment">
+<div style="height:5px;"></div>
+<ol start="3" type="1">
+<li>Comment interpréter les résultats d’une ACP ? (Individus &amp; Variables)</li>
+</ol>
+</div>
+<div class="fragment">
+<div style="height:5px;"></div>
+<ol start="4" type="1">
+<li>En pratique : Réaliser une ACP avec R sur les données de manchots</li>
+</ol>
+</div>
+<div class="fragment">
+<div style="height:5px;"></div>
+<ol start="5" type="1">
+<li>Conclusion &amp; Exemple concret d’une contribution en sciences vétérinaires</li>
+</ol>
+</div>
 </section>
 <section id="section" class="slide level2" data-background-image="slides/page-001.png" data-background-size="contain">
 <h2></h2>
@@ -282,7 +526,69 @@ Hanna Bacave
 </section>
 <section id="section-45" class="slide level2" data-background-image="slides/page-046.png" data-background-size="contain">
 <h2></h2>
+</section>
+<section id="à-quoi-sert-lacp" class="slide level2">
+<h2>📝 À quoi sert l’ACP ?</h2>
+<div style="height:25px;"></div>
+<p><span class="smallcaps"><u><strong>Utilisations principales :</strong></u></span></p>
+<ul>
+<li><p><span class="smallcaps">Résumer plusieurs variables quantitatives</span> - <em>Peut-on résumer les différentes mesures morphologiques des bovins en quelques indicateurs ?</em></p>
+<p><span class="math inline">\(\longrightarrow\)</span> Réalisation d’une <span class="smallcaps">réduction de dimension</span>.</p></li>
+</ul>
+<div style="height:5px;"></div>
+<div class="fragment">
+<ul>
+<li><p><span class="smallcaps">Identifier des individus aux profils similaires</span> - <em>Peut-on identifier des chevaux présentant des morphologies similaires ?</em></p>
+<p><span class="math inline">\(\longrightarrow\)</span> Étude du <span class="smallcaps">graphique des individus</span>.</p></li>
+</ul>
+<div style="height:5px;"></div>
+</div>
+<div class="fragment">
+<ul>
+<li><p><span class="smallcaps">Étudier les relations entre les variables</span> - <em>La longueur des nageoires et la masse corporelle des manchots sont-elles corrélées ?</em></p>
+<p><span class="math inline">\(\longrightarrow\)</span> Étude du <span class="smallcaps">cercle des corrélations</span>.</p></li>
+</ul>
+</div>
+</section>
+<section id="exemple-dutilisation-en-sciences-vétérinaires" class="slide level2">
+<h2>📑 Exemple d’utilisation en sciences vétérinaires</h2>
+<div style="height:20px;"></div>
+<p><span class="smallcaps"><u><strong>Exemple issu de :</strong></u></span> <span class="citation" data-cites="staiger2016">Staiger et al. (<a href="#/références" role="doc-biblioref" onclick="">2016</a>)</span></p>
+<div style="height:15px;"></div>
 
+<img data-src="figures/papier_ex.png" class="quarto-figure quarto-figure-center r-stretch" data-out-width="120%"><div style="height:30px;"></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Dans l’ACP présentée dans cet article, les auteur.es montrent que les variations morphologiques des chevaux peuvent être résumées par quelques axes, représentant notamment la taille globale et l’épaisseur corporelle.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="conclusion" class="slide level2">
+<h2>🎯 Conclusion</h2>
+<p><br></p>
+
+<img data-src="figures/bilan.png" class="quarto-figure quarto-figure-center r-stretch" data-out-width="200%"><p><br> <br></p>
+<p>📌 <span class="smallcaps"><u><strong>Programme du prochain cours :</strong></u></span> Classification non supervisée.</p>
+</section>
+<section id="références" class="slide level2 smaller scrollable">
+<h2>Références</h2>
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-palmerpenguins" class="csl-entry" role="listitem">
+Horst, Allison Marie, Alison Presmanes Hill, and Kristen B Gorman. 2020. <em>Palmerpenguins: Palmer Archipelago (Antarctica) Penguin Data</em>. <a href="https://doi.org/10.5281/zenodo.3960218">https://doi.org/10.5281/zenodo.3960218</a>.
+</div>
+<div id="ref-staiger2016" class="csl-entry" role="listitem">
+Staiger, Elizabeth A., Rebecca R. Bellone, Nathan B. Sutter, and Samantha A. Brooks. 2016. <span>“Morphological Variation in Gaited Horse Breeds.”</span> <em>Journal of Equine Veterinary Science</em> 43 (August): 55–65. <a href="https://doi.org/10.1016/j.jevs.2016.04.096">https://doi.org/10.1016/j.jevs.2016.04.096</a>.
+</div>
+</div>
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">

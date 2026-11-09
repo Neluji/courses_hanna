@@ -2,11 +2,12 @@
 title: "ANOVA à 2 facteurs"
 author: Hanna Bacave
 css: style.css
-aspect_ratio: "16:9"
+# aspect_ratio: "16:9"
 format: 
   revealjs:
     slide-number: c/t
     # incremental: true
+    # smaller: true
     title-slide-attributes:
       data-background-image: figures/fond.png
       data-background-size: cover
@@ -41,7 +42,7 @@ library(car)
 . . .
 
 | Questions de recherche | Facteur(s) {modalités} | $Y$ = variable expliquée |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | Le type d'alimentation et le médicament donné [influencent]{.smallcaps}-ils la durée de guérison de l'animal ? | Type d'alimentation {granules, foin, ...} +/$\times$ Médicament {A, B} | Durée de guérison |
 | La ville et le quartier ont-ils un [effet]{.smallcaps} sur le prix d'un logement ? | Ville {Montpellier, Paris, Toulouse} +/$\times$ Type de quartier {Hyper-centre, Universités, Périphérie} | Prix du logement |
 | L'espérance de vie d'un animal [diffère]{.smallcaps}-t-elle selon son sexe ? | Sexe {M stérilisé ou non / F stérilisé ou non} | Espérance de vie |
@@ -66,7 +67,7 @@ L'objectif de l'ANOVA est de comparer les moyennes de $Y$ pour chacun des groupe
 
 ::: {#tableau-focus}
 | Questions de recherche | Facteur(s) {modalités} | $Y$ = variable expliquée |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | Le type d'alimentation et le médicament donné [influencent]{.smallcaps}-ils la durée de guérison de l'animal ? | Type d'alimentation {granules, foin, ...} +/$\times$ Médicament {A, B} | Durée de guérison |
 | La ville et le quartier ont-ils un [effet]{.smallcaps} sur le prix d'un logement ? | Ville {Montpellier, Paris, Toulouse} +/$\times$ Type de quartier {Hyper-centre, Universités, Périphérie} | Prix du logement |
 | L'espérance de vie d'un animal [diffère]{.smallcaps}-t-elle selon son sexe ? | Sexe {M stérilisé ou non / F stérilisé ou non} | Espérance de vie |
@@ -110,7 +111,7 @@ Quels sont les effets de **chacun des 2 facteurs A et B** et celui de leur **int
   - Sex $=$ Sexe à $2$ modalités
 
 | Facteur     | Modalité           | Définition                  | Nb. d'individus |
-|------------------|------------------|-------------------|------------------|
+|-------------|--------------------|-----------------------------|-----------------|
 | Housing (A) | Group ($k_{A,1}$)  | Souris vivant en communauté | 10              |
 | Housing (A) | Single ($k_{A,2}$) | Souris vivant isolée        | 10              |
 | Sex (B)     | Female ($k_{B,1}$) | Souris femelle              | 10              |
@@ -226,7 +227,7 @@ $$\small H_0:\mu=\mu_0 \qquad\qquad\qquad H_1:\mu\neq\mu_0$$
 ```
 
 |   | **Ne pas rejeter** $\small H_0$ | **Rejeter** $\small H_0$ |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | $\small H_0$ **vraie** | ✅ Bonne décision | ❌ **Type I :** $\small \alpha$ |
 | $\small H_0$ **fausse** | ❌ **Type II :** $\small \beta$ | ✅ Bonne décision |
 
@@ -368,8 +369,7 @@ $$
 <div style="height:5px;"></div>
 ```
 
-
-::: {.grande-fig}
+::: grande-fig
 ```{r}
 #| echo: false
 #| message: false
@@ -512,13 +512,13 @@ p_sex + plot_spacer() +
 ```
 :::
 
-::: {style="margin-top: -40px;"}
+:::: {style="margin-top: -40px;"}
 ::: callout-note
 - Si on teste uniquement l'effet des facteurs **individuels**, on parle de modèle/test [additif]{.smallcaps}
 
 - Si on teste les effets des facteurs **individuels** et celui de l'**interaction**, on parle de modèle/test [complet]{.smallcaps}
 :::
-:::
+::::
 
 ## 1️⃣ ANOVA à 2 facteurs : avec ou sans interaction ?
 
@@ -621,13 +621,13 @@ ggplot(
 ::::
 :::::::
 
-:::: fragment
-::: {style="margin-top: -50px;"}
+::::: fragment
+:::: {style="margin-top: -50px;"}
 ::: callout-important
 Tester l'interaction permet de savoir si l'effet d'un facteur dépend de l'autre et adapter l'interprétation des résultats.
 :::
-::: 
 ::::
+:::::
 
 ## 1️⃣ Les hypothèses à vérifier avant le test
 
@@ -654,7 +654,7 @@ Soit $i$ la modalité du facteur A (où $i = 1, ..., I$), $j$ celle du facteur B
 1.  [[indépendance :]{.underline}]{.smallcaps} Les $\epsilon_{ijk}$ sont indépendants $\longrightarrow$ Les $Y_{ijk}$ sont indépendants
 
 |  |
-|:----------------------------------------------------------------------:|
+|:--:|
 | La mesure prise sur un individu n'a pas d'influence sur celle prise sur un autre. |
 
 ## 1️⃣ Les hypothèses à vérifier avant le test
@@ -1079,7 +1079,7 @@ ggplot() +
 :::::
 
 |  |
-|:----------------------------------------------------------------------:|
+|:--:|
 | Pour chaque groupe $(i,j)$, les observations $Y$ suivent une loi normale centrée sur la moyenne $\mu_{ij}$ du groupe. |
 
 ## 1️⃣ Les hypothèses à vérifier avant le test
@@ -1408,7 +1408,7 @@ ggplot(
 :::::
 
 |  |
-|:----------------------------------------------------------------------:|
+|:--:|
 | La dispersion des $Y$ autour de leur moyenne est constante quelle que soit la combinaison des deux facteurs. |
 
 ## 1️⃣ Vérification des hypothèses sur les données de souris
@@ -2375,7 +2375,7 @@ Pour comparer les variabilités, on divise chaque somme des carrés (SC) par ses
 
 ::: {style="font-size: 0.85em;"}
 | Effet | Carré moyen | Statistique de Fisher |
-|:--------------------|:------------------------:|:------------------------:|
+|:---|:--:|:--:|
 | Facteur A | $\displaystyle CM_A=\frac{SC_A}{I-1}$ | $\displaystyle F_A=\frac{CM_A}{CM_{\mathrm{résiduelle}}}$ |
 | Facteur B | $\displaystyle CM_B=\frac{SC_B}{J-1}$ | $\displaystyle F_B=\frac{CM_B}{CM_{\mathrm{résiduelle}}}$ |
 | Interaction A × B | $\displaystyle CM_{AB}=\frac{SC_{AB}}{(I-1)(J-1)}$ | $\displaystyle F_{AB}=\frac{CM_{AB}}{CM_{\mathrm{résiduelle}}}$ |
@@ -2493,7 +2493,7 @@ $$
 ```
 
 |   | **Ne pas rejeter** $\small H_0$ | **Rejeter** $\small H_0$ |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | $\small H_0$ **vraie** | ✅ Bonne décision | ❌ **Type I :** $\small \alpha$ |
 | $\small H_0$ **fausse** | ❌ **Type II :** $\small \beta$ | ✅ Bonne décision |
 

@@ -1,9 +1,9 @@
 
 .reveal {
-  font-size: 35px;
+  font-size: 1.7rem;
 }
 
-.reveal h1 {
+/*.reveal h1 {
   font-size: 1.8em;
 }
 
@@ -15,19 +15,23 @@
   font-size: 1.15em;
 }
 
+*/
+
 .reveal table {
-  font-size: 0.65em;
+  font-size: 0.75em;
 }
 
 .reveal blockquote {
-  font-size: 0.8em;
+  /*font-size: 0.8em;*/
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
-.reveal .slides {
+/*.reveal .slides {
   width: 90% !important;
   height: 95% !important;
   overflow: hidden;
-}
+}*/
 
 .reveal .backgrounds .slide-background-content {
   background-image: url("figures/fond2.png");
@@ -79,9 +83,11 @@
   background-color: white;
 }
 
+
 .reveal .grande-fig img {
   width: 850px !important;
   max-width: none !important;
   height: auto !important;
   max-height: none !important;
+  margin-bottom: 0 !important;
 }

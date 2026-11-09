@@ -2,7 +2,6 @@
 title: "Régression linéaire simple"
 author: Hanna Bacave
 css: style.css
-aspect_ratio: "16:9"
 format: 
   revealjs:
     slide-number: c/t
@@ -78,7 +77,7 @@ Dans ce cours, on va se concentrer sur la [régression linéaire simple]{.smallc
 <div style="height:5px;"></div>
 ```
 
-[[Jeu de données utilisé :]{.underline}]{.smallcaps} Mesures morphologiques chez les crabes *Leptograpsus variegatus*, collectés à Fremantle en Australie [@campbell1974].
+[[Jeu de données utilisé :]{.underline}]{.smallcaps} Mesures morphologiques chez les crabes *Leptograpsus variegatus*, collectés à Fremantle en Australie [@campbell1974a].
 
 . . .
 
@@ -86,10 +85,10 @@ Dans ce cours, on va se concentrer sur la [régression linéaire simple]{.smallc
 :::: {.column width="60%"}
 <br>
 
--   200 crabes étudiés (50 $\times$ 2 sexes $\times$ 2 couleurs)
+- 200 crabes étudiés (50 $\times$ 2 sexes $\times$ 2 couleurs)
 
 ::: fragment
--   5 mesures morphologiques
+- 5 mesures morphologiques
 
 ![](figures/crab_dim.png){fig-align="center"}
 :::
@@ -169,13 +168,13 @@ knitr::kable(head(crabs, 10))
 
 [[Définition : Modèle linéaire]{.underline}]{.smallcaps}
 
-:   Considérons un individu $i$ et deux variables mesurées sur cet individu : $Y_i$ la *variable à expliquer* et $X_i$ la *variable explicative*. Le [modèle linéaire]{.smallcaps} décrit la relation (linéaire) entre $Y_i$ et $X_i$ sous la forme :
+: Considérons un individu $i$ et deux variables mesurées sur cet individu : $Y_i$ la *variable à expliquer* et $X_i$ la *variable explicative*. Le [modèle linéaire]{.smallcaps} décrit la relation (linéaire) entre $Y_i$ et $X_i$ sous la forme :
 
-    $$
-    Y_i = \color{#CC79A7}{\beta_0} + \color{#009E73}{\beta_1}X_i + \epsilon_i
-    $$
+  $$
+  Y_i = \color{#CC79A7}{\beta_0} + \color{#009E73}{\beta_1}X_i + \epsilon_i
+  $$
 
-    où $\color{#CC79A7}{\beta_0}$ est l'ordonnée à l'origine, $\color{#009E73}{\beta_1}$ le coefficient directeur et $\epsilon$ un bruit (aléatoire).
+  où $\color{#CC79A7}{\beta_0}$ est l'ordonnée à l'origine, $\color{#009E73}{\beta_1}$ le coefficient directeur et $\epsilon$ un bruit (aléatoire).
 :::
 
 ::::: {.column width="30%"}
@@ -1319,22 +1318,14 @@ ggplot(data, aes(X, Y)) +
 <div style="height:40px;"></div>
 ```
 
--   [[Indépendance :]{.underline}]{.smallcaps} ✅ Chaque crabe est différent.
+- [[Indépendance :]{.underline}]{.smallcaps} ✅ Chaque crabe est différent.
 
 ```{=html}
 <div style="height:5px;"></div>
 ```
 
 ::: fragment
--   [[Linéarité :]{.underline}]{.smallcaps} ✅ A $x$ fixé, la moyenne des $y$ correspond à la droite.
-
-```{=html}
-<div style="height:5px;"></div>
-```
-:::
-
-::: fragment
--   [[Normalité :]{.underline}]{.smallcaps} ✅ A $x$ fixé, les $y$ sont normalement distribués.
+- [[Linéarité :]{.underline}]{.smallcaps} ✅ A $x$ fixé, la moyenne des $y$ correspond à la droite.
 
 ```{=html}
 <div style="height:5px;"></div>
@@ -1342,7 +1333,15 @@ ggplot(data, aes(X, Y)) +
 :::
 
 ::: fragment
--   [[Homoscédasticité :]{.underline}]{.smallcaps} ✅ La dispersion des $y$ est constante.
+- [[Normalité :]{.underline}]{.smallcaps} ✅ A $x$ fixé, les $y$ sont normalement distribués.
+
+```{=html}
+<div style="height:5px;"></div>
+```
+:::
+
+::: fragment
+- [[Homoscédasticité :]{.underline}]{.smallcaps} ✅ La dispersion des $y$ est constante.
 :::
 ::::::
 
@@ -1716,18 +1715,18 @@ p %>%
 
 [[Notations :]{.underline}]{.smallcaps}
 
--   $\beta_0$ et $\beta_1$ sont les [paramètres]{.smallcaps}
+- $\beta_0$ et $\beta_1$ sont les [paramètres]{.smallcaps}
 
-    $\longrightarrow \hat{\beta_0}$ et $\hat{\beta_1}$ sont les [paramètres **prédits**]{.smallcaps}
+  $\longrightarrow \hat{\beta_0}$ et $\hat{\beta_1}$ sont les [paramètres **prédits**]{.smallcaps}
 
 ::: fragment
--   $y_i$ est l'[observation]{.smallcaps} pour l'individu $i$
+- $y_i$ est l'[observation]{.smallcaps} pour l'individu $i$
 
-    $\longrightarrow \hat{y_i}$ est l'[observation **prédite**]{.smallcaps} pour l'individu $i$
+  $\longrightarrow \hat{y_i}$ est l'[observation **prédite**]{.smallcaps} pour l'individu $i$
 :::
 
 ::: fragment
--   $e_i = y_i - \hat{y_i}$ est l'[erreur]{.smallcaps}/le [résidu]{.smallcaps} pour l'individu $i$
+- $e_i = y_i - \hat{y_i}$ est l'[erreur]{.smallcaps}/le [résidu]{.smallcaps} pour l'individu $i$
 :::
 :::::
 
@@ -1926,21 +1925,21 @@ $$
 <div style="height:20px;"></div>
 ```
 
--   $\color{#009E73}{\hat{\beta_1}} = \frac{\sum_{i = 1}^N (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i = 1}^N (x_i - \bar{x})^2}$
+- $\color{#009E73}{\hat{\beta_1}} = \frac{\sum_{i = 1}^N (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i = 1}^N (x_i - \bar{x})^2}$
 
-    $= \frac{4846.979}{2431.242}$
+  $= \frac{4846.979}{2431.242}$
 
-    $= 1.994 \quad (= \frac{\Delta y}{\Delta x}).$
+  $= 1.994 \quad (= \frac{\Delta y}{\Delta x}).$
 
 ```{=html}
 <div style="height:15px;"></div>
 ```
 
--   $\color{#CC79A7}{\hat{\beta_0}} = \bar{y} - \hat{\beta_1}\bar{x}$
+- $\color{#CC79A7}{\hat{\beta_0}} = \bar{y} - \hat{\beta_1}\bar{x}$
 
-    $= 32.106 - \hat{\beta_1} \times 15.583$
+  $= 32.106 - \hat{\beta_1} \times 15.583$
 
-    $= 1.039 \quad ( = \text{ordonnée à l'origine}).$
+  $= 1.039 \quad ( = \text{ordonnée à l'origine}).$
 ::::
 
 ::: {.column width="50%"}
@@ -2274,21 +2273,21 @@ où :
 
 . . .
 
--   $\sum_{i = 1}^{N} (\hat{y_i} - \bar{y})^2 =$ somme des carrés expliqués
+- $\sum_{i = 1}^{N} (\hat{y_i} - \bar{y})^2 =$ somme des carrés expliqués
 
-    $\longrightarrow$ Ce que le modèle [**explique**]{.smallcaps}.
-
-. . .
-
--   $\sum_{i = 1}^{N} (y_i - \bar{y})^2 =$ somme des erreurs/résidus
-
-    $\longrightarrow$ Ce que le modèle [**n'explique pas**]{.smallcaps}.
+  $\longrightarrow$ Ce que le modèle [**explique**]{.smallcaps}.
 
 . . .
 
--   $\sum_{i = 1}^{N} (y_i - \bar{y})^2 =$ variabilité totale
+- $\sum_{i = 1}^{N} (y_i - \bar{y})^2 =$ somme des erreurs/résidus
 
-    $=\sum_{i = 1}^{N} (\hat{y_i} - \bar{y})^2 + \sum_{i = 1}^{N} (\hat{y_i} - y_i)^2.$
+  $\longrightarrow$ Ce que le modèle [**n'explique pas**]{.smallcaps}.
+
+. . .
+
+- $\sum_{i = 1}^{N} (y_i - \bar{y})^2 =$ variabilité totale
+
+  $=\sum_{i = 1}^{N} (\hat{y_i} - \bar{y})^2 + \sum_{i = 1}^{N} (\hat{y_i} - y_i)^2.$
 
 ## 3️⃣ Qualité de la droite de régression avec $R^2$ : Exemple
 
@@ -2383,9 +2382,9 @@ La valeur de la corrélation vaut entre $-1$ et $+1$ et mesure à quel point et 
 ::: callout-warning
 La corrélation est **différente** d'un modèle linéaire :
 
--   La [corrélation]{.smallcaps} répond à la question : *"A quel point X et Y sont associés ?"* - elle mesure la force et le sens de l'association entre $X$ et $Y$.
+- La [corrélation]{.smallcaps} répond à la question : *"A quel point X et Y sont associés ?"* - elle mesure la force et le sens de l'association entre $X$ et $Y$.
 
--   Le [modèle linéaire]{.smallcaps} répond à la question : *"Si* $X$ *varie, est-ce que* $Y$ *varie aussi ?"* - elle explique $Y$ à partir de $X$ et on peut l'utiliser pour faire de la prédiction.
+- Le [modèle linéaire]{.smallcaps} répond à la question : *"Si* $X$ *varie, est-ce que* $Y$ *varie aussi ?"* - elle explique $Y$ à partir de $X$ et on peut l'utiliser pour faire de la prédiction.
 :::
 
 ## 🦀 Application aux données de crabe avec R
@@ -2487,22 +2486,22 @@ summary(mod)
 <div style="height:5px;"></div>
 ```
 
--   $\color{#CC79A7}{\hat{\beta_0}} = 1.038$
+- $\color{#CC79A7}{\hat{\beta_0}} = 1.038$
 
-    ::: {style="font-size: 0.85em;"}
-    $\longrightarrow$ [[Interprétation :]{.underline}]{.smallcaps} Quand le lobe frontal (FL) mesure $0$cm, la carapace (CL) en mesure $1.038$ {Pas forcément d'interprétation sensée}.
-    :::
+  ::: {style="font-size: 0.85em;"}
+  $\longrightarrow$ [[Interprétation :]{.underline}]{.smallcaps} Quand le lobe frontal (FL) mesure $0$cm, la carapace (CL) en mesure $1.038$ {Pas forcément d'interprétation sensée}.
+  :::
 
 ```{=html}
 <div style="height:5px;"></div>
 ```
 
 ::: fragment
--   $\color{#009E73}{\hat{\beta_1}} = 1.993$
+- $\color{#009E73}{\hat{\beta_1}} = 1.993$
 
-    ::: {style="font-size: 0.85em;"}
-    $\longrightarrow$ [[Interprétation :]{.underline}]{.smallcaps} Si le lobe frontal (FL) grandit d'1cm, la carapace va grandir de $1.993$cm.
-    :::
+  ::: {style="font-size: 0.85em;"}
+  $\longrightarrow$ [[Interprétation :]{.underline}]{.smallcaps} Si le lobe frontal (FL) grandit d'1cm, la carapace va grandir de $1.993$cm.
+  :::
 :::
 ::::
 
@@ -2528,11 +2527,11 @@ summary(mod)
 ```
 
 ::: fragment
--   $R^2 = 0.958$
+- $R^2 = 0.958$
 
-    ::: {style="font-size: 0.85em;"}
-    $\longrightarrow$ [[Interprétation :]{.underline}]{.smallcaps} On explique $95.8\%$ des données avec la droite.
-    :::
+  ::: {style="font-size: 0.85em;"}
+  $\longrightarrow$ [[Interprétation :]{.underline}]{.smallcaps} On explique $95.8\%$ des données avec la droite.
+  :::
 :::
 ::::
 :::::::
@@ -2608,17 +2607,17 @@ ggplot(
 
 [[**Utilisations principales :**]{.underline}]{.smallcaps}
 
--   [Prédire]{.smallcaps} $Y$ [pour une nouvelle valeur]{.smallcaps} $x$ [de]{.smallcaps} $X$ - *Quelle sera la longueur de la carapace d’un nouveau crabe dont le lobe frontal mesure 15 mm ?*
+- [Prédire]{.smallcaps} $Y$ [pour une nouvelle valeur]{.smallcaps} $x$ [de]{.smallcaps} $X$ - *Quelle sera la longueur de la carapace d’un nouveau crabe dont le lobe frontal mesure 15 mm ?*
 
-    $\longrightarrow$ Construction d'un [intervalle de prédiction]{.smallcaps}.
+  $\longrightarrow$ Construction d'un [intervalle de prédiction]{.smallcaps}.
 
-    <br>
+  <br>
 
 . . .
 
--   [Estimer la moyenne de]{.smallcaps} $Y$ [pour une valeur fixée]{.smallcaps} $x$ [de]{.smallcaps} $X$ - *Quelle est la longueur moyenne de la carapace des crabes dont le lobe frontal mesure 15 mm ?*
+- [Estimer la moyenne de]{.smallcaps} $Y$ [pour une valeur fixée]{.smallcaps} $x$ [de]{.smallcaps} $X$ - *Quelle est la longueur moyenne de la carapace des crabes dont le lobe frontal mesure 15 mm ?*
 
-    $\longrightarrow$ Construction d'un [intervalle de confiance]{.smallcaps}.
+  $\longrightarrow$ Construction d'un [intervalle de confiance]{.smallcaps}.
 
 ## 📑Exemple d'utilisation en sciences vétérinaires
 
