@@ -3,7 +3,7 @@
 - acp
 - anova_1_facteur
 - anova_2_facteurs
-- classification
+- introduction_ML
 - intervalles_confiance_et_prediction
 - regression_lineaire_multiple
 - regression_lineaire_multivariee
