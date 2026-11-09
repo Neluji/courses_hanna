@@ -43,7 +43,7 @@ library(pdftools)
 . . .
 
 | Questions de recherche | $X$ = variable(s) explicative(s) | $Y$ = variable(s) expliquée(s) |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | L'âge et le sexe sont-ils [associés]{.smallcaps} à la taille et au poids d'un animal ? | Âge, sexe | Taille, poids |
 | Le type d'alimentation est-il [associé]{.smallcaps} à la glycémie et au taux de cholestérol d'un chien ? | Type d'alimentation | Glycémie, cholestérol |
 | Peut-on [prédire]{.smallcaps} le prix d'un appartement en fonction de sa superficie ? | Superficie | Prix |
@@ -69,7 +69,7 @@ Un modèle linéaire décrit un [lien linéaire]{.smallcaps} entre des variables
 
 ::: {#tableau-focus}
 | Questions de recherche | $X$ = variable(s) explicative(s) | $Y$ = variable(s) expliquée(s) |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | L'âge et le sexe sont-ils [associés]{.smallcaps} à la taille et au poids d'un animal ? | Âge, sexe | Taille, poids |
 | Le type d'alimentation est-il [associé]{.smallcaps} à la glycémie et au taux de cholestérol d'un chien ? | Type d'alimentation | Glycémie, cholestérol |
 | Peut-on [prédire]{.smallcaps} le prix d'un appartement en fonction de sa superficie ? | Superficie | Prix |
@@ -238,7 +238,7 @@ for (page in pages) {
 <div style="height:25px;"></div>
 ```
 
-::: {.callout-note}
+::: callout-note
 Dans cet article, une [régression linéaire multivariée]{.smallcaps} est utilisée pour étudier conjointement l'association du *milieu de vie*, de *l'âge* et du *sexe* avec plusieurs caractéristiques morphologiques des sangliers.
 :::
 
