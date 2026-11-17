@@ -213,6 +213,16 @@
       margin-right: 0; 
     }
   </style>
+  <link href="introduction_ML_files/libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
+  <script src="introduction_ML_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+  <script src="introduction_ML_files/libs/viz-1.8.2/viz.js"></script>
+
+  <link href="introduction_ML_files/libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+
+  <script src="introduction_ML_files/libs/grViz-binding-1.0.12/grViz.js"></script>
+
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -230,18 +240,149 @@ Hanna Bacave
 </div>
 
 </section>
-<section id="introduction-le-machine-learning-ml-quest-ce-que-cest" class="slide level2">
-<h2>🔍 Introduction : Le Machine Learning (ML), qu’est-ce que c’est ?</h2>
-<div style="height:2px;"></div>
+<section id="organisation-et-évaluation-de-lue" class="slide level2">
+<h2>📚 Organisation et évaluation de l’UE</h2>
+<div style="height:12px;"></div>
+<p><span class="smallcaps"><u><strong>Organisation :</strong></u></span> Cette UE de <strong>30 heures</strong> alternera :</p>
+<ul>
+<li><strong>Cours (15 h)</strong> : présentation des concepts et méthodes de machine learning.</li>
+<li><strong>Travaux pratiques (10 h)</strong> : application des méthodes sur des jeux de données réels.</li>
+<li><strong>Projet Kaggle (5 h)</strong> : construction d’un modèle prédictif et comparaison des performances.</li>
+</ul>
+<div style="height:17px;"></div>
+<p><span class="smallcaps"><u><strong>Évaluation :</strong></u></span></p>
+<ul>
+<li><strong>Participation (bonus de 2 points sur la note finale)</strong> : valorisation de l’implication.</li>
+<li><strong>Soutenance orale (40% de la note)</strong> : présentation et analyse du projet Kaggle.</li>
+<li><strong>Examen pratique (60% de la note)</strong> : analyse de données avec R, en salle informatique sans accès à Internet.</li>
+</ul>
+<div style="height:17px;"></div>
+<div class="small-box">
+<p>L’UE privilégie une <strong>approche pratique</strong>, fondée sur des données vétérinaires.</p>
+</div>
+</section>
+<section id="programme-de-lue" class="slide level2">
+<h2>📖 Programme de l’UE</h2>
+<p><br></p>
+<p><span class="smallcaps"><u><strong>Quatre grandes parties :</strong></u></span></p>
+<ol type="1">
+<li><strong>Introduction au machine learning</strong> : principes, objectifs et démarche générale.</li>
+</ol>
+<div style="height:5px;"></div>
+<ol start="2" type="1">
+<li><strong>Apprentissage supervisé</strong> : régression, classification et évaluation des modèles.</li>
+</ol>
+<div style="height:5px;"></div>
+<ol start="3" type="1">
+<li><strong>Apprentissage non supervisé</strong> : exploration des données, réduction de dimension et clustering.</li>
+</ol>
+<div style="height:5px;"></div>
+<ol start="4" type="1">
+<li><strong>Introduction au deep learning</strong> : principes des réseaux de neurones et premières applications.</li>
+</ol>
+<p><br></p>
+<div class="small-box">
+<p>Chaque partie associera <strong>notions théoriques et applications pratiques avec R</strong>, à partir de données réelles.</p>
+</div>
+</section>
+<section id="objectifs-de-lue" class="slide level2">
+<h2>✔️ Objectifs de l’UE</h2>
+<p><br></p>
+<p><br></p>
+<p>À l’issue de cette UE, vous serez capables de :</p>
+<p><br></p>
+<ol type="1">
+<li><strong>Comprendre</strong> les principes des principales méthodes étudiées.</li>
+</ol>
+<div style="height:20px;"></div>
+<ol start="2" type="1">
+<li><strong>Choisir</strong> une méthode adaptée à une question et aux données disponibles.</li>
+</ol>
+<div style="height:20px;"></div>
+<ol start="3" type="1">
+<li><strong>Appliquer</strong> ces méthodes sur des données réelles avec R.</li>
+</ol>
+<div style="height:20px;"></div>
+<ol start="4" type="1">
+<li><strong>Interpréter et évaluer</strong> les résultats obtenus.</li>
+</ol>
+</section>
+<section id="avant-de-commencer" class="slide level2">
+<h2>💭 Avant de commencer</h2>
+<div style="height:30px;"></div>
+<div class="columns">
+<div class="column" style="width:65%;">
+<ul>
+<li><span class="smallcaps"><u><strong>Retour sur le quiz du dernier cours :</strong></u></span></li>
+</ul>
+<div style="margin-top: -25px;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/quiz_début_séance.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div><div class="column" style="width:35%;">
+<div class="fragment">
+<p><br> <br></p>
+<div style="height:20px;"></div>
+<ul>
+<li><span class="smallcaps"><u><strong>Un petit exemple concret :</strong></u></span></li>
+</ul>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Journée</th>
+<th style="text-align: right;">Température</th>
+<th style="text-align: right;">Humidité</th>
+<th style="text-align: center;">Pluie</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Lundi</td>
+<td style="text-align: right;">12 °C</td>
+<td style="text-align: right;">90 %</td>
+<td style="text-align: center;">Oui</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mardi</td>
+<td style="text-align: right;">25 °C</td>
+<td style="text-align: right;">35 %</td>
+<td style="text-align: center;">Non</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Mercredi</td>
+<td style="text-align: right;">14 °C</td>
+<td style="text-align: right;">85 %</td>
+<td style="text-align: center;">Oui</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Jeudi</strong></td>
+<td style="text-align: right;"><strong>16 °C</strong></td>
+<td style="text-align: right;"><strong>80 %</strong></td>
+<td style="text-align: center;"><strong>???</strong></td>
+</tr>
+</tbody>
+</table>
+<div style="text-align: center; color: #52525B;">
+<p>Va-t-il pleuvoir jeudi ?</p>
+</div>
+</div>
+</div></div>
+</section>
+<section id="intro-quest-ce-que-le-machine-learning-ml" class="slide level2">
+<h2>🔍 Intro : Qu’est-ce que le Machine Learning (ML) ?</h2>
+<div style="height:15px;"></div>
 <blockquote>
 <p>Le <span class="smallcaps">machine learning (ML)</span> ou <span class="smallcaps">apprentissage automatique</span>, regroupe des méthodes permettant d’apprendre des relations ou des structures à partir de données, notamment pour réaliser des prédictions sur de nouvelles observations.</p>
 </blockquote>
-<div style="height:7px;"></div>
+<div style="height:40px;"></div>
 <div class="fragment">
 <table class="caption-top">
 <colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
+<col style="width: 76%">
+<col style="width: 23%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -270,7 +411,7 @@ Hanna Bacave
 </table>
 </div>
 <div class="fragment">
-<div style="height:10px;"></div>
+<div style="height:25px;"></div>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -298,8 +439,8 @@ Hanna Bacave
 <li><p>7 mesures cliniques quantitatives <span class="math inline">\(X\)</span> :</p>
 <table class="caption-top">
 <colgroup>
-<col style="width: 58%">
 <col style="width: 41%">
+<col style="width: 58%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -329,25 +470,27 @@ Hanna Bacave
 <li><p>1 variable qualitative binaire <span class="math inline">\(Y\)</span> :</p>
 <p><strong>Présence d’une lésion chirurgicale</strong> : Oui / Non</p></li>
 </ul>
-</div><div class="column" style="width:45%;">
-<div style="height:5px;"></div>
+</div><div class="column" style="width:10%;">
+
+</div><div class="column" style="width:35%;">
+<div style="height:25px;"></div>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top" style="width:100%;">
 <colgroup>
-<col style="width: 10%">
+<col style="width: 5%">
 <col style="width: 12%">
-<col style="width: 3%">
-<col style="width: 10%">
+<col style="width: 4%">
+<col style="width: 11%">
 <col style="width: 14%">
 <col style="width: 12%">
-<col style="width: 8%">
-<col style="width: 17%">
+<col style="width: 9%">
+<col style="width: 18%">
 <col style="width: 10%">
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">Hospital_Number</th>
+<th style="text-align: right;">id</th>
 <th style="text-align: right;">Rectal_temperature</th>
 <th style="text-align: right;">Pulse</th>
 <th style="text-align: right;">Respiratory_rate</th>
@@ -480,7 +623,7 @@ Hanna Bacave
 <h2>🐎 Application : Questions de recherche</h2>
 <div class="center-text">
 <div class="highlight-box">
-<p><strong>Peut-on prédire si un cheval souffrant de coliques présente une lésion chirurgicale à partir de ses caractéristiques cliniques ?</strong></p>
+<p><strong>Peut-on prédire la présence d’une lésion chirurgicale chez un cheval souffrant de coliques à partir de ses mesures cliniques ?</strong></p>
 </div>
 </div>
 </section>
@@ -488,42 +631,69 @@ Hanna Bacave
 <h2>📖 Objectifs du cours</h2>
 <br>
 <br>
-<div style="height:5px;"></div>
+<div style="height:45px;"></div>
 <ol type="1">
-<li>Pourquoi utiliser le machine learning ? (Définitions &amp; Objectifs)</li>
+<li>Pourquoi faire du Machine Learning ? (Intérêt &amp; Exemple de méthodes)</li>
 </ol>
 <div class="fragment">
-<div style="height:5px;"></div>
+<div style="height:25px;"></div>
 <ol start="2" type="1">
 <li>Comment construire un modèle de ML et évaluer sa qualité ? (Théorie)</li>
 </ol>
 </div>
 <div class="fragment">
-<div style="height:5px;"></div>
+<div style="height:25px;"></div>
 <ol start="3" type="1">
-<li>En pratique : Faire du Machine Learning avec R</li>
+<li>Pratique : Construire un modèle de ML et évaluer sa qualité avec R</li>
 </ol>
 </div>
 <div class="fragment">
-<div style="height:5px;"></div>
+<div style="height:25px;"></div>
 <ol start="4" type="1">
 <li>Conclusion &amp; Exemple concret d’une contribution en sciences vétérinaires</li>
 </ol>
 </div>
 </section>
-<section id="pourquoi-utiliser-le-ml---intuition" class="slide level2">
-<h2>1️⃣ Pourquoi utiliser le ML ? - Intuition</h2>
-<div style="height:30px;"></div>
+<section id="objectifs-du-cours-1" class="slide level2">
+<h2>📖 Objectifs du cours</h2>
+<br>
+<br>
+<div style="height:45px;"></div>
+<p><strong>1. Pourquoi faire du Machine Learning ? (Intérêt &amp; Exemple de méthodes)</strong></p>
+<div style="height:25px;"></div>
+<div style="color: #A1A1AA;">
+<ol start="2" type="1">
+<li>Comment construire un modèle de ML et évaluer sa qualité ? (Théorie)</li>
+</ol>
+</div>
+<div style="height:25px;"></div>
+<div style="color: #A1A1AA;">
+<ol start="3" type="1">
+<li>Pratique : Construire un modèle de ML et évaluer sa qualité avec R</li>
+</ol>
+</div>
+<div style="height:25px;"></div>
+<div style="color: #A1A1AA;">
+<ol start="4" type="1">
+<li>Exemple concret d’une contribution en sciences vétérinaires &amp; Conclusion</li>
+</ol>
+</div>
+</section>
+<section id="pourquoi-faire-du-machine-learning---intuition" class="slide level2">
+<h2>1️⃣ Pourquoi faire du Machine Learning ? - Intuition</h2>
+<div style="height:40px;"></div>
 <p>Le <span class="smallcaps">machine learning</span> est particulièrement intéressant pour :</p>
 <ul>
 <li><p><strong>Analyser des données complexes et de grande dimension</strong> : nombreuses variables, relations non linéaires et interactions.</p>
 <p><em>Exemple : prédire une maladie à partir de milliers de mesures génomiques.</em></p></li>
 </ul>
+<div style="height:10px;"></div>
 <div class="fragment">
 <ul>
 <li><p><strong>Améliorer les performances prédictives</strong> : construire des modèles capables de prédire correctement de nouvelles observations.</p>
 <p><em>Exemple : prédire le risque de complications chez un cheval souffrant de coliques.</em></p></li>
 </ul>
+<div style="height:10px;"></div>
 </div>
 <div class="fragment">
 <ul>
@@ -539,33 +709,10 @@ Hanna Bacave
 <img data-src="figures/schema_stat_ml_dl.jpg" class="quarto-figure quarto-figure-center r-stretch" style="width:160.0%"><div style="text-align: center; font-size: 0.6em; color: gray;">
 <p>Figure Prakasha S. (2026).</p>
 </div>
-<div style="height:10px;"></div>
-<table class="caption-top">
-<colgroup>
-<col style="width: 36%">
-<col style="width: 63%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Domaine</th>
-<th>Définition</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Statistique</strong></td>
-<td>Décrire, modéliser et analyser des données pour réaliser des inférences et des prédictions.</td>
-</tr>
-<tr class="even">
-<td><strong>Machine learning (ML)</strong></td>
-<td>Apprendre des relations ou des structures à partir des données, notamment pour prédire.</td>
-</tr>
-<tr class="odd">
-<td><strong>Deep learning (DL)</strong></td>
-<td>Sous-domaine du ML utilisant des réseaux de neurones à plusieurs couches.</td>
-</tr>
-</tbody>
-</table>
+<p><br></p>
+<div class="small-box">
+<p>Les frontières entre la statistique, le machine-learning et le deep-learning sont souvent floues : ces disciplines partagent de nombreuses méthodes et leurs objectifs se recoupent.</p>
+</div>
 </section>
 <section id="quelles-méthodes-de-ml-pour-quelles-questions" class="slide level2">
 <h2>1️⃣ Quelles méthodes de ML pour quelles questions ?</h2>
@@ -601,17 +748,41 @@ Hanna Bacave
 </div>
 </div></div>
 </section>
-<section id="définir-le-problème-quelles-sont-les-données-x-et-y" class="slide level2">
-<h2>2️⃣ Définir le problème : Quelles sont les données <span class="math inline">\(X\)</span> et <span class="math inline">\(Y\)</span> ?</h2>
-<div style="height:2px;"></div>
+<section id="objectifs-du-cours-2" class="slide level2">
+<h2>📖 Objectifs du cours</h2>
+<br>
+<br>
+<div style="height:45px;"></div>
+<div style="color: #A1A1AA;">
+<ol type="1">
+<li>Pourquoi faire du Machine Learning ? (Intérêt &amp; Exemple de méthodes)</li>
+</ol>
+</div>
+<div style="height:25px;"></div>
+<p><strong>2. Comment construire un modèle de ML et évaluer sa qualité ? (Théorie)</strong></p>
+<div style="height:25px;"></div>
+<div style="color: #A1A1AA;">
+<ol start="3" type="1">
+<li>Pratique : Construire un modèle de ML et évaluer sa qualité avec R</li>
+</ol>
+</div>
+<div style="height:25px;"></div>
+<div style="color: #A1A1AA;">
+<ol start="4" type="1">
+<li>Exemple concret d’une contribution en sciences vétérinaires &amp; Conclusion</li>
+</ol>
+</div>
+</section>
+<section id="définir-le-problème-quelles-sont-les-données" class="slide level2">
+<h2>2️⃣ Définir le problème : Quelles sont les données ?</h2>
+<div style="height:5px;"></div>
 <p>En <span class="smallcaps">apprentissage supervisé</span>, on dispose d’un échantillon de <span class="math inline">\(n\)</span> individus supposés i.i.d., pour lesquels on observe <span class="math inline">\(p\)</span> variables explicatives et une variable réponse.</p>
-<div style="height:10px;"></div>
+<div style="height:15px;"></div>
 <div class="columns">
 <div class="column" style="width:60%;">
 <div style="text-align: center;">
 <p><span class="smallcaps"><strong>Matrice des variables explicatives</strong></span></p>
 </div>
-<div style="margin-top: -10px; margin-bottom: -20px;">
 <p><span class="math display">\[
 X =
 \begin{pmatrix}
@@ -620,11 +791,9 @@ x_{11} &amp; \cdots &amp; x_{1p} \\
 x_{n1} &amp; \cdots &amp; x_{np}
 \end{pmatrix}
 \]</span></p>
-</div>
 </div><div class="column" style="width:40%;">
 <div style="text-align: center;">
 <p><span class="smallcaps"><strong>Vecteur des réponses</strong></span></p>
-<div style="margin-top: -10px; margin-bottom: -20px;">
 <p><span class="math display">\[
 Y =
 \begin{pmatrix}
@@ -633,7 +802,6 @@ y_1 \\
 y_n
 \end{pmatrix}
 \]</span></p>
-</div>
 <ul>
 <li><p><span style="color: #009E73;"><span class="math inline">\(Y\)</span> quantitatif : Régression</span></p></li>
 <li><p><span style="color: #CC79A7;"><span class="math inline">\(Y\)</span> qualitatif : Classification</span></p></li>
@@ -641,35 +809,28 @@ y_n
 </div>
 </div></div>
 <div class="fragment">
-<div style="margin-top: -10px; margin-bottom: -20px;">
+<div style="height:15px;"></div>
 <div class="small-box">
 <p><span class="smallcaps"><u><strong>Objectif :</strong></u></span> à partir des couples observés <span class="math inline">\((x_i,y_i)\)</span>, apprendre une <span class="smallcaps">fonction de prédiction/</span> un <span class="smallcaps">modèle</span> pour prédire la réponse d’un <strong>nouvel individu</strong> à partir de ses variables explicatives.</p>
-</div>
 </div>
 </div>
 </section>
 <section id="choisir-un-modèle-comment-prédire-y" class="slide level2">
 <h2>2️⃣ Choisir un modèle : Comment prédire <span class="math inline">\(Y\)</span> ?</h2>
-<div style="margin-bottom: -25px;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="figures/donnees_fonction_sorties.png" class="quarto-figure quarto-figure-center"></p>
-</figure>
-</div>
-</div>
+<div style="height:5px;"></div>
+
+<img data-src="figures/donnees_fonction_sorties.png" class="quarto-figure quarto-figure-center r-stretch"><div style="height:5px;"></div>
 <div class="fragment">
 <dl>
 <dt><span class="smallcaps"><u>modèle de prédiction</u></span></dt>
 <dd>
-<p>En apprentissage supervisé, on choisit une famille de fonctions, de <span class="smallcaps">modèles de prédiction</span> <span class="math inline">\(h_\theta\)</span>, paramétrés par <span class="math inline">\(\theta\)</span>, tels que :</p>
+<p>En apprentissage supervisé, on choisit une famille de fonctions, de <span class="smallcaps">modèles de prédiction</span> <span class="math inline">\(h_\theta\)</span>, paramétrés par <span class="math inline">\(\theta\)</span>, tels que : <span class="math display">\[
+h_\theta : x \longmapsto \hat y = h_\theta(x)
+\]</span></p>
 </dd>
 </dl>
-<div style="margin-top: -20px; margin-bottom: -20px;">
-<p><span class="math display">\[
-  h_\theta : x \longmapsto \hat y = h_\theta(x)
-\]</span></p>
-</div>
 <p>où <span class="math inline">\(\theta\)</span> désigne les paramètres inconnus à estimer à partir des données.</p>
+<div style="height:25px;"></div>
 </div>
 <div class="fragment">
 <div class="callout callout-note callout-titled callout-style-default">
@@ -688,8 +849,8 @@ y_n
 </div>
 </section>
 <section id="différents-modèles-pour-prédire-y" class="slide level2">
-<h2>2️⃣Différents modèles pour prédire <span class="math inline">\(Y\)</span></h2>
-<div style="height:5px;"></div>
+<h2>2️⃣ Différents modèles pour prédire <span class="math inline">\(Y\)</span></h2>
+<div style="height:20px;"></div>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -704,233 +865,1289 @@ y_n
 </div>
 </div>
 <div style="height:50px;"></div>
-<table class="caption-top">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
+<table style="border-collapse: collapse; border-bottom: 1px solid currentColor;">
 <thead>
-<tr class="header">
-<th style="text-align: left;">Type de sortie <span class="math inline">\(Y\)</span></th>
-<th style="text-align: left;">Objectif</th>
-<th style="text-align: left;">Exemple de modèle</th>
+<tr>
+<th>
+Type de sortie Y
+</th>
+<th>
+Objectif
+</th>
+<th>
+Exemple de modèle
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: left;">Quantitative</td>
-<td style="text-align: left;">Régression</td>
-<td style="text-align: left;">Régression linéaire</td>
+<tr>
+<td rowspan="3" style="vertical-align: middle;">
+Quantitative
+</td>
+<td rowspan="3" style="vertical-align: middle;">
+Régression
+</td>
+<td>
+Régression linéaire
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">Quantitative</td>
-<td style="text-align: left;">Régression</td>
-<td style="text-align: left;">Arbre de régression</td>
+<tr>
+<td>
+Arbre de régression
+</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">Quantitative</td>
-<td style="text-align: left;">Régression</td>
-<td style="text-align: left;">Forêt aléatoire</td>
+<tr>
+<td>
+Forêt aléatoire
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">Binaire</td>
-<td style="text-align: left;">Classification</td>
-<td style="text-align: left;">Régression logistique</td>
+<tr>
+<td rowspan="3" style="vertical-align: middle;">
+Binaire
+</td>
+<td rowspan="6" style="vertical-align: middle;">
+Classification
+</td>
+<td>
+Régression logistique
+</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">Binaire</td>
-<td style="text-align: left;">Classification</td>
-<td style="text-align: left;">Arbre de classification</td>
+<tr>
+<td>
+Arbre de classification
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">Binaire</td>
-<td style="text-align: left;">Classification</td>
-<td style="text-align: left;">Forêt aléatoire</td>
+<tr>
+<td>
+Forêt aléatoire
+</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">Qualitative (plusieurs classes)</td>
-<td style="text-align: left;">Classification</td>
-<td style="text-align: left;">Régression logistique multinomiale</td>
+<tr>
+<td rowspan="3" style="vertical-align: middle;">
+Qualitative (plusieurs classes)
+</td>
+<td>
+Régression logistique multinomiale
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">Qualitative (plusieurs classes)</td>
-<td style="text-align: left;">Classification</td>
-<td style="text-align: left;">Arbre de classification</td>
+<tr>
+<td>
+Arbre de classification
+</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">Qualitative (plusieurs classes)</td>
-<td style="text-align: left;">Classification</td>
-<td style="text-align: left;">Forêt aléatoire</td>
+<tr>
+<td>
+Forêt aléatoire
+</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="définition-du-problème-et-choix-du-modèle---exemple" class="slide level2">
-<h2>2️⃣ Définition du problème et choix du modèle - Exemple</h2>
-<div style="margin-bottom: -20px;">
+<section id="zoom-sur-les-arbres-de-décision-forêts-aléatoires" class="slide level2">
+<h2>2️⃣ Zoom sur les arbres de décision &amp; forêts aléatoires</h2>
+
+<img data-src="figures/schema_arbre_foret.jpg" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><div style="text-align: center; margin-top: -15px; font-size: 0.6em; color: gray;">
+<p>Source : Virtual Labs <a href="https://virtual-labs.github.io/exp-random-forest-dei/theory.html" class="uri">https://virtual-labs.github.io/exp-random-forest-dei/theory.html</a>.</p>
+</div>
+</section>
+<section id="données-et-choix-du-modèle-exemple" class="slide level2">
+<h2>2️⃣ Données et choix du modèle — Exemple</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:44%;">
+<p><span class="smallcaps"><u><strong>Données du problème (pour un cheval)</strong></u></span></p>
+<ul>
+<li><p><strong>Entrées</strong> <span class="math inline">\(x\)</span> - Mesures cliniques :</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variables</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Température rectale, fréquences cardiaque et respiratoire</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pH du reflux nasogastrique</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Hématocrite, protéines totales</td>
+</tr>
+</tbody>
+</table></li>
+</ul>
+  <div style="height:15px;"></div>
+<ul>
+<li><p><strong>Sortie</strong> <span class="math inline">\(y\)</span> - Présence d’une lésion chirurgicale :</p>
+<div style="text-align: center;">
+<p>Oui (<span class="math inline">\(y = 1\)</span>) / Non (<span class="math inline">\(y = 0\)</span>)</p>
+</div></li>
+</ul>
+</div><div class="column" style="width:8%;">
+
+</div><div class="column" style="width:44%;">
+<p><span class="smallcaps"><u><strong>Modèle choisi : Forêt aléatoire</strong></u></span></p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="figures/donnees_fonction_sorties.png" class="quarto-figure quarto-figure-center" style="height:4cm"></p>
+<p><img data-src="figures/schema_foret.jpg" class="quarto-figure quarto-figure-center"></p>
 </figure>
 </div>
-</div>
-<p><span class="smallcaps"><u>Données d’entrée :</u></span> <span class="math inline">\(7\)</span> variables explicatives <span class="math inline">\(x\)</span> (données cliniques).</p>
-<div style="height:5px;"></div>
-<p><span class="smallcaps"><u>Sortie :</u></span> <span class="math inline">\(1\)</span> variable réponse binaire <span class="math inline">\(y\)</span> (présence d’une lésion : Oui/Non).</p>
-<div style="height:10px;"></div>
-<p><span class="smallcaps"><u>Modèle de prédiction :</u></span> La <span class="smallcaps"><strong>régression logistique</strong></span> est utilisée pour la <strong>classification binaire</strong>, et est définie par:</p>
-<div style="margin-top: -20px; margin-bottom: -20px;">
-<p><span class="math display">\[
-\begin{aligned}
-h_\theta : \mathbb{R}^p &amp;\longrightarrow ]0,1[\\
-x &amp;\longmapsto
-\frac{1}{1+\exp\left(-\left(\theta_0+\sum_{j=1}^{p}\theta_j x_j\right)\right)}
-\end{aligned}
-\]</span></p>
-</div>
+</div></div>
 </section>
 <section id="entraîner-le-modèle-comment-estimer-les-paramètres" class="slide level2">
 <h2>2️⃣ Entraîner le modèle : Comment estimer les paramètres ?</h2>
+<p><span class="smallcaps"><u><strong>Objectif :</strong></u></span> Apprendre les paramètres ou les règles du modèle <span class="math inline">\(h_\theta\)</span> à partir des observations <span class="math inline">\((x_i,y_i)\)</span>.</p>
 <div style="height:5px;"></div>
-<p><span class="smallcaps"><u><strong>Objectif :</strong></u></span> Déterminer les paramètres <span class="math inline">\(\theta\)</span> de la fonction de prédiction <span class="math inline">\(h_\theta\)</span> à partir des données observées.</p>
-<div style="height:10px;"></div>
-<p><span class="smallcaps"><u><strong>Deux approches mathématiques :</strong></u></span></p>
-<table class="caption-top">
+<p><span class="smallcaps"><u><strong>Principales approches :</strong></u></span></p>
+<table class="caption-top" style="width:99%;">
 <colgroup>
-<col style="width: 44%">
+<col style="width: 22%">
 <col style="width: 55%">
+<col style="width: 22%">
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Méthode</th>
-<th style="text-align: center;">Problème résolu</th>
+<th style="text-align: left;">Approche</th>
+<th style="text-align: center;">Principe mathématique (ex. de fonctions)</th>
+<th style="text-align: left;">Exemples</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Minimisation d’une erreur de prédiction</strong></td>
-<td style="text-align: center;"><span class="math inline">\(\displaystyle \hat{\theta}=\arg\min_{\theta\in\Theta}\sum_{i=1}^{n} ||y_i-h_\theta(x_i))||\)</span></td>
+<td style="text-align: left;"><strong>Minimisation d’une fonction de perte</strong></td>
+<td style="text-align: center;"><span class="math inline">\(\displaystyle \hat\theta=\arg\min_{\theta\in\Theta}\sum_{i=1}^{n} (y_i - h_\theta(x_i))^2\)</span></td>
+<td style="text-align: left;">Régression linéaire, réseaux de neurones</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>Maximum de vraisemblance</strong></td>
-<td style="text-align: center;"><span class="math inline">\(\displaystyle \hat{\theta}=\arg\max_{\theta\in\Theta}\prod_{i=1}^{n}\mathbb{P}_\theta(Y_i=y_i\mid X_i=x_i)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\displaystyle \hat\theta=\arg\max_{\theta\in\Theta}\prod_{i=1}^{n}\mathbb P_\theta(Y_i=y_i\mid X_i=x_i)\)</span></td>
+<td style="text-align: left;">Régression logistique</td>
 </tr>
-</tbody>
-</table>
-<div style="height:10px;"></div>
-<div class="fragment">
-<p><span class="smallcaps"><u><strong>Deux modes de résolution :</strong></u></span></p>
-<table class="caption-top">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Mode</th>
-<th style="text-align: left;">Principe</th>
-</tr>
-</thead>
-<tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Solution analytique</strong></td>
-<td style="text-align: left;">Formule explicite permettant de calculer <span class="math inline">\(\hat{\theta}\)</span></td>
+<td style="text-align: left;"><strong>Construction successive de règles</strong></td>
+<td style="text-align: center;"><span class="math inline">\(\text{Meilleure règle}
+= \text{celle qui sépare le mieux les deux classes}\)</span></td>
+<td style="text-align: left;">Arbres de décision, forêts aléatoires</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Résolution numérique</strong></td>
-<td style="text-align: left;">Algorithme d’optimisation permettant d’approcher <span class="math inline">\(\hat{\theta}\)</span></td>
+<td style="text-align: left;"><strong>Entraînement séquentiel de modèles</strong></td>
+<td style="text-align: center;"><span class="math inline">\(h^{(m)}(x)=h^{(m-1)}(x)+\eta\,\operatorname{Correction}_m(x)\)</span></td>
+<td style="text-align: left;">Gradient boosting</td>
 </tr>
 </tbody>
 </table>
+<div style="height:3px;"></div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>L’entraînement consiste à <strong>apprendre automatique un modèle à partir des données</strong>, mais la méthode utilisée dépend du modèle choisi.</p>
+</div>
+</div>
+</div>
 </div>
 </section>
-<section id="entraînement-du-modèle-exemple" class="slide level2">
-<h2>2️⃣ Entraînement du modèle — Exemple</h2>
-<div style="height:5px;"></div>
-<p><span class="smallcaps"><u><strong>Objectif :</strong></u></span> On cherche à prédire la présence d’une lésion chirurgicale (<span class="math inline">\(Y=1\)</span>) chez un cheval à partir de <span class="math inline">\(7\)</span> variables cliniques, avec une régression logistique :</p>
-<div style="margin-top: -20px;">
-<p><span class="math display">\[
-h_\theta(x_i)=\mathbb{P}_\theta(Y_i=1\mid X_i=x_i)
-\]</span></p>
+<section id="entraînement-dune-forêt-aléatoire-exemple" class="slide level2">
+<h2>2️⃣ Entraînement d’une forêt aléatoire — Exemple</h2>
+<div style="margin-top: -100px;">
+
+</div>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<svg width="960" height="480" viewbox="0.00 0.00 1112.00 333.80" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(0 333.8)">
+<g id="clust2" class="cluster">
+<title>cluster_2</title>
+<path fill="transparent" stroke="#aaaaaa" d="M331,-8C331,-8 641,-8 641,-8 647,-8 653,-14 653,-20 653,-20 653,-313.8 653,-313.8 653,-319.8 647,-325.8 641,-325.8 641,-325.8 331,-325.8 331,-325.8 325,-325.8 319,-319.8 319,-313.8 319,-313.8 319,-20 319,-20 319,-14 325,-8 331,-8"></path>
+<text text-anchor="middle" x="486" y="-306.5" font-family="Arial" font-size="17.00">Arbre 2</text>
+</g>
+<g id="clust1" class="cluster">
+<title>cluster_1</title>
+<path fill="transparent" stroke="#aaaaaa" d="M20,-8C20,-8 299,-8 299,-8 305,-8 311,-14 311,-20 311,-20 311,-313.8 311,-313.8 311,-319.8 305,-325.8 299,-325.8 299,-325.8 20,-325.8 20,-325.8 14,-325.8 8,-319.8 8,-313.8 8,-313.8 8,-20 8,-20 8,-14 14,-8 20,-8"></path>
+<text text-anchor="middle" x="159.5" y="-306.5" font-family="Arial" font-size="17.00">Arbre 1</text>
+</g>
+<g id="clust3" class="cluster">
+<title>cluster_3</title>
+<path fill="transparent" stroke="#aaaaaa" d="M673,-8C673,-8 1092,-8 1092,-8 1098,-8 1104,-14 1104,-20 1104,-20 1104,-313.8 1104,-313.8 1104,-319.8 1098,-325.8 1092,-325.8 1092,-325.8 673,-325.8 673,-325.8 667,-325.8 661,-319.8 661,-313.8 661,-313.8 661,-20 661,-20 661,-14 667,-8 673,-8"></path>
+<text text-anchor="middle" x="882.5" y="-306.5" font-family="Arial" font-size="17.00">Arbre 3</text>
+</g>
+<!-- A1&#45;&gt;B1 -->
+<g id="edge1" class="edge">
+<title>A1-&gt;B1</title>
+<path fill="none" stroke="transparent" d="M130.54,-241.27C117.95,-231.03 103.24,-219.08 90.95,-209.09"></path>
+<polygon fill="transparent" stroke="transparent" points="92.17,-207.38 86.19,-205.23 89.53,-210.64 92.17,-207.38"></polygon>
+<text text-anchor="middle" x="130.34" y="-222.6" font-family="Arial" font-size="12.00" fill="transparent">Oui</text>
+</g>
+<!-- A1&#45;&gt;C1 -->
+<g id="edge2" class="edge">
+<title>A1-&gt;C1</title>
+<path fill="none" stroke="transparent" d="M175.5,-241.06C181.04,-233.21 187.29,-224.37 193.08,-216.19"></path>
+<polygon fill="transparent" stroke="transparent" points="194.86,-217.31 196.61,-211.19 191.43,-214.88 194.86,-217.31"></polygon>
+<text text-anchor="middle" x="202.01" y="-222.6" font-family="Arial" font-size="12.00" fill="transparent">Non</text>
+</g>
+<!-- C1&#45;&gt;D1 -->
+<g id="edge3" class="edge">
+<title>C1-&gt;D1</title>
+<path fill="none" stroke="transparent" d="M189.78,-162.78C175.22,-148.22 156.57,-129.57 142.36,-115.36"></path>
+<polygon fill="transparent" stroke="transparent" points="143.84,-113.87 138.11,-111.11 140.87,-116.84 143.84,-113.87"></polygon>
+<text text-anchor="middle" x="190.34" y="-133.4" font-family="Arial" font-size="12.00" fill="transparent">Oui</text>
+</g>
+<!-- C1&#45;&gt;E1 -->
+<g id="edge4" class="edge">
+<title>C1-&gt;E1</title>
+<path fill="none" stroke="transparent" d="M217.29,-162.78C219.87,-148.84 223.13,-131.17 225.71,-117.23"></path>
+<polygon fill="transparent" stroke="transparent" points="227.81,-117.39 226.84,-111.11 223.68,-116.63 227.81,-117.39"></polygon>
+<text text-anchor="middle" x="236.01" y="-133.4" font-family="Arial" font-size="12.00" fill="transparent">Non</text>
+</g>
+<!-- D1&#45;&gt;P1 -->
+<!-- E1&#45;&gt;P1 -->
+<!-- P1&#45;&gt;P2 -->
+<!-- A2&#45;&gt;B2 -->
+<g id="edge7" class="edge">
+<title>A2-&gt;B2</title>
+<path fill="none" stroke="transparent" d="M505.86,-241.06C501.53,-233.36 496.66,-224.7 492.13,-216.65"></path>
+<polygon fill="transparent" stroke="transparent" points="493.83,-215.39 489.05,-211.19 490.17,-217.45 493.83,-215.39"></polygon>
+<text text-anchor="middle" x="510.34" y="-222.6" font-family="Arial" font-size="12.00" fill="transparent">Oui</text>
+</g>
+<!-- A2&#45;&gt;C2 -->
+<g id="edge8" class="edge">
+<title>A2-&gt;C2</title>
+<path fill="none" stroke="transparent" d="M561.27,-241.17C572.13,-233.08 582.55,-222.98 589,-211 597.17,-195.83 598.08,-176.24 597.14,-161.18"></path>
+<polygon fill="transparent" stroke="transparent" points="599.22,-160.84 596.64,-155.03 595.03,-161.18 599.22,-160.84"></polygon>
+<text text-anchor="middle" x="594.01" y="-222.6" font-family="Arial" font-size="12.00" fill="transparent">Non</text>
+</g>
+<!-- B2&#45;&gt;D2 -->
+<g id="edge9" class="edge">
+<title>B2-&gt;D2</title>
+<path fill="none" stroke="transparent" d="M456.57,-162.78C444.48,-148.34 429.04,-129.89 417.19,-115.73"></path>
+<polygon fill="transparent" stroke="transparent" points="418.78,-114.36 413.32,-111.11 415.56,-117.06 418.78,-114.36"></polygon>
+<text text-anchor="middle" x="457.34" y="-133.4" font-family="Arial" font-size="12.00" fill="transparent">Oui</text>
+</g>
+<!-- B2&#45;&gt;E2 -->
+<g id="edge10" class="edge">
+<title>B2-&gt;E2</title>
+<path fill="none" stroke="transparent" d="M486.63,-162.96C493.69,-149.21 503.88,-131.97 515.99,-119 517.2,-117.7 518.5,-116.42 519.85,-115.18"></path>
+<polygon fill="transparent" stroke="transparent" points="521.42,-116.6 524.62,-111.11 518.69,-113.41 521.42,-116.6"></polygon>
+<text text-anchor="middle" x="526.01" y="-133.4" font-family="Arial" font-size="12.00" fill="transparent">Non</text>
+</g>
+<!-- C2&#45;&gt;P2 -->
+<!-- D2&#45;&gt;P2 -->
+<!-- E2&#45;&gt;P2 -->
+<!-- P2&#45;&gt;P3 -->
+<!-- A3&#45;&gt;B3 -->
+<g id="edge14" class="edge">
+<title>A3-&gt;B3</title>
+<path fill="none" stroke="transparent" d="M848.42,-241.06C839.15,-232.92 828.66,-223.7 819.05,-215.27"></path>
+<polygon fill="transparent" stroke="transparent" points="820.31,-213.58 814.41,-211.19 817.54,-216.73 820.31,-213.58"></polygon>
+<text text-anchor="middle" x="848.34" y="-222.6" font-family="Arial" font-size="12.00" fill="transparent">Oui</text>
+</g>
+<!-- A3&#45;&gt;C3 -->
+<g id="edge15" class="edge">
+<title>A3-&gt;C3</title>
+<path fill="none" stroke="transparent" d="M901.27,-241.06C910.44,-232.92 920.81,-223.7 930.31,-215.27"></path>
+<polygon fill="transparent" stroke="transparent" points="931.8,-216.75 934.89,-211.19 929.01,-213.61 931.8,-216.75"></polygon>
+<text text-anchor="middle" x="936.01" y="-222.6" font-family="Arial" font-size="12.00" fill="transparent">Non</text>
+</g>
+<!-- B3&#45;&gt;D3 -->
+<g id="edge16" class="edge">
+<title>B3-&gt;D3</title>
+<path fill="none" stroke="transparent" d="M770.84,-162.78C760.26,-148.47 746.76,-130.21 736.34,-116.1"></path>
+<polygon fill="transparent" stroke="transparent" points="737.9,-114.69 732.65,-111.11 734.52,-117.18 737.9,-114.69"></polygon>
+<text text-anchor="middle" x="773.34" y="-133.4" font-family="Arial" font-size="12.00" fill="transparent">Oui</text>
+</g>
+<!-- B3&#45;&gt;E3 -->
+<g id="edge17" class="edge">
+<title>B3-&gt;E3</title>
+<path fill="none" stroke="transparent" d="M798.35,-162.78C804.61,-148.72 812.58,-130.85 818.82,-116.85"></path>
+<polygon fill="transparent" stroke="transparent" points="820.85,-117.44 821.38,-111.11 817.01,-115.73 820.85,-117.44"></polygon>
+<text text-anchor="middle" x="827.01" y="-133.4" font-family="Arial" font-size="12.00" fill="transparent">Non</text>
+</g>
+<!-- C3&#45;&gt;F3 -->
+<g id="edge18" class="edge">
+<title>C3-&gt;F3</title>
+<path fill="none" stroke="transparent" d="M953.57,-162.68C952.79,-160.1 952.03,-157.5 951.33,-155 947.83,-142.58 944.3,-128.64 941.51,-117.22"></path>
+<polygon fill="transparent" stroke="transparent" points="943.49,-116.49 940.04,-111.16 939.41,-117.49 943.49,-116.49"></polygon>
+<text text-anchor="middle" x="960.34" y="-133.4" font-family="Arial" font-size="12.00" fill="transparent">Oui</text>
+</g>
+<!-- C3&#45;&gt;G3 -->
+<g id="edge19" class="edge">
+<title>C3-&gt;G3</title>
+<path fill="none" stroke="transparent" d="M982.2,-162.78C995.38,-148.34 1012.23,-129.89 1025.16,-115.73"></path>
+<polygon fill="transparent" stroke="transparent" points="1026.88,-116.96 1029.38,-111.11 1023.78,-114.12 1026.88,-116.96"></polygon>
+<text text-anchor="middle" x="1031.01" y="-133.4" font-family="Arial" font-size="12.00" fill="transparent">Non</text>
+</g>
+<!-- D3&#45;&gt;P3 -->
+<!-- E3&#45;&gt;P3 -->
+<!-- F3&#45;&gt;P3 -->
+<!-- G3&#45;&gt;P3 -->
+<!-- A1 -->
+<g id="node1" class="node">
+<title>A1</title>
+<path fill="#eaf2fb" stroke="#4c78a8" d="M237,-289.4C237,-289.4 81,-289.4 81,-289.4 75,-289.4 69,-283.4 69,-277.4 69,-277.4 69,-253.4 69,-253.4 69,-247.4 75,-241.4 81,-241.4 81,-241.4 237,-241.4 237,-241.4 243,-241.4 249,-247.4 249,-253.4 249,-253.4 249,-277.4 249,-277.4 249,-283.4 243,-289.4 237,-289.4"></path>
+<text text-anchor="middle" x="159" y="-269.9" font-family="Arial" font-size="15.00">Fréquence cardiaque</text>
+<text text-anchor="middle" x="159" y="-251.9" font-family="Arial" font-size="15.00">≤ 55 ?</text>
+</g>
+<!-- B1 -->
+<!-- C1 -->
+<!-- D1 -->
+<!-- E1 -->
+<!-- P1 -->
+<!-- A2 -->
+<g id="node7" class="node">
+<title>A2</title>
+<path fill="#eaf2fb" stroke="#4c78a8" d="M591.4,-289.4C591.4,-289.4 446.6,-289.4 446.6,-289.4 440.6,-289.4 434.6,-283.4 434.6,-277.4 434.6,-277.4 434.6,-253.4 434.6,-253.4 434.6,-247.4 440.6,-241.4 446.6,-241.4 446.6,-241.4 591.4,-241.4 591.4,-241.4 597.4,-241.4 603.4,-247.4 603.4,-253.4 603.4,-253.4 603.4,-277.4 603.4,-277.4 603.4,-283.4 597.4,-289.4 591.4,-289.4"></path>
+<text text-anchor="middle" x="519" y="-269.9" font-family="Arial" font-size="15.00">Fréquence respiratoire</text>
+<text text-anchor="middle" x="519" y="-251.9" font-family="Arial" font-size="15.00">&lt; 49 ?</text>
+</g>
+<!-- B2 -->
+<!-- C2 -->
+<!-- D2 -->
+<!-- E2 -->
+<!-- P2 -->
+<!-- A3 -->
+<g id="node13" class="node">
+<title>A3</title>
+<path fill="#eaf2fb" stroke="#4c78a8" d="M927.72,-289.4C927.72,-289.4 822.28,-289.4 822.28,-289.4 816.28,-289.4 810.28,-283.4 810.28,-277.4 810.28,-277.4 810.28,-253.4 810.28,-253.4 810.28,-247.4 816.28,-241.4 822.28,-241.4 822.28,-241.4 927.72,-241.4 927.72,-241.4 933.72,-241.4 939.72,-247.4 939.72,-253.4 939.72,-253.4 939.72,-277.4 939.72,-277.4 939.72,-283.4 933.72,-289.4 927.72,-289.4"></path>
+<text text-anchor="middle" x="875" y="-269.9" font-family="Arial" font-size="15.00">Protéines totales</text>
+<text text-anchor="middle" x="875" y="-251.9" font-family="Arial" font-size="15.00">&lt; 50,5 ?</text>
+</g>
+<!-- B3 -->
+<!-- C3 -->
+<!-- D3 -->
+<!-- E3 -->
+<!-- F3 -->
+<!-- G3 -->
+<!-- P3 -->
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<div style="height:43px;"></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p>Chaque arbre est entraîné sur un sous-ensemble de données différents (<em>échantillon bootstrap</em>),</p></li>
+<li><p>A chaque nœud on sélection <span class="math inline">\(m\)</span> variables explicatives pour trouver la bonne règle entre elles (ici 2)</p></li>
+</ul>
+<p><span class="math inline">\(\longrightarrow\)</span> On obtient ainsi plusieurs arbres, qui apprennent des règles différentes, puis combinent leurs prédictions.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="entraînement-dune-forêt-aléatoire-exemple-1" class="slide level2" data-visibility="uncounted">
+<h2>2️⃣ Entraînement d’une forêt aléatoire — Exemple</h2>
+<div style="margin-top: -100px;">
+
+</div>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<svg width="960" height="480" viewbox="0.00 0.00 1112.00 333.80" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(0 333.8)">
+<g id="clust3" class="cluster">
+<title>cluster_3</title>
+<path fill="transparent" stroke="#aaaaaa" d="M673,-8C673,-8 1092,-8 1092,-8 1098,-8 1104,-14 1104,-20 1104,-20 1104,-313.8 1104,-313.8 1104,-319.8 1098,-325.8 1092,-325.8 1092,-325.8 673,-325.8 673,-325.8 667,-325.8 661,-319.8 661,-313.8 661,-313.8 661,-20 661,-20 661,-14 667,-8 673,-8"></path>
+<text text-anchor="middle" x="882.5" y="-306.5" font-family="Arial" font-size="17.00">Arbre 3</text>
+</g>
+<g id="clust2" class="cluster">
+<title>cluster_2</title>
+<path fill="transparent" stroke="#aaaaaa" d="M331,-8C331,-8 641,-8 641,-8 647,-8 653,-14 653,-20 653,-20 653,-313.8 653,-313.8 653,-319.8 647,-325.8 641,-325.8 641,-325.8 331,-325.8 331,-325.8 325,-325.8 319,-319.8 319,-313.8 319,-313.8 319,-20 319,-20 319,-14 325,-8 331,-8"></path>
+<text text-anchor="middle" x="486" y="-306.5" font-family="Arial" font-size="17.00">Arbre 2</text>
+</g>
+<g id="clust1" class="cluster">
+<title>cluster_1</title>
+<path fill="transparent" stroke="#aaaaaa" d="M20,-8C20,-8 299,-8 299,-8 305,-8 311,-14 311,-20 311,-20 311,-313.8 311,-313.8 311,-319.8 305,-325.8 299,-325.8 299,-325.8 20,-325.8 20,-325.8 14,-325.8 8,-319.8 8,-313.8 8,-313.8 8,-20 8,-20 8,-14 14,-8 20,-8"></path>
+<text text-anchor="middle" x="159.5" y="-306.5" font-family="Arial" font-size="17.00">Arbre 1</text>
+</g>
+<!-- A1&#45;&gt;B1 -->
+<g id="edge1" class="edge">
+<title>A1-&gt;B1</title>
+<path fill="none" stroke="#666666" d="M130.54,-241.27C117.95,-231.03 103.24,-219.08 90.95,-209.09"></path>
+<polygon fill="#666666" stroke="#666666" points="92.17,-207.38 86.19,-205.23 89.53,-210.64 92.17,-207.38"></polygon>
+<text text-anchor="middle" x="130.34" y="-222.6" font-family="Arial" font-size="12.00" fill="#333333">Oui</text>
+</g>
+<!-- A1&#45;&gt;C1 -->
+<g id="edge2" class="edge">
+<title>A1-&gt;C1</title>
+<path fill="none" stroke="#666666" d="M175.5,-241.06C181.04,-233.21 187.29,-224.37 193.08,-216.19"></path>
+<polygon fill="#666666" stroke="#666666" points="194.86,-217.31 196.61,-211.19 191.43,-214.88 194.86,-217.31"></polygon>
+<text text-anchor="middle" x="202.01" y="-222.6" font-family="Arial" font-size="12.00" fill="#333333">Non</text>
+</g>
+<!-- C1&#45;&gt;D1 -->
+<g id="edge3" class="edge">
+<title>C1-&gt;D1</title>
+<path fill="none" stroke="transparent" d="M189.78,-162.78C175.22,-148.22 156.57,-129.57 142.36,-115.36"></path>
+<polygon fill="transparent" stroke="transparent" points="143.84,-113.87 138.11,-111.11 140.87,-116.84 143.84,-113.87"></polygon>
+<text text-anchor="middle" x="190.34" y="-133.4" font-family="Arial" font-size="12.00" fill="transparent">Oui</text>
+</g>
+<!-- C1&#45;&gt;E1 -->
+<g id="edge4" class="edge">
+<title>C1-&gt;E1</title>
+<path fill="none" stroke="transparent" d="M217.29,-162.78C219.87,-148.84 223.13,-131.17 225.71,-117.23"></path>
+<polygon fill="transparent" stroke="transparent" points="227.81,-117.39 226.84,-111.11 223.68,-116.63 227.81,-117.39"></polygon>
+<text text-anchor="middle" x="236.01" y="-133.4" font-family="Arial" font-size="12.00" fill="transparent">Non</text>
+</g>
+<!-- D1&#45;&gt;P1 -->
+<!-- E1&#45;&gt;P1 -->
+<!-- P1&#45;&gt;P2 -->
+<!-- A2&#45;&gt;B2 -->
+<g id="edge7" class="edge">
+<title>A2-&gt;B2</title>
+<path fill="none" stroke="#666666" d="M505.86,-241.06C501.53,-233.36 496.66,-224.7 492.13,-216.65"></path>
+<polygon fill="#666666" stroke="#666666" points="493.83,-215.39 489.05,-211.19 490.17,-217.45 493.83,-215.39"></polygon>
+<text text-anchor="middle" x="511.34" y="-222.6" font-family="Arial" font-size="12.00" fill="#333333">Oui</text>
+</g>
+<!-- A2&#45;&gt;C2 -->
+<g id="edge8" class="edge">
+<title>A2-&gt;C2</title>
+<path fill="none" stroke="#666666" d="M560.21,-241.27C571.04,-233.14 581.5,-222.98 588,-211 596.22,-195.84 597.42,-176.25 596.72,-161.19"></path>
+<polygon fill="#666666" stroke="#666666" points="598.81,-160.88 596.32,-155.03 594.62,-161.16 598.81,-160.88"></polygon>
+<text text-anchor="middle" x="594.01" y="-222.6" font-family="Arial" font-size="12.00" fill="#333333">Non</text>
+</g>
+<!-- B2&#45;&gt;D2 -->
+<g id="edge9" class="edge">
+<title>B2-&gt;D2</title>
+<path fill="none" stroke="transparent" d="M456.57,-162.78C444.48,-148.34 429.04,-129.89 417.19,-115.73"></path>
+<polygon fill="transparent" stroke="transparent" points="418.78,-114.36 413.32,-111.11 415.56,-117.06 418.78,-114.36"></polygon>
+<text text-anchor="middle" x="458.34" y="-133.4" font-family="Arial" font-size="12.00" fill="transparent">Oui</text>
+</g>
+<!-- B2&#45;&gt;E2 -->
+<g id="edge10" class="edge">
+<title>B2-&gt;E2</title>
+<path fill="none" stroke="transparent" d="M486.63,-162.96C493.69,-149.21 503.88,-131.97 515.99,-119 517.2,-117.7 518.5,-116.42 519.85,-115.18"></path>
+<polygon fill="transparent" stroke="transparent" points="521.42,-116.6 524.62,-111.11 518.69,-113.41 521.42,-116.6"></polygon>
+<text text-anchor="middle" x="527.01" y="-133.4" font-family="Arial" font-size="12.00" fill="transparent">Non</text>
+</g>
+<!-- C2&#45;&gt;P2 -->
+<!-- D2&#45;&gt;P2 -->
+<!-- E2&#45;&gt;P2 -->
+<!-- P2&#45;&gt;P3 -->
+<!-- A3&#45;&gt;B3 -->
+<g id="edge14" class="edge">
+<title>A3-&gt;B3</title>
+<path fill="none" stroke="#666666" d="M848.42,-241.06C839.15,-232.92 828.66,-223.7 819.05,-215.27"></path>
+<polygon fill="#666666" stroke="#666666" points="820.31,-213.58 814.41,-211.19 817.54,-216.73 820.31,-213.58"></polygon>
+<text text-anchor="middle" x="848.34" y="-222.6" font-family="Arial" font-size="12.00" fill="#333333">Oui</text>
+</g>
+<!-- A3&#45;&gt;C3 -->
+<g id="edge15" class="edge">
+<title>A3-&gt;C3</title>
+<path fill="none" stroke="#666666" d="M901.27,-241.06C910.44,-232.92 920.81,-223.7 930.31,-215.27"></path>
+<polygon fill="#666666" stroke="#666666" points="931.8,-216.75 934.89,-211.19 929.01,-213.61 931.8,-216.75"></polygon>
+<text text-anchor="middle" x="936.01" y="-222.6" font-family="Arial" font-size="12.00" fill="#333333">Non</text>
+</g>
+<!-- B3&#45;&gt;D3 -->
+<g id="edge16" class="edge">
+<title>B3-&gt;D3</title>
+<path fill="none" stroke="transparent" d="M770.84,-162.78C760.26,-148.47 746.76,-130.21 736.34,-116.1"></path>
+<polygon fill="transparent" stroke="transparent" points="737.9,-114.69 732.65,-111.11 734.52,-117.18 737.9,-114.69"></polygon>
+<text text-anchor="middle" x="773.34" y="-133.4" font-family="Arial" font-size="12.00" fill="transparent">Oui</text>
+</g>
+<!-- B3&#45;&gt;E3 -->
+<g id="edge17" class="edge">
+<title>B3-&gt;E3</title>
+<path fill="none" stroke="transparent" d="M798.35,-162.78C804.61,-148.72 812.58,-130.85 818.82,-116.85"></path>
+<polygon fill="transparent" stroke="transparent" points="820.85,-117.44 821.38,-111.11 817.01,-115.73 820.85,-117.44"></polygon>
+<text text-anchor="middle" x="827.01" y="-133.4" font-family="Arial" font-size="12.00" fill="transparent">Non</text>
+</g>
+<!-- C3&#45;&gt;F3 -->
+<g id="edge18" class="edge">
+<title>C3-&gt;F3</title>
+<path fill="none" stroke="transparent" d="M953.57,-162.68C952.79,-160.1 952.03,-157.5 951.33,-155 947.83,-142.58 944.3,-128.64 941.51,-117.22"></path>
+<polygon fill="transparent" stroke="transparent" points="943.49,-116.49 940.04,-111.16 939.41,-117.49 943.49,-116.49"></polygon>
+<text text-anchor="middle" x="960.34" y="-133.4" font-family="Arial" font-size="12.00" fill="transparent">Oui</text>
+</g>
+<!-- C3&#45;&gt;G3 -->
+<g id="edge19" class="edge">
+<title>C3-&gt;G3</title>
+<path fill="none" stroke="transparent" d="M982.2,-162.78C995.38,-148.34 1012.23,-129.89 1025.16,-115.73"></path>
+<polygon fill="transparent" stroke="transparent" points="1026.88,-116.96 1029.38,-111.11 1023.78,-114.12 1026.88,-116.96"></polygon>
+<text text-anchor="middle" x="1031.01" y="-133.4" font-family="Arial" font-size="12.00" fill="transparent">Non</text>
+</g>
+<!-- D3&#45;&gt;P3 -->
+<!-- E3&#45;&gt;P3 -->
+<!-- F3&#45;&gt;P3 -->
+<!-- G3&#45;&gt;P3 -->
+<!-- A1 -->
+<g id="node1" class="node">
+<title>A1</title>
+<path fill="#eaf2fb" stroke="#4c78a8" d="M237,-289.4C237,-289.4 81,-289.4 81,-289.4 75,-289.4 69,-283.4 69,-277.4 69,-277.4 69,-253.4 69,-253.4 69,-247.4 75,-241.4 81,-241.4 81,-241.4 237,-241.4 237,-241.4 243,-241.4 249,-247.4 249,-253.4 249,-253.4 249,-277.4 249,-277.4 249,-283.4 243,-289.4 237,-289.4"></path>
+<text text-anchor="middle" x="159" y="-269.9" font-family="Arial" font-size="15.00">Fréquence cardiaque</text>
+<text text-anchor="middle" x="159" y="-251.9" font-family="Arial" font-size="15.00">≤ 55 ?</text>
+</g>
+<!-- B1 -->
+<g id="node2" class="node">
+<title>B1</title>
+<path fill="#f9e4ec" stroke="#4c78a8" d="M102.04,-205C102.04,-205 27.96,-205 27.96,-205 21.96,-205 15.96,-199 15.96,-193 15.96,-193 15.96,-181 15.96,-181 15.96,-175 21.96,-169 27.96,-169 27.96,-169 102.04,-169 102.04,-169 108.04,-169 114.04,-175 114.04,-181 114.04,-181 114.04,-193 114.04,-193 114.04,-199 108.04,-205 102.04,-205"></path>
+<text text-anchor="middle" x="65" y="-182.5" font-family="Arial" font-size="15.00">Lésion : Oui</text>
+</g>
+<!-- C1 -->
+<g id="node3" class="node">
+<title>C1</title>
+<path fill="#eaf2fb" stroke="#4c78a8" d="M291,-211C291,-211 135,-211 135,-211 129,-211 123,-205 123,-199 123,-199 123,-175 123,-175 123,-169 129,-163 135,-163 135,-163 291,-163 291,-163 297,-163 303,-169 303,-175 303,-175 303,-199 303,-199 303,-205 297,-211 291,-211"></path>
+<text text-anchor="middle" x="213" y="-191.5" font-family="Arial" font-size="15.00">Fréquence respiratoire</text>
+<text text-anchor="middle" x="213" y="-173.5" font-family="Arial" font-size="15.00">&lt; 49 ?</text>
+</g>
+<!-- D1 -->
+<!-- E1 -->
+<!-- P1 -->
+<!-- A2 -->
+<g id="node7" class="node">
+<title>A2</title>
+<path fill="#eaf2fb" stroke="#4c78a8" d="M591.4,-289.4C591.4,-289.4 446.6,-289.4 446.6,-289.4 440.6,-289.4 434.6,-283.4 434.6,-277.4 434.6,-277.4 434.6,-253.4 434.6,-253.4 434.6,-247.4 440.6,-241.4 446.6,-241.4 446.6,-241.4 591.4,-241.4 591.4,-241.4 597.4,-241.4 603.4,-247.4 603.4,-253.4 603.4,-253.4 603.4,-277.4 603.4,-277.4 603.4,-283.4 597.4,-289.4 591.4,-289.4"></path>
+<text text-anchor="middle" x="519" y="-269.9" font-family="Arial" font-size="15.00">Fréquence respiratoire</text>
+<text text-anchor="middle" x="519" y="-251.9" font-family="Arial" font-size="15.00">&lt; 49 ?</text>
+</g>
+<!-- B2 -->
+<g id="node8" class="node">
+<title>B2</title>
+<path fill="#eaf2fb" stroke="#4c78a8" d="M572,-211C572,-211 380,-211 380,-211 374,-211 368,-205 368,-199 368,-199 368,-175 368,-175 368,-169 374,-163 380,-163 380,-163 572,-163 572,-163 578,-163 584,-169 584,-175 584,-175 584,-199 584,-199 584,-205 578,-211 572,-211"></path>
+<text text-anchor="middle" x="476" y="-191.5" font-family="Arial" font-size="15.00">Hématocrite</text>
+<text text-anchor="middle" x="476" y="-173.5" font-family="Arial" font-size="15.00">&lt; 44,5 ?</text>
+</g>
+<!-- C2 -->
+<g id="node9" class="node">
+<title>C2</title>
+<path fill="#e4f3e8" stroke="#4c78a8" d="M633.21,-155C633.21,-155 554.79,-155 554.79,-155 548.79,-155 542.79,-149 542.79,-143 542.79,-143 542.79,-131 542.79,-131 542.79,-125 548.79,-119 554.79,-119 554.79,-119 633.21,-119 633.21,-119 639.21,-119 645.21,-125 645.21,-131 645.21,-131 645.21,-143 645.21,-143 645.21,-149 639.21,-155 633.21,-155"></path>
+<text text-anchor="middle" x="594" y="-132.5" font-family="Arial" font-size="15.00">Lésion : Non</text>
+</g>
+<!-- D2 -->
+<!-- E2 -->
+<!-- P2 -->
+<!-- A3 -->
+<g id="node13" class="node">
+<title>A3</title>
+<path fill="#eaf2fb" stroke="#4c78a8" d="M927.72,-289.4C927.72,-289.4 822.28,-289.4 822.28,-289.4 816.28,-289.4 810.28,-283.4 810.28,-277.4 810.28,-277.4 810.28,-253.4 810.28,-253.4 810.28,-247.4 816.28,-241.4 822.28,-241.4 822.28,-241.4 927.72,-241.4 927.72,-241.4 933.72,-241.4 939.72,-247.4 939.72,-253.4 939.72,-253.4 939.72,-277.4 939.72,-277.4 939.72,-283.4 933.72,-289.4 927.72,-289.4"></path>
+<text text-anchor="middle" x="875" y="-269.9" font-family="Arial" font-size="15.00">Protéines totales</text>
+<text text-anchor="middle" x="875" y="-251.9" font-family="Arial" font-size="15.00">&lt; 50,5 ?</text>
+</g>
+<!-- B3 -->
+<g id="node14" class="node">
+<title>B3</title>
+<path fill="#eaf2fb" stroke="#4c78a8" d="M855.75,-211C855.75,-211 720.25,-211 720.25,-211 714.25,-211 708.25,-205 708.25,-199 708.25,-199 708.25,-175 708.25,-175 708.25,-169 714.25,-163 720.25,-163 720.25,-163 855.75,-163 855.75,-163 861.75,-163 867.75,-169 867.75,-175 867.75,-175 867.75,-199 867.75,-199 867.75,-205 861.75,-211 855.75,-211"></path>
+<text text-anchor="middle" x="788" y="-191.5" font-family="Arial" font-size="15.00">Fréquence cardiaque</text>
+<text text-anchor="middle" x="788" y="-173.5" font-family="Arial" font-size="15.00">&lt; 68 ?</text>
+</g>
+<!-- C3 -->
+<g id="node15" class="node">
+<title>C3</title>
+<path fill="#eaf2fb" stroke="#4c78a8" d="M1033.4,-211C1033.4,-211 888.6,-211 888.6,-211 882.6,-211 876.6,-205 876.6,-199 876.6,-199 876.6,-175 876.6,-175 876.6,-169 882.6,-163 888.6,-163 888.6,-163 1033.4,-163 1033.4,-163 1039.4,-163 1045.4,-169 1045.4,-175 1045.4,-175 1045.4,-199 1045.4,-199 1045.4,-205 1039.4,-211 1033.4,-211"></path>
+<text text-anchor="middle" x="961" y="-191.5" font-family="Arial" font-size="15.00">Fréquence respiratoire</text>
+<text text-anchor="middle" x="961" y="-173.5" font-family="Arial" font-size="15.00">&lt; 13 ?</text>
+</g>
+<!-- D3 -->
+<!-- E3 -->
+<!-- F3 -->
+<!-- G3 -->
+<!-- P3 -->
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<div style="height:43px;"></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p>Chaque arbre est entraîné sur un sous-ensemble de données différents (<em>échantillon bootstrap</em>),</p></li>
+<li><p>A chaque nœud on sélection <span class="math inline">\(m\)</span> variables explicatives pour trouver la bonne règle entre elles (ici 2)</p></li>
+</ul>
+<p><span class="math inline">\(\longrightarrow\)</span> On obtient ainsi plusieurs arbres, qui apprennent des règles différentes, puis combinent leurs prédictions.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="entraînement-dune-forêt-aléatoire-exemple-2" class="slide level2" data-visibility="uncounted">
+<h2>2️⃣ Entraînement d’une forêt aléatoire — Exemple</h2>
+<div style="margin-top: -100px;">
+
+</div>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<svg width="960" height="480" viewbox="0.00 0.00 1112.00 333.80" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(0 333.8)">
+<g id="clust1" class="cluster">
+<title>cluster_1</title>
+<path fill="transparent" stroke="#aaaaaa" d="M20,-8C20,-8 299,-8 299,-8 305,-8 311,-14 311,-20 311,-20 311,-313.8 311,-313.8 311,-319.8 305,-325.8 299,-325.8 299,-325.8 20,-325.8 20,-325.8 14,-325.8 8,-319.8 8,-313.8 8,-313.8 8,-20 8,-20 8,-14 14,-8 20,-8"></path>
+<text text-anchor="middle" x="159.5" y="-306.5" font-family="Arial" font-size="17.00">Arbre 1</text>
+</g>
+<g id="clust2" class="cluster">
+<title>cluster_2</title>
+<path fill="transparent" stroke="#aaaaaa" d="M331,-8C331,-8 641,-8 641,-8 647,-8 653,-14 653,-20 653,-20 653,-313.8 653,-313.8 653,-319.8 647,-325.8 641,-325.8 641,-325.8 331,-325.8 331,-325.8 325,-325.8 319,-319.8 319,-313.8 319,-313.8 319,-20 319,-20 319,-14 325,-8 331,-8"></path>
+<text text-anchor="middle" x="486" y="-306.5" font-family="Arial" font-size="17.00">Arbre 2</text>
+</g>
+<g id="clust3" class="cluster">
+<title>cluster_3</title>
+<path fill="transparent" stroke="#aaaaaa" d="M673,-8C673,-8 1092,-8 1092,-8 1098,-8 1104,-14 1104,-20 1104,-20 1104,-313.8 1104,-313.8 1104,-319.8 1098,-325.8 1092,-325.8 1092,-325.8 673,-325.8 673,-325.8 667,-325.8 661,-319.8 661,-313.8 661,-313.8 661,-20 661,-20 661,-14 667,-8 673,-8"></path>
+<text text-anchor="middle" x="882.5" y="-306.5" font-family="Arial" font-size="17.00">Arbre 3</text>
+</g>
+<!-- A1&#45;&gt;B1 -->
+<g id="edge1" class="edge">
+<title>A1-&gt;B1</title>
+<path fill="none" stroke="#666666" d="M130.54,-241.27C117.95,-231.03 103.24,-219.08 90.95,-209.09"></path>
+<polygon fill="#666666" stroke="#666666" points="92.17,-207.38 86.19,-205.23 89.53,-210.64 92.17,-207.38"></polygon>
+<text text-anchor="middle" x="129.34" y="-222.6" font-family="Arial" font-size="12.00" fill="#333333">Oui</text>
+</g>
+<!-- A1&#45;&gt;C1 -->
+<g id="edge2" class="edge">
+<title>A1-&gt;C1</title>
+<path fill="none" stroke="#666666" d="M175.5,-241.06C181.04,-233.21 187.29,-224.37 193.08,-216.19"></path>
+<polygon fill="#666666" stroke="#666666" points="194.86,-217.31 196.61,-211.19 191.43,-214.88 194.86,-217.31"></polygon>
+<text text-anchor="middle" x="201.01" y="-222.6" font-family="Arial" font-size="12.00" fill="#333333">Non</text>
+</g>
+<!-- C1&#45;&gt;D1 -->
+<g id="edge3" class="edge">
+<title>C1-&gt;D1</title>
+<path fill="none" stroke="#666666" d="M189.78,-162.78C175.22,-148.22 156.57,-129.57 142.36,-115.36"></path>
+<polygon fill="#666666" stroke="#666666" points="143.84,-113.87 138.11,-111.11 140.87,-116.84 143.84,-113.87"></polygon>
+<text text-anchor="middle" x="189.34" y="-133.4" font-family="Arial" font-size="12.00" fill="#333333">Oui</text>
+</g>
+<!-- C1&#45;&gt;E1 -->
+<g id="edge4" class="edge">
+<title>C1-&gt;E1</title>
+<path fill="none" stroke="#666666" d="M217.29,-162.78C219.87,-148.84 223.13,-131.17 225.71,-117.23"></path>
+<polygon fill="#666666" stroke="#666666" points="227.81,-117.39 226.84,-111.11 223.68,-116.63 227.81,-117.39"></polygon>
+<text text-anchor="middle" x="235.01" y="-133.4" font-family="Arial" font-size="12.00" fill="#333333">Non</text>
+</g>
+<!-- D1&#45;&gt;P1 -->
+<!-- E1&#45;&gt;P1 -->
+<!-- P1&#45;&gt;P2 -->
+<!-- A2&#45;&gt;B2 -->
+<g id="edge7" class="edge">
+<title>A2-&gt;B2</title>
+<path fill="none" stroke="#666666" d="M505.86,-241.06C501.53,-233.36 496.66,-224.7 492.13,-216.65"></path>
+<polygon fill="#666666" stroke="#666666" points="493.83,-215.39 489.05,-211.19 490.17,-217.45 493.83,-215.39"></polygon>
+<text text-anchor="middle" x="510.34" y="-222.6" font-family="Arial" font-size="12.00" fill="#333333">Oui</text>
+</g>
+<!-- A2&#45;&gt;C2 -->
+<g id="edge8" class="edge">
+<title>A2-&gt;C2</title>
+<path fill="none" stroke="#666666" d="M561.27,-241.17C572.13,-233.08 582.55,-222.98 589,-211 597.17,-195.83 598.08,-176.24 597.14,-161.18"></path>
+<polygon fill="#666666" stroke="#666666" points="599.22,-160.84 596.64,-155.03 595.03,-161.18 599.22,-160.84"></polygon>
+<text text-anchor="middle" x="594.01" y="-222.6" font-family="Arial" font-size="12.00" fill="#333333">Non</text>
+</g>
+<!-- B2&#45;&gt;D2 -->
+<g id="edge9" class="edge">
+<title>B2-&gt;D2</title>
+<path fill="none" stroke="#666666" d="M456.57,-162.78C444.48,-148.34 429.04,-129.89 417.19,-115.73"></path>
+<polygon fill="#666666" stroke="#666666" points="418.78,-114.36 413.32,-111.11 415.56,-117.06 418.78,-114.36"></polygon>
+<text text-anchor="middle" x="457.34" y="-133.4" font-family="Arial" font-size="12.00" fill="#333333">Oui</text>
+</g>
+<!-- B2&#45;&gt;E2 -->
+<g id="edge10" class="edge">
+<title>B2-&gt;E2</title>
+<path fill="none" stroke="#666666" d="M486.63,-162.96C493.69,-149.21 503.88,-131.97 515.99,-119 517.2,-117.7 518.5,-116.42 519.85,-115.18"></path>
+<polygon fill="#666666" stroke="#666666" points="521.42,-116.6 524.62,-111.11 518.69,-113.41 521.42,-116.6"></polygon>
+<text text-anchor="middle" x="526.01" y="-133.4" font-family="Arial" font-size="12.00" fill="#333333">Non</text>
+</g>
+<!-- C2&#45;&gt;P2 -->
+<!-- D2&#45;&gt;P2 -->
+<!-- E2&#45;&gt;P2 -->
+<!-- P2&#45;&gt;P3 -->
+<!-- A3&#45;&gt;B3 -->
+<g id="edge14" class="edge">
+<title>A3-&gt;B3</title>
+<path fill="none" stroke="#666666" d="M848.42,-241.06C839.15,-232.92 828.66,-223.7 819.05,-215.27"></path>
+<polygon fill="#666666" stroke="#666666" points="820.31,-213.58 814.41,-211.19 817.54,-216.73 820.31,-213.58"></polygon>
+<text text-anchor="middle" x="848.34" y="-222.6" font-family="Arial" font-size="12.00" fill="#333333">Oui</text>
+</g>
+<!-- A3&#45;&gt;C3 -->
+<g id="edge15" class="edge">
+<title>A3-&gt;C3</title>
+<path fill="none" stroke="#666666" d="M901.27,-241.06C910.44,-232.92 920.81,-223.7 930.31,-215.27"></path>
+<polygon fill="#666666" stroke="#666666" points="931.8,-216.75 934.89,-211.19 929.01,-213.61 931.8,-216.75"></polygon>
+<text text-anchor="middle" x="936.01" y="-222.6" font-family="Arial" font-size="12.00" fill="#333333">Non</text>
+</g>
+<!-- B3&#45;&gt;D3 -->
+<g id="edge16" class="edge">
+<title>B3-&gt;D3</title>
+<path fill="none" stroke="#666666" d="M770.84,-162.78C760.26,-148.47 746.76,-130.21 736.34,-116.1"></path>
+<polygon fill="#666666" stroke="#666666" points="737.9,-114.69 732.65,-111.11 734.52,-117.18 737.9,-114.69"></polygon>
+<text text-anchor="middle" x="773.34" y="-133.4" font-family="Arial" font-size="12.00" fill="#333333">Oui</text>
+</g>
+<!-- B3&#45;&gt;E3 -->
+<g id="edge17" class="edge">
+<title>B3-&gt;E3</title>
+<path fill="none" stroke="#666666" d="M798.35,-162.78C804.61,-148.72 812.58,-130.85 818.82,-116.85"></path>
+<polygon fill="#666666" stroke="#666666" points="820.85,-117.44 821.38,-111.11 817.01,-115.73 820.85,-117.44"></polygon>
+<text text-anchor="middle" x="827.01" y="-133.4" font-family="Arial" font-size="12.00" fill="#333333">Non</text>
+</g>
+<!-- C3&#45;&gt;F3 -->
+<g id="edge18" class="edge">
+<title>C3-&gt;F3</title>
+<path fill="none" stroke="#666666" d="M953.57,-162.68C952.79,-160.1 952.03,-157.5 951.33,-155 947.83,-142.58 944.3,-128.64 941.51,-117.22"></path>
+<polygon fill="#666666" stroke="#666666" points="943.49,-116.49 940.04,-111.16 939.41,-117.49 943.49,-116.49"></polygon>
+<text text-anchor="middle" x="960.34" y="-133.4" font-family="Arial" font-size="12.00" fill="#333333">Oui</text>
+</g>
+<!-- C3&#45;&gt;G3 -->
+<g id="edge19" class="edge">
+<title>C3-&gt;G3</title>
+<path fill="none" stroke="#666666" d="M982.2,-162.78C995.38,-148.34 1012.23,-129.89 1025.16,-115.73"></path>
+<polygon fill="#666666" stroke="#666666" points="1026.88,-116.96 1029.38,-111.11 1023.78,-114.12 1026.88,-116.96"></polygon>
+<text text-anchor="middle" x="1031.01" y="-133.4" font-family="Arial" font-size="12.00" fill="#333333">Non</text>
+</g>
+<!-- D3&#45;&gt;P3 -->
+<!-- E3&#45;&gt;P3 -->
+<!-- F3&#45;&gt;P3 -->
+<!-- G3&#45;&gt;P3 -->
+<!-- A1 -->
+<g id="node1" class="node">
+<title>A1</title>
+<path fill="#eaf2fb" stroke="#4c78a8" d="M237,-289.4C237,-289.4 81,-289.4 81,-289.4 75,-289.4 69,-283.4 69,-277.4 69,-277.4 69,-253.4 69,-253.4 69,-247.4 75,-241.4 81,-241.4 81,-241.4 237,-241.4 237,-241.4 243,-241.4 249,-247.4 249,-253.4 249,-253.4 249,-277.4 249,-277.4 249,-283.4 243,-289.4 237,-289.4"></path>
+<text text-anchor="middle" x="159" y="-269.9" font-family="Arial" font-size="15.00">Fréquence cardiaque</text>
+<text text-anchor="middle" x="159" y="-251.9" font-family="Arial" font-size="15.00">≤ 55 ?</text>
+</g>
+<!-- B1 -->
+<g id="node2" class="node">
+<title>B1</title>
+<path fill="#f9e4ec" stroke="#4c78a8" d="M102.04,-205C102.04,-205 27.96,-205 27.96,-205 21.96,-205 15.96,-199 15.96,-193 15.96,-193 15.96,-181 15.96,-181 15.96,-175 21.96,-169 27.96,-169 27.96,-169 102.04,-169 102.04,-169 108.04,-169 114.04,-175 114.04,-181 114.04,-181 114.04,-193 114.04,-193 114.04,-199 108.04,-205 102.04,-205"></path>
+<text text-anchor="middle" x="65" y="-182.5" font-family="Arial" font-size="15.00">Lésion : Oui</text>
+</g>
+<!-- C1 -->
+<g id="node3" class="node">
+<title>C1</title>
+<path fill="#eaf2fb" stroke="#4c78a8" d="M291,-211C291,-211 135,-211 135,-211 129,-211 123,-205 123,-199 123,-199 123,-175 123,-175 123,-169 129,-163 135,-163 135,-163 291,-163 291,-163 297,-163 303,-169 303,-175 303,-175 303,-199 303,-199 303,-205 297,-211 291,-211"></path>
+<text text-anchor="middle" x="213" y="-191.5" font-family="Arial" font-size="15.00">Fréquence respiratoire</text>
+<text text-anchor="middle" x="213" y="-173.5" font-family="Arial" font-size="15.00">&lt; 49 ?</text>
+</g>
+<!-- D1 -->
+<g id="node4" class="node">
+<title>D1</title>
+<path fill="#f9e4ec" stroke="#4c78a8" d="M158.04,-111C158.04,-111 83.96,-111 83.96,-111 77.96,-111 71.96,-105 71.96,-99 71.96,-99 71.96,-87 71.96,-87 71.96,-81 77.96,-75 83.96,-75 83.96,-75 158.04,-75 158.04,-75 164.04,-75 170.04,-81 170.04,-87 170.04,-87 170.04,-99 170.04,-99 170.04,-105 164.04,-111 158.04,-111"></path>
+<text text-anchor="middle" x="121" y="-88.5" font-family="Arial" font-size="15.00">Lésion : Oui</text>
+</g>
+<!-- E1 -->
+<g id="node5" class="node">
+<title>E1</title>
+<path fill="#e4f3e8" stroke="#4c78a8" d="M269.21,-111C269.21,-111 190.79,-111 190.79,-111 184.79,-111 178.79,-105 178.79,-99 178.79,-99 178.79,-87 178.79,-87 178.79,-81 184.79,-75 190.79,-75 190.79,-75 269.21,-75 269.21,-75 275.21,-75 281.21,-81 281.21,-87 281.21,-87 281.21,-99 281.21,-99 281.21,-105 275.21,-111 269.21,-111"></path>
+<text text-anchor="middle" x="230" y="-88.5" font-family="Arial" font-size="15.00">Lésion : Non</text>
+</g>
+<!-- P1 -->
+<!-- A2 -->
+<g id="node7" class="node">
+<title>A2</title>
+<path fill="#eaf2fb" stroke="#4c78a8" d="M591.4,-289.4C591.4,-289.4 446.6,-289.4 446.6,-289.4 440.6,-289.4 434.6,-283.4 434.6,-277.4 434.6,-277.4 434.6,-253.4 434.6,-253.4 434.6,-247.4 440.6,-241.4 446.6,-241.4 446.6,-241.4 591.4,-241.4 591.4,-241.4 597.4,-241.4 603.4,-247.4 603.4,-253.4 603.4,-253.4 603.4,-277.4 603.4,-277.4 603.4,-283.4 597.4,-289.4 591.4,-289.4"></path>
+<text text-anchor="middle" x="519" y="-269.9" font-family="Arial" font-size="15.00">Fréquence respiratoire</text>
+<text text-anchor="middle" x="519" y="-251.9" font-family="Arial" font-size="15.00">&lt; 49 ?</text>
+</g>
+<!-- B2 -->
+<g id="node8" class="node">
+<title>B2</title>
+<path fill="#eaf2fb" stroke="#4c78a8" d="M572,-211C572,-211 380,-211 380,-211 374,-211 368,-205 368,-199 368,-199 368,-175 368,-175 368,-169 374,-163 380,-163 380,-163 572,-163 572,-163 578,-163 584,-169 584,-175 584,-175 584,-199 584,-199 584,-205 578,-211 572,-211"></path>
+<text text-anchor="middle" x="476" y="-191.5" font-family="Arial" font-size="15.00">Hématocrite</text>
+<text text-anchor="middle" x="476" y="-173.5" font-family="Arial" font-size="15.00">&lt; 44,5 ?</text>
+</g>
+<!-- C2 -->
+<g id="node9" class="node">
+<title>C2</title>
+<path fill="#e4f3e8" stroke="#4c78a8" d="M633.21,-155C633.21,-155 554.79,-155 554.79,-155 548.79,-155 542.79,-149 542.79,-143 542.79,-143 542.79,-131 542.79,-131 542.79,-125 548.79,-119 554.79,-119 554.79,-119 633.21,-119 633.21,-119 639.21,-119 645.21,-125 645.21,-131 645.21,-131 645.21,-143 645.21,-143 645.21,-149 639.21,-155 633.21,-155"></path>
+<text text-anchor="middle" x="594" y="-132.5" font-family="Arial" font-size="15.00">Lésion : Non</text>
+</g>
+<!-- D2 -->
+<g id="node10" class="node">
+<title>D2</title>
+<path fill="#f9e4ec" stroke="#4c78a8" d="M459,-111C459,-111 339,-111 339,-111 333,-111 327,-105 327,-99 327,-99 327,-87 327,-87 327,-81 333,-75 339,-75 339,-75 459,-75 459,-75 465,-75 471,-81 471,-87 471,-87 471,-99 471,-99 471,-105 465,-111 459,-111"></path>
+<text text-anchor="middle" x="399" y="-88.5" font-family="Arial" font-size="15.00">Lésion : Oui</text>
+</g>
+<!-- E2 -->
+<g id="node11" class="node">
+<title>E2</title>
+<path fill="#e4f3e8" stroke="#4c78a8" d="M612,-111C612,-111 492,-111 492,-111 486,-111 480,-105 480,-99 480,-99 480,-87 480,-87 480,-81 486,-75 492,-75 492,-75 612,-75 612,-75 618,-75 624,-81 624,-87 624,-87 624,-99 624,-99 624,-105 618,-111 612,-111"></path>
+<text text-anchor="middle" x="552" y="-88.5" font-family="Arial" font-size="15.00">Lésion : Non</text>
+</g>
+<!-- P2 -->
+<!-- A3 -->
+<g id="node13" class="node">
+<title>A3</title>
+<path fill="#eaf2fb" stroke="#4c78a8" d="M927.72,-289.4C927.72,-289.4 822.28,-289.4 822.28,-289.4 816.28,-289.4 810.28,-283.4 810.28,-277.4 810.28,-277.4 810.28,-253.4 810.28,-253.4 810.28,-247.4 816.28,-241.4 822.28,-241.4 822.28,-241.4 927.72,-241.4 927.72,-241.4 933.72,-241.4 939.72,-247.4 939.72,-253.4 939.72,-253.4 939.72,-277.4 939.72,-277.4 939.72,-283.4 933.72,-289.4 927.72,-289.4"></path>
+<text text-anchor="middle" x="875" y="-269.9" font-family="Arial" font-size="15.00">Protéines totales</text>
+<text text-anchor="middle" x="875" y="-251.9" font-family="Arial" font-size="15.00">&lt; 50,5 ?</text>
+</g>
+<!-- B3 -->
+<g id="node14" class="node">
+<title>B3</title>
+<path fill="#eaf2fb" stroke="#4c78a8" d="M855.75,-211C855.75,-211 720.25,-211 720.25,-211 714.25,-211 708.25,-205 708.25,-199 708.25,-199 708.25,-175 708.25,-175 708.25,-169 714.25,-163 720.25,-163 720.25,-163 855.75,-163 855.75,-163 861.75,-163 867.75,-169 867.75,-175 867.75,-175 867.75,-199 867.75,-199 867.75,-205 861.75,-211 855.75,-211"></path>
+<text text-anchor="middle" x="788" y="-191.5" font-family="Arial" font-size="15.00">Fréquence cardiaque</text>
+<text text-anchor="middle" x="788" y="-173.5" font-family="Arial" font-size="15.00">&lt; 68 ?</text>
+</g>
+<!-- C3 -->
+<g id="node15" class="node">
+<title>C3</title>
+<path fill="#eaf2fb" stroke="#4c78a8" d="M1033.4,-211C1033.4,-211 888.6,-211 888.6,-211 882.6,-211 876.6,-205 876.6,-199 876.6,-199 876.6,-175 876.6,-175 876.6,-169 882.6,-163 888.6,-163 888.6,-163 1033.4,-163 1033.4,-163 1039.4,-163 1045.4,-169 1045.4,-175 1045.4,-175 1045.4,-199 1045.4,-199 1045.4,-205 1039.4,-211 1033.4,-211"></path>
+<text text-anchor="middle" x="961" y="-191.5" font-family="Arial" font-size="15.00">Fréquence respiratoire</text>
+<text text-anchor="middle" x="961" y="-173.5" font-family="Arial" font-size="15.00">&lt; 13 ?</text>
+</g>
+<!-- D3 -->
+<g id="node16" class="node">
+<title>D3</title>
+<path fill="#e4f3e8" stroke="#4c78a8" d="M759.21,-111C759.21,-111 680.79,-111 680.79,-111 674.79,-111 668.79,-105 668.79,-99 668.79,-99 668.79,-87 668.79,-87 668.79,-81 674.79,-75 680.79,-75 680.79,-75 759.21,-75 759.21,-75 765.21,-75 771.21,-81 771.21,-87 771.21,-87 771.21,-99 771.21,-99 771.21,-105 765.21,-111 759.21,-111"></path>
+<text text-anchor="middle" x="720" y="-88.5" font-family="Arial" font-size="15.00">Lésion : Non</text>
+</g>
+<!-- E3 -->
+<g id="node17" class="node">
+<title>E3</title>
+<path fill="#f9e4ec" stroke="#4c78a8" d="M866.04,-111C866.04,-111 791.96,-111 791.96,-111 785.96,-111 779.96,-105 779.96,-99 779.96,-99 779.96,-87 779.96,-87 779.96,-81 785.96,-75 791.96,-75 791.96,-75 866.04,-75 866.04,-75 872.04,-75 878.04,-81 878.04,-87 878.04,-87 878.04,-99 878.04,-99 878.04,-105 872.04,-111 866.04,-111"></path>
+<text text-anchor="middle" x="829" y="-88.5" font-family="Arial" font-size="15.00">Lésion : Oui</text>
+</g>
+<!-- F3 -->
+<g id="node18" class="node">
+<title>F3</title>
+<path fill="#f9e4ec" stroke="#4c78a8" d="M973.04,-111C973.04,-111 898.96,-111 898.96,-111 892.96,-111 886.96,-105 886.96,-99 886.96,-99 886.96,-87 886.96,-87 886.96,-81 892.96,-75 898.96,-75 898.96,-75 973.04,-75 973.04,-75 979.04,-75 985.04,-81 985.04,-87 985.04,-87 985.04,-99 985.04,-99 985.04,-105 979.04,-111 973.04,-111"></path>
+<text text-anchor="middle" x="936" y="-88.5" font-family="Arial" font-size="15.00">Lésion : Oui</text>
+</g>
+<!-- G3 -->
+<g id="node19" class="node">
+<title>G3</title>
+<path fill="#e4f3e8" stroke="#4c78a8" d="M1084.21,-111C1084.21,-111 1005.79,-111 1005.79,-111 999.79,-111 993.79,-105 993.79,-99 993.79,-99 993.79,-87 993.79,-87 993.79,-81 999.79,-75 1005.79,-75 1005.79,-75 1084.21,-75 1084.21,-75 1090.21,-75 1096.21,-81 1096.21,-87 1096.21,-87 1096.21,-99 1096.21,-99 1096.21,-105 1090.21,-111 1084.21,-111"></path>
+<text text-anchor="middle" x="1045" y="-88.5" font-family="Arial" font-size="15.00">Lésion : Non</text>
+</g>
+<!-- P3 -->
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<div style="height:43px;"></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p>Chaque arbre est entraîné sur un sous-ensemble de données différents (<em>échantillon bootstrap</em>),</p></li>
+<li><p>A chaque nœud on sélection <span class="math inline">\(m\)</span> variables explicatives pour trouver la bonne règle entre elles (ici 2)</p></li>
+</ul>
+<p><span class="math inline">\(\longrightarrow\)</span> On obtient ainsi plusieurs arbres, qui apprennent des règles différentes, puis combinent leurs prédictions.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="entraînement-dune-forêt-aléatoire-exemple-3" class="slide level2" data-visibility="uncounted">
+<h2>2️⃣ Entraînement d’une forêt aléatoire — Exemple</h2>
+<div style="margin-top: -100px;">
+
+</div>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<svg width="960" height="480" viewbox="0.00 0.00 1112.00 333.80" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(0 333.8)">
+<g id="clust1" class="cluster">
+<title>cluster_1</title>
+<path fill="transparent" stroke="#aaaaaa" d="M20,-8C20,-8 299,-8 299,-8 305,-8 311,-14 311,-20 311,-20 311,-313.8 311,-313.8 311,-319.8 305,-325.8 299,-325.8 299,-325.8 20,-325.8 20,-325.8 14,-325.8 8,-319.8 8,-313.8 8,-313.8 8,-20 8,-20 8,-14 14,-8 20,-8"></path>
+<text text-anchor="middle" x="159.5" y="-306.5" font-family="Arial" font-size="17.00">Arbre 1</text>
+</g>
+<g id="clust2" class="cluster">
+<title>cluster_2</title>
+<path fill="transparent" stroke="#aaaaaa" d="M331,-8C331,-8 641,-8 641,-8 647,-8 653,-14 653,-20 653,-20 653,-313.8 653,-313.8 653,-319.8 647,-325.8 641,-325.8 641,-325.8 331,-325.8 331,-325.8 325,-325.8 319,-319.8 319,-313.8 319,-313.8 319,-20 319,-20 319,-14 325,-8 331,-8"></path>
+<text text-anchor="middle" x="486" y="-306.5" font-family="Arial" font-size="17.00">Arbre 2</text>
+</g>
+<g id="clust3" class="cluster">
+<title>cluster_3</title>
+<path fill="transparent" stroke="#aaaaaa" d="M673,-8C673,-8 1092,-8 1092,-8 1098,-8 1104,-14 1104,-20 1104,-20 1104,-313.8 1104,-313.8 1104,-319.8 1098,-325.8 1092,-325.8 1092,-325.8 673,-325.8 673,-325.8 667,-325.8 661,-319.8 661,-313.8 661,-313.8 661,-20 661,-20 661,-14 667,-8 673,-8"></path>
+<text text-anchor="middle" x="882.5" y="-306.5" font-family="Arial" font-size="17.00">Arbre 3</text>
+</g>
+<!-- A1&#45;&gt;B1 -->
+<g id="edge1" class="edge">
+<title>A1-&gt;B1</title>
+<path fill="none" stroke="#666666" d="M130.54,-241.27C117.95,-231.03 103.24,-219.08 90.95,-209.09"></path>
+<polygon fill="#666666" stroke="#666666" points="92.17,-207.38 86.19,-205.23 89.53,-210.64 92.17,-207.38"></polygon>
+<text text-anchor="middle" x="129.34" y="-222.6" font-family="Arial" font-size="12.00" fill="#333333">Oui</text>
+</g>
+<!-- A1&#45;&gt;C1 -->
+<g id="edge2" class="edge">
+<title>A1-&gt;C1</title>
+<path fill="none" stroke="#d55e00" stroke-width="2.5" d="M175.5,-241.06C181.04,-233.21 187.29,-224.37 193.08,-216.19"></path>
+<polygon fill="#d55e00" stroke="#d55e00" stroke-width="2.5" points="194.86,-217.31 196.61,-211.19 191.43,-214.88 194.86,-217.31"></polygon>
+<text text-anchor="middle" x="201.01" y="-222.6" font-family="Arial" font-size="12.00" fill="#333333">Non</text>
+</g>
+<!-- C1&#45;&gt;D1 -->
+<g id="edge3" class="edge">
+<title>C1-&gt;D1</title>
+<path fill="none" stroke="#d55e00" stroke-width="2.5" d="M189.78,-162.78C175.22,-148.22 156.57,-129.57 142.36,-115.36"></path>
+<polygon fill="#d55e00" stroke="#d55e00" stroke-width="2.5" points="143.84,-113.87 138.11,-111.11 140.87,-116.84 143.84,-113.87"></polygon>
+<text text-anchor="middle" x="189.34" y="-133.4" font-family="Arial" font-size="12.00" fill="#333333">Oui</text>
+</g>
+<!-- C1&#45;&gt;E1 -->
+<g id="edge4" class="edge">
+<title>C1-&gt;E1</title>
+<path fill="none" stroke="#666666" d="M217.29,-162.78C219.87,-148.84 223.13,-131.17 225.71,-117.23"></path>
+<polygon fill="#666666" stroke="#666666" points="227.81,-117.39 226.84,-111.11 223.68,-116.63 227.81,-117.39"></polygon>
+<text text-anchor="middle" x="235.01" y="-133.4" font-family="Arial" font-size="12.00" fill="#333333">Non</text>
+</g>
+<!-- D1&#45;&gt;P1 -->
+<!-- E1&#45;&gt;P1 -->
+<!-- P1&#45;&gt;P2 -->
+<!-- A2&#45;&gt;B2 -->
+<g id="edge7" class="edge">
+<title>A2-&gt;B2</title>
+<path fill="none" stroke="#d55e00" stroke-width="2.5" d="M505.86,-241.06C501.53,-233.36 496.66,-224.7 492.13,-216.65"></path>
+<polygon fill="#d55e00" stroke="#d55e00" stroke-width="2.5" points="493.83,-215.39 489.05,-211.19 490.17,-217.45 493.83,-215.39"></polygon>
+<text text-anchor="middle" x="510.34" y="-222.6" font-family="Arial" font-size="12.00" fill="#333333">Oui</text>
+</g>
+<!-- A2&#45;&gt;C2 -->
+<g id="edge8" class="edge">
+<title>A2-&gt;C2</title>
+<path fill="none" stroke="#666666" d="M561.27,-241.17C572.13,-233.08 582.55,-222.98 589,-211 597.17,-195.83 598.08,-176.24 597.14,-161.18"></path>
+<polygon fill="#666666" stroke="#666666" points="599.22,-160.84 596.64,-155.03 595.03,-161.18 599.22,-160.84"></polygon>
+<text text-anchor="middle" x="594.01" y="-222.6" font-family="Arial" font-size="12.00" fill="#333333">Non</text>
+</g>
+<!-- B2&#45;&gt;D2 -->
+<g id="edge9" class="edge">
+<title>B2-&gt;D2</title>
+<path fill="none" stroke="#666666" d="M456.57,-162.78C444.48,-148.34 429.04,-129.89 417.19,-115.73"></path>
+<polygon fill="#666666" stroke="#666666" points="418.78,-114.36 413.32,-111.11 415.56,-117.06 418.78,-114.36"></polygon>
+<text text-anchor="middle" x="457.34" y="-133.4" font-family="Arial" font-size="12.00" fill="#333333">Oui</text>
+</g>
+<!-- B2&#45;&gt;E2 -->
+<g id="edge10" class="edge">
+<title>B2-&gt;E2</title>
+<path fill="none" stroke="#d55e00" stroke-width="2.5" d="M486.63,-162.96C493.69,-149.21 503.88,-131.97 515.99,-119 517.2,-117.7 518.5,-116.42 519.85,-115.18"></path>
+<polygon fill="#d55e00" stroke="#d55e00" stroke-width="2.5" points="521.42,-116.6 524.62,-111.11 518.69,-113.41 521.42,-116.6"></polygon>
+<text text-anchor="middle" x="526.01" y="-133.4" font-family="Arial" font-size="12.00" fill="#333333">Non</text>
+</g>
+<!-- C2&#45;&gt;P2 -->
+<!-- D2&#45;&gt;P2 -->
+<!-- E2&#45;&gt;P2 -->
+<!-- P2&#45;&gt;P3 -->
+<!-- A3&#45;&gt;B3 -->
+<g id="edge14" class="edge">
+<title>A3-&gt;B3</title>
+<path fill="none" stroke="#d55e00" stroke-width="2.5" d="M848.42,-241.06C839.15,-232.92 828.66,-223.7 819.05,-215.27"></path>
+<polygon fill="#d55e00" stroke="#d55e00" stroke-width="2.5" points="820.31,-213.58 814.41,-211.19 817.54,-216.73 820.31,-213.58"></polygon>
+<text text-anchor="middle" x="848.34" y="-222.6" font-family="Arial" font-size="12.00" fill="#333333">Oui</text>
+</g>
+<!-- A3&#45;&gt;C3 -->
+<g id="edge15" class="edge">
+<title>A3-&gt;C3</title>
+<path fill="none" stroke="#666666" d="M901.27,-241.06C910.44,-232.92 920.81,-223.7 930.31,-215.27"></path>
+<polygon fill="#666666" stroke="#666666" points="931.8,-216.75 934.89,-211.19 929.01,-213.61 931.8,-216.75"></polygon>
+<text text-anchor="middle" x="936.01" y="-222.6" font-family="Arial" font-size="12.00" fill="#333333">Non</text>
+</g>
+<!-- B3&#45;&gt;D3 -->
+<g id="edge16" class="edge">
+<title>B3-&gt;D3</title>
+<path fill="none" stroke="#666666" d="M770.84,-162.78C760.26,-148.47 746.76,-130.21 736.34,-116.1"></path>
+<polygon fill="#666666" stroke="#666666" points="737.9,-114.69 732.65,-111.11 734.52,-117.18 737.9,-114.69"></polygon>
+<text text-anchor="middle" x="773.34" y="-133.4" font-family="Arial" font-size="12.00" fill="#333333">Oui</text>
+</g>
+<!-- B3&#45;&gt;E3 -->
+<g id="edge17" class="edge">
+<title>B3-&gt;E3</title>
+<path fill="none" stroke="#d55e00" stroke-width="2.5" d="M798.35,-162.78C804.61,-148.72 812.58,-130.85 818.82,-116.85"></path>
+<polygon fill="#d55e00" stroke="#d55e00" stroke-width="2.5" points="820.85,-117.44 821.38,-111.11 817.01,-115.73 820.85,-117.44"></polygon>
+<text text-anchor="middle" x="827.01" y="-133.4" font-family="Arial" font-size="12.00" fill="#333333">Non</text>
+</g>
+<!-- C3&#45;&gt;F3 -->
+<g id="edge18" class="edge">
+<title>C3-&gt;F3</title>
+<path fill="none" stroke="#666666" d="M953.57,-162.68C952.79,-160.1 952.03,-157.5 951.33,-155 947.83,-142.58 944.3,-128.64 941.51,-117.22"></path>
+<polygon fill="#666666" stroke="#666666" points="943.49,-116.49 940.04,-111.16 939.41,-117.49 943.49,-116.49"></polygon>
+<text text-anchor="middle" x="960.34" y="-133.4" font-family="Arial" font-size="12.00" fill="#333333">Oui</text>
+</g>
+<!-- C3&#45;&gt;G3 -->
+<g id="edge19" class="edge">
+<title>C3-&gt;G3</title>
+<path fill="none" stroke="#666666" d="M982.2,-162.78C995.38,-148.34 1012.23,-129.89 1025.16,-115.73"></path>
+<polygon fill="#666666" stroke="#666666" points="1026.88,-116.96 1029.38,-111.11 1023.78,-114.12 1026.88,-116.96"></polygon>
+<text text-anchor="middle" x="1031.01" y="-133.4" font-family="Arial" font-size="12.00" fill="#333333">Non</text>
+</g>
+<!-- D3&#45;&gt;P3 -->
+<!-- E3&#45;&gt;P3 -->
+<!-- F3&#45;&gt;P3 -->
+<!-- G3&#45;&gt;P3 -->
+<!-- A1 -->
+<g id="node1" class="node">
+<title>A1</title>
+<path fill="#eaf2fb" stroke="#4c78a8" d="M237,-289.4C237,-289.4 81,-289.4 81,-289.4 75,-289.4 69,-283.4 69,-277.4 69,-277.4 69,-253.4 69,-253.4 69,-247.4 75,-241.4 81,-241.4 81,-241.4 237,-241.4 237,-241.4 243,-241.4 249,-247.4 249,-253.4 249,-253.4 249,-277.4 249,-277.4 249,-283.4 243,-289.4 237,-289.4"></path>
+<text text-anchor="middle" x="159" y="-269.9" font-family="Arial" font-size="15.00">Fréquence cardiaque</text>
+<text text-anchor="middle" x="159" y="-251.9" font-family="Arial" font-size="15.00">≤ 55 ?</text>
+</g>
+<!-- B1 -->
+<g id="node2" class="node">
+<title>B1</title>
+<path fill="#f9e4ec" stroke="#4c78a8" d="M102.04,-205C102.04,-205 27.96,-205 27.96,-205 21.96,-205 15.96,-199 15.96,-193 15.96,-193 15.96,-181 15.96,-181 15.96,-175 21.96,-169 27.96,-169 27.96,-169 102.04,-169 102.04,-169 108.04,-169 114.04,-175 114.04,-181 114.04,-181 114.04,-193 114.04,-193 114.04,-199 108.04,-205 102.04,-205"></path>
+<text text-anchor="middle" x="65" y="-182.5" font-family="Arial" font-size="15.00">Lésion : Oui</text>
+</g>
+<!-- C1 -->
+<g id="node3" class="node">
+<title>C1</title>
+<path fill="#eaf2fb" stroke="#4c78a8" d="M291,-211C291,-211 135,-211 135,-211 129,-211 123,-205 123,-199 123,-199 123,-175 123,-175 123,-169 129,-163 135,-163 135,-163 291,-163 291,-163 297,-163 303,-169 303,-175 303,-175 303,-199 303,-199 303,-205 297,-211 291,-211"></path>
+<text text-anchor="middle" x="213" y="-191.5" font-family="Arial" font-size="15.00">Fréquence respiratoire</text>
+<text text-anchor="middle" x="213" y="-173.5" font-family="Arial" font-size="15.00">&lt; 49 ?</text>
+</g>
+<!-- D1 -->
+<g id="node4" class="node">
+<title>D1</title>
+<path fill="#f9e4ec" stroke="#d55e00" stroke-width="3" d="M158.04,-111C158.04,-111 83.96,-111 83.96,-111 77.96,-111 71.96,-105 71.96,-99 71.96,-99 71.96,-87 71.96,-87 71.96,-81 77.96,-75 83.96,-75 83.96,-75 158.04,-75 158.04,-75 164.04,-75 170.04,-81 170.04,-87 170.04,-87 170.04,-99 170.04,-99 170.04,-105 164.04,-111 158.04,-111"></path>
+<text text-anchor="middle" x="121" y="-88.5" font-family="Arial" font-size="15.00">Lésion : Oui</text>
+</g>
+<!-- E1 -->
+<g id="node5" class="node">
+<title>E1</title>
+<path fill="#e4f3e8" stroke="#4c78a8" d="M269.21,-111C269.21,-111 190.79,-111 190.79,-111 184.79,-111 178.79,-105 178.79,-99 178.79,-99 178.79,-87 178.79,-87 178.79,-81 184.79,-75 190.79,-75 190.79,-75 269.21,-75 269.21,-75 275.21,-75 281.21,-81 281.21,-87 281.21,-87 281.21,-99 281.21,-99 281.21,-105 275.21,-111 269.21,-111"></path>
+<text text-anchor="middle" x="230" y="-88.5" font-family="Arial" font-size="15.00">Lésion : Non</text>
+</g>
+<!-- P1 -->
+<g id="node6" class="node">
+<title>P1</title>
+<path fill="#f9e4ec" stroke="#cc79a7" stroke-width="2" d="M267,-58C267,-58 39,-58 39,-58 33,-58 27,-52 27,-46 27,-46 27,-28 27,-28 27,-22 33,-16 39,-16 39,-16 267,-16 267,-16 273,-16 279,-22 279,-28 279,-28 279,-46 279,-46 279,-52 273,-58 267,-58"></path>
+<text text-anchor="start" x="116.33" y="-39.5" font-family="Arial" font-weight="bold" font-size="15.00">Prédiction</text>
+<text text-anchor="start" x="141.33" y="-24.5" font-family="Arial" font-size="15.00">Oui</text>
+</g>
+<!-- A2 -->
+<g id="node7" class="node">
+<title>A2</title>
+<path fill="#eaf2fb" stroke="#4c78a8" d="M591.4,-289.4C591.4,-289.4 446.6,-289.4 446.6,-289.4 440.6,-289.4 434.6,-283.4 434.6,-277.4 434.6,-277.4 434.6,-253.4 434.6,-253.4 434.6,-247.4 440.6,-241.4 446.6,-241.4 446.6,-241.4 591.4,-241.4 591.4,-241.4 597.4,-241.4 603.4,-247.4 603.4,-253.4 603.4,-253.4 603.4,-277.4 603.4,-277.4 603.4,-283.4 597.4,-289.4 591.4,-289.4"></path>
+<text text-anchor="middle" x="519" y="-269.9" font-family="Arial" font-size="15.00">Fréquence respiratoire</text>
+<text text-anchor="middle" x="519" y="-251.9" font-family="Arial" font-size="15.00">&lt; 49 ?</text>
+</g>
+<!-- B2 -->
+<g id="node8" class="node">
+<title>B2</title>
+<path fill="#eaf2fb" stroke="#4c78a8" d="M572,-211C572,-211 380,-211 380,-211 374,-211 368,-205 368,-199 368,-199 368,-175 368,-175 368,-169 374,-163 380,-163 380,-163 572,-163 572,-163 578,-163 584,-169 584,-175 584,-175 584,-199 584,-199 584,-205 578,-211 572,-211"></path>
+<text text-anchor="middle" x="476" y="-191.5" font-family="Arial" font-size="15.00">Hématocrite</text>
+<text text-anchor="middle" x="476" y="-173.5" font-family="Arial" font-size="15.00">&lt; 44,5 ?</text>
+</g>
+<!-- C2 -->
+<g id="node9" class="node">
+<title>C2</title>
+<path fill="#e4f3e8" stroke="#4c78a8" d="M633.21,-155C633.21,-155 554.79,-155 554.79,-155 548.79,-155 542.79,-149 542.79,-143 542.79,-143 542.79,-131 542.79,-131 542.79,-125 548.79,-119 554.79,-119 554.79,-119 633.21,-119 633.21,-119 639.21,-119 645.21,-125 645.21,-131 645.21,-131 645.21,-143 645.21,-143 645.21,-149 639.21,-155 633.21,-155"></path>
+<text text-anchor="middle" x="594" y="-132.5" font-family="Arial" font-size="15.00">Lésion : Non</text>
+</g>
+<!-- D2 -->
+<g id="node10" class="node">
+<title>D2</title>
+<path fill="#f9e4ec" stroke="#4c78a8" d="M459,-111C459,-111 339,-111 339,-111 333,-111 327,-105 327,-99 327,-99 327,-87 327,-87 327,-81 333,-75 339,-75 339,-75 459,-75 459,-75 465,-75 471,-81 471,-87 471,-87 471,-99 471,-99 471,-105 465,-111 459,-111"></path>
+<text text-anchor="middle" x="399" y="-88.5" font-family="Arial" font-size="15.00">Lésion : Oui</text>
+</g>
+<!-- E2 -->
+<g id="node11" class="node">
+<title>E2</title>
+<path fill="#e4f3e8" stroke="#d55e00" stroke-width="3" d="M612,-111C612,-111 492,-111 492,-111 486,-111 480,-105 480,-99 480,-99 480,-87 480,-87 480,-81 486,-75 492,-75 492,-75 612,-75 612,-75 618,-75 624,-81 624,-87 624,-87 624,-99 624,-99 624,-105 618,-111 612,-111"></path>
+<text text-anchor="middle" x="552" y="-88.5" font-family="Arial" font-size="15.00">Lésion : Non</text>
+</g>
+<!-- P2 -->
+<g id="node12" class="node">
+<title>P2</title>
+<path fill="#e4f3e8" stroke="#009e73" stroke-width="2" d="M632.5,-58C632.5,-58 339.5,-58 339.5,-58 333.5,-58 327.5,-52 327.5,-46 327.5,-46 327.5,-28 327.5,-28 327.5,-22 333.5,-16 339.5,-16 339.5,-16 632.5,-16 632.5,-16 638.5,-16 644.5,-22 644.5,-28 644.5,-28 644.5,-46 644.5,-46 644.5,-52 638.5,-58 632.5,-58"></path>
+<text text-anchor="start" x="449.33" y="-39.5" font-family="Arial" font-weight="bold" font-size="15.00">Prédiction</text>
+<text text-anchor="start" x="472.24" y="-24.5" font-family="Arial" font-size="15.00">Non</text>
+</g>
+<!-- A3 -->
+<g id="node13" class="node">
+<title>A3</title>
+<path fill="#eaf2fb" stroke="#4c78a8" d="M927.72,-289.4C927.72,-289.4 822.28,-289.4 822.28,-289.4 816.28,-289.4 810.28,-283.4 810.28,-277.4 810.28,-277.4 810.28,-253.4 810.28,-253.4 810.28,-247.4 816.28,-241.4 822.28,-241.4 822.28,-241.4 927.72,-241.4 927.72,-241.4 933.72,-241.4 939.72,-247.4 939.72,-253.4 939.72,-253.4 939.72,-277.4 939.72,-277.4 939.72,-283.4 933.72,-289.4 927.72,-289.4"></path>
+<text text-anchor="middle" x="875" y="-269.9" font-family="Arial" font-size="15.00">Protéines totales</text>
+<text text-anchor="middle" x="875" y="-251.9" font-family="Arial" font-size="15.00">&lt; 50,5 ?</text>
+</g>
+<!-- B3 -->
+<g id="node14" class="node">
+<title>B3</title>
+<path fill="#eaf2fb" stroke="#4c78a8" d="M855.75,-211C855.75,-211 720.25,-211 720.25,-211 714.25,-211 708.25,-205 708.25,-199 708.25,-199 708.25,-175 708.25,-175 708.25,-169 714.25,-163 720.25,-163 720.25,-163 855.75,-163 855.75,-163 861.75,-163 867.75,-169 867.75,-175 867.75,-175 867.75,-199 867.75,-199 867.75,-205 861.75,-211 855.75,-211"></path>
+<text text-anchor="middle" x="788" y="-191.5" font-family="Arial" font-size="15.00">Fréquence cardiaque</text>
+<text text-anchor="middle" x="788" y="-173.5" font-family="Arial" font-size="15.00">&lt; 68 ?</text>
+</g>
+<!-- C3 -->
+<g id="node15" class="node">
+<title>C3</title>
+<path fill="#eaf2fb" stroke="#4c78a8" d="M1033.4,-211C1033.4,-211 888.6,-211 888.6,-211 882.6,-211 876.6,-205 876.6,-199 876.6,-199 876.6,-175 876.6,-175 876.6,-169 882.6,-163 888.6,-163 888.6,-163 1033.4,-163 1033.4,-163 1039.4,-163 1045.4,-169 1045.4,-175 1045.4,-175 1045.4,-199 1045.4,-199 1045.4,-205 1039.4,-211 1033.4,-211"></path>
+<text text-anchor="middle" x="961" y="-191.5" font-family="Arial" font-size="15.00">Fréquence respiratoire</text>
+<text text-anchor="middle" x="961" y="-173.5" font-family="Arial" font-size="15.00">&lt; 13 ?</text>
+</g>
+<!-- D3 -->
+<g id="node16" class="node">
+<title>D3</title>
+<path fill="#e4f3e8" stroke="#4c78a8" d="M759.21,-111C759.21,-111 680.79,-111 680.79,-111 674.79,-111 668.79,-105 668.79,-99 668.79,-99 668.79,-87 668.79,-87 668.79,-81 674.79,-75 680.79,-75 680.79,-75 759.21,-75 759.21,-75 765.21,-75 771.21,-81 771.21,-87 771.21,-87 771.21,-99 771.21,-99 771.21,-105 765.21,-111 759.21,-111"></path>
+<text text-anchor="middle" x="720" y="-88.5" font-family="Arial" font-size="15.00">Lésion : Non</text>
+</g>
+<!-- E3 -->
+<g id="node17" class="node">
+<title>E3</title>
+<path fill="#f9e4ec" stroke="#d55e00" stroke-width="3" d="M866.04,-111C866.04,-111 791.96,-111 791.96,-111 785.96,-111 779.96,-105 779.96,-99 779.96,-99 779.96,-87 779.96,-87 779.96,-81 785.96,-75 791.96,-75 791.96,-75 866.04,-75 866.04,-75 872.04,-75 878.04,-81 878.04,-87 878.04,-87 878.04,-99 878.04,-99 878.04,-105 872.04,-111 866.04,-111"></path>
+<text text-anchor="middle" x="829" y="-88.5" font-family="Arial" font-size="15.00">Lésion : Oui</text>
+</g>
+<!-- F3 -->
+<g id="node18" class="node">
+<title>F3</title>
+<path fill="#f9e4ec" stroke="#4c78a8" d="M973.04,-111C973.04,-111 898.96,-111 898.96,-111 892.96,-111 886.96,-105 886.96,-99 886.96,-99 886.96,-87 886.96,-87 886.96,-81 892.96,-75 898.96,-75 898.96,-75 973.04,-75 973.04,-75 979.04,-75 985.04,-81 985.04,-87 985.04,-87 985.04,-99 985.04,-99 985.04,-105 979.04,-111 973.04,-111"></path>
+<text text-anchor="middle" x="936" y="-88.5" font-family="Arial" font-size="15.00">Lésion : Oui</text>
+</g>
+<!-- G3 -->
+<g id="node19" class="node">
+<title>G3</title>
+<path fill="#e4f3e8" stroke="#4c78a8" d="M1084.21,-111C1084.21,-111 1005.79,-111 1005.79,-111 999.79,-111 993.79,-105 993.79,-99 993.79,-99 993.79,-87 993.79,-87 993.79,-81 999.79,-75 1005.79,-75 1005.79,-75 1084.21,-75 1084.21,-75 1090.21,-75 1096.21,-81 1096.21,-87 1096.21,-87 1096.21,-99 1096.21,-99 1096.21,-105 1090.21,-111 1084.21,-111"></path>
+<text text-anchor="middle" x="1045" y="-88.5" font-family="Arial" font-size="15.00">Lésion : Non</text>
+</g>
+<!-- P3 -->
+<g id="node20" class="node">
+<title>P3</title>
+<path fill="#f9e4ec" stroke="#cc79a7" stroke-width="2" d="M1029.5,-58C1029.5,-58 736.5,-58 736.5,-58 730.5,-58 724.5,-52 724.5,-46 724.5,-46 724.5,-28 724.5,-28 724.5,-22 730.5,-16 736.5,-16 736.5,-16 1029.5,-16 1029.5,-16 1035.5,-16 1041.5,-22 1041.5,-28 1041.5,-28 1041.5,-46 1041.5,-46 1041.5,-52 1035.5,-58 1029.5,-58"></path>
+<text text-anchor="start" x="846.33" y="-39.5" font-family="Arial" font-weight="bold" font-size="15.00">Prédiction</text>
+<text text-anchor="start" x="871.33" y="-24.5" font-family="Arial" font-size="15.00">Oui</text>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
 </div>
 <div class="fragment">
-<p><span class="smallcaps"><u><strong>Méthode choisie : Maximum de vraisemblance</strong></u></span></p>
-<p>On suppose que <span class="math inline">\(Y_i \mid X_i=x_i\)</span> suit une loi de Bernoulli de paramètre <span class="math inline">\(h_\theta(x_i)\)</span>. La log-vraisemblance s’écrit :</p>
-<div style="margin-top: -20px; ">
-<p><span class="math display">\[
-\ell(\theta)=
-\sum_{i=1}^{n}
-\left[
-y_i\log h_\theta(x_i)
-+(1-y_i)\log\left(1-h_\theta(x_i)\right)
-\right]
-\]</span></p>
+<div style="width:90%; height:25px; margin:-110px auto 0;">
+<svg viewbox="0 0 1000 60" width="100%" height="100%" preserveaspectratio="none">
+  <path d="M 10 5 Q 10 35 70 35 L 445 35
+           Q 480 35 500 55 Q 520 35 555 35
+           L 930 35 Q 990 35 990 5" fill="none" stroke="#42699a" stroke-width="4"></path>
+</svg>
+</div>
+<div style="text-align:center; font-size:0.65em; line-height:1.3; margin-top:0;">
+<p><strong>Vote majoritaire : 2 Oui / 1 Non</strong></p>
+</div>
+<div style="width:65%; margin:5px auto 0; padding:10px; background-color:#E4F3E8; border:3px solid #009E73; border-radius:10px; text-align:center; font-size:0.65em;">
+<p><strong>Prédiction finale : Lésion présente</strong></p>
 </div>
 </div>
-<div class="fragment">
-<p><span class="smallcaps"><u><strong>Estimation des paramètres :</strong></u></span> On résout <strong>numériquement</strong></p>
-<div style="margin-top: -20px;">
-<p><span class="math display">\[
-\hat{\theta} = \arg\max_{\theta\in\mathbb R^{p+1}} \ell(\theta)
-\]</span></p>
+<div style="height:10px;"></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p>Chaque arbre est entraîné sur un sous-ensemble de données différents (<em>échantillon bootstrap</em>),</p></li>
+<li><p>A chaque nœud on sélection <span class="math inline">\(m\)</span> variables explicatives pour trouver la bonne règle entre elles (ici 2)</p></li>
+</ul>
+<p><span class="math inline">\(\longrightarrow\)</span> On obtient ainsi plusieurs arbres, qui apprennent des règles différentes, puis combinent leurs prédictions.</p>
+</div>
 </div>
 </div>
 </section>
 <section id="évaluer-le-modèle-comment-mesurer-la-qualité-des-prédictions" class="slide level2">
 <h2>2️⃣ Évaluer le modèle : Comment mesurer la qualité des prédictions ?</h2>
-<div style="height:2px;"></div>
-<p><span class="smallcaps"><u><strong>Objectif :</strong></u></span> Mesurer la qualité des prédictions <span class="math inline">\(\hat{y_i}\)</span> en les comparant aux réponses observées <span class="math inline">\(y_i\)</span>.</p>
 <div style="height:5px;"></div>
+<p><span class="smallcaps"><u><strong>Objectif :</strong></u></span> Mesurer la qualité des prédictions <span class="math inline">\(\hat{y_i}\)</span> par rapport aux réponses observées <span class="math inline">\(y_i\)</span>.</p>
+<div style="height:10px;"></div>
 <div class="fragment">
 <p><span class="smallcaps"><u><strong>Différents indicateurs selon le problème :</strong></u></span></p>
-<table class="caption-top">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
+<table style="border-collapse: collapse; border-bottom: 1px solid currentColor;">
 <thead>
-<tr class="header">
-<th style="text-align: left;">Type de problème</th>
-<th style="text-align: left;">Indicateur</th>
-<th style="text-align: left;">Principe</th>
+<tr>
+<th>
+Type de problème
+</th>
+<th>
+Indicateur
+</th>
+<th>
+Principe
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: left;"><strong>Régression</strong></td>
-<td style="text-align: left;">Erreur quadratique moyenne (MSE)</td>
-<td style="text-align: left;">Moyenne des erreurs au carré</td>
+<tr>
+<td rowspan="3" style="vertical-align: middle;">
+<strong>Régression</strong>
+</td>
+<td>
+Erreur quadratique moyenne (MSE)
+</td>
+<td>
+Moyenne des erreurs au carré
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;"><strong>Régression</strong></td>
-<td style="text-align: left;">Erreur absolue moyenne (MAE)</td>
-<td style="text-align: left;">Moyenne des erreurs absolues</td>
+<tr>
+<td>
+Erreur absolue moyenne (MAE)
+</td>
+<td>
+Moyenne des erreurs absolues
+</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>Régression</strong></td>
-<td style="text-align: left;">Coefficient <span class="math inline">\(R^2\)</span></td>
-<td style="text-align: left;">Qualité de l’ajustement par rapport à une prédiction constante</td>
+<tr>
+<td>
+Coefficient R²
+</td>
+<td>
+Qualité de l’ajustement par rapport à une prédiction constante
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;"><strong>Classification</strong></td>
-<td style="text-align: left;">Accuracy</td>
-<td style="text-align: left;">Proportion de prédictions correctes</td>
+<tr>
+<td rowspan="3" style="vertical-align: middle;">
+<strong>Classification</strong>
+</td>
+<td>
+Accuracy
+</td>
+<td>
+Proportion de prédictions correctes
+</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>Classification</strong></td>
-<td style="text-align: left;">Sensibilité</td>
-<td style="text-align: left;">Proportion de positifs correctement identifiés</td>
+<tr>
+<td>
+Sensibilité
+</td>
+<td>
+Proportion de positifs correctement identifiés
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;"><strong>Classification</strong></td>
-<td style="text-align: left;">Spécificité</td>
-<td style="text-align: left;">Prop. de négatifs correctement identifiés</td>
+<tr>
+<td>
+Spécificité
+</td>
+<td>
+Proportion de négatifs correctement identifiés
+</td>
 </tr>
 </tbody>
 </table>
-<div style="height:2px;"></div>
+<div style="height:10px;"></div>
 </div>
 <div class="fragment">
 <div class="callout callout-note callout-titled callout-style-default">
@@ -948,9 +2165,148 @@ y_i\log h_\theta(x_i)
 </div>
 </div>
 </section>
+<section id="évaluer-une-forêt-aléatoire-exemple" class="slide level2">
+<h2>2️⃣ Évaluer une forêt aléatoire — Exemple</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<svg width="960" height="480" viewbox="0.00 0.00 832.20 258.20" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(3.6 254.6)">
+<!-- matrice -->
+<g id="node1" class="node">
+<title>matrice</title>
+<text text-anchor="start" x="87.98" y="-217.4" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<text text-anchor="start" x="126.88" y="-217.4" font-family="Arial" font-weight="bold" font-size="19.00" fill="#213b68">Matrice de confusion</text>
+<text text-anchor="start" x="316.9" y="-217.4" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<polygon fill="#eaf2fb" stroke="transparent" points="5,-155.5 5,-194.5 101,-194.5 101,-155.5 5,-155.5"></polygon>
+<text text-anchor="start" x="20.49" y="-171.8" font-family="Arial" font-weight="bold" font-size="13.00">Préd./Obs.</text>
+<polygon fill="#eaf2fb" stroke="transparent" points="106,-155.5 106,-194.5 266,-194.5 266,-155.5 106,-155.5"></polygon>
+<text text-anchor="start" x="165.06" y="-171.8" font-family="Arial" font-weight="bold" font-size="13.00">Lésion</text>
+<polygon fill="#eaf2fb" stroke="transparent" points="271,-155.5 271,-194.5 431,-194.5 431,-155.5 271,-155.5"></polygon>
+<text text-anchor="start" x="314.88" y="-171.8" font-family="Arial" font-weight="bold" font-size="13.00">Sans lésion</text>
+<polygon fill="#eaf2fb" stroke="transparent" points="5,-72.5 5,-150.5 101,-150.5 101,-72.5 5,-72.5"></polygon>
+<text text-anchor="start" x="32.06" y="-108.6" font-family="Arial" font-weight="bold" font-size="13.00">Lésion</text>
+<polygon fill="#ddf3e5" stroke="transparent" points="106,-72.5 106,-150.5 266,-150.5 266,-72.5 106,-72.5"></polygon>
+<text text-anchor="start" x="144.31" y="-103.5" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<text text-anchor="start" x="183.2" y="-103.5" font-family="Arial" font-weight="bold" font-size="40.00" fill="#176b43">10</text>
+<text text-anchor="start" x="119.82" y="-86.9" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<text text-anchor="start" x="158.71" y="-86.9" font-family="Arial" font-size="11.00">Vrais positifs</text>
+<text text-anchor="start" x="221.07" y="-86.9" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<polygon fill="#fbe5e5" stroke="transparent" points="271,-72.5 271,-150.5 431,-150.5 431,-72.5 271,-72.5"></polygon>
+<text text-anchor="start" x="317.65" y="-109.5" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<text text-anchor="start" x="356.54" y="-109.5" font-family="Arial" font-weight="bold" font-size="25.00" fill="#ad3840">18</text>
+<text text-anchor="start" x="285.12" y="-94.4" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<text text-anchor="start" x="324.02" y="-94.4" font-family="Arial" font-size="11.00">Faux positifs</text>
+<text text-anchor="start" x="385.76" y="-94.4" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<polygon fill="#eaf2fb" stroke="transparent" points="5,-4.5 5,-67.5 101,-67.5 101,-4.5 5,-4.5"></polygon>
+<text text-anchor="start" x="16.88" y="-33.1" font-family="Arial" font-weight="bold" font-size="13.00">Sans lésion</text>
+<polygon fill="#fbe5e5" stroke="transparent" points="106,-4.5 106,-67.5 266,-67.5 266,-4.5 106,-4.5"></polygon>
+<text text-anchor="start" x="159.6" y="-34" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<text text-anchor="start" x="198.5" y="-34" font-family="Arial" font-weight="bold" font-size="25.00" fill="#ad3840">7</text>
+<text text-anchor="start" x="117.98" y="-18.9" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<text text-anchor="start" x="156.87" y="-18.9" font-family="Arial" font-size="11.00">Faux négatifs</text>
+<text text-anchor="start" x="222.91" y="-18.9" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<polygon fill="#ddf3e5" stroke="transparent" points="271,-4.5 271,-67.5 431,-67.5 431,-4.5 271,-4.5"></polygon>
+<text text-anchor="start" x="317.65" y="-34" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<text text-anchor="start" x="356.54" y="-34" font-family="Arial" font-weight="bold" font-size="25.00" fill="#176b43">40</text>
+<text text-anchor="start" x="282.67" y="-18.9" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<text text-anchor="start" x="321.57" y="-18.9" font-family="Arial" font-size="11.00">Vrais négatifs</text>
+<text text-anchor="start" x="388.21" y="-18.9" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+</g>
+<!-- metriques -->
+<g id="node2" class="node">
+<title>metriques</title>
+<text text-anchor="start" x="507.76" y="-206.4" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<text text-anchor="start" x="546.66" y="-206.4" font-family="Arial" font-weight="bold" font-size="19.00" fill="#213b68">Performances obtenues</text>
+<text text-anchor="start" x="763.12" y="-206.4" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<polygon fill="#dceaf8" stroke="transparent" points="483.5,-150.5 483.5,-186.5 668.5,-186.5 668.5,-150.5 483.5,-150.5"></polygon>
+<text text-anchor="start" x="490.5" y="-165" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<text text-anchor="start" x="529.4" y="-165" font-family="Arial" font-weight="bold" font-size="15.00">Accuracy</text>
+<text text-anchor="start" x="596.94" y="-165" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<polygon fill="#dceaf8" stroke="transparent" points="675.5,-150.5 675.5,-186.5 818.5,-186.5 818.5,-150.5 675.5,-150.5"></polygon>
+<text text-anchor="start" x="682.42" y="-163.4" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<text text-anchor="start" x="721.31" y="-163.4" font-family="Arial" font-weight="bold" font-size="19.00" fill="#2563a0">66.7 %</text>
+<text text-anchor="start" x="780.47" y="-163.4" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<polygon fill="#f9e4ec" stroke="transparent" points="483.5,-107.5 483.5,-143.5 668.5,-143.5 668.5,-107.5 483.5,-107.5"></polygon>
+<text text-anchor="start" x="490.5" y="-122" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<text text-anchor="start" x="529.4" y="-122" font-family="Arial" font-weight="bold" font-size="15.00">Sensibilité</text>
+<text text-anchor="start" x="604.41" y="-122" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<polygon fill="#f9e4ec" stroke="transparent" points="675.5,-107.5 675.5,-143.5 818.5,-143.5 818.5,-107.5 675.5,-107.5"></polygon>
+<text text-anchor="start" x="682.42" y="-120.4" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<text text-anchor="start" x="721.31" y="-120.4" font-family="Arial" font-weight="bold" font-size="19.00" fill="#ad3840">35.7 %</text>
+<text text-anchor="start" x="780.47" y="-120.4" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<polygon fill="#ddf3e5" stroke="transparent" points="483.5,-64.5 483.5,-100.5 668.5,-100.5 668.5,-64.5 483.5,-64.5"></polygon>
+<text text-anchor="start" x="490.5" y="-79" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<text text-anchor="start" x="529.4" y="-79" font-family="Arial" font-weight="bold" font-size="15.00">Spécificité</text>
+<text text-anchor="start" x="604.41" y="-79" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<polygon fill="#ddf3e5" stroke="transparent" points="675.5,-64.5 675.5,-100.5 818.5,-100.5 818.5,-64.5 675.5,-64.5"></polygon>
+<text text-anchor="start" x="682.42" y="-77.4" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<text text-anchor="start" x="721.31" y="-77.4" font-family="Arial" font-weight="bold" font-size="19.00" fill="#176b43">85.1 %</text>
+<text text-anchor="start" x="780.47" y="-77.4" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<polygon fill="#fff0da" stroke="transparent" points="483.5,-21.5 483.5,-57.5 668.5,-57.5 668.5,-21.5 483.5,-21.5"></polygon>
+<text text-anchor="start" x="490.5" y="-36" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<text text-anchor="start" x="529.4" y="-36" font-family="Arial" font-weight="bold" font-size="15.00">Précision</text>
+<text text-anchor="start" x="596.92" y="-36" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<polygon fill="#fff0da" stroke="transparent" points="675.5,-21.5 675.5,-57.5 818.5,-57.5 818.5,-21.5 675.5,-21.5"></polygon>
+<text text-anchor="start" x="690.34" y="-34.4" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+<text text-anchor="start" x="729.24" y="-34.4" font-family="Arial" font-weight="bold" font-size="19.00" fill="#a76412">80 %</text>
+<text text-anchor="start" x="772.54" y="-34.4" font-family="Arial" font-size="14.00"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+</g>
+<!-- matrice&#45;&gt;metriques -->
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>Ici par exemple, c’est la sensibilité qui nous intéresse car on ne veut pas rater des lésions.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="objectifs-du-cours-3" class="slide level2">
+<h2>📖 Objectifs du cours</h2>
+<br>
+<br>
+<div style="height:45px;"></div>
+<div style="color: #A1A1AA;">
+<ol type="1">
+<li>Pourquoi faire du Machine Learning ? (Intérêt &amp; Exemple de méthodes)</li>
+</ol>
+</div>
+<div style="height:25px;"></div>
+<div style="color: #A1A1AA;">
+<ol start="2" type="1">
+<li>Comment construire un modèle de ML et évaluer sa qualité ? (Théorie)</li>
+</ol>
+</div>
+<div style="height:25px;"></div>
+<p><strong>3. Pratique : Construire un modèle de ML et évaluer sa qualité avec R</strong></p>
+<div style="height:25px;"></div>
+<div style="color: #A1A1AA;">
+<ol start="4" type="1">
+<li>Exemple concret d’une contribution en sciences vétérinaires &amp; Conclusion</li>
+</ol>
+</div>
+</section>
 <section id="quelles-sont-les-étapes-pour-entraîner-et-évaluer-un-modèle-de-ml" class="slide level2">
 <h2>3️⃣ Quelles sont les étapes pour entraîner et évaluer un modèle de ML ?</h2>
-<p><br></p>
+<div class="small-box">
+<p><strong>Peut-on prédire la présence d’une lésion chirurgicale chez un cheval souffrant de coliques à partir de ses mesures cliniques ?</strong></p>
+</div>
+<div style="height:5px;"></div>
 <p><strong>To Do :</strong></p>
 <div class="fragment">
 <ol type="1">
@@ -998,30 +2354,33 @@ y_i\log h_\theta(x_i)
 </section>
 <section id="application---préparer-les-données" class="slide level2">
 <h2>3️⃣ Application - Préparer les données</h2>
-<div style="height:5px;"></div>
 <div class="columns">
 <div class="column" style="width:50%;">
+<div style="height:25px;"></div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="" aria-label="1"></a><span class="fu">library</span>(GSE)</span>
 <span id="cb1-2"><a href="" aria-label="2"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-3"><a href="" aria-label="3"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-4"><a href="" aria-label="4"></a></span>
 <span id="cb1-5"><a href="" aria-label="5"></a><span class="co"># 1. Récupérer les données</span></span>
-<span id="cb1-6"><a href="" aria-label="6"></a>donnees <span class="ot">&lt;-</span> <span class="fu">data</span>(<span class="st">"horse"</span>, <span class="at">package =</span> <span class="st">"GSE"</span>)  <span class="sc">%&gt;%</span></span>
-<span id="cb1-7"><a href="" aria-label="7"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb1-8"><a href="" aria-label="8"></a>    <span class="at">surgical_lesion =</span> <span class="fu">case_when</span>(</span>
-<span id="cb1-9"><a href="" aria-label="9"></a>      surgical_lesion <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="dv">1</span>L,</span>
-<span id="cb1-10"><a href="" aria-label="10"></a>      surgical_lesion <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="dv">0</span>L,</span>
-<span id="cb1-11"><a href="" aria-label="11"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_integer_</span></span>
-<span id="cb1-12"><a href="" aria-label="12"></a>    )</span>
-<span id="cb1-13"><a href="" aria-label="13"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb1-14"><a href="" aria-label="14"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(surgical_lesion))</span>
-<span id="cb1-15"><a href="" aria-label="15"></a></span>
-<span id="cb1-16"><a href="" aria-label="16"></a><span class="co"># 2. Explorer les données</span></span>
-<span id="cb1-17"><a href="" aria-label="17"></a><span class="fu">summary</span>(donnees)</span>
+<span id="cb1-6"><a href="" aria-label="6"></a><span class="fu">data</span>(<span class="st">"horse"</span>, <span class="at">package =</span> <span class="st">"GSE"</span>)</span>
+<span id="cb1-7"><a href="" aria-label="7"></a></span>
+<span id="cb1-8"><a href="" aria-label="8"></a>donnees <span class="ot">&lt;-</span> horse <span class="sc">%&gt;%</span></span>
+<span id="cb1-9"><a href="" aria-label="9"></a>  <span class="fu">rename</span>(<span class="at">surgical_lesion =</span> surgical_leison) <span class="sc">%&gt;%</span></span>
+<span id="cb1-10"><a href="" aria-label="10"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-11"><a href="" aria-label="11"></a>    <span class="at">surgical_lesion =</span> <span class="fu">factor</span>(</span>
+<span id="cb1-12"><a href="" aria-label="12"></a>      surgical_lesion,</span>
+<span id="cb1-13"><a href="" aria-label="13"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb1-14"><a href="" aria-label="14"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Oui"</span>, <span class="st">"Non"</span>)</span>
+<span id="cb1-15"><a href="" aria-label="15"></a>    )</span>
+<span id="cb1-16"><a href="" aria-label="16"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb1-17"><a href="" aria-label="17"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(surgical_lesion))</span>
 <span id="cb1-18"><a href="" aria-label="18"></a></span>
-<span id="cb1-19"><a href="" aria-label="19"></a><span class="co"># 3. Contrôler la qualité</span></span>
-<span id="cb1-20"><a href="" aria-label="20"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(donnees))</span>
-<span id="cb1-21"><a href="" aria-label="21"></a><span class="fu">sum</span>(<span class="fu">duplicated</span>(donnees))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-19"><a href="" aria-label="19"></a><span class="co"># 2. Explorer les données</span></span>
+<span id="cb1-20"><a href="" aria-label="20"></a><span class="fu">summary</span>(donnees)</span>
+<span id="cb1-21"><a href="" aria-label="21"></a></span>
+<span id="cb1-22"><a href="" aria-label="22"></a><span class="co"># 3. Contrôler la qualité</span></span>
+<span id="cb1-23"><a href="" aria-label="23"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(donnees))</span>
+<span id="cb1-24"><a href="" aria-label="24"></a><span class="fu">sum</span>(<span class="fu">duplicated</span>(donnees))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
@@ -1041,7 +2400,7 @@ y_i\log h_\theta(x_i)
 <thead>
 <tr class="header">
 <th style="text-align: left;"></th>
-<th style="text-align: left;">Hospital_Number</th>
+<th style="text-align: left;">id</th>
 <th style="text-align: left;">Rectal_temperature</th>
 <th style="text-align: left;">Pulse</th>
 <th style="text-align: left;">Respiratory_rate</th>
@@ -1142,25 +2501,24 @@ y_i\log h_\theta(x_i)
 </div>
 </div>
 </div></div>
-<div style="height:5px;"></div>
 <div class="fragment">
-<div style="font-size: 0.85em;">
-<p>On exclut les deux variables <code>Abdomcentesis_total_protein</code>, <code>Nasogastric_reflux_PH</code>.</p>
+<div class="small-box">
+<p>On exclut donc <code>Abdomcentesis_total_protein</code>, <code>Nasogastric_reflux_PH</code>, qui présentent de nombreuses valeurs manquantes.</p>
 </div>
 </div>
 </section>
 <section id="séparer-les-données-comment-organiser-lentraînement" class="slide level2">
-<h2>3️⃣ Séparer les données :Comment organiser l’entraînement ?</h2>
+<h2>3️⃣ Séparer les données : Comment organiser l’entraînement ?</h2>
 <div style="height:15px;"></div>
 <p><span class="smallcaps"><u><strong>Objectif :</strong></u></span> Évaluer la capacité du modèle à prédire de nouvelles observations.</p>
 <div style="height:10px;"></div>
 <div class="fragment">
-<p><span class="smallcaps"><u><strong>1. Séparer les données :</strong></u></span> Diviser aléatoirement les données en deux ensembles :</p>
-<table class="caption-top">
+<p><span class="smallcaps"><u><strong>1. Séparer les données :</strong></u></span> Diviser aléatoirement les observations en deux ensembles :</p>
+<table class="caption-top" style="width:99%;">
 <colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
+<col style="width: 26%">
+<col style="width: 50%">
+<col style="width: 22%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1172,13 +2530,13 @@ y_i\log h_\theta(x_i)
 <tbody>
 <tr class="odd">
 <td style="text-align: left;"><strong>Entraînement (<em>train</em>)</strong></td>
-<td style="text-align: left;">Estimer les paramètres <span class="math inline">\(\theta\)</span> du modèle</td>
-<td style="text-align: left;"><span class="math inline">\(80\%\)</span> des observations</td>
+<td style="text-align: left;">Construire les arbres de la forêt</td>
+<td style="text-align: left;"><span class="math inline">\(80\%\)</span></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>Test (<em>test</em>)</strong></td>
-<td style="text-align: left;">Évaluer la qualité des prédictions sur de nouvelles observations</td>
-<td style="text-align: left;"><span class="math inline">\(20\%\)</span> des observations</td>
+<td style="text-align: left;">Évaluer les prédictions sur de nouvelles observations</td>
+<td style="text-align: left;"><span class="math inline">\(20\%\)</span></td>
 </tr>
 </tbody>
 </table>
@@ -1187,18 +2545,18 @@ y_i\log h_\theta(x_i)
 <div class="fragment">
 <p><span class="smallcaps"><u><strong>2. Prétraiter les données :</strong></u></span></p>
 <ul>
-<li><p><strong>Données d’entraînement</strong> : Transformer les données de certaines colonnes (ex. imputation, standardisation, encodage) pour gérer les valeurs manquantes, les différences d’échelle et les variables qualitatives.</p></li>
-<li><p><strong>Données de test</strong> : Appliquer les mêmes transformations, en utilisant les valeurs calculées sur les données d’entraînement.</p></li>
+<li><p><strong>Entraînement</strong> : Traiter les valeurs manquantes (ex. imputation) et encoder les variables si nécessaire.</p></li>
+<li><p><strong>Test</strong> : Appliquer les mêmes transformations, en utilisant uniquement les informations calculées sur l’entraînement.</p></li>
 </ul>
 </div>
 </section>
 <section id="application---séparer-les-données" class="slide level2">
 <h2>3️⃣ Application - Séparer les données</h2>
-<p><br></p>
+<div style="height:5px;"></div>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="" aria-label="1"></a><span class="co"># Conserver les 5 variables explicatives</span></span>
-<span id="cb2-2"><a href="" aria-label="2"></a>donnees <span class="ot">&lt;-</span> horse <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="" aria-label="1"></a><span class="co"># 1. Sélectionner les variables</span></span>
+<span id="cb2-2"><a href="" aria-label="2"></a>donnees <span class="ot">&lt;-</span> donnees <span class="sc">%&gt;%</span></span>
 <span id="cb2-3"><a href="" aria-label="3"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(</span>
 <span id="cb2-4"><a href="" aria-label="4"></a>    Rectal_temperature,</span>
 <span id="cb2-5"><a href="" aria-label="5"></a>    Pulse,</span>
@@ -1207,40 +2565,34 @@ y_i\log h_\theta(x_i)
 <span id="cb2-8"><a href="" aria-label="8"></a>    Total_protein,</span>
 <span id="cb2-9"><a href="" aria-label="9"></a>    surgical_lesion</span>
 <span id="cb2-10"><a href="" aria-label="10"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb2-11"><a href="" aria-label="11"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(surgical_lesion))</span>
-<span id="cb2-12"><a href="" aria-label="12"></a></span>
-<span id="cb2-13"><a href="" aria-label="13"></a><span class="co"># Séparation entraînement / test</span></span>
-<span id="cb2-14"><a href="" aria-label="14"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># pour la reproductibilitlé</span></span>
-<span id="cb2-15"><a href="" aria-label="15"></a></span>
-<span id="cb2-16"><a href="" aria-label="16"></a>id_train <span class="ot">&lt;-</span> donnees <span class="sc">%&gt;%</span></span>
-<span id="cb2-17"><a href="" aria-label="17"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb2-18"><a href="" aria-label="18"></a>  <span class="fu">group_by</span>(surgical_lesion) <span class="sc">%&gt;%</span></span>
-<span id="cb2-19"><a href="" aria-label="19"></a>  <span class="fu">slice_sample</span>(<span class="at">prop =</span> <span class="fl">0.8</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb2-20"><a href="" aria-label="20"></a>  <span class="fu">pull</span>(id)</span>
-<span id="cb2-21"><a href="" aria-label="21"></a></span>
-<span id="cb2-22"><a href="" aria-label="22"></a>train <span class="ot">&lt;-</span> donnees[id_train, ]</span>
-<span id="cb2-23"><a href="" aria-label="23"></a>test <span class="ot">&lt;-</span> donnees[<span class="sc">-</span>id_train, ]</span>
-<span id="cb2-24"><a href="" aria-label="24"></a></span>
-<span id="cb2-25"><a href="" aria-label="25"></a><span class="co"># Traitement des valeurs manquantes</span></span>
-<span id="cb2-26"><a href="" aria-label="26"></a>variables <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(<span class="fu">names</span>(train), <span class="st">"surgical_lesion"</span>)</span>
-<span id="cb2-27"><a href="" aria-label="27"></a></span>
-<span id="cb2-28"><a href="" aria-label="28"></a>med <span class="ot">&lt;-</span> <span class="fu">sapply</span>(train[variables], median,</span>
-<span id="cb2-29"><a href="" aria-label="29"></a>              <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2-30"><a href="" aria-label="30"></a></span>
-<span id="cb2-31"><a href="" aria-label="31"></a><span class="cf">for</span> (v <span class="cf">in</span> variables) {</span>
-<span id="cb2-32"><a href="" aria-label="32"></a>  train[[v]][<span class="fu">is.na</span>(train[[v]])] <span class="ot">&lt;-</span> med[v]</span>
-<span id="cb2-33"><a href="" aria-label="33"></a>  test[[v]][<span class="fu">is.na</span>(test[[v]])] <span class="ot">&lt;-</span> med[v]</span>
-<span id="cb2-34"><a href="" aria-label="34"></a>}</span>
-<span id="cb2-35"><a href="" aria-label="35"></a></span>
-<span id="cb2-36"><a href="" aria-label="36"></a><span class="co"># Effectifs</span></span>
-<span id="cb2-37"><a href="" aria-label="37"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb2-38"><a href="" aria-label="38"></a>  <span class="at">Ensemble =</span> <span class="fu">c</span>(<span class="st">"Entraînement"</span>, <span class="st">"Test"</span>),</span>
-<span id="cb2-39"><a href="" aria-label="39"></a>  <span class="at">Effectif =</span> <span class="fu">c</span>(<span class="fu">nrow</span>(train), <span class="fu">nrow</span>(test))</span>
-<span id="cb2-40"><a href="" aria-label="40"></a>)</span>
-<span id="cb2-41"><a href="" aria-label="41"></a></span>
-<span id="cb2-42"><a href="" aria-label="42"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-11"><a href="" aria-label="11"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(surgical_lesion)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-12"><a href="" aria-label="12"></a>  <span class="fu">mutate</span>(<span class="at">surgical_lesion =</span> <span class="fu">factor</span>(surgical_lesion))</span>
+<span id="cb2-13"><a href="" aria-label="13"></a></span>
+<span id="cb2-14"><a href="" aria-label="14"></a><span class="co"># 2. Séparer les données (80 % / 20 %)</span></span>
+<span id="cb2-15"><a href="" aria-label="15"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb2-16"><a href="" aria-label="16"></a></span>
+<span id="cb2-17"><a href="" aria-label="17"></a>id_train <span class="ot">&lt;-</span> donnees <span class="sc">%&gt;%</span></span>
+<span id="cb2-18"><a href="" aria-label="18"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb2-19"><a href="" aria-label="19"></a>  <span class="fu">group_by</span>(surgical_lesion) <span class="sc">%&gt;%</span></span>
+<span id="cb2-20"><a href="" aria-label="20"></a>  <span class="fu">slice_sample</span>(<span class="at">prop =</span> <span class="fl">0.8</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-21"><a href="" aria-label="21"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-22"><a href="" aria-label="22"></a>  <span class="fu">pull</span>(id)</span>
+<span id="cb2-23"><a href="" aria-label="23"></a></span>
+<span id="cb2-24"><a href="" aria-label="24"></a>train <span class="ot">&lt;-</span> donnees[id_train, ]</span>
+<span id="cb2-25"><a href="" aria-label="25"></a>test <span class="ot">&lt;-</span> donnees[<span class="sc">-</span>id_train, ]</span>
+<span id="cb2-26"><a href="" aria-label="26"></a></span>
+<span id="cb2-27"><a href="" aria-label="27"></a><span class="co"># 3. Imputer les valeurs manquantes</span></span>
+<span id="cb2-28"><a href="" aria-label="28"></a>variables <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(<span class="fu">names</span>(train), <span class="st">"surgical_lesion"</span>)</span>
+<span id="cb2-29"><a href="" aria-label="29"></a></span>
+<span id="cb2-30"><a href="" aria-label="30"></a>med <span class="ot">&lt;-</span> <span class="fu">sapply</span>(train[variables], median, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-31"><a href="" aria-label="31"></a></span>
+<span id="cb2-32"><a href="" aria-label="32"></a><span class="cf">for</span> (v <span class="cf">in</span> variables) {</span>
+<span id="cb2-33"><a href="" aria-label="33"></a>  train[[v]][<span class="fu">is.na</span>(train[[v]])] <span class="ot">&lt;-</span> med[v]</span>
+<span id="cb2-34"><a href="" aria-label="34"></a>  test[[v]][<span class="fu">is.na</span>(test[[v]])] <span class="ot">&lt;-</span> med[v]</span>
+<span id="cb2-35"><a href="" aria-label="35"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:50%;">
-<p><br> <br> <br> <br></p>
+<p><br> <br> <br></p>
+<p><span class="smallcaps"><u><strong>Répartition des observations :</strong></u></span></p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top">
@@ -1264,18 +2616,23 @@ y_i\log h_\theta(x_i)
 </div>
 </div>
 </div></div>
+<div class="fragment">
+<div class="small-box">
+<p>Les valeurs manquantes sont remplacées par les <strong>médianes calculées uniquement sur les données d’entraînement</strong>.</p>
+</div>
+</div>
 </section>
-<section id="entraîner-le-modèle-comment-estimer-les-paramètres-en-pratique" class="slide level2">
-<h2>3️⃣ Entraîner le modèle : Comment estimer les paramètres en pratique ?</h2>
+<section id="entraîner-le-modèle-comment-construire-la-forêt-en-pratique" class="slide level2">
+<h2>3️⃣ Entraîner le modèle : Comment construire la forêt en pratique ?</h2>
 <div style="height:20px;"></div>
-<p><span class="smallcaps"><u><strong>Objectif :</strong></u></span> Estimer les paramètres <span class="math inline">\(\theta\)</span> de la régression logistique à partir des données d’entraînement.</p>
+<p><span class="smallcaps"><u><strong>Objectif :</strong></u></span> Construire une forêt aléatoire à partir des données d’entraînement.</p>
 <div style="height:20px;"></div>
 <div class="fragment">
 <p><span class="smallcaps"><u><strong>Méthode utilisée :</strong></u></span></p>
 <ul>
-<li><strong>Critère d’estimation</strong> : maximisation de la log-vraisemblance.</li>
-<li><strong>Algorithme</strong> : moindres carrés itérativement repondérés (<em>IRLS</em>).</li>
-<li><strong>Principe</strong> : mettre à jour successivement les paramètres jusqu’à convergence.</li>
+<li><strong>Échantillonnage bootstrap</strong> : tirer aléatoirement des observations pour chaque arbre.</li>
+<li><strong>Construction des arbres</strong> : rechercher à chaque nœud la meilleure séparation parmi un sous-ensemble aléatoire de variables.</li>
+<li><strong>Répétition</strong> : construire plusieurs arbres pour constituer la forêt.</li>
 </ul>
 </div>
 <div class="fragment">
@@ -1289,7 +2646,7 @@ y_i\log h_\theta(x_i)
 <p><strong>Note</strong></p>
 </div>
 <div class="callout-content">
-<p>Dans R, la fonction <code>glm(..., family = binomial())</code> réalise automatiquement cette estimation numérique.</p>
+<p>Dans R, la fonction <code>ranger()</code> construit automatiquement la forêt aléatoire. Les prédictions en classification sont obtenues par <strong>vote majoritaire</strong>.</p>
 </div>
 </div>
 </div>
@@ -1297,73 +2654,68 @@ y_i\log h_\theta(x_i)
 </section>
 <section id="application---entraîner-le-modèle" class="slide level2">
 <h2>3️⃣ Application - Entraîner le modèle</h2>
-<p><br> <br></p>
+<p><br> <br> <br></p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="" aria-label="1"></a><span class="co"># Estimation de la régression logistique</span></span>
-<span id="cb3-2"><a href="" aria-label="2"></a>modele <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
-<span id="cb3-3"><a href="" aria-label="3"></a>  surgical_lesion <span class="sc">~</span> .,</span>
-<span id="cb3-4"><a href="" aria-label="4"></a>  <span class="at">data =</span> train,</span>
-<span id="cb3-5"><a href="" aria-label="5"></a>  <span class="at">family =</span> <span class="fu">binomial</span>()</span>
-<span id="cb3-6"><a href="" aria-label="6"></a>)</span>
-<span id="cb3-7"><a href="" aria-label="7"></a></span>
-<span id="cb3-8"><a href="" aria-label="8"></a><span class="co"># Coefficients estimés</span></span>
-<span id="cb3-9"><a href="" aria-label="9"></a><span class="fu">round</span>(<span class="fu">coef</span>(modele), <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="" aria-label="1"></a><span class="fu">library</span>(ranger)</span>
+<span id="cb3-2"><a href="" aria-label="2"></a></span>
+<span id="cb3-3"><a href="" aria-label="3"></a><span class="co"># Entraînement de la forêt aléatoire</span></span>
+<span id="cb3-4"><a href="" aria-label="4"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb3-5"><a href="" aria-label="5"></a></span>
+<span id="cb3-6"><a href="" aria-label="6"></a>modele <span class="ot">&lt;-</span> <span class="fu">ranger</span>(</span>
+<span id="cb3-7"><a href="" aria-label="7"></a>  surgical_lesion <span class="sc">~</span> .,</span>
+<span id="cb3-8"><a href="" aria-label="8"></a>  <span class="at">data =</span> train,</span>
+<span id="cb3-9"><a href="" aria-label="9"></a>  <span class="at">num.trees =</span> <span class="dv">500</span>,</span>
+<span id="cb3-10"><a href="" aria-label="10"></a>  <span class="at">mtry =</span> <span class="dv">2</span>,</span>
+<span id="cb3-11"><a href="" aria-label="11"></a>  <span class="at">importance =</span> <span class="st">"impurity"</span></span>
+<span id="cb3-12"><a href="" aria-label="12"></a>)</span>
+<span id="cb3-13"><a href="" aria-label="13"></a></span>
+<span id="cb3-14"><a href="" aria-label="14"></a><span class="co"># Résumé du modèle</span></span>
+<span id="cb3-15"><a href="" aria-label="15"></a>modele</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:50%;">
+<p><br> <br></p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>       (Intercept) Rectal_temperature              Pulse   Respiratory_rate 
-            -9.080              0.294             -0.013             -0.029 
-Packed_cell_volume      Total_protein 
-            -0.025              0.004 </code></pre>
+<pre><code>Type : Classification 
+ Nombre d'arbres : 500 
+ Nombre d'observations : 293 
+ Nombre de variables explicatives : 5 
+ Mtry : 2 </code></pre>
 </div>
 </div>
 </div></div>
-<p><br></p>
 <div class="fragment">
-<div title="Interprétation">
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Interprétation</strong></p>
-</div>
-<div class="callout-content">
-<p>Puisqu’on s’intéresse à la qualité de prédiction, on n’interprète pas les coefficients estimés.</p>
-</div>
-</div>
-</div>
+<div class="small-box">
+<p>La forêt aléatoire est constituée de 500 arbres, chacun construit à partir d’un échantillon aléatoire des données et de sous-ensembles de variables.</p>
 </div>
 </div>
 </section>
 <section id="validation-croisée-comment-optimiser-les-performances" class="slide level2">
 <h2>3️⃣ Validation croisée : Comment optimiser les performances ?</h2>
-<div style="height:5px;"></div>
-<p><span class="smallcaps"><u><strong>Objectif :</strong></u></span> Évaluer la capacité du modèle à prédire de nouvelles observations et, si nécessaire, <strong>sélectionner les hyperparamètres</strong> offrant les meilleures performances.</p>
+<div style="height:15px;"></div>
+<p><span class="smallcaps"><u><strong>Objectif :</strong></u></span> Évaluer la capacité du modèle à prédire de nouvelles observations et, si nécessaire, <strong>sélectionner les meilleurs hyperparamètres</strong>.</p>
 <div class="fragment">
 <div style="height:15px;"></div>
 <p><span class="smallcaps"><u><strong>Principe : Validation croisée à</strong></u></span> <u><span class="math inline">\(K\)</span> blocs</u></p>
 <ol type="1">
 <li><p>Diviser les données d’entraînement en <span class="math inline">\(K\)</span> blocs.</p></li>
-<li><p>Estimer les paramètres sur <span class="math inline">\(K-1\)</span> blocs et évaluer les prédictions sur le bloc restant.</p></li>
+<li><p><strong>Entraîner la forêt</strong> sur <span class="math inline">\(K-1\)</span> blocs et évaluer les prédictions sur le bloc restant.</p></li>
 <li><p>Répéter l’opération <span class="math inline">\(K\)</span> fois, en changeant le bloc utilisé pour l’évaluation.</p></li>
 <li><p>Calculer la <strong>performance moyenne</strong> obtenue sur les <span class="math inline">\(K\)</span> blocs.</p></li>
 </ol>
 </div>
 <div class="fragment">
 <div style="height:10px;"></div>
-<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Important</strong></p>
+<p><strong>Note</strong></p>
 </div>
 <div class="callout-content">
-<p>En pratique, la validation croisée est <strong>facultative</strong> pour la régression logistique sans hyperparamètre, mais on va la réaliser avec <span class="math inline">\(K = 5\)</span> et calculer l’<span class="smallcaps">accuracy</span> (i.e le % de bonnes prédictions) pour évaluer la qualité.</p>
+<p>On réalise une validation croisée à <span class="math inline">\(K=5\)</span> blocs pour comparer différentes valeurs de <code>mtry</code> et retenir celle qui maximise l’accuracy moyenne.</p>
 </div>
 </div>
 </div>
@@ -1371,47 +2723,63 @@ Packed_cell_volume      Total_protein
 </section>
 <section id="application---validation-croisée" class="slide level2">
 <h2>3️⃣ Application - Validation croisée</h2>
+<div style="height:5px;"></div>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="" aria-label="1"></a><span class="co"># Données avant imputation</span></span>
 <span id="cb5-2"><a href="" aria-label="2"></a>train_cv <span class="ot">&lt;-</span> donnees[id_train, ]</span>
 <span id="cb5-3"><a href="" aria-label="3"></a></span>
-<span id="cb5-4"><a href="" aria-label="4"></a><span class="co"># Création de 5 blocs</span></span>
-<span id="cb5-5"><a href="" aria-label="5"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb5-6"><a href="" aria-label="6"></a>K <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb5-7"><a href="" aria-label="7"></a>blocs <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">rep</span>(</span>
-<span id="cb5-8"><a href="" aria-label="8"></a>  <span class="dv">1</span><span class="sc">:</span>K, <span class="at">length.out =</span> <span class="fu">nrow</span>(train_cv)</span>
-<span id="cb5-9"><a href="" aria-label="9"></a>))</span>
-<span id="cb5-10"><a href="" aria-label="10"></a></span>
-<span id="cb5-11"><a href="" aria-label="11"></a><span class="co"># Validation croisée</span></span>
-<span id="cb5-12"><a href="" aria-label="12"></a>accuracy <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>K, <span class="cf">function</span>(k) {</span>
-<span id="cb5-13"><a href="" aria-label="13"></a></span>
-<span id="cb5-14"><a href="" aria-label="14"></a>  app <span class="ot">&lt;-</span> train_cv[blocs <span class="sc">!=</span> k, ]</span>
-<span id="cb5-15"><a href="" aria-label="15"></a>  val <span class="ot">&lt;-</span> train_cv[blocs <span class="sc">==</span> k, ]</span>
-<span id="cb5-16"><a href="" aria-label="16"></a></span>
-<span id="cb5-17"><a href="" aria-label="17"></a>  <span class="co"># Imputation</span></span>
-<span id="cb5-18"><a href="" aria-label="18"></a>  med <span class="ot">&lt;-</span> <span class="fu">sapply</span>(app[variables],</span>
-<span id="cb5-19"><a href="" aria-label="19"></a>                median, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb5-20"><a href="" aria-label="20"></a></span>
-<span id="cb5-21"><a href="" aria-label="21"></a>  <span class="cf">for</span> (v <span class="cf">in</span> variables) {</span>
-<span id="cb5-22"><a href="" aria-label="22"></a>    app[[v]][<span class="fu">is.na</span>(app[[v]])] <span class="ot">&lt;-</span> med[v]</span>
-<span id="cb5-23"><a href="" aria-label="23"></a>    val[[v]][<span class="fu">is.na</span>(val[[v]])] <span class="ot">&lt;-</span> med[v]</span>
-<span id="cb5-24"><a href="" aria-label="24"></a>  }</span>
-<span id="cb5-25"><a href="" aria-label="25"></a></span>
-<span id="cb5-26"><a href="" aria-label="26"></a>  <span class="co"># Estimation</span></span>
-<span id="cb5-27"><a href="" aria-label="27"></a>  m <span class="ot">&lt;-</span> <span class="fu">glm</span>(surgical_lesion <span class="sc">~</span> .,</span>
-<span id="cb5-28"><a href="" aria-label="28"></a>           <span class="at">data =</span> app,</span>
-<span id="cb5-29"><a href="" aria-label="29"></a>           <span class="at">family =</span> <span class="fu">binomial</span>())</span>
-<span id="cb5-30"><a href="" aria-label="30"></a></span>
-<span id="cb5-31"><a href="" aria-label="31"></a>  <span class="co"># Prédiction</span></span>
-<span id="cb5-32"><a href="" aria-label="32"></a>  pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(m, val,</span>
-<span id="cb5-33"><a href="" aria-label="33"></a>                  <span class="at">type =</span> <span class="st">"response"</span>) <span class="sc">&gt;=</span> <span class="fl">0.5</span></span>
-<span id="cb5-34"><a href="" aria-label="34"></a></span>
-<span id="cb5-35"><a href="" aria-label="35"></a>  <span class="fu">mean</span>(pred <span class="sc">==</span> val<span class="sc">$</span>surgical_lesion)</span>
-<span id="cb5-36"><a href="" aria-label="36"></a>})</span>
-<span id="cb5-37"><a href="" aria-label="37"></a></span>
-<span id="cb5-38"><a href="" aria-label="38"></a><span class="co"># Accuracy par bloc et moyenne</span></span>
-<span id="cb5-39"><a href="" aria-label="39"></a><span class="fu">round</span>(<span class="fu">c</span>(accuracy, <span class="at">Moyenne =</span> <span class="fu">mean</span>(accuracy)), <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-4"><a href="" aria-label="4"></a>variables <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(</span>
+<span id="cb5-5"><a href="" aria-label="5"></a>  <span class="fu">names</span>(train_cv), <span class="st">"surgical_lesion"</span></span>
+<span id="cb5-6"><a href="" aria-label="6"></a>)</span>
+<span id="cb5-7"><a href="" aria-label="7"></a></span>
+<span id="cb5-8"><a href="" aria-label="8"></a><span class="co"># Création de 5 blocs</span></span>
+<span id="cb5-9"><a href="" aria-label="9"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb5-10"><a href="" aria-label="10"></a>K <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb5-11"><a href="" aria-label="11"></a>blocs <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">rep</span>(</span>
+<span id="cb5-12"><a href="" aria-label="12"></a>  <span class="dv">1</span><span class="sc">:</span>K, <span class="at">length.out =</span> <span class="fu">nrow</span>(train_cv)</span>
+<span id="cb5-13"><a href="" aria-label="13"></a>))</span>
+<span id="cb5-14"><a href="" aria-label="14"></a></span>
+<span id="cb5-15"><a href="" aria-label="15"></a><span class="co"># Comparer différentes valeurs de mtry</span></span>
+<span id="cb5-16"><a href="" aria-label="16"></a>mtry_test <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(variables)</span>
+<span id="cb5-17"><a href="" aria-label="17"></a></span>
+<span id="cb5-18"><a href="" aria-label="18"></a>accuracy <span class="ot">&lt;-</span> <span class="fu">sapply</span>(mtry_test, <span class="cf">function</span>(mtry) {</span>
+<span id="cb5-19"><a href="" aria-label="19"></a></span>
+<span id="cb5-20"><a href="" aria-label="20"></a>  <span class="fu">mean</span>(<span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>K, <span class="cf">function</span>(k) {</span>
+<span id="cb5-21"><a href="" aria-label="21"></a></span>
+<span id="cb5-22"><a href="" aria-label="22"></a>    app <span class="ot">&lt;-</span> train_cv[blocs <span class="sc">!=</span> k, ]</span>
+<span id="cb5-23"><a href="" aria-label="23"></a>    val <span class="ot">&lt;-</span> train_cv[blocs <span class="sc">==</span> k, ]</span>
+<span id="cb5-24"><a href="" aria-label="24"></a></span>
+<span id="cb5-25"><a href="" aria-label="25"></a>    <span class="co"># Imputation</span></span>
+<span id="cb5-26"><a href="" aria-label="26"></a>    med <span class="ot">&lt;-</span> <span class="fu">sapply</span>(app[variables],</span>
+<span id="cb5-27"><a href="" aria-label="27"></a>                  median, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-28"><a href="" aria-label="28"></a></span>
+<span id="cb5-29"><a href="" aria-label="29"></a>    <span class="cf">for</span> (v <span class="cf">in</span> variables) {</span>
+<span id="cb5-30"><a href="" aria-label="30"></a>      app[[v]][<span class="fu">is.na</span>(app[[v]])] <span class="ot">&lt;-</span> med[v]</span>
+<span id="cb5-31"><a href="" aria-label="31"></a>      val[[v]][<span class="fu">is.na</span>(val[[v]])] <span class="ot">&lt;-</span> med[v]</span>
+<span id="cb5-32"><a href="" aria-label="32"></a>    }</span>
+<span id="cb5-33"><a href="" aria-label="33"></a></span>
+<span id="cb5-34"><a href="" aria-label="34"></a>    <span class="co"># Entraînement</span></span>
+<span id="cb5-35"><a href="" aria-label="35"></a>    m <span class="ot">&lt;-</span> <span class="fu">ranger</span>(</span>
+<span id="cb5-36"><a href="" aria-label="36"></a>      surgical_lesion <span class="sc">~</span> .,</span>
+<span id="cb5-37"><a href="" aria-label="37"></a>      <span class="at">data =</span> app,</span>
+<span id="cb5-38"><a href="" aria-label="38"></a>      <span class="at">num.trees =</span> <span class="dv">500</span>,</span>
+<span id="cb5-39"><a href="" aria-label="39"></a>      <span class="at">mtry =</span> mtry,</span>
+<span id="cb5-40"><a href="" aria-label="40"></a>      <span class="at">seed =</span> <span class="dv">123</span> <span class="sc">+</span> k</span>
+<span id="cb5-41"><a href="" aria-label="41"></a>    )</span>
+<span id="cb5-42"><a href="" aria-label="42"></a></span>
+<span id="cb5-43"><a href="" aria-label="43"></a>    <span class="co"># Prédiction et accuracy</span></span>
+<span id="cb5-44"><a href="" aria-label="44"></a>    pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(m, <span class="at">data =</span> val)<span class="sc">$</span>predictions</span>
+<span id="cb5-45"><a href="" aria-label="45"></a>    <span class="fu">mean</span>(pred <span class="sc">==</span> val<span class="sc">$</span>surgical_lesion)</span>
+<span id="cb5-46"><a href="" aria-label="46"></a></span>
+<span id="cb5-47"><a href="" aria-label="47"></a>  }))</span>
+<span id="cb5-48"><a href="" aria-label="48"></a>})</span>
+<span id="cb5-49"><a href="" aria-label="49"></a></span>
+<span id="cb5-50"><a href="" aria-label="50"></a><span class="co"># Sélection du meilleur mtry</span></span>
+<span id="cb5-51"><a href="" aria-label="51"></a>mtry_opt <span class="ot">&lt;-</span> mtry_test[<span class="fu">which.max</span>(accuracy)]</span>
+<span id="cb5-52"><a href="" aria-label="52"></a></span>
+<span id="cb5-53"><a href="" aria-label="53"></a><span class="fu">round</span>(accuracy, <span class="dv">3</span>)</span>
+<span id="cb5-54"><a href="" aria-label="54"></a>mtry_opt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:50%;">
 <p><br> <br></p>
 <div class="cell">
@@ -1419,34 +2787,30 @@ Packed_cell_volume      Total_protein
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th style="text-align: left;">Bloc</th>
+<th style="text-align: right;">mtry</th>
 <th style="text-align: right;">Accuracy</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Bloc 1</td>
-<td style="text-align: right;">0.627</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.720</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Bloc 2</td>
-<td style="text-align: right;">0.576</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.692</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Bloc 3</td>
-<td style="text-align: right;">0.644</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.689</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Bloc 4</td>
-<td style="text-align: right;">0.707</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.706</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Bloc 5</td>
-<td style="text-align: right;">0.690</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Moyenne</td>
-<td style="text-align: right;">0.649</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.692</td>
 </tr>
 </tbody>
 </table>
@@ -1454,84 +2818,103 @@ Packed_cell_volume      Total_protein
 </div>
 </div></div>
 <div class="fragment">
-<div title="Interprétation">
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Interprétation</strong></p>
-</div>
-<div class="callout-content">
-<p>L’<span class="smallcaps"><strong>accuracy</strong></span> <strong>moyenne est de 64,9 %</strong> : le modèle classe donc correctement la présence de lésion pour 57 % à 70 % des chevaux, selon les découpages entrainement/test.</p>
-</div>
-</div>
-</div>
+<div class="small-box">
+<p>La validation croisée sélectionne <code>mtry</code> = 1, avec une accuracy moyenne de 72 % : à chaque séparation, une seule variable est tirée aléatoirement parmi les 5 disponibles.</p>
 </div>
 </div>
 </section>
 <section id="évaluer-le-modèle-comment-mesurer-la-qualité-des-prédictions-1" class="slide level2">
 <h2>3️⃣ Évaluer le modèle : Comment mesurer la qualité des prédictions ?</h2>
 <div style="height:5px;"></div>
-<p><span class="smallcaps"><u><strong>Principe :</strong></u></span> Comparer les réponses observées <span class="math inline">\(y_i\)</span> aux classes prédites <span class="math inline">\(\hat y_i\)</span>, puis calculer des indicateurs de performance avec la <span class="smallcaps">matrice de confusion</span> :</p>
-<table class="caption-top" style="width:100%;">
-<colgroup>
-<col style="width: 28%">
-<col style="width: 35%">
-<col style="width: 35%">
-</colgroup>
+<p><span class="smallcaps"><u><strong>Principe :</strong></u></span> Comparer les classes prédites <span class="math inline">\(\hat y_i\)</span> aux réponses observées <span class="math inline">\(y_i\)</span> sur le <strong>jeu de test</strong>, à l’aide d’une <span class="smallcaps">matrice de confusion</span>.</p>
+<table style="border-collapse: collapse; border-bottom: 1px solid currentColor;">
 <thead>
-<tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: center;">Prédit : <span class="math inline">\(Y=1\)</span> (présence de lésion)</th>
-<th style="text-align: center;">Prédit : <span class="math inline">\(Y=0\)</span> (absence de lésion)</th>
+<tr>
+<th>
+</th>
+<th>
+Prédit : Lésion (<span class="math inline">\(\hat Y=1\)</span>)
+</th>
+<th>
+Prédit : Pas de lésion (<span class="math inline">\(\hat Y=0\)</span>)
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: left;"><strong>Observé :</strong> <span class="math inline">\(Y=1\)</span> (présence de lésion)</td>
-<td style="text-align: center;">Vrai positif (VP)</td>
-<td style="text-align: center;">Faux négatif (FN)</td>
+<tr>
+<td>
+<strong>Observé : Lésion (<span class="math inline">\(Y=1\)</span>)</strong>
+</td>
+<td>
+Vrai positif (VP)
+</td>
+<td>
+Faux négatif (FN)
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;"><strong>Observé :</strong> <span class="math inline">\(Y=0\)</span> (absence de lésion)</td>
-<td style="text-align: center;">Faux positif (FP)</td>
-<td style="text-align: center;">Vrai négatif (VN)</td>
+<tr>
+<td>
+<strong>Observé : Pas de lésion (<span class="math inline">\(Y=0\)</span>)</strong>
+</td>
+<td>
+Faux positif (FP)
+</td>
+<td>
+Vrai négatif (VN)
+</td>
 </tr>
 </tbody>
 </table>
 <div style="height:15px;"></div>
 <div class="fragment">
 <p><span class="smallcaps"><u><strong>Indicateurs de performance :</strong></u></span></p>
-<table class="caption-top">
-<colgroup>
-<col style="width: 30%">
-<col style="width: 38%">
-<col style="width: 30%">
-</colgroup>
+<table style="border-collapse: collapse; border-bottom: 1px solid currentColor;">
 <thead>
-<tr class="header">
-<th style="text-align: left;">Indicateur</th>
-<th style="text-align: center;">Formule</th>
-<th style="text-align: left;">Interprétation</th>
+<tr>
+<th>
+Indicateur
+</th>
+<th>
+Formule
+</th>
+<th>
+Interprétation
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: left;"><strong>Accuracy</strong></td>
-<td style="text-align: center;"><span class="math inline">\(\dfrac{VP+VN}{VP+VN+FP+FN}\)</span></td>
-<td style="text-align: left;">Proportion de prédictions correctes</td>
+<tr>
+<td>
+<strong>Accuracy</strong>
+</td>
+<td>
+<span class="math inline">\(\dfrac{VP+VN}{VP+VN+FP+FN}\)</span>
+</td>
+<td>
+Proportion de prédictions correctes
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;"><strong>Sensibilité</strong></td>
-<td style="text-align: center;"><span class="math inline">\(\dfrac{VP}{VP+FN}\)</span></td>
-<td style="text-align: left;">Proportion de positifs correctement identifiés</td>
+<tr>
+<td>
+<strong>Sensibilité</strong>
+</td>
+<td>
+<span class="math inline">\(\dfrac{VP}{VP+FN}\)</span>
+</td>
+<td>
+Proportion de lésions détectées
+</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>Spécificité</strong></td>
-<td style="text-align: center;"><span class="math inline">\(\dfrac{VN}{VN+FP}\)</span></td>
-<td style="text-align: left;">Proportion de négatifs correctement identifiés</td>
+<tr>
+<td>
+<strong>Spécificité</strong>
+</td>
+<td>
+<span class="math inline">\(\dfrac{VN}{VN+FP}\)</span>
+</td>
+<td>
+Proportion d’absences de lésion correctement identifiées
+</td>
 </tr>
 </tbody>
 </table>
@@ -1539,45 +2922,77 @@ Packed_cell_volume      Total_protein
 </section>
 <section id="application---évaluer-le-modèle" class="slide level2">
 <h2>3️⃣ Application - Évaluer le modèle</h2>
-<div style="height:10px;"></div>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="" aria-label="1"></a><span class="co"># Prédictions sur les données de test</span></span>
-<span id="cb6-2"><a href="" aria-label="2"></a>prob <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
-<span id="cb6-3"><a href="" aria-label="3"></a>  modele,</span>
-<span id="cb6-4"><a href="" aria-label="4"></a>  <span class="at">newdata =</span> test,</span>
-<span id="cb6-5"><a href="" aria-label="5"></a>  <span class="at">type =</span> <span class="st">"response"</span></span>
-<span id="cb6-6"><a href="" aria-label="6"></a>)</span>
-<span id="cb6-7"><a href="" aria-label="7"></a></span>
-<span id="cb6-8"><a href="" aria-label="8"></a>pred <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(prob <span class="sc">&gt;=</span> <span class="fl">0.5</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="" aria-label="1"></a><span class="co"># Entraîner avec le meilleur mtry</span></span>
+<span id="cb6-2"><a href="" aria-label="2"></a>modele <span class="ot">&lt;-</span> <span class="fu">ranger</span>(</span>
+<span id="cb6-3"><a href="" aria-label="3"></a>  surgical_lesion <span class="sc">~</span> .,</span>
+<span id="cb6-4"><a href="" aria-label="4"></a>  <span class="at">data =</span> train,</span>
+<span id="cb6-5"><a href="" aria-label="5"></a>  <span class="at">num.trees =</span> <span class="dv">500</span>,</span>
+<span id="cb6-6"><a href="" aria-label="6"></a>  <span class="at">mtry =</span> mtry_opt,</span>
+<span id="cb6-7"><a href="" aria-label="7"></a>  <span class="at">seed =</span> <span class="dv">123</span></span>
+<span id="cb6-8"><a href="" aria-label="8"></a>)</span>
 <span id="cb6-9"><a href="" aria-label="9"></a></span>
-<span id="cb6-10"><a href="" aria-label="10"></a><span class="co"># Matrice de confusion</span></span>
-<span id="cb6-11"><a href="" aria-label="11"></a>conf <span class="ot">&lt;-</span> <span class="fu">table</span>(</span>
-<span id="cb6-12"><a href="" aria-label="12"></a>  <span class="at">Observe =</span> <span class="fu">factor</span>(test<span class="sc">$</span>surgical_lesion,</span>
-<span id="cb6-13"><a href="" aria-label="13"></a>                   <span class="at">levels =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>),</span>
-<span id="cb6-14"><a href="" aria-label="14"></a>  <span class="at">Predit =</span> <span class="fu">factor</span>(pred, <span class="at">levels =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>)</span>
-<span id="cb6-15"><a href="" aria-label="15"></a>)</span>
-<span id="cb6-16"><a href="" aria-label="16"></a></span>
-<span id="cb6-17"><a href="" aria-label="17"></a>VN <span class="ot">&lt;-</span> conf[<span class="dv">1</span>, <span class="dv">1</span>]</span>
-<span id="cb6-18"><a href="" aria-label="18"></a>FP <span class="ot">&lt;-</span> conf[<span class="dv">1</span>, <span class="dv">2</span>]</span>
-<span id="cb6-19"><a href="" aria-label="19"></a>FN <span class="ot">&lt;-</span> conf[<span class="dv">2</span>, <span class="dv">1</span>]</span>
-<span id="cb6-20"><a href="" aria-label="20"></a>VP <span class="ot">&lt;-</span> conf[<span class="dv">2</span>, <span class="dv">2</span>]</span>
-<span id="cb6-21"><a href="" aria-label="21"></a></span>
-<span id="cb6-22"><a href="" aria-label="22"></a><span class="co"># Indicateurs de performance</span></span>
-<span id="cb6-23"><a href="" aria-label="23"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb6-24"><a href="" aria-label="24"></a>  <span class="at">Indicateur =</span> <span class="fu">c</span>(<span class="st">"Accuracy"</span>, <span class="st">"Sensibilité"</span>,</span>
-<span id="cb6-25"><a href="" aria-label="25"></a>                 <span class="st">"Spécificité"</span>),</span>
-<span id="cb6-26"><a href="" aria-label="26"></a>  <span class="at">Valeur =</span> <span class="fu">round</span>(<span class="fu">c</span>(</span>
-<span id="cb6-27"><a href="" aria-label="27"></a>    (VP <span class="sc">+</span> VN) <span class="sc">/</span> <span class="fu">sum</span>(conf),</span>
-<span id="cb6-28"><a href="" aria-label="28"></a>    VP <span class="sc">/</span> (VP <span class="sc">+</span> FN),</span>
-<span id="cb6-29"><a href="" aria-label="29"></a>    VN <span class="sc">/</span> (VN <span class="sc">+</span> FP)</span>
-<span id="cb6-30"><a href="" aria-label="30"></a>  ), <span class="dv">3</span>)</span>
-<span id="cb6-31"><a href="" aria-label="31"></a>)</span>
-<span id="cb6-32"><a href="" aria-label="32"></a></span>
-<span id="cb6-33"><a href="" aria-label="33"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-10"><a href="" aria-label="10"></a><span class="co"># Prédictions sur le jeu de test</span></span>
+<span id="cb6-11"><a href="" aria-label="11"></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
+<span id="cb6-12"><a href="" aria-label="12"></a>  modele, <span class="at">data =</span> test</span>
+<span id="cb6-13"><a href="" aria-label="13"></a>)<span class="sc">$</span>predictions</span>
+<span id="cb6-14"><a href="" aria-label="14"></a></span>
+<span id="cb6-15"><a href="" aria-label="15"></a><span class="co"># Matrice de confusion</span></span>
+<span id="cb6-16"><a href="" aria-label="16"></a>conf <span class="ot">&lt;-</span> <span class="fu">table</span>(</span>
+<span id="cb6-17"><a href="" aria-label="17"></a>  <span class="at">Observe =</span> <span class="fu">factor</span>(test<span class="sc">$</span>surgical_lesion,</span>
+<span id="cb6-18"><a href="" aria-label="18"></a>                   <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Oui"</span>, <span class="st">"Non"</span>)),</span>
+<span id="cb6-19"><a href="" aria-label="19"></a>  <span class="at">Predit =</span> <span class="fu">factor</span>(pred,</span>
+<span id="cb6-20"><a href="" aria-label="20"></a>                  <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Oui"</span>, <span class="st">"Non"</span>))</span>
+<span id="cb6-21"><a href="" aria-label="21"></a>)</span>
+<span id="cb6-22"><a href="" aria-label="22"></a></span>
+<span id="cb6-23"><a href="" aria-label="23"></a>VN <span class="ot">&lt;-</span> conf[<span class="st">"Non"</span>, <span class="st">"Non"</span>]</span>
+<span id="cb6-24"><a href="" aria-label="24"></a>FP <span class="ot">&lt;-</span> conf[<span class="st">"Non"</span>, <span class="st">"Oui"</span>]</span>
+<span id="cb6-25"><a href="" aria-label="25"></a>FN <span class="ot">&lt;-</span> conf[<span class="st">"Oui"</span>, <span class="st">"Non"</span>]</span>
+<span id="cb6-26"><a href="" aria-label="26"></a>VP <span class="ot">&lt;-</span> conf[<span class="st">"Oui"</span>, <span class="st">"Oui"</span>]</span>
+<span id="cb6-27"><a href="" aria-label="27"></a></span>
+<span id="cb6-28"><a href="" aria-label="28"></a><span class="co"># Indicateurs de performance</span></span>
+<span id="cb6-29"><a href="" aria-label="29"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb6-30"><a href="" aria-label="30"></a>  <span class="at">Indicateur =</span> <span class="fu">c</span>(<span class="st">"Accuracy"</span>, <span class="st">"Sensibilité"</span>,</span>
+<span id="cb6-31"><a href="" aria-label="31"></a>                 <span class="st">"Spécificité"</span>),</span>
+<span id="cb6-32"><a href="" aria-label="32"></a>  <span class="at">Valeur =</span> <span class="fu">round</span>(<span class="fu">c</span>(</span>
+<span id="cb6-33"><a href="" aria-label="33"></a>    (VP <span class="sc">+</span> VN) <span class="sc">/</span> <span class="fu">sum</span>(conf),</span>
+<span id="cb6-34"><a href="" aria-label="34"></a>    VP <span class="sc">/</span> (VP <span class="sc">+</span> FN),</span>
+<span id="cb6-35"><a href="" aria-label="35"></a>    VN <span class="sc">/</span> (VN <span class="sc">+</span> FP)</span>
+<span id="cb6-36"><a href="" aria-label="36"></a>  ), <span class="dv">3</span>)</span>
+<span id="cb6-37"><a href="" aria-label="37"></a>)</span>
+<span id="cb6-38"><a href="" aria-label="38"></a></span>
+<span id="cb6-39"><a href="" aria-label="39"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:50%;">
 <p><br></p>
+<p><span class="smallcaps"><u><strong>Matrice de confusion :</strong></u></span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Oui</th>
+<th style="text-align: right;">Non</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Oui</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">18</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Non</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">40</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div style="height:15px;"></div>
+<p><span class="smallcaps"><u><strong>Indicateurs de performance :</strong></u></span></p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top">
@@ -1590,78 +3005,73 @@ Packed_cell_volume      Total_protein
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Accuracy</td>
-<td style="text-align: right;">0.640</td>
+<td style="text-align: right;">0.667</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Sensibilité</td>
-<td style="text-align: right;">0.214</td>
+<td style="text-align: right;">0.357</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Spécificité</td>
-<td style="text-align: right;">0.894</td>
+<td style="text-align: right;">0.851</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<div style="height:15px;"></div>
-<div title="Interprétation">
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Interprétation</strong></p>
-</div>
-<div class="callout-content">
-<p>Le modèle détecte la présence de lésion pour <em>21,4 % des chevaux</em>, tandis qu’il détecte l’absence de lésion pour <em>89,4 % d’entre eux</em>.</p>
-</div>
-</div>
-</div>
-</div>
 </div></div>
 <div class="fragment">
-<div style="height:10px;"></div>
-<div title="Conclusion">
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Conclusion</strong></p>
-</div>
-<div class="callout-content">
-<p>Malgré une <span class="smallcaps">accuracy</span> de 64 %, le modèle détecte mal la présence d’une lésion chirurgicale.</p>
-</div>
-</div>
-</div>
+<div class="small-box">
+<p>La forêt aléatoire classe correctement <strong>66,7 % des chevaux</strong> sur le jeu de test. Cependant, elle détecte seulement <strong>35,7 % des chevaux présentant une lésion</strong>, contre <strong>85,1 % des chevaux sans lésion</strong>.</p>
 </div>
 </div>
 </section>
-<section id="à-quoi-sert-le-machine-learning" class="slide level2">
-<h2>📝 À quoi sert le Machine Learning ?</h2>
-<p><br></p>
-<p><span class="smallcaps"><u><strong>Utilisations principales :</strong></u></span></p>
-<ul>
-<li><p><span class="smallcaps">Prédire une valeur quantitative</span> - <em>Quelle sera la production laitière d’une vache ?</em></p>
-<p><span class="math inline">\(\longrightarrow\)</span> <span class="smallcaps">Régression</span>.</p></li>
-</ul>
-<div style="height:5px;"></div>
-<div class="fragment">
-<ul>
-<li><p><span class="smallcaps">Prédire une catégorie</span> - <em>Un cheval présentant des coliques a-t-il une lésion chirurgicale ?</em></p>
-<p><span class="math inline">\(\longrightarrow\)</span> <span class="smallcaps">Classification</span>.</p></li>
-</ul>
-<div style="height:5px;"></div>
+<section id="conclusion-sur-les-données-de-chevaux" class="slide level2">
+<h2>3️⃣ Conclusion sur les données de chevaux</h2>
+<p><br> <br></p>
+<div class="small-box">
+<p><strong>Peut-on prédire la présence d’une lésion chirurgicale chez un cheval souffrant de coliques à partir de ses mesures cliniques ?</strong></p>
 </div>
+<p><br> <br></p>
 <div class="fragment">
-<ul>
-<li><p><span class="smallcaps">Identifier des groupes dans les données</span> - <em>Existe-t-il différents profils cliniques parmi les animaux ?</em></p>
-<p><span class="math inline">\(\longrightarrow\)</span> <span class="smallcaps">Apprentissage non supervisé</span>.</p></li>
-</ul>
+<div style="text-align:center; padding:20px; border:2px solid #CC557C; border-radius:10px; background-color:#FFF3F5;">
+<p><strong>Les mesures cliniques permettent certaines prédictions, mais la forêt aléatoire détecte mal les chevaux présentant une lésion chirurgicale.</strong></p>
 </div>
+</div>
+</section>
+<section id="bonus-visualisation-de-larbre-de-classification-associé" class="slide level2">
+<h2>➕ Bonus : Visualisation de l’arbre de classification associé</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div class="grViz html-widget html-fill-item" id="htmlwidget-a9a7a95f198c93e593dc" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-a9a7a95f198c93e593dc">{"x":{"diagram":"digraph {\n    graph [rankdir=TB, nodesep=0.15, ranksep=0.3]\n    node [\n      shape=box,\n      style=\"rounded,filled\",\n      fontname=\"Arial\",\n      fontsize=10\n    ]\n    edge [fontname=\"Arial\", fontsize=9]\n    0 [label=\"Rectal_temperature <= 36.85 ?\", fillcolor=\"#EAF2FB\"];1 [label=\"Classe : Non\", fillcolor=\"#E4F3E8\"];2 [label=\"Pulse <= 62 ?\", fillcolor=\"#EAF2FB\"];3 [label=\"Pulse <= 58 ?\", fillcolor=\"#EAF2FB\"];4 [label=\"Respiratory_rate <= 35.5 ?\", fillcolor=\"#EAF2FB\"];5 [label=\"Pulse <= 51 ?\", fillcolor=\"#EAF2FB\"];6 [label=\"Classe : Oui\", fillcolor=\"#E4F3E8\"];7 [label=\"Pulse <= 87 ?\", fillcolor=\"#EAF2FB\"];8 [label=\"Packed_cell_volume <= 71 ?\", fillcolor=\"#EAF2FB\"];9 [label=\"Rectal_temperature <= 37.25 ?\", fillcolor=\"#EAF2FB\"];10 [label=\"Rectal_temperature <= 37.75 ?\", fillcolor=\"#EAF2FB\"];11 [label=\"Respiratory_rate <= 22.5 ?\", fillcolor=\"#EAF2FB\"];12 [label=\"Packed_cell_volume <= 47.5 ?\", fillcolor=\"#EAF2FB\"];13 [label=\"Pulse <= 104 ?\", fillcolor=\"#EAF2FB\"];14 [label=\"Classe : Oui\", fillcolor=\"#E4F3E8\"];15 [label=\"Respiratory_rate <= 8.5 ?\", fillcolor=\"#EAF2FB\"];16 [label=\"Pulse <= 39 ?\", fillcolor=\"#EAF2FB\"];17 [label=\"Classe : Non\", fillcolor=\"#E4F3E8\"];18 [label=\"Packed_cell_volume <= 51 ?\", fillcolor=\"#EAF2FB\"];19 [label=\"Classe : Non\", fillcolor=\"#E4F3E8\"];20 [label=\"Total_protein <= 35.3 ?\", fillcolor=\"#EAF2FB\"];21 [label=\"Rectal_temperature <= 38.35 ?\", fillcolor=\"#EAF2FB\"];22 [label=\"Total_protein <= 78.5 ?\", fillcolor=\"#EAF2FB\"];23 [label=\"Classe : Non\", fillcolor=\"#E4F3E8\"];24 [label=\"Packed_cell_volume <= 56.5 ?\", fillcolor=\"#EAF2FB\"];25 [label=\"Classe : Non\", fillcolor=\"#E4F3E8\"];26 [label=\"Classe : Oui\", fillcolor=\"#E4F3E8\"];27 [label=\"Classe : Non\", fillcolor=\"#E4F3E8\"];28 [label=\"Packed_cell_volume <= 37.5 ?\", fillcolor=\"#EAF2FB\"];29 [label=\"Classe : Oui\", fillcolor=\"#E4F3E8\"];30 [label=\"Rectal_temperature <= 38.05 ?\", fillcolor=\"#EAF2FB\"];31 [label=\"Classe : Non\", fillcolor=\"#E4F3E8\"];32 [label=\"Rectal_temperature <= 38 ?\", fillcolor=\"#EAF2FB\"];33 [label=\"Classe : Oui\", fillcolor=\"#E4F3E8\"];34 [label=\"Respiratory_rate <= 22 ?\", fillcolor=\"#EAF2FB\"];35 [label=\"Pulse <= 92 ?\", fillcolor=\"#EAF2FB\"];36 [label=\"Classe : Oui\", fillcolor=\"#E4F3E8\"];37 [label=\"Classe : Non\", fillcolor=\"#E4F3E8\"];38 [label=\"Classe : Oui\", fillcolor=\"#E4F3E8\"];39 [label=\"Total_protein <= 72 ?\", fillcolor=\"#EAF2FB\"];40 [label=\"Packed_cell_volume <= 40.5 ?\", fillcolor=\"#EAF2FB\"];41 [label=\"Classe : Non\", fillcolor=\"#E4F3E8\"];42 [label=\"Classe : Oui\", fillcolor=\"#E4F3E8\"];43 [label=\"Classe : Non\", fillcolor=\"#E4F3E8\"];44 [label=\"Packed_cell_volume <= 44.5 ?\", fillcolor=\"#EAF2FB\"];45 [label=\"Classe : Non\", fillcolor=\"#E4F3E8\"];46 [label=\"Classe : Oui\", fillcolor=\"#E4F3E8\"];47 [label=\"Packed_cell_volume <= 59 ?\", fillcolor=\"#EAF2FB\"];48 [label=\"Packed_cell_volume <= 71.5 ?\", fillcolor=\"#EAF2FB\"];49 [label=\"Rectal_temperature <= 38.1 ?\", fillcolor=\"#EAF2FB\"];50 [label=\"Classe : Non\", fillcolor=\"#E4F3E8\"];51 [label=\"Total_protein <= 59.5 ?\", fillcolor=\"#EAF2FB\"];52 [label=\"Rectal_temperature <= 37.9 ?\", fillcolor=\"#EAF2FB\"];53 [label=\"Pulse <= 79 ?\", fillcolor=\"#EAF2FB\"];54 [label=\"Classe : Non\", fillcolor=\"#E4F3E8\"];55 [label=\"Classe : Oui\", fillcolor=\"#E4F3E8\"];56 [label=\"Classe : Non\", fillcolor=\"#E4F3E8\"];57 [label=\"Respiratory_rate <= 32.5 ?\", fillcolor=\"#EAF2FB\"];58 [label=\"Classe : Oui\", fillcolor=\"#E4F3E8\"];59 [label=\"Pulse <= 43 ?\", fillcolor=\"#EAF2FB\"];60 [label=\"Classe : Oui\", fillcolor=\"#E4F3E8\"];61 [label=\"Rectal_temperature <= 38.35 ?\", fillcolor=\"#EAF2FB\"];62 [label=\"Classe : Oui\", fillcolor=\"#E4F3E8\"];63 [label=\"Pulse <= 42 ?\", fillcolor=\"#EAF2FB\"];64 [label=\"Rectal_temperature <= 38.25 ?\", fillcolor=\"#EAF2FB\"];65 [label=\"Classe : Oui\", fillcolor=\"#E4F3E8\"];66 [label=\"Classe : Non\", fillcolor=\"#E4F3E8\"];67 [label=\"Classe : Non\", fillcolor=\"#E4F3E8\"];68 [label=\"Classe : Oui\", fillcolor=\"#E4F3E8\"];69 [label=\"Classe : Oui\", fillcolor=\"#E4F3E8\"];70 [label=\"Respiratory_rate <= 14 ?\", fillcolor=\"#EAF2FB\"];71 [label=\"Classe : Non\", fillcolor=\"#E4F3E8\"];72 [label=\"Rectal_temperature <= 38.6 ?\", fillcolor=\"#EAF2FB\"];73 [label=\"Classe : Non\", fillcolor=\"#E4F3E8\"];74 [label=\"Respiratory_rate <= 22 ?\", fillcolor=\"#EAF2FB\"];75 [label=\"Classe : Non\", fillcolor=\"#E4F3E8\"];76 [label=\"Pulse <= 41 ?\", fillcolor=\"#EAF2FB\"];77 [label=\"Classe : Non\", fillcolor=\"#E4F3E8\"];78 [label=\"Total_protein <= 6 ?\", fillcolor=\"#EAF2FB\"];79 [label=\"Classe : Oui\", fillcolor=\"#E4F3E8\"];80 [label=\"Classe : Non\", fillcolor=\"#E4F3E8\"];81 [label=\"Respiratory_rate <= 18 ?\", fillcolor=\"#EAF2FB\"];82 [label=\"Classe : Oui\", fillcolor=\"#E4F3E8\"];83 [label=\"Classe : Oui\", fillcolor=\"#E4F3E8\"];84 [label=\"Rectal_temperature <= 38.5 ?\", fillcolor=\"#EAF2FB\"];85 [label=\"Classe : Non\", fillcolor=\"#E4F3E8\"];86 [label=\"Classe : Oui\", fillcolor=\"#E4F3E8\"];87 [label=\"Classe : Oui\", fillcolor=\"#E4F3E8\"];88 [label=\"Classe : Non\", fillcolor=\"#E4F3E8\"];89 [label=\"Pulse <= 48.5 ?\", fillcolor=\"#EAF2FB\"];90 [label=\"Respiratory_rate <= 27 ?\", fillcolor=\"#EAF2FB\"];91 [label=\"Classe : Oui\", fillcolor=\"#E4F3E8\"];92 [label=\"Classe : Non\", fillcolor=\"#E4F3E8\"];93 [label=\"Classe : Oui\", fillcolor=\"#E4F3E8\"];94 [label=\"Classe : Non\", fillcolor=\"#E4F3E8\"];0 -> 1 [label=\"Oui\"];0 -> 2 [label=\"Non\"];2 -> 3 [label=\"Oui\"];2 -> 4 [label=\"Non\"];3 -> 5 [label=\"Oui\"];3 -> 6 [label=\"Non\"];4 -> 7 [label=\"Oui\"];4 -> 8 [label=\"Non\"];5 -> 9 [label=\"Oui\"];5 -> 10 [label=\"Non\"];7 -> 11 [label=\"Oui\"];7 -> 12 [label=\"Non\"];8 -> 13 [label=\"Oui\"];8 -> 14 [label=\"Non\"];9 -> 15 [label=\"Oui\"];9 -> 16 [label=\"Non\"];10 -> 17 [label=\"Oui\"];10 -> 18 [label=\"Non\"];11 -> 19 [label=\"Oui\"];11 -> 20 [label=\"Non\"];12 -> 21 [label=\"Oui\"];12 -> 22 [label=\"Non\"];13 -> 23 [label=\"Oui\"];13 -> 24 [label=\"Non\"];15 -> 25 [label=\"Oui\"];15 -> 26 [label=\"Non\"];16 -> 27 [label=\"Oui\"];16 -> 28 [label=\"Non\"];18 -> 29 [label=\"Oui\"];18 -> 30 [label=\"Non\"];20 -> 31 [label=\"Oui\"];20 -> 32 [label=\"Non\"];21 -> 33 [label=\"Oui\"];21 -> 34 [label=\"Non\"];22 -> 35 [label=\"Oui\"];22 -> 36 [label=\"Non\"];24 -> 37 [label=\"Oui\"];24 -> 38 [label=\"Non\"];28 -> 39 [label=\"Oui\"];28 -> 40 [label=\"Non\"];30 -> 41 [label=\"Oui\"];30 -> 42 [label=\"Non\"];32 -> 43 [label=\"Oui\"];32 -> 44 [label=\"Non\"];34 -> 45 [label=\"Oui\"];34 -> 46 [label=\"Non\"];35 -> 47 [label=\"Oui\"];35 -> 48 [label=\"Non\"];39 -> 49 [label=\"Oui\"];39 -> 50 [label=\"Non\"];40 -> 51 [label=\"Oui\"];40 -> 52 [label=\"Non\"];44 -> 53 [label=\"Oui\"];44 -> 54 [label=\"Non\"];47 -> 55 [label=\"Oui\"];47 -> 56 [label=\"Non\"];48 -> 57 [label=\"Oui\"];48 -> 58 [label=\"Non\"];49 -> 59 [label=\"Oui\"];49 -> 60 [label=\"Non\"];51 -> 61 [label=\"Oui\"];51 -> 62 [label=\"Non\"];52 -> 63 [label=\"Oui\"];52 -> 64 [label=\"Non\"];53 -> 65 [label=\"Oui\"];53 -> 66 [label=\"Non\"];57 -> 67 [label=\"Oui\"];57 -> 68 [label=\"Non\"];59 -> 69 [label=\"Oui\"];59 -> 70 [label=\"Non\"];61 -> 71 [label=\"Oui\"];61 -> 72 [label=\"Non\"];63 -> 73 [label=\"Oui\"];63 -> 74 [label=\"Non\"];64 -> 75 [label=\"Oui\"];64 -> 76 [label=\"Non\"];70 -> 77 [label=\"Oui\"];70 -> 78 [label=\"Non\"];72 -> 79 [label=\"Oui\"];72 -> 80 [label=\"Non\"];74 -> 81 [label=\"Oui\"];74 -> 82 [label=\"Non\"];76 -> 83 [label=\"Oui\"];76 -> 84 [label=\"Non\"];78 -> 85 [label=\"Oui\"];78 -> 86 [label=\"Non\"];81 -> 87 [label=\"Oui\"];81 -> 88 [label=\"Non\"];84 -> 89 [label=\"Oui\"];84 -> 90 [label=\"Non\"];89 -> 91 [label=\"Oui\"];89 -> 92 [label=\"Non\"];90 -> 93 [label=\"Oui\"];90 -> 94 [label=\"Non\"]}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="objectifs-du-cours-4" class="slide level2">
+<h2>📖 Objectifs du cours</h2>
+<br>
+<br>
+<div style="height:45px;"></div>
+<div style="color: #A1A1AA;">
+<ol type="1">
+<li>Pourquoi faire du Machine Learning ? (Intérêt &amp; Exemple de méthodes)</li>
+</ol>
+</div>
+<div style="height:25px;"></div>
+<div style="color: #A1A1AA;">
+<ol start="2" type="1">
+<li>Comment construire un modèle de ML et évaluer sa qualité ? (Théorie)</li>
+</ol>
+</div>
+<div style="height:25px;"></div>
+<div style="color: #A1A1AA;">
+<ol start="3" type="1">
+<li>Pratique : Construire un modèle de ML et évaluer sa qualité avec R</li>
+</ol>
+</div>
+<div style="height:25px;"></div>
+<p><strong>4. Exemple concret d’une contribution en sciences vétérinaires &amp; Conclusion</strong></p>
 </section>
 <section id="exemple-dutilisation-en-sciences-vétérinaires" class="slide level2">
 <h2>📑 Exemple d’utilisation en sciences vétérinaires</h2>
@@ -1679,14 +3089,15 @@ Packed_cell_volume      Total_protein
 <p><strong>Note</strong></p>
 </div>
 <div class="callout-content">
-<p>Dans cet article, des modèles de <em>machine-learning</em>, notamment des forêts aléatoires, sont utilisés pour prédire la <em>survie de chevaux présentant des coliques à partir de données cliniques et de tests de coagulation</em>.</p>
+<p>Dans cet article, une forêt aléatoire est utilisée pour <em>prédire la survie de 57 chevaux présentant des coliques</em>, à partir de données cliniques et sanguines.</p>
+<p>Avec une <strong>sensibilité de 90,9 %</strong> et une <strong>spécificité de 83,3 %</strong>, la forêt aléatoire identifie correctement la majorité des chevaux qui survivront et de ceux qui décéderont.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="conclusion" class="slide level2">
 <h2>🎯 Conclusion</h2>
-<div style="height:20px;"></div>
+<p><br></p>
 <p><span class="smallcaps"><u><strong>A retenir (5 étapes pour construire et évaluer la qualité d’un modèle) :</strong></u></span></p>
 <ol type="1">
 <li><strong>Préparer les données</strong> : sélectionner les variables et vérifier leur qualité.</li>
@@ -1696,8 +3107,12 @@ Packed_cell_volume      Total_protein
 <li><strong>Évaluer le modèle</strong> : mesurer les performances sur les données de test.</li>
 </ol>
 <div style="height:65px;"></div>
-<p>📌 <span class="smallcaps"><u><strong>Programme du prochain cours :</strong></u></span> Introduction à l’apprentissage non supervisé.</p>
+<p>📌 <span class="smallcaps"><u><strong>Programme du prochain cours :</strong></u></span> Catalogue de méthodes d’apprentissage supervisé.</p>
 </section>
+<section id="quiz-de-fin-de-séance" class="slide level2">
+<h2>📝 Quiz de fin de séance</h2>
+
+<img data-src="figures/quiz_fin_séance.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="références" class="slide level2 smaller scrollable">
 <h2>Références</h2>
 
