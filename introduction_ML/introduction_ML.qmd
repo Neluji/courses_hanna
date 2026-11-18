@@ -1257,7 +1257,7 @@ $\longrightarrow$ On obtient ainsi plusieurs arbres, qui apprennent des règles 
 </table>
 
 ```{=html}
-<div style="height:10px;"></div>
+<div style="height:20px;"></div>
 ```
 
 . . .

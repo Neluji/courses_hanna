@@ -2734,7 +2734,7 @@ ggplot(data, aes(X, Y)) +
 
 |  |
 |:----------------------------------------------------------------------:|
-| La dispersion des $Y$ est constante quelque soit la valeur de $X$, les données sont **homoscédastiques**. |
+| La dispersion des $Y$ est constante quelque soit la valeur de $X$ : c'est l'**homoscédasticité**. |
 
 ```{=html}
 <div style="height:35px;"></div>
