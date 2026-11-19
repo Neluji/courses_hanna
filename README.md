@@ -4,9 +4,9 @@
   - anova_1_facteur
   - anova_2_facteurs
   - introduction_ML
-  - intervalles_confiance_et_prediction
+  - intervalles_confiance_prediction
   - regression_lineaire_multiple
-  - regression_lineaire_multivariee
+  - regression_multivariee
   - regression_lineaire_simple
   - tests_hypothèses
 
