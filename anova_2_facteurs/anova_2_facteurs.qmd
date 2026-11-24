@@ -27,72 +27,199 @@ library(patchwork)
 library(car)
 ```
 
-## 💭 Avant de commencer
+## Positionnement du cours dans le module 
 
-:::::::: columns
-:::: {.column width="60%"}
-- [[**Retour sur le quiz du dernier cours :**]{.underline}]{.smallcaps}
+```{=html}
+<br>
+<br>
+<div style="height:45px;"></div>
+```
 
-::: {style="margin-top: -25px;"}
-![](figures/quiz_debut_seance.png){fig-align="center" width="100%"}
+- Modèle linéaire simple
+
+
+```{=html}
+<div style="height:5px;"></div>
+```
+
+- Modèle linéaire multiple
+
+
+
+```{=html}
+<div style="height:5px;"></div>
+```
+
+- Intervalles de confiance et de fluctuation
+
+
+```{=html}
+<div style="height:5px;"></div>
+```
+
+- Tests d'hypothèses 
+
+. . .
+
+```{=html}
+<div style="height:5px;"></div>
+```
+
+$\longrightarrow$  **ANOVA à 1 et 2 facteurs**
+
+
+## 💭 Avant de commencer - Quiz 1
+
+(question sur les modèles linéaires)
+
+Réponse : Un modèle linéaire XX
+
+## 💭 Avant de commencer - Quiz 2
+
+(question sur les tests)
+
+## 💭 Avant de commencer - Rappels sur les tests 
+
+```{=html}
+<div style="height:5px;"></div>
+```
+
+> Observer les différences entre les groupes ne suffit pas : un [test d'hypothèse]{.smallcaps} permet de déterminer si elles sont significatives.
+
+. . .
+
+```{=html}
+<div style="height:15px;"></div>
+```
+
+::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top: 1px;padding-bottom: 5px;"}
+[[Hypothèses (test bilatéral):]{.underline}]{.smallcaps}
+
+$$\small H_0:\mu=\mu_0 \qquad\qquad\qquad H_1:\mu\neq\mu_0$$
+:::
+
+```{=html}
+<div style="height:20px;"></div>
+```
+
+::::::::: columns
+:::: {.column width="33%"}
+::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top: 1px;padding-bottom: 5px;"}
+[[erreurs :]{.underline}]{.smallcaps}
+
+```{=html}
+<div style="height:22.75px;"></div>
+```
+
+|   | **Ne pas rejeter** $\small H_0$ | **Rejeter** $\small H_0$ |
+|------------------------|------------------------|------------------------|
+| $\small H_0$ **vraie** | ✅ Bonne décision | ❌ **Type I :** $\small \alpha$ |
+| $\small H_0$ **fausse** | ❌ **Type II :** $\small \beta$ | ✅ Bonne décision |
+
+$$\small    \alpha    =        P(\text{rejeter }H_0\mid H_0\text{ vraie})$$
+
+$$\small    \beta    =        P(\text{ne pas rejeter }H_0\mid H_0\text{ fausse})$$
 :::
 ::::
 
-::::: {.column width="40%"}
-. . .
+:::: {.column width="33%"}
+::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top:1px;padding-bottom: 5px;"}
+[[Statistique de test :]{.underline}]{.smallcaps}
 
-<br>
+```{=html}
+<div style="height:0.03px;"></div>
+```
 
-- [[**Un petit exemple concret :**]{.underline}]{.smallcaps}
+$$\small T = \frac{\bar X-\mu_0}{s/\sqrt n}$$
 
-::: {style="margin-top: -25px; font-size: 0.7em"}
+> La statistique de test mesure l'écart à $\small H_0$ relativement à la variabilité de l'estimation.
+
+$$\small H_0 \quad \Longrightarrow \quad T\sim \mathcal{t}(0, 1)$$
+:::
+::::
+
+:::: {.column width="33%"}
+::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top: 1px;padding-bottom: 5px;"}
+[[p-value et décision :]{.underline}]{.smallcaps}
+
+```{=html}
+<div style="height:0.014px;"></div>
+```
+
+$$\small p = P_{H_0} \left( |T|\geq |T_{\mathrm{obs}}| \right)$$
+
+> La p-valeur est le plus petit risque pour lequel on rejetterait $\small H_0$.
+
 $$
 \small
-\begin{array}{c|cccccc}
-\small \text{Végétarien } &
-\small \boxed{\text{O}} & \small \boxed{N} & \small \boxed{N} &
-\small \boxed{N} & \small \boxed{O} & \small \boxed{O} \\[8pt]
-\text{Conso. de café} &
-\small \boxed{-} & \small \boxed{+} & \small \boxed{-} &
-\small \boxed{+} & \small \boxed{-} & \small \boxed{+} \\[8pt]
-\text{Tps au semi} &
-\small \boxed{105} & \small \boxed{130} & \small \boxed{115} &
-\small \boxed{120} & \small \boxed{110} & \small \boxed{135} 
-\end{array}
+\begin{cases}
+p < \alpha & \Longrightarrow \text{rejet de } H_0\\
+p \geq \alpha & \Longrightarrow \text{non-rejet de } H_0
+\end{cases}
 $$
 :::
+::::
+:::::::::
 
-. . .
 
-::: grande-fig
+## 💭 Avant de commencer - Quiz 3
+
+(question sur les notations)
+
+
+Soit $X = (x_1, ..., x_N)$ un vecteur de données. 
+- $\mu$ est la *vraie* valeur de la moyenne
+- $\hat{\mu}$ une *estimation* de la valeur de la moyenne, telle que $\hat{\mu} = \frac{1}{N} \sum_\limits{i = 1}^N x_i$.
+
+
+## 💭 Avant de commencer - Combien de temps passez-vous sous la douche ?
+
+
 ```{r}
+
 #| echo: false
 #| message: false
 #| warning: false
 #| fig-height: 3.25
 #| fig-width: 4.25
 
+library(dplyr)
+library(plotly)
 
 # Données
 df <- data.frame(
-  Vegetarien = c(1, 0, 0, 0, 1, 1),
-  Cafe = c(0, 1, 0, 1, 0, 1),
-  Temps = c(105, 130, 115, 120, 110, 135)
+  Cheveux = rep(c("Court", "Mi-long", "Long"), each = 10),
+  Chant = rep(rep(c("Non", "Oui"), each = 5), 3),
+  Temps = c(
+     4,  5,  6,  7,  8,  # Court × Non
+     7,  9, 10, 11, 13,  # Court × Oui
+     6,  8,  9, 10, 12,  # Mi-long × Non
+    10, 12, 14, 16, 18,  # Mi-long × Oui
+     8, 10, 12, 14, 16,  # Long × Non
+    17, 19, 22, 24, 28   # Long × Oui
+  )
 ) %>%
   mutate(
-    Regime = ifelse(Vegetarien == 1, "Végé", "Non végé"),
-    Conso = ifelse(Cafe == 1, "Café +", "Café -"),
-    Groupe = paste(Regime, Conso, sep = " × ")
+    Cheveux = factor(
+      Cheveux,
+      levels = c("Court", "Mi-long", "Long")
+    ),
+    Chant = factor(Chant, levels = c("Non", "Oui")),
+    Groupe = paste(Cheveux, Chant, sep = " × ")
   )
 
 # Groupes
-groupes_regime <- c("Végé", "Non végé")
-groupes_cafe <- c("Café -", "Café +")
+groupes_cheveux <- c("Court", "Mi-long", "Long")
+
+groupes_chant <- c("Non", "Oui")
+
 groupes_interaction <- c(
-  "Végé × Café -",
-  "Végé × Café +",
-  "Non végé × Café -",
-  "Non végé × Café +"
+  "Court × Non",
+  "Court × Oui",
+  "Mi-long × Non",
+  "Mi-long × Oui",
+  "Long × Non",
+  "Long × Oui"
 )
 
 # Fonction pour ajouter les boxplots
@@ -126,8 +253,8 @@ ajouter_boxplots <- function(p, variable, groupes, visible) {
 # Graphique
 p <- plot_ly()
 
-p <- ajouter_boxplots(p, "Regime", groupes_regime, TRUE)
-p <- ajouter_boxplots(p, "Conso", groupes_cafe, FALSE)
+p <- ajouter_boxplots(p, "Cheveux", groupes_cheveux, TRUE)
+p <- ajouter_boxplots(p, "Chant", groupes_chant, FALSE)
 p <- ajouter_boxplots(p, "Groupe", groupes_interaction, FALSE)
 
 # Menu déroulant
@@ -141,48 +268,51 @@ p <- p %>%
       yanchor = "top",
       buttons = list(
         list(
-          label = "Régime",
+          label = "Cheveux",
           method = "update",
           args = list(
             list(visible = c(
+              rep(TRUE, 3),
+              rep(FALSE, 8)
+            )),
+            list(xaxis = list(
+              title = "",
+              categoryorder = "array",
+              categoryarray = groupes_cheveux,
+              tickangle = 0
+            ))
+          )
+        ),
+        list(
+          label = "Chant",
+          method = "update",
+          args = list(
+            list(visible = c(
+              rep(FALSE, 3),
               rep(TRUE, 2),
               rep(FALSE, 6)
             )),
             list(xaxis = list(
               title = "",
               categoryorder = "array",
-              categoryarray = groupes_regime
+              categoryarray = groupes_chant,
+              tickangle = 0
             ))
           )
         ),
         list(
-          label = "Conso de café",
+          label = "Cheveux × Chant",
           method = "update",
           args = list(
             list(visible = c(
-              rep(FALSE, 2),
-              rep(TRUE, 2),
-              rep(FALSE, 4)
+              rep(FALSE, 5),
+              rep(TRUE, 6)
             )),
             list(xaxis = list(
               title = "",
               categoryorder = "array",
-              categoryarray = groupes_cafe
-            ))
-          )
-        ),
-        list(
-          label = "Régime × Café",
-          method = "update",
-          args = list(
-            list(visible = c(
-              rep(FALSE, 4),
-              rep(TRUE, 4)
-            )),
-            list(xaxis = list(
-              title = "",
-              categoryorder = "array",
-              categoryarray = groupes_interaction
+              categoryarray = groupes_interaction,
+              tickangle = -45
             ))
           )
         )
@@ -191,22 +321,22 @@ p <- p %>%
     xaxis = list(
       title = "",
       categoryorder = "array",
-      categoryarray = groupes_regime
+      categoryarray = groupes_cheveux
     ),
     yaxis = list(
-      title = "Tps au semi (min)",
-      range = c(95, 145),
-      dtick = 10
+      title = "Temps sous la douche (min)",
+      range = c(0, 35),
+      dtick = 5
     ),
     showlegend = FALSE,
-    margin = list(t = 30, b = 65, l = 60, r = 20)
+    margin = list(t = 30, b = 90, l = 65, r = 20)
   )
 
 p
 ```
-:::
-:::::
-::::::::
+
+
+
 
 ## 🔍 Introduction : L'ANOVA, qu'est-ce que c'est ?
 
@@ -224,9 +354,9 @@ p
 
 | Questions de recherche | Facteur(s) {modalités} | $Y$ = variable expliquée |
 |------------------------|------------------------|------------------------|
-| Le type d'alimentation et le médicament donné influencent-ils la durée de guérison de l'animal ? | Type d'alimentation {granules, foin, ...} +/$\times$ Médicament {A, B} | Durée de guérison |
-| La ville et le quartier ont-ils un effet sur le prix d'un logement ? | Ville {Montpellier, Paris, Toulouse} +/$\times$ Type de quartier {Hyper-centre, Universités, Périphérie} | Prix du logement |
 | L'espérance de vie d'un animal diffère-t-elle selon son sexe ? | Sexe {M stérilisé ou non / F stérilisé ou non} | Espérance de vie |
+| Le type d'alimentation et le médicament donné influencent-ils la durée de guérison de l'animal ? | Type d'alimentation {granules, foin, ...} & Médicament {A, B} | Durée de guérison |
+| La ville et le quartier ont-ils un effet sur le prix d'un logement ? | Ville {Montpellier, Paris, Toulouse} & Type de quartier {Hyper-centre, Universités, Périphérie} | Prix du logement |
 
 . . .
 
@@ -250,25 +380,45 @@ L'objectif de l'ANOVA est de comparer les moyennes de $Y$ pour chacun des groupe
 <div style="height:35px;"></div>
 ```
 
-::: {#tableau-focus}
-| Questions de recherche | Facteur(s) {modalités} | $Y$ = variable expliquée |
-|------------------------|------------------------|------------------------|
-| Le type d'alimentation et le médicament donné influencent-ils la durée de guérison de l'animal ? | Type d'alimentation {granules, foin, ...} +/$\times$ Médicament {A, B} | Durée de guérison |
-| La ville et le quartier ont-ils un effet sur le prix d'un logement ? | Ville {Montpellier, Paris, Toulouse} +/$\times$ Type de quartier {Hyper-centre, Universités, Périphérie} | Prix du logement |
-| L'espérance de vie d'un animal diffère-t-elle selon son sexe ? | Sexe {M stérilisé ou non / F stérilisé ou non} | Espérance de vie |
+::: {style="text-align: center;"}
+
+*« Je m'intéresse au comportement social des souris. J'ai constitué plusieurs groupes de souris, mâles et femelles, vivant seules ou en communauté, et j'ai mesuré le temps qu'elles passent en contact avec leurs congénères. Comment comprendre influence leur comportement social ? »*
+
 :::
 
 ```{=html}
-<div style="height:35px;"></div>
+<div style="height:10px;"></div>
 ```
 
-. . .
+<table>
+  <thead>
+    <tr>
+      <th>Facteur</th>
+      <th>Modalité</th>
+      <th>Variable expliquée $Y$</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="2">Type d'hébergement </td>
+      <td>Seule</td>
+      <td rowspan="4" style="vertical-align:middle; text-align:center;">
+        Durée de contact avec les congénères
+      </td>
+    </tr>
+    <tr>
+      <td>En communauté</td>
+    </tr>
+    <tr>
+      <td rowspan="2">Sexe </td>
+      <td>Femelle</td>
+    </tr>
+    <tr>
+      <td>Mâle</td>
+    </tr>
+  </tbody>
+</table>
 
-::: small-box
-Dans ce cours, on va se concentrer sur l'[ANOVA à deux facteurs]{.smallcaps} :
-
-Quels sont les effets de **chacun des 2 facteurs A et B** et celui de leur **interaction** sur **1 variable** $Y$ ?
-:::
 
 ## 🐁 Application : Présentation des données
 
@@ -280,8 +430,8 @@ Quels sont les effets de **chacun des 2 facteurs A et B** et celui de leur **int
 
 . . .
 
-::::::::: columns
-::::: {.column width="61%"}
+:::::::: columns
+:::: {.column width="61%"}
 ```{=html}
 <div style="height:30px;"></div>
 ```
@@ -294,18 +444,18 @@ Quels sont les effets de **chacun des 2 facteurs A et B** et celui de leur **int
   - Sex $=$ Sexe à $2$ modalités
 
 | Facteur     | Modalité           | Définition                  | Nb. d'individus |
-|------------------|------------------|--------------------|------------------|
-| Housing (A) | Group ($k_{A,1}$)  | Souris vivant en communauté | 10              |
-| Housing (A) | Single ($k_{A,2}$) | Souris vivant isolée        | 10              |
-| Sex (B)     | Female ($k_{B,1}$) | Souris femelle              | 10              |
-| Sex (B)     | Male ($k_{B,2}$)   | Souris mâle                 | 10              |
+|-------------|--------------------|-----------------------------|------------|
+| Housing (A) | Group ($k_{A,1}$)  | Souris vivant en communauté | 10         |
+| Housing (A) | Single ($k_{A,2}$) | Souris vivant isolée        | 10         |
+| Sex (B)     | Female ($k_{B,1}$) | Souris femelle              | 10         |
+| Sex (B)     | Male ($k_{B,2}$)   | Souris mâle                 | 10         |
 :::
-:::::
+::::
 
 ::::: {.column width="39%"}
 :::: columns
 ```{=html}
-<div style="height:10px;"></div>
+<div style="height:43px;"></div>
 ```
 
 ::: fragment
@@ -350,101 +500,98 @@ knitr::kable(data_mice[c(20:23, 17:19, 38:40), ])
 :::
 ::::
 :::::
-:::::::::
+::::::::
 
 ## 🐁 Application : Question de recherche
 
 :::: center-text
 ::: highlight-box
-**Le sexe et le type d'hébergement des souris ont-ils un effet sur la durée de leurs interactions sociales ? Existe-t-il un effet combiné de ces deux facteurs ?**
+**Le sexe et le type d'hébergement des souris ont-ils un effet sur la durée de leurs interactions sociales ? La différence entre les mâles et les femelles dépend-elle du type d'habitat ?**
 :::
 ::::
 
-## 📖 Objectifs du cours
-
-```{=html}
-<br>
-<br>
-<div style="height:45px;"></div>
-```
-
-1.  L'ANOVA, un test d'hypothèse : que cherche-t-on à tester ?
-
-. . .
-
-```{=html}
-<div style="height:15px;"></div>
-```
-
-2.  Comment réaliser une ANOVA à deux facteurs et interpréter ses effets ?
-
-. . .
-
-```{=html}
-<div style="height:15px;"></div>
-```
-
-3.  Quelles sont les hypothèses à vérifier avant de réaliser une ANOVA ?
-
-. . .
-
-```{=html}
-<div style="height:15px;"></div>
-```
-
-4.  Application aux données de souris avec R
-
-. . .
-
-```{=html}
-<div style="height:15px;"></div>
-```
-
-5.  Bonus, Exemple de contributions en sciences vétérinaire & Conclusion
 
 ## 📖 Objectifs du cours
 
-```{=html}
-<br>
-<br>
-<div style="height:45px;"></div>
-```
-
-**1. L'ANOVA, un test d'hypothèse : que cherche-t-on à tester ?**
 
 ```{=html}
-<div style="height:15px;"></div>
+
+<div style="height:30px;"></div>
+
+<ol style="margin:0;">
+
+  <li style="margin-bottom:35px;">
+    Comment tester les effets d'un seul facteur ?
+    <ul style="margin-left:40px;">
+      <li>L'intuition derrière l'ANOVA</li>
+      <li>Définition et conduite de l'ANOVA à 1 facteur</li>
+    </ul>
+  </li>
+
+  <li class="fragment" style="margin-bottom:35px;">
+    Comment tester l'interaction entre deux facteurs ?
+    <ul style="margin-left:40px;">
+      <li>Pourquoi tester l'interaction ?</li>
+      <li>Définition et conduite de l'ANOVA à 2 facteurs</li>
+    </ul>
+  </li>
+
+  <li class="fragment" style="margin-bottom:35px;">
+    Quelles sont les hypothèses à vérifier avant de réaliser une ANOVA ?
+  </li>
+
+  <li class="fragment" style="margin-bottom:35px;">
+    Application aux données de souris avec R
+  </li>
+
+  <li class="fragment">
+    Bonus, Exemple de contributions en sciences vétérinaires &amp; Conclusion
+  </li>
+
+</ol>
 ```
 
-::: {style="color: #A1A1AA;"}
-2.  Comment réaliser une ANOVA à deux facteurs et interpréter ses effets ?
-:::
+
+## 📖 Objectifs du cours
 
 ```{=html}
-<div style="height:15px;"></div>
+
+<div style="height:30px;"></div>
+
+<ol style="margin:0;">
+
+  <li style="margin-bottom:35px; color:black;">
+    <strong>Comment tester les effets d'un seul facteur ?</strong>
+    <ul style="margin-left:40px; font-weight:normal;">
+      <li>L'intuition derrière l'ANOVA</li>
+      <li>Définition et conduite de l'ANOVA à 1 facteur</li>
+    </ul>
+  </li>
+
+  <li style="margin-bottom:35px; color:#A1A1AA;">
+    Comment tester l'interaction entre deux facteurs ?
+    <ul style="margin-left:40px;">
+      <li>Pourquoi tester l'interaction ?</li>
+      <li>Définition et conduite de l'ANOVA à 2 facteurs</li>
+    </ul>
+  </li>
+
+  <li style="margin-bottom:35px; color:#A1A1AA;">
+    Quelles sont les hypothèses à vérifier avant de réaliser une ANOVA ?
+  </li>
+
+  <li style="margin-bottom:35px; color:#A1A1AA;">
+    Application aux données de souris avec R
+  </li>
+
+  <li style="color:#A1A1AA;">
+    Bonus, Exemple de contributions en sciences vétérinaires &amp; Conclusion
+  </li>
+
+</ol>
 ```
 
-::: {style="color: #A1A1AA;"}
-3.  Quelles sont les hypothèses à vérifier avant de réaliser une ANOVA ?
-:::
-
-```{=html}
-<div style="height:15px;"></div>
-```
-
-::: {style="color: #A1A1AA;"}
-4.  Application aux données de souris avec R
-:::
-
-```{=html}
-<div style="height:15px;"></div>
-```
-
-::: {style="color: #A1A1AA;"}
-5.  Bonus, Exemple de contributions en sciences vétérinaire & Conclusion
-:::
-
-## 1️⃣ Introduction à l'ANOVA à 2 facteurs - Intuition
+## 1️⃣ Introduction à l'ANOVA à 1 facteur - Intuition
 
 ```{=html}
 <div style="height:2px;"></div>
@@ -452,9 +599,8 @@ knitr::kable(data_mice[c(20:23, 17:19, 38:40), ])
 
 [[Questions :]{.underline}]{.smallcaps}
 
-- Y a-t-il un effet du sexe sur la durée de contact ? Et pour l'hébergement ?
-
-- Y a-t-il un effet croisé du sexe et de l'hébergement sur la durée de contact ?
+- Y a-t-il un effet du sexe sur la durée de contact ? 
+- Y a-t-il un effet de l'hébergement sur la durée de contact ?
 
 ```{r}
 #| echo: false
@@ -554,272 +700,281 @@ p_interaction <- ggplot(
 
 ```
 
+
 :::::: columns
-::: {.column width="33%"}
+::: {.column width="50%"}
 ```{r}
 #| echo: false
-#| fig-height: 5.25
-#| fig-width: 5
-#| out-width: "100%"
+#| fig-height: 3.5
+#| fig-width: 3.75
+#| fig-align: center
 
 p_sex
 ```
 :::
 
-::: {.column width="33%"}
+::: {.column width="50%"}
 ```{r}
 #| echo: false
-#| fig-height: 5.25
-#| fig-width: 5
-#| out-width: "100%"
+#| fig-height: 3.5
+#| fig-width: 3.75
+#| fig-align: center
 
 p_housing
 ```
 :::
 
-::: {.column width="33%"}
-```{r}
-#| echo: false
-#| fig-height: 5.25
-#| fig-width: 5
-#| out-width: "100%"
-
-p_interaction
-```
-:::
 ::::::
 
 . . .
 
-::: {.small-box style="margin-top: 0;"}
+::: {.small-box style="margin-top: -17px;"}
 **Les moyennes entre les groupes sont toutes différentes, mais est-ce suffisant pour conclure à un effet ?**
 :::
 
+
+
 ## 1️⃣ Pourquoi parle-t-on d'analyse de variance ?
 
-```{=html}
-<div style="height:5px;"></div>
-```
-
-> Pourquoi observer des différences entre les moyennes ne suffit-il pas pour conclure à un effet des facteurs ?
+> Pourquoi observer des différences entre les moyennes ne suffit-il pas pour conclure à un effet du facteur ?
 
 . . .
 
-```{=html}
-<div style="height:10px;"></div>
-```
+::: {style="font-size:0.75em; color:#555555;"}
+Retour sur les temps de douche des personnes aux cheveux mi-longs.
+:::
 
-::::: columns
-::: {.column width="50%"}
 ```{r}
 #| echo: false
 #| message: false
 #| warning: false
-#| fig-height: 7.5
+#| fig-width: 12
+#| fig-height: 5
 
-# Nombre d'observations par combinaison
-n <- 50
+library(plotly)
+library(dplyr)
 
-# Quatre combinaisons des facteurs A et B
-groupes <- c("A1B1", "A1B2", "A2B1", "A2B2")
+set.seed(123)
 
-# Moyennes des quatre groupes
-mu <- c(5, 7, 9, 13)
+n <- 25
 
-# Écarts symétriques autour de zéro
-z <- seq(-1, 1, length.out = n)
+# Génération de données de moyenne fixée
+simuler <- function(mu, sigma) {
+  z <- rnorm(n)
+  mu + sigma * as.numeric(scale(z))
+}
 
-# Données : forte variabilité résiduelle
-data_non_sig <- data.frame(
-  groupe = factor(
-    rep(groupes, each = n),
-    levels = groupes
-  ),
-  y = rep(mu, each = n) + 15 * rep(z, times = 4)
+# Construction des données
+creer_donnees <- function(sigma, mu_julien) {
+  data.frame(
+    Chant = factor(
+      rep(c("Non", "Oui"), each = n, times = 2),
+      levels = c("Non", "Oui")
+    ),
+    Personne = rep(c("Inès", "Julien"), each = 2*n),
+    Temps = c(
+      simuler(8, sigma),
+      simuler(12, sigma),
+      simuler(mu_julien[1], sigma),
+      simuler(mu_julien[2], sigma)
+    )
+  )
+}
+
+data_forte <- creer_donnees(
+  sigma = 3.5,
+  mu_julien = c(11, 9)
 )
 
-# Moyennes estimées
-means_non_sig <- data_non_sig %>%
-  group_by(groupe) %>%
-  summarise(
-    mu_hat = mean(y),
-    .groups = "drop"
-  ) %>%
-  mutate(
-    label = paste0(
-      "bar(y)[", groupe, "] == ",
-      round(mu_hat, 1)
-    )
-  )
-
-# Graphique
-ggplot(
-  data_non_sig,
-  aes(x = groupe, y = y, colour = groupe)
-) +
-  geom_jitter(
-    width = 0.15,
-    size = 3.5,
-    alpha = 0.65
-  ) +
-  geom_crossbar(
-    data = means_non_sig,
-    aes(
-      x = groupe,
-      y = mu_hat,
-      ymin = mu_hat,
-      ymax = mu_hat
-    ),
-    inherit.aes = FALSE,
-    width = 0.5,
-    linewidth = 1.7,
-    colour = "black"
-  ) +
-  geom_text(
-    data = means_non_sig,
-    aes(
-      x = groupe,
-      y = mu_hat,
-      label = label
-    ),
-    inherit.aes = FALSE,
-    parse = TRUE,
-    nudge_y = 2.5,
-    size = 10,
-    colour = "black"
-  ) +
-  scale_colour_manual(
-    values = c(
-      "A1B1" = "#0072B2",
-      "A1B2" = "#E69F00",
-      "A2B1" = "#009E73",
-      "A2B2" = "#CC79A7"
-    )
-  ) +
-  coord_cartesian(ylim = c(-12, 30)) +
-  labs(
-    title = "Forte variabilité",
-    x = "Combinaison des facteurs",
-    y = "Y"
-  ) +
-  theme_minimal(base_size = 22) +
-  theme(
-    legend.position = "none",
-    plot.title = element_text(
-      size = 25,
-      face = "bold",
-      hjust = 0.5
-    ),
-    axis.title = element_text(size = 30),
-    axis.text = element_text(size = 25),
-    plot.margin = margin(10, 15, 10, 15)
-  )
-```
-:::
-
-::: {.column width="50%"}
-```{r}
-#| echo: false
-#| message: false
-#| warning: false
-#| fig-height: 7.5
-
-# Données : faible variabilité résiduelle
-data_sig <- data.frame(
-  groupe = factor(
-    rep(groupes, each = n),
-    levels = groupes
-  ),
-  y = rep(mu, each = n) + rep(z, times = 4)
+data_faible <- creer_donnees(
+  sigma = 0.8,
+  mu_julien = c(8.2, 12.2)
 )
 
-# Moyennes estimées
-means_sig <- data_sig %>%
-  group_by(groupe) %>%
-  summarise(
-    mu_hat = mean(y),
-    .groups = "drop"
+# Fonction graphique
+plot_variabilite <- function(data) {
+
+  data <- data %>%
+    mutate(
+      x = as.numeric(Chant),
+      x_jitter = x + runif(n(), -0.18, 0.18)
+    )
+
+  p <- plot_ly()
+
+  # Observations
+  for (pers in c("Inès", "Julien")) {
+
+    d <- filter(data, Personne == pers)
+
+    p <- add_markers(
+      p,
+      x = d$x_jitter,
+      y = d$Temps,
+      name = pers,
+      marker = list(
+        color = ifelse(
+          pers == "Inès",
+          "#0072B2", "#E69F00"
+        ),
+        size = 9,
+        opacity = 0.6
+      ),
+      visible = pers == "Inès",
+      showlegend = FALSE,
+      hoverinfo = "skip"
+    )
+  }
+
+  # Moyennes empiriques avant et après ajout
+  for (ajout in c(FALSE, TRUE)) {
+
+    d <- if (ajout) {
+      data
+    } else {
+      filter(data, Personne == "Inès")
+    }
+
+    moyennes <- d %>%
+      group_by(Chant) %>%
+      summarise(
+        x = first(x),
+        mu_hat = mean(Temps),
+        .groups = "drop"
+      ) %>%
+      mutate(
+        label = paste0(
+          "μ̂<sub>", toupper(Chant), "</sub> = ",
+          sprintf("%.1f", mu_hat)
+        )
+      )
+
+    # Traits horizontaux
+    for (j in seq_len(nrow(moyennes))) {
+
+      m <- moyennes[j, ]
+
+      p <- add_segments(
+        p,
+        x = m$x - 0.25,
+        xend = m$x + 0.25,
+        y = m$mu_hat,
+        yend = m$mu_hat,
+        line = list(color = "black", width = 4),
+        visible = !ajout,
+        showlegend = FALSE,
+        hoverinfo = "skip"
+      )
+    }
+
+    # Valeurs des moyennes
+    p <- add_text(
+      p,
+      x = moyennes$x + 0.30,
+      y = moyennes$mu_hat,
+      text = moyennes$label,
+      textposition = "middle right",
+      textfont = list(size = 18, color = "black"),
+      visible = !ajout,
+      showlegend = FALSE,
+      hoverinfo = "skip"
+    )
+  }
+
+  p %>%
+    layout(
+      xaxis = list(
+        title = "Chante sous la douche",
+        tickmode = "array",
+        tickvals = c(1, 2),
+        ticktext = c("Non", "Oui"),
+        range = c(0.5, 2.85),
+        fixedrange = TRUE
+      ),
+      yaxis = list(
+        title = "Durée (min)",
+        range = c(0, 25),
+        dtick = 5,
+        fixedrange = TRUE
+      )
+    )
+}
+
+# Construction des deux graphiques
+p1 <- plot_variabilite(data_forte)
+p2 <- plot_variabilite(data_faible)
+
+# Visibilité des différentes traces
+vis_ines <- rep(
+  c(TRUE, FALSE, TRUE, TRUE, TRUE,
+    FALSE, FALSE, FALSE),
+  2
+)
+
+vis_julien <- rep(
+  c(TRUE, TRUE, FALSE, FALSE, FALSE,
+    TRUE, TRUE, TRUE),
+  2
+)
+
+subplot(
+  p1, p2,
+  nrows = 1,
+  shareY = TRUE,
+  titleX = TRUE,
+  titleY = TRUE,
+  margin = 0.06
+) %>%
+  layout(
+    annotations = list(
+      list(
+        text = "<b>Forte variabilité</b>",
+        x = 0.22, y = 1.06,
+        xref = "paper", yref = "paper",
+        showarrow = FALSE,
+        font = list(size = 22)
+      ),
+      list(
+        text = "<b>Faible variabilité</b>",
+        x = 0.78, y = 1.06,
+        xref = "paper", yref = "paper",
+        showarrow = FALSE,
+        font = list(size = 22)
+      )
+    ),
+
+    updatemenus = list(list(
+      type = "buttons",
+      direction = "right",
+      x = 0.5,
+      xanchor = "center",
+      y = 1.25,
+      buttons = list(
+        list(
+          label = "50 mesures d'Inès",
+          method = "restyle",
+          args = list("visible", vis_ines)
+        ),
+        list(
+          label = "+ 50 mesures de Julien",
+          method = "restyle",
+          args = list("visible", vis_julien)
+        )
+      )
+    )),
+
+    font = list(size = 17),
+    showlegend = FALSE,
+    margin = list(t = 100, b = 55, l = 65, r = 20)
   ) %>%
-  mutate(
-    label = paste0(
-      "bar(y)[", groupe, "] == ",
-      round(mu_hat, 1)
-    )
-  )
-
-# Graphique
-ggplot(
-  data_sig,
-  aes(x = groupe, y = y, colour = groupe)
-) +
-  geom_jitter(
-    width = 0.15,
-    size = 3.5,
-    alpha = 0.65
-  ) +
-  geom_crossbar(
-    data = means_sig,
-    aes(
-      x = groupe,
-      y = mu_hat,
-      ymin = mu_hat,
-      ymax = mu_hat
-    ),
-    inherit.aes = FALSE,
-    width = 0.5,
-    linewidth = 1.7,
-    colour = "black"
-  ) +
-  geom_text(
-    data = means_sig,
-    aes(
-      x = groupe,
-      y = mu_hat,
-      label = label
-    ),
-    inherit.aes = FALSE,
-    parse = TRUE,
-    nudge_y = 2.5,
-    size = 10,
-    colour = "black"
-  ) +
-  scale_colour_manual(
-    values = c(
-      "A1B1" = "#0072B2",
-      "A1B2" = "#E69F00",
-      "A2B1" = "#009E73",
-      "A2B2" = "#CC79A7"
-    )
-  ) +
-  coord_cartesian(ylim = c(-12, 30)) +
-  labs(
-    title = "Faible variabilité",
-    x = "Combinaison des facteurs",
-    y = "Y"
-  ) +
-  theme_minimal(base_size = 22) +
-  theme(
-    legend.position = "none",
-    plot.title = element_text(
-      size = 25,
-      face = "bold",
-      hjust = 0.5
-    ),
-    axis.title = element_text(size = 30),
-    axis.text = element_text(size = 25),
-    plot.margin = margin(10, 15, 10, 15)
-  )
+  config(displayModeBar = FALSE)
 ```
-:::
-:::::
 
-::: {style="font-size: 0.75em; color: #555555; margin-top:-30px;"}
-On considère deux facteurs $A$ et $B$, chacun à deux modalités ($A_1$, $A_2$ et $B_1$, $B_2$), soit quatre groupes.
+::: {style="font-size:0.75em; text-align:center;"}
+<span style="color:#0072B2;">● Mesures d'Inès</span>
+&nbsp;&nbsp;&nbsp;
+<span style="color:#E69F00;">● Mesures de Julien</span>
 :::
-
-```{=html}
-<div style="height:7px;"></div>
-```
 
 . . .
 
@@ -827,475 +982,7 @@ On considère deux facteurs $A$ et $B$, chacun à deux modalités ($A_1$, $A_2$ 
 [**Comparer uniquement les moyennes ne suffit pas,**]{.smallcaps} il faut également prendre en compte la [variabilité des observations]{.smallcaps}.
 :::
 
-## 1️⃣ Quels effets cherche-t-on à tester ?
 
-```{=html}
-<div style="height:2px;"></div>
-```
-
-[[L'ANOVA à deux facteurs permet d'étudier :]{.underline}]{.smallcaps}
-
-::: {style="font-size: 0.95em;"}
-- L'[effet du facteur A]{.smallcaps} : la réponse varie-t-elle selon A ?
-- L'[effet du facteur B]{.smallcaps} : la réponse varie-t-elle selon B ?
-- L'[interaction A × B]{.smallcaps} : l'effet de A dépend-il de B ?
-:::
-
-. . .
-
-[[Comment reconnaître une interaction ?]{.underline}]{.smallcaps}
-
-::::::: columns
-:::: {.column width="50%"}
-::: {style="text-align: center; font-size: 0.95em;"}
-[[Sans interaction :]{.underline}]{.smallcaps}
-:::
-
-```{r}
-#| echo: false
-#| message: false
-#| warning: false
-#| fig-align: center
-#| fig-width: 5
-#| fig-height: 3.5
-
-data_sans <- expand.grid(
-  A = factor(c("A1", "A2"), levels = c("A1", "A2")),
-  B = factor(c("B1", "B2"), levels = c("B1", "B2"))
-) %>%
-  mutate(Y = c(30, 45, 50, 65))
-
-ggplot(
-  data_sans,
-  aes(x = A, y = Y, colour = B, group = B)
-) +
-  geom_line(linewidth = 2) +
-  geom_point(size = 6) +
-  scale_colour_manual(
-    values = c("B1" = "#0072B2", "B2" = "#E69F00")
-  ) +
-  coord_cartesian(ylim = c(20, 75)) +
-  labs(
-    x = "Facteur A",
-    y = "Réponse moyenne",
-    colour = "Facteur B"
-  ) +
-  theme_classic(base_size = 15) +
-  theme(
-    legend.position = "bottom",
-    plot.margin = margin(0, 15, 10, 15)
-  )
-```
-::::
-
-:::: {.column width="50%"}
-::: {style="text-align: center; font-size: 0.95em;"}
-[[Avec interaction :]{.underline}]{.smallcaps}
-:::
-
-```{r}
-#| echo: false
-#| message: false
-#| warning: false
-#| fig-align: center
-#| fig-width: 5
-#| fig-height: 3.5
-
-data_avec <- expand.grid(
-  A = factor(c("A1", "A2"), levels = c("A1", "A2")),
-  B = factor(c("B1", "B2"), levels = c("B1", "B2"))
-) %>%
-  mutate(Y = c(30, 65, 60, 40))
-
-ggplot(
-  data_avec,
-  aes(x = A, y = Y, colour = B, group = B)
-) +
-  geom_line(linewidth = 2) +
-  geom_point(size = 6) +
-  scale_colour_manual(
-    values = c("B1" = "#0072B2", "B2" = "#E69F00")
-  ) +
-  coord_cartesian(ylim = c(20, 75)) +
-  labs(
-    x = "Facteur A",
-    y = "Réponse moyenne",
-    colour = "Facteur B"
-  ) +
-  theme_classic(base_size = 15) +
-  theme(
-    legend.position = "bottom",
-    plot.margin = margin(0, 15, 10, 15)
-  )
-```
-::::
-:::::::
-
-## 1️⃣ Pourquoi dit-on "tester" les effets ? Rappels sur les tests d'hypothèses
-
-```{=html}
-<div style="height:5px;"></div>
-```
-
-> Observer les différences entre les groupes ne suffit pas : un [test d'hypothèse]{.smallcaps} permet de déterminer si elles sont significatives.
-
-. . .
-
-```{=html}
-<div style="height:15px;"></div>
-```
-
-::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top: 1px;padding-bottom: 5px;"}
-[[Hypothèses (test bilatéral):]{.underline}]{.smallcaps}
-
-$$\small H_0:\mu=\mu_0 \qquad\qquad\qquad H_1:\mu\neq\mu_0$$
-:::
-
-```{=html}
-<div style="height:20px;"></div>
-```
-
-::::::::: columns
-:::: {.column width="33%"}
-::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top: 1px;padding-bottom: 5px;"}
-[[erreurs :]{.underline}]{.smallcaps}
-
-```{=html}
-<div style="height:22.75px;"></div>
-```
-
-|   | **Ne pas rejeter** $\small H_0$ | **Rejeter** $\small H_0$ |
-|------------------------|------------------------|------------------------|
-| $\small H_0$ **vraie** | ✅ Bonne décision | ❌ **Type I :** $\small \alpha$ |
-| $\small H_0$ **fausse** | ❌ **Type II :** $\small \beta$ | ✅ Bonne décision |
-
-$$\small    \alpha    =        P(\text{rejeter }H_0\mid H_0\text{ vraie})$$
-
-$$\small    \beta    =        P(\text{ne pas rejeter }H_0\mid H_0\text{ fausse})$$
-:::
-::::
-
-:::: {.column width="33%"}
-::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top:1px;padding-bottom: 5px;"}
-[[Statistique de test :]{.underline}]{.smallcaps}
-
-```{=html}
-<div style="height:0.03px;"></div>
-```
-
-$$\small T = \frac{\bar X-\mu_0}{s/\sqrt n}$$
-
-> La statistique de test mesure l'écart à $\small H_0$ relativement à la variabilité de l'estimation.
-
-$$\small H_0 \quad \Longrightarrow \quad T\sim \mathcal{t}(0, 1)$$
-:::
-::::
-
-:::: {.column width="33%"}
-::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top: 1px;padding-bottom: 5px;"}
-[[p-value et décision :]{.underline}]{.smallcaps}
-
-```{=html}
-<div style="height:0.014px;"></div>
-```
-
-$$\small p = P_{H_0} \left( |T|\geq |T_{\mathrm{obs}}| \right)$$
-
-> La p-valeur est le plus petit risque pour lequel on rejetterait $\small H_0$.
-
-$$
-\small
-\begin{cases}
-p < \alpha & \Longrightarrow \text{rejet de } H_0\\
-p \geq \alpha & \Longrightarrow \text{non-rejet de } H_0
-\end{cases}
-$$
-:::
-::::
-:::::::::
-
-## 1️⃣ L'ANOVA à 2 facteurs : Un test d'hyp. - Définition
-
-```{=html}
-<div style="height:20px;"></div>
-```
-
-ANOVA à 2 facteurs
-
-: L'[ANOVA à deux facteurs]{.smallcaps} est une méthode statistique reposant sur des tests d'hypothèses pour déterminer si les facteurs A et B, ainsi que leur interaction, ont un effet significatif sur la variable étudiée.
-
-```{=html}
-<div style="height:25px;"></div>
-```
-
-::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top: 1px;padding-bottom: 5px;"}
-[[Hypothèses :]{.underline}]{.smallcaps}
-
-$$
-\small
-\begin{aligned}
-H_0^A &: \mu_{1\cdot}=\mu_{2\cdot}=\cdots=\mu_{I\cdot}
-\qquad H_1^A : \text{au moins deux moyennes diffèrent}\\[8pt]
-H_0^B &: \mu_{\cdot1}=\mu_{\cdot2}=\cdots=\mu_{\cdot J}
-\qquad H_1^B : \text{au moins deux moyennes diffèrent}\\[8pt]
-H_0^{A\times B} &: \mu_{ij}-\mu_{i\cdot}-\mu_{\cdot j}+\mu_{\cdot\cdot}=0,\ \forall i,j
-\qquad H_1^{A\times B} : \text{au moins une interaction est non nulle}
-\end{aligned}
-$$
-:::
-
-```{=html}
-<div style="height:10px;"></div>
-```
-
-::::::::: columns
-:::: {.column width="33%"}
-::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top: 1px;padding-bottom: 5px;"}
-[[erreurs :]{.underline}]{.smallcaps}
-
-```{=html}
-<div style="height:22.75px;"></div>
-```
-
-$$\small    \alpha    =        P(\text{rejeter }H_0\mid H_0\text{ vraie})$$
-
-$$\small    \beta    =        P(\text{ne pas rejeter }H_0\mid H_0\text{ fausse})$$
-:::
-::::
-
-:::: {.column width="33%"}
-::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top:1px;padding-bottom: 5px;"}
-[[Statistique de test :]{.underline}]{.smallcaps}
-
-```{=html}
-<div style="height:0.03px;"></div>
-```
-
-$$
-\small F= \frac{\text{variabilité entre les groupes}}
-{\text{variabilité au sein des groupes}}
-$$
-
-$$
-\small H_0\Longrightarrow F\sim\mathcal{F}_{J-1,N-J}
-$$
-:::
-::::
-
-:::: {.column width="33%"}
-::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top: 1px;padding-bottom: 5px;"}
-[[p-value et décision :]{.underline}]{.smallcaps}
-
-```{=html}
-<div style="height:0.014px;"></div>
-```
-
-$$\small p = P_{H_0} \left( F \geq F_{\mathrm{obs}} \right)$$
-
-$$
-\small
-\begin{cases}
-p < \alpha & \Longrightarrow \text{rejet de } H_0\\
-p \geq \alpha & \Longrightarrow \text{non-rejet de } H_0
-\end{cases}
-$$
-:::
-::::
-:::::::::
-
-## 1️⃣ Application aux souris : Qu'est-ce qu'on teste ?
-
-```{=html}
-<div style="height:2px;"></div>
-```
-
-[[Questions :]{.underline}]{.smallcaps}
-
-- Y a-t-il un effet du sexe sur la durée de contact ? Et pour l'hébergement ?
-
-- Y a-t-il un effet croisé du sexe et de l'hébergement sur la durée de contact ?
-
-```{=html}
-<div style="height:2px;"></div>
-```
-
-```{r}
-#| echo: false
-#| message: false
-#| warning: false
-#| include: false
-
-
-# Couleurs adaptées aux nouvelles modalités
-colors_groups <- c(
-  "Mâle" = "#009E73",
-  "Femelle" = "#E69F00",
-  "Groupe" = "#0072B2",
-  "Seul.e" = "#CC79A7"
-)
-
-# 1. Sexe
-p_sex <- ggplot(
-  data_mice,
-  aes(x = Sex, y = contact_time, fill = Sex)
-) +
-  geom_boxplot(width = 0.6, alpha = 0.5, outlier.shape = NA) +
-  geom_jitter(
-    aes(colour = Sex),
-    width = 0.12, size = 3, alpha = 0.7
-  ) +
-  stat_summary(
-    fun = mean, geom = "point",
-    shape = 18, size = 4, colour = "black"
-  ) +
-  scale_fill_manual(values = colors_groups) +
-  scale_colour_manual(values = colors_groups) +
-  labs(title = "Sexe", x = NULL, y = "Durée de contact") +
-  theme_minimal(base_size = 24) +
-  theme(legend.position = "none")
-
-
-# 2. Hébergement
-p_housing <- ggplot(
-  data_mice,
-  aes(x = Housing, y = contact_time, fill = Housing)
-) +
-  geom_boxplot(width = 0.6, alpha = 0.5, outlier.shape = NA) +
-  geom_jitter(
-    aes(colour = Housing),
-    width = 0.12, size = 3, alpha = 0.7
-  ) +
-  stat_summary(
-    fun = mean, geom = "point",
-    shape = 18, size = 4, colour = "black"
-  ) +
-  scale_fill_manual(values = colors_groups) +
-  scale_colour_manual(values = colors_groups) +
-  labs(title = "Hébergement", x = NULL, y = NULL) +
-  theme_minimal(base_size = 24) +
-  theme(legend.position = "none")
-
-
-# 3. Sexe × Hébergement : moyennes par groupe
-means_interaction <- data_mice %>%
-  group_by(Sex, Housing) %>%
-  summarise(
-    mean_contact = mean(contact_time, na.rm = TRUE),
-    .groups = "drop"
-  )
-
-p_interaction <- ggplot(
-  means_interaction,
-  aes(
-    x = Housing,
-    y = mean_contact,
-    colour = Sex,
-    group = Sex
-  )
-) +
-  geom_line(linewidth = 1.8) +
-  geom_point(size = 5) +
-  scale_colour_manual(
-    values = colors_groups,
-    name = NULL
-  ) +
-  labs(
-    title = "Sexe × Hébergement",
-    x = NULL,
-    y = NULL
-  ) +
-  theme_minimal(base_size = 24) +
-  theme(
-    legend.position = "bottom",
-    legend.text = element_text(size = 19),
-    plot.title = element_text(hjust = 0.5)
-  )
-
-
-```
-
-:::::: columns
-::: {.column width="33%"}
-```{r}
-#| echo: false
-#| fig-height: 5.25
-#| fig-width: 5
-#| out-width: "100%"
-
-p_sex
-```
-:::
-
-::: {.column width="33%"}
-```{r}
-#| echo: false
-#| fig-height: 5.25
-#| fig-width: 5
-#| out-width: "100%"
-
-p_housing
-```
-:::
-
-::: {.column width="33%"}
-```{r}
-#| echo: false
-#| fig-height: 5.25
-#| fig-width: 5
-#| out-width: "100%"
-
-p_interaction
-```
-:::
-::::::
-
-. . .
-
-::: small-box
-On utilise un [modèle complet]{.smallcaps} (par opposition à [additif]{.smallcaps}) à cause de la présence d'une interaction.
-:::
-
-## 📖 Objectifs du cours
-
-```{=html}
-<br>
-<br>
-<div style="height:45px;"></div>
-```
-
-::: {style="color: #A1A1AA;"}
-1.  L'ANOVA, un test d'hypothèse : que cherche-t-on à tester ?
-:::
-
-```{=html}
-<div style="height:15px;"></div>
-```
-
-**2. Comment réaliser une ANOVA à deux facteurs et interpréter ses effets ?**
-
-```{=html}
-<div style="height:15px;"></div>
-```
-
-::: {style="color: #A1A1AA;"}
-3.  Quelles sont les hypothèses à vérifier avant de réaliser une ANOVA ?
-:::
-
-```{=html}
-<div style="height:15px;"></div>
-```
-
-::: {style="color: #A1A1AA;"}
-4.  Application aux données de souris avec R
-:::
-
-```{=html}
-<div style="height:15px;"></div>
-```
-
-::: {style="color: #A1A1AA;"}
-5.  Bonus, Exemple de contributions en sciences vétérinaire & Conclusion
-:::
 
 ## 2️⃣1^ère^ étape : Définir les hypothèses
 
@@ -1334,38 +1021,29 @@ $$
 
 [[Hypothèses testées :]{.underline}]{.smallcaps}
 
-
 **Facteur A - Hébergement :**
 
 ::: {style="text-align: center; font-size: 0.9em;"}
-
 $H_0^A$ : la durée moyenne de contact est identique pour les souris hébergées en groupe ou seules.
 
 $H_1^A$ : $H_0^A$ est fausse.
-
 :::
 
 **Facteur B - Sexe :**
 
 ::: {style="text-align: center; font-size: 0.9em;"}
-
 $H_0^B$ : la durée moyenne de contact est identique chez les mâles et les femelles.
 
 $H_1^B$ : $H_0^B$ est fausse.
-
 :::
 
 **Interaction A × B :**
 
 ::: {style="text-align: center; font-size: 0.9em;"}
-
 $H_0^{A\times B}$ : l'effet de l'hébergement ne dépend pas du sexe.
 
 $H_1^{A\times B}$ : $H_0^{A\times B}$ est fausse.
-
 :::
-
-
 
 ## 2️⃣ 2^ème^ étape : Choix du risque de première espèce $\alpha$
 
@@ -1538,7 +1216,6 @@ ggplot() +
 L'ANOVA cherche à déterminer si la variabilité entre les groupes est importante par rapport à celle au sein des groupes.
 :::
 
-
 ## 2️⃣ 3^ème^ étape : Variabilité expliquée par les facteurs A et B
 
 ```{=html}
@@ -1553,7 +1230,6 @@ L'ANOVA cherche à déterminer si la variabilité entre les groupes est importan
 
 ::::::::: columns
 ::::: {.column width="50%"}
-
 ::: {style="text-align:center; font-size:0.95em;"}
 [[Effet du facteur A :]{.underline}]{.smallcaps}
 :::
@@ -1619,11 +1295,9 @@ Plus les moyennes des modalités de A s'éloignent de la moyenne globale, plus l
 
 $\color{#0072B2}{\boldsymbol{SC_A}}$
 :::
-
 :::::
 
 ::::: {.column width="50%"}
-
 ::: {style="text-align:center; font-size:0.95em;"}
 [[Effet du facteur B :]{.underline}]{.smallcaps}
 :::
@@ -1689,10 +1363,8 @@ Plus les moyennes des modalités de B s'éloignent de la moyenne globale, plus l
 
 $\color{#009E73}{\boldsymbol{SC_B}}$
 :::
-
 :::::
 :::::::::
-
 
 ## 2️⃣ 3^ème^ étape : Variabilité expliquée par l'interaction
 
@@ -1788,18 +1460,15 @@ ggplot(means_inter, aes(x = groupe)) +
   )
 ```
 
-
 ```{=html}
 <div style="height:15px;"></div>
 ```
-
 
 ::: {style="font-size: 0.85em; text-align:center;"}
 Plus ces écarts sont importants, plus la **variabilité expliquée par l'interaction** est grande.
 
 $\color{#CC79A7}{\boldsymbol{SC_{AB}}}$
 :::
-
 
 ## 2️⃣ 3^ème^ étape : Variabilité résiduelle
 
@@ -1811,7 +1480,6 @@ $\color{#CC79A7}{\boldsymbol{SC_{AB}}}$
 
 ::::::::: columns
 ::::: {.column width="50%"}
-
 ::: {style="font-size: 0.95em; text-align:center;"}
 [[Sans interaction :]{.underline}]{.smallcaps}
 :::
@@ -1902,11 +1570,9 @@ Les écarts sont mesurés par rapport aux **valeurs prédites à partir des effe
 
 $\color{#E69F00}{\boldsymbol{SC_{\mathrm{rés,additif}}}}$
 :::
-
 :::::
 
 ::::: {.column width="50%"}
-
 ::: {style="font-size: 0.95em; text-align:center;"}
 [[Avec interaction :]{.underline}]{.smallcaps}
 :::
@@ -1971,7 +1637,6 @@ Les écarts sont mesurés par rapport aux **moyennes de chaque combinaison de A 
 
 $\color{#E69F00}{\boldsymbol{SC_{\mathrm{rés,complet}}}}$
 :::
-
 :::::
 :::::::::
 
@@ -1979,15 +1644,11 @@ $\color{#E69F00}{\boldsymbol{SC_{\mathrm{rés,complet}}}}$
 Plus la variabilité résiduelle est faible, plus le **modèle explique la variabilité des observations**.
 :::
 
-
-
-## 2️⃣ 3^ème^ étape : Statistique de Fisher^1
-
+## 2️⃣ 3^ème^ étape : Statistique de Fisher\^1
 
 ::: callout-warning
 Pour comparer les variabilités, on divise chaque somme des carrés (SC) par ses **degrés de liberté**. On obtient ainsi un **carré moyen (CM)**.
 :::
-
 
 ::: {style="font-size: 0.85em;"}
 | Effet | Carré moyen | Statistique de Fisher |
@@ -1996,6 +1657,7 @@ Pour comparer les variabilités, on divise chaque somme des carrés (SC) par ses
 | Facteur B | $\displaystyle CM_B=\frac{\color{#009E73}{SC_B}}{J-1}$ | $\displaystyle F_B=\frac{CM_B}{CM_{\mathrm{résiduelle}}}$ |
 | Interaction A × B | $\displaystyle CM_{AB}=\frac{\color{#CC79A7}{SC_{AB}}}{(I-1)(J-1)}$ | $\displaystyle F_{AB}=\frac{CM_{AB}}{CM_{\mathrm{résiduelle}}}$ |
 :::
+
 ::: {style="font-size: 0.55em;"}
 avec $I$ le nombre de modalités du facteur A, $J$ celui du facteur B, $n$ le nombre d'observations par combinaison et $N=IJn$ le nombre total d'observations.
 :::
@@ -2012,7 +1674,6 @@ La statistique de Fisher compare la **variabilité expliquée par un effet** à 
 
 ::::::::::: columns
 :::::: {.column width="50%"}
-
 ::: {style="font-size: 0.95em; text-align:center;"}
 [[Sans interaction :]{.underline}]{.smallcaps}
 :::
@@ -2030,11 +1691,9 @@ On évalue séparément les effets de **A et B**.
 
 **2 tests :** facteur A et facteur B.
 :::
-
 ::::::
 
 :::::: {.column width="50%"}
-
 ::: {style="font-size: 0.95em; text-align:center;"}
 [[Avec interaction :]{.underline}]{.smallcaps}
 :::
@@ -2052,10 +1711,8 @@ On évalue les effets de **A et B ainsi que leur interaction**.
 
 **3 tests :** facteur A, facteur B et interaction A × B.
 :::
-
 ::::::
 :::::::::::
-
 
 ## 2️⃣ 3^ème^ étape : Calcul de la statistique de Fisher - Exemple
 
@@ -2107,23 +1764,21 @@ knitr::kable(
 
 ::: {style="font-size: 0.95em; text-align:center;"}
 $\Longrightarrow$ Si $F \gg 1$, la variabilité expliquée par le facteur est grande devant la variabilité résiduelle.
-::: 
+:::
 
-## 2️⃣ 4^ème^ étape :  Calcul de la p-value et conclusion - Définition
+## 2️⃣ 4^ème^ étape : Calcul de la p-value et conclusion - Définition
 
 ```{=html}
 <div style="height:2px;"></div>
 ```
 
-
 Sous l'hypothèse nulle associée à chaque effet $X\in\{A,B,A\times B\}$ ($H_0^X$), $F_X\sim\mathcal F_{ddl_X,\;N-IJ},$ où $ddl_X$ désigne le nombre de degrés de liberté de l'effet testé.
-
 
 :::::: columns
 :::: {.column width="55%"}
 [[p-value]{.underline}]{.smallcaps}
 
-La [p-value]{.smallcaps} correspond à la probabilité, **sous** $H_0^X$, d'observer une statistique de Fisher au moins aussi grande que celle obtenue :
+La [p-value]{.smallcaps} correspond à la probabilité, **sous** $H_0^X$, d'observer une statistique de Fisher plus faible que celle obtenue :
 
 $$
 p_X=\mathbb P_{H_0^X}\left(F_X\geq F_{X,\mathrm{obs}}\right)
@@ -2251,7 +1906,7 @@ plot_ly(
 
 [[**Conclusion :**]{.underline}]{.smallcaps} Si $p < \alpha$ on rejette $H_0$, sinon on ne rejette pas $H_0$ (on ne peut pas conclure).
 
-## 2️⃣ 4^ème^ étape :  Calcul de la p-value et conclusion - Exemple
+## 2️⃣ 4^ème^ étape : Calcul de la p-value et conclusion - Exemple
 
 ```{=html}
 <div style="height:30px;"></div>
@@ -2442,7 +2097,7 @@ ggplot(df_fisher, aes(x = x, y = density)) +
 ```
 
 ::: {style="color: #A1A1AA;"}
-5.  Bonus, Exemple de contributions en sciences vétérinaire & Conclusion
+5.  Bonus, Exemple de contributions en sciences vétérinaires & Conclusion
 :::
 
 ## 3️⃣ Pourquoi vérifier les hypothèses avant de réaliser une ANOVA ?
@@ -2499,7 +2154,7 @@ $\longrightarrow$ **Des différences entre les moyennes ne suffisent pas à gara
 <div style="height:5px;"></div>
 ```
 
-- [[Que signifie cette hypothèse ?]{.underline}]{.smallcaps} Dans chaque combinaison des facteurs A et B, les observations doivent être **distribuée selon une loi normale**.
+- [[Que signifie cette hypothèse ?]{.underline}]{.smallcaps} Dans chaque combinaison des facteurs A et B, les observations doivent être **distribuées selon une loi normale**.
 
 ```{=html}
 <div style="height:10px;"></div>
@@ -2910,16 +2565,13 @@ ggplot() +
 :::
 :::::
 
-
-::: {.callout-note}
+::: callout-note
 En pratique, on utilise le **test de Shapiro-Wilk** pour tester la normalité des résidus ($H_0$ : les résidus suivent une loi normale).
 
-On souhaite une **p-value > 5 %** pour ne pas rejeter $H_0$.
+On souhaite une **p-value \> 5 %** pour ne pas rejeter $H_0$.
 :::
 
-
 - [[Que faire si l'hypothèse n'est pas vérifiée ?]{.underline}]{.smallcaps} Envisager une **transformation de la variable étudiée** (ex.logarithme) ou un **modèle adapté**.
-
 
 ## 3️⃣ 3^ème^ hypothèse à vérifier : Homoscédasticité
 
@@ -3242,25 +2894,20 @@ ggplot(
 :::
 :::::
 
-::: {.callout-note}
+::: callout-note
 En pratique, on utilise le **test de Levene** pour tester l'égalité des variances ($H_0$ : les variances sont égales entre les groupes).
 
-On souhaite une **p-value > 5 %** pour ne pas rejeter $H_0$.
+On souhaite une **p-value \> 5 %** pour ne pas rejeter $H_0$.
 :::
-
 
 - [[Que faire si l'hypothèse n'est pas vérifiée ?]{.underline}]{.smallcaps} Envisager une **transformation de la variable étudiée** ou une **méthode adaptée aux variances différentes**.
 
-
-
 ## 3️⃣ Vérification des hypothèses sur les données
 
-<br>
-<br>
+<br> <br>
 
 :::::::: columns
 :::::: {.column width="50%"}
-
 ```{=html}
 <div style="height:15px;"></div>
 ```
@@ -3287,7 +2934,6 @@ On souhaite une **p-value > 5 %** pour ne pas rejeter $H_0$.
 ::::::
 
 ::: {.column width="50%"}
-
 ```{r}
 #| echo: false
 #| message: false
@@ -3481,8 +3127,6 @@ ggplot() +
 :::
 ::::::::
 
-
-
 ## 📖 Objectifs du cours
 
 ```{=html}
@@ -3522,7 +3166,7 @@ ggplot() +
 ```
 
 ::: {style="color: #A1A1AA;"}
-5.  Exemple concret de contributions en sciences vétérinaire & Conclusion
+5.  Exemple concret de contributions en sciences vétérinaires & Conclusion
 :::
 
 ## 🐁 Application aux données de chats avec R
@@ -3531,7 +3175,7 @@ ggplot() +
 <div style="height:25px;"></div>
 ```
 
-::: small-box 
+::: small-box
 **Le sexe et le type d'hébergement des souris ont-ils un effet sur la durée de leurs interactions sociales ? Existe-t-il un effet combiné de ces deux facteurs ?**
 :::
 
@@ -3567,15 +3211,12 @@ ggplot() +
 
 3.  Déroulé de l'ANOVA et conclusion
 
-
 ## 🐁 Application aux données de souris - Boxplot
 
 <br>
 
-
 ::::: columns
 ::: {.column width="45%"}
-
 <br>
 
 ```{=html}
@@ -3655,11 +3296,10 @@ ggplot(
 . . .
 
 ::: small-box
-  Les moyennes semblent être différentes d'un groupe à l'autre. 
+Les moyennes semblent être différentes d'un groupe à l'autre.
 :::
 
-
-## 🐁 Application aux données de souris - Interaction ou pas ? 
+## 🐁 Application aux données de souris - Interaction ou pas ?
 
 ```{=html}
 <div style="height:25px;"></div>
@@ -3667,7 +3307,6 @@ ggplot(
 
 ::::: columns
 ::: {.column width="45%"}
-
 ```{=html}
 <div style="height:5px;"></div>
 ```
@@ -3752,12 +3391,12 @@ p_interaction
 . . .
 
 ::: small-box
-  On utilise un modèle complet car on va tester l'interaction. 
+On utilise un modèle complet car on va tester l'interaction.
 :::
 
-## 🐁 Application aux données de chats - Vérif. des hypothèses 
+## 🐁 Application aux données de chats - Vérif. des hypothèses
 
-<br> 
+<br>
 
 - [[Normalité :]{.underline}]{.smallcaps} On utilise le test de Shapiro-Wilk. \n
 
@@ -3788,8 +3427,7 @@ shapiro.test(anova$residuals)
 :::
 :::::
 
-<br> 
-
+<br>
 
 - [[Homoscédasticité :]{.underline}]{.smallcaps} En pratique, on utilise le test de Levene défini tel que : \n
 
@@ -3815,8 +3453,6 @@ leveneTest(contact_time ~ Housing*Sex, data = data_mice)
 :::
 :::::
 
-
-
 ```{=html}
 <div style="height:15px;"></div>
 ```
@@ -3824,14 +3460,12 @@ leveneTest(contact_time ~ Housing*Sex, data = data_mice)
 . . .
 
 ::: small-box
-  Les hypothèses sont bien validés, on peut procéder à l'ANOVA. 
+Les hypothèses sont bien validés, on peut procéder à l'ANOVA.
 :::
-
 
 ## 🐁 Application aux données de chats - ANOVA & Conclusion
 
-
-::: small-box 
+::: small-box
 **Le sexe et le type d'hébergement des souris ont-ils un effet sur la durée de leurs interactions sociales ? Existe-t-il un effet combiné de ces deux facteurs ?**
 :::
 
@@ -3841,8 +3475,8 @@ leveneTest(contact_time ~ Housing*Sex, data = data_mice)
 
 ::::: columns
 ::: {.column width="50%"}
-
 <br>
+
 ```{=html}
 <div style="height:25px;"></div>
 ```
@@ -3870,7 +3504,6 @@ summary(aov)
 ```
 
 ::: small-box
-
 Au seuil de **5 %**, le **type d'hébergement** a un effet significatif sur le temps de contact des souris ($p < 0.001$). En revanche, **ni le sexe** ($p = 0.712$), **ni l'interaction entre le sexe et l'hébergement** ($p = 0.273$) ne sont significatifs.
 
 $\longrightarrow$ **L'effet de l'hébergement sur le temps de contact ne semble donc pas dépendre du sexe des souris.**
@@ -3916,8 +3549,7 @@ $\longrightarrow$ **L'effet de l'hébergement sur le temps de contact ne semble 
 <div style="height:15px;"></div>
 ```
 
-**5. Bonus, Exemple de contributions en sciences vétérinaire & Conclusion**
-
+**5. Bonus, Exemple de contributions en sciences vétérinaires & Conclusion**
 
 ## ➕ Bonus : l'ANOVA est en fait un modèle linéaire
 
@@ -3965,8 +3597,7 @@ $$
 **Modèle ≠ méthode :** le [modèle ANOVA]{.smallcaps} décrit la structure des données. La [méthode ANOVA]{.smallcaps} permet d'estimer les effets, de décomposer la variabilité et de tester leur significativité.
 :::
 
-
-## 📑Exemple d'utilisation en sciences vétérinaires
+## 📑Exemple d'utilisation en sciences vétérinairess
 
 ```{=html}
 <div style="height:15px;"></div>
@@ -4007,6 +3638,5 @@ $\Longrightarrow$ Bonne nouvelle : on obtient la même conclusion que dans l'art
 ## 📝 Quiz de fin de séance
 
 ![](figures/quiz_fin_seance.png){fig-align="center"}
-
 
 ## Références
