@@ -51,7 +51,7 @@ $$
 \begin{array}{c|cccccc}
 \small \text{Végétarien } &
 \small \boxed{\text{O}} & \small \boxed{N} & \small \boxed{N} &
-\small \boxed{N} & \small \boxed{O} & \small \boxed{N} \\[8pt]
+\small \boxed{N} & \small \boxed{O} & \small \boxed{O} \\[8pt]
 \text{Conso. de café} &
 \small \boxed{-} & \small \boxed{+} & \small \boxed{-} &
 \small \boxed{+} & \small \boxed{-} & \small \boxed{+} \\[8pt]
