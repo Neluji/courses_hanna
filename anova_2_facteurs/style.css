@@ -24,8 +24,8 @@
 }
 
 .reveal blockquote {
-/* font-size: 0.8em; */
-padding-top: 0;
+  /* font-size: 0.8em; */
+  padding-top: 0;
   padding-bottom: 0;
 }
 
@@ -89,4 +89,20 @@ padding-top: 0;
   height: auto !important;
   max-height: none !important;
   margin-bottom: 0 !important;
+}
+
+.reveal .slide-number::before {
+  content: "";
+  background-image: url("./figures/page_num.svg");
+  width: calc(10px + 0.8em + 12ch);
+  display: inline-block;
+  height: calc(10px + 2.5em);
+  background-size: cover;
+  position: absolute;
+  bottom: -10px;
+  right: calc(-10px - 0.8em);
+}
+
+.reveal .slide-number:has(a[href="#/title-slide"])::before {
+  display: none;
 }
