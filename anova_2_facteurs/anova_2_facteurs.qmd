@@ -2127,44 +2127,333 @@ En réalisant la même démarche pour le facteur Sex, on obtient $F_{S,\mathrm{o
 ## 📖 Objectifs du cours
 
 ```{=html}
-<br>
-<br>
-<div style="height:45px;"></div>
+
+<div style="height:30px;"></div>
+
+<ol style="margin:0;">
+
+  <li style="margin-bottom:35px; color:#A1A1AA;">
+    Comment tester les effets d'un seul facteur ?
+    <ul style="margin-left:40px;">
+      <li>L'intuition derrière l'ANOVA</li>
+      <li>Définition et conduite de l'ANOVA à 1 facteur</li>
+    </ul>
+  </li>
+
+  <li style="margin-bottom:35px; color:black">
+    <strong>Comment tester l'interaction entre deux facteurs ?</strong>
+    <ul style="margin-left:40px;font-weight:normal;">
+      <li>Pourquoi tester l'interaction ?</li>
+      <li>Définition et conduite de l'ANOVA à 2 facteurs</li>
+    </ul>
+  </li>
+
+  <li style="margin-bottom:35px; color:#A1A1AA;">
+    Quelles sont les hypothèses à vérifier avant de réaliser une ANOVA ?
+  </li>
+
+  <li style="margin-bottom:35px; color:#A1A1AA;">
+    Application aux données de souris avec R
+  </li>
+
+  <li style="color:#A1A1AA;">
+    Bonus, Exemple de contributions en sciences vétérinaires &amp; Conclusion
+  </li>
+
+</ol>
 ```
 
-::: {style="color: #A1A1AA;"}
-1.  L'ANOVA, un test d'hypothèse : que cherche-t-on à tester ?
-:::
+
+
+## 2️⃣ Pourquoi tester l'interaction entre deux facteurs ?
 
 ```{=html}
-<div style="height:15px;"></div>
+<div style="height:2px;"></div>
 ```
 
-::: {style="color: #A1A1AA;"}
-2.  Comment réaliser une ANOVA à deux facteurs et interpréter ses effets ?
+
+::::::::: columns
+::::: {.column width="50%"}
+
+::: {style="text-align:center; font-size:0.9em;"}
+[[**Détecter un effet qui dépend d'un autre facteur**]{.underline}]{.smallcaps}
 :::
 
-```{=html}
-<div style="height:15px;"></div>
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-height: 3.8
+#| fig-width: 5.5
+
+data_inter1 <- data.frame(
+  A = factor(
+    rep(c("A1", "A2"), 2),
+    levels = c("A1", "A2")
+  ),
+  B = rep(c("B1", "B2"), each = 2),
+  mu = c(5, 18, 12, 15)
+)
+
+colors_B <- c(
+  "B1" = "#0072B2",
+  "B2" = "#CC79A7"
+)
+
+ggplot(
+  data_inter1,
+  aes(x = A, y = mu, colour = B, group = B)
+) +
+  geom_line(linewidth = 2) +
+  geom_point(size = 5) +
+
+  scale_colour_manual(
+    values = colors_B,
+    breaks = c("B1", "B2")
+  ) +
+
+  scale_y_continuous(
+    limits = c(0, 20),
+    breaks = seq(0, 20, 5)
+  ) +
+
+  labs(
+    x = "Facteur A",
+    y = "Moyenne de Y",
+    colour = "Facteur B"
+  ) +
+
+  theme_minimal(base_size = 20) +
+  theme(
+    axis.title = element_text(size = 21),
+    axis.text = element_text(size = 20),
+    legend.position = "bottom",
+    legend.title = element_blank(),
+    legend.text = element_text(size = 16)
+  )
 ```
 
-**3. Quelles sont les hypothèses à vérifier avant de réaliser une ANOVA ?**
-
-```{=html}
-<div style="height:15px;"></div>
-```
-
-::: {style="color: #A1A1AA;"}
-4.  Application aux données de souris avec R
+::: {style="font-size:0.8em; text-align:center; margin-top: -15px"}
+Le passage de $A_1$ à $A_2$ augmente la moyenne de $Y$ pour les deux modalités de B, mais **davantage pour $B_1$**.
 :::
 
-```{=html}
-<div style="height:15px;"></div>
+:::::
+
+::::: {.column width="50%"}
+
+::: {style="text-align:center; font-size:0.9em;"}
+[[**Détecter un effet masqué**]{.underline}]{.smallcaps}
+:::
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-height: 3.8
+#| fig-width: 5.5
+
+data_inter2 <- data.frame(
+  A = factor(
+    rep(c("A1", "A2"), 2),
+    levels = c("A1", "A2")
+  ),
+  B = rep(c("B1", "B2"), each = 2),
+  mu = c(5, 15, 15, 5)
+)
+
+# Moyennes toutes modalités de B confondues
+means_inter2 <- data_inter2 %>%
+  group_by(A) %>%
+  summarise(mu = mean(mu), .groups = "drop") %>%
+  mutate(B = "B1 et B2 confondus")
+
+# Regroupement des moyennes
+data_inter2_plot <- bind_rows(
+  data_inter2,
+  means_inter2
+)
+
+ggplot(
+  data_inter2_plot,
+  aes(
+    x = A,
+    y = mu,
+    colour = B,
+    linetype = B,
+    group = B
+  )
+) +
+
+  geom_line(linewidth = 2) +
+  geom_point(size = 5) +
+
+  scale_colour_manual(
+    values = c(
+      colors_B,
+      "B1 et B2 confondus" = "grey30"
+    ),
+    breaks = c(
+      "B1",
+      "B2",
+      "B1 et B2 confondus"
+    )
+  ) +
+
+  scale_linetype_manual(
+    values = c(
+      "B1" = "solid",
+      "B2" = "solid",
+      "B1 et B2 confondus" = "dashed"
+    ),
+    breaks = c(
+      "B1",
+      "B2",
+      "B1 et B2 confondus"
+    )
+  ) +
+
+  scale_y_continuous(
+    limits = c(0, 20),
+    breaks = seq(0, 20, 5)
+  ) +
+
+  labs(
+    x = "Facteur A",
+    y = "Moyenne de Y",
+    colour = "Facteur B",
+    linetype = "Facteur B"
+  ) +
+
+  theme_minimal(base_size = 20) +
+  theme(
+    axis.title = element_text(size = 21),
+    axis.text = element_text(size = 20),
+    legend.position = "bottom",
+    legend.title = element_blank(),
+    legend.text = element_text(size = 16),
+    legend.key.width = grid::unit(0.8, "cm")
+  ) +
+
+  guides(
+    colour = guide_legend(nrow = 1),
+    linetype = guide_legend(nrow = 1)
+  )
 ```
 
-::: {style="color: #A1A1AA;"}
-5.  Bonus, Exemple de contributions en sciences vétérinaires & Conclusion
+::: {style="font-size:0.8em; text-align:center; margin-top: -15px"}
+Sans distinguer les modalités de B, aucun effet de A n'apparaît. Pourtant, A a des **effets opposés pour $B_1$ et $B_2$**.
 :::
+
+:::::
+:::::::::
+
+. . .
+
+::: {.callout-warning }
+Étudier les facteurs séparément peut conduire à passer à côté de certains effets. Tester l'interaction permet de déterminer si **l'effet d'un facteur dépend des modalités de l'autre**.
+:::
+
+
+
+## 2️⃣ Notations
+
+[[**Rappel :**]{.underline}]{.smallcaps} $N_H=N_S=2$ désignent les nombres de modalités des facteurs *Housing* et *Sex*.
+
+```{=html}
+<div style="height:20px;"></div>
+```
+
+::::: columns
+::: {.column width="50%"}
+
+[[**Moyennes théoriques (population) :**]{.underline}]{.smallcaps}
+
+- $\mu_{ij}$ : moyenne pour la combinaison des modalités $i$ de *Housing* et $j$ de *Sex*.
+
+- $\mu_{i.}$ : moyenne pour la modalité $i$ de *Housing*, tous sexes confondus.
+
+- $\mu_{.j}$ : moyenne pour la modalité $j$ de *Sex*, tous hébergements confondus.
+
+- $\mu_{..}$ : moyenne globale.
+
+$$
+\begin{aligned}
+\mu_{i.} &= \frac{1}{N_S}\sum_{j=1}^{N_S}\mu_{ij}\\
+\mu_{.j} &= \frac{1}{N_H}\sum_{i=1}^{N_H}\mu_{ij}\\
+\mu_{..} &= \frac{1}{N_HN_S}\sum_{i=1}^{N_H}\sum_{j=1}^{N_S}\mu_{ij}
+\end{aligned}
+$$
+
+:::
+
+::: {.column width="50%"}
+
+[[**Moyennes empiriques (échantillon) :**]{.underline}]{.smallcaps}
+
+- $\widehat{\mu}_{ij}$ : moyenne empirique pour la combinaison des modalités $i$ et $j$.
+
+- $\widehat{\mu}_{i.}$ : moyenne empirique pour la modalité $i$ de *Housing*.
+
+- $\widehat{\mu}_{.j}$ : moyenne empirique pour la modalité $j$ de *Sex*.
+
+- $\widehat{\mu}_{..}$ : moyenne globale empirique.
+
+$$
+\begin{aligned}
+\widehat{\mu}_{i.} &= \frac{1}{N_S}\sum_{j=1}^{N_S}\widehat{\mu}_{ij}\\
+\widehat{\mu}_{.j} &= \frac{1}{N_H}\sum_{i=1}^{N_H}\widehat{\mu}_{ij}\\
+\widehat{\mu}_{..} &= \frac{1}{N_HN_S}\sum_{i=1}^{N_H}\sum_{j=1}^{N_S}\widehat{\mu}_{ij}
+\end{aligned}
+$$
+
+:::
+:::::
+
+::: small-box
+Le point dans un indice indique que l'on moyenne sur toutes les modalités du facteur correspondant.
+:::
+
+
+
+## 📖 Objectifs du cours
+
+```{=html}
+
+<div style="height:30px;"></div>
+
+<ol style="margin:0;">
+
+  <li style="margin-bottom:35px; color:#A1A1AA;">
+    Comment tester les effets d'un seul facteur ?
+    <ul style="margin-left:40px;">
+      <li>L'intuition derrière l'ANOVA</li>
+      <li>Définition et conduite de l'ANOVA à 1 facteur</li>
+    </ul>
+  </li>
+
+  <li style="margin-bottom:35px; color:#A1A1AA">
+    Comment tester l'interaction entre deux facteurs ?
+    <ul style="margin-left:40px;">
+      <li>Pourquoi tester l'interaction ?</li>
+      <li>Définition et conduite de l'ANOVA à 2 facteurs</li>
+    </ul>
+  </li>
+
+  <li style="margin-bottom:35px; color:black;">
+    <strong>Quelles sont les hypothèses à vérifier avant de réaliser une ANOVA ?</strong>
+  </li>
+
+  <li style="margin-bottom:35px; color:#A1A1AA;">
+    Application aux données de souris avec R
+  </li>
+
+  <li style="color:#A1A1AA;">
+    Bonus, Exemple de contributions en sciences vétérinaires &amp; Conclusion
+  </li>
+
+</ol>
+```
+
 
 ## 3️⃣ Pourquoi vérifier les hypothèses avant de réaliser une ANOVA ?
 
@@ -3196,44 +3485,41 @@ ggplot() +
 ## 📖 Objectifs du cours
 
 ```{=html}
-<br>
-<br>
-<div style="height:45px;"></div>
+
+<div style="height:30px;"></div>
+
+<ol style="margin:0;">
+
+  <li style="margin-bottom:35px; color:#A1A1AA;">
+    Comment tester les effets d'un seul facteur ?
+    <ul style="margin-left:40px;">
+      <li>L'intuition derrière l'ANOVA</li>
+      <li>Définition et conduite de l'ANOVA à 1 facteur</li>
+    </ul>
+  </li>
+
+  <li style="margin-bottom:35px; color:#A1A1AA">
+    Comment tester l'interaction entre deux facteurs ?
+    <ul style="margin-left:40px;">
+      <li>Pourquoi tester l'interaction ?</li>
+      <li>Définition et conduite de l'ANOVA à 2 facteurs</li>
+    </ul>
+  </li>
+
+  <li style="margin-bottom:35px; color:#A1A1AA;">
+    Quelles sont les hypothèses à vérifier avant de réaliser une ANOVA ?
+  </li>
+
+  <li style="margin-bottom:35px; color:black;">
+    <strong>Application aux données de souris avec R</strong>
+  </li>
+
+  <li style="color:#A1A1AA;">
+    Bonus, Exemple de contributions en sciences vétérinaires &amp; Conclusion
+  </li>
+
+</ol>
 ```
-
-::: {style="color: #A1A1AA;"}
-1.  L'ANOVA, un test d'hypothèse : que cherche-t-on à tester ?
-:::
-
-```{=html}
-<div style="height:15px;"></div>
-```
-
-::: {style="color: #A1A1AA;"}
-2.  Comment réaliser une ANOVA à deux facteurs et interpréter ses effets ?
-:::
-
-```{=html}
-<div style="height:15px;"></div>
-```
-
-::: {style="color: #A1A1AA;"}
-3.  Quelles sont les hypothèses à vérifier avant de réaliser une ANOVA ?
-:::
-
-```{=html}
-<div style="height:15px;"></div>
-```
-
-**4. Application aux données de souris avec R**
-
-```{=html}
-<div style="height:15px;"></div>
-```
-
-::: {style="color: #A1A1AA;"}
-5.  Exemple concret de contributions en sciences vétérinaires & Conclusion
-:::
 
 ## 🐁 Application aux données de chats avec R
 
@@ -3578,44 +3864,42 @@ $\longrightarrow$ **L'effet de l'hébergement sur le temps de contact ne semble 
 ## 📖 Objectifs du cours
 
 ```{=html}
-<br>
-<br>
-<div style="height:45px;"></div>
+
+<div style="height:30px;"></div>
+
+<ol style="margin:0;">
+
+  <li style="margin-bottom:35px; color:#A1A1AA;">
+    Comment tester les effets d'un seul facteur ?
+    <ul style="margin-left:40px;">
+      <li>L'intuition derrière l'ANOVA</li>
+      <li>Définition et conduite de l'ANOVA à 1 facteur</li>
+    </ul>
+  </li>
+
+  <li style="margin-bottom:35px; color:#A1A1AA">
+    Comment tester l'interaction entre deux facteurs ?
+    <ul style="margin-left:40px;">
+      <li>Pourquoi tester l'interaction ?</li>
+      <li>Définition et conduite de l'ANOVA à 2 facteurs</li>
+    </ul>
+  </li>
+
+  <li style="margin-bottom:35px; color:#A1A1AA;">
+    Quelles sont les hypothèses à vérifier avant de réaliser une ANOVA ?
+  </li>
+
+  <li style="margin-bottom:35px; color:black;">
+    Application aux données de souris avec R
+  </li>
+
+  <li style="color:black;">
+    <strong>Bonus, Exemple de contributions en sciences vétérinaires &amp; Conclusion</strong>
+  </li>
+
+</ol>
 ```
 
-::: {style="color: #A1A1AA;"}
-1.  L'ANOVA, un test d'hypothèse : que cherche-t-on à tester ?
-:::
-
-```{=html}
-<div style="height:15px;"></div>
-```
-
-::: {style="color: #A1A1AA;"}
-2.  Comment réaliser une ANOVA à deux facteurs et interpréter ses effets ?
-:::
-
-```{=html}
-<div style="height:15px;"></div>
-```
-
-::: {style="color: #A1A1AA;"}
-3.  Quelles sont les hypothèses à vérifier avant de réaliser une ANOVA ?
-:::
-
-```{=html}
-<div style="height:15px;"></div>
-```
-
-::: {style="color: #A1A1AA;"}
-4.  Application aux données de souris avec R
-:::
-
-```{=html}
-<div style="height:15px;"></div>
-```
-
-**5. Bonus, Exemple de contributions en sciences vétérinaires & Conclusion**
 
 ## ➕ Bonus : l'ANOVA est en fait un modèle linéaire
 
