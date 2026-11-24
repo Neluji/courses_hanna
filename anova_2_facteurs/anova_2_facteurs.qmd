@@ -286,9 +286,7 @@ Quels sont les effets de **chacun des 2 facteurs A et B** et celui de leur **int
 <div style="height:30px;"></div>
 ```
 
-::: fragment
 - $Y =$ Durée de contact avec d'autres congénères
-:::
 
 ::: fragment
 - Facteurs :
