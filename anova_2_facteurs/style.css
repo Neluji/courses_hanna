@@ -21,11 +21,11 @@
   font-size: 0.75em;
 }
 
-/*
-
 .reveal blockquote {
-  font-size: 0.8em;
-}*/
+/* font-size: 0.8em; */
+padding-top: 0;
+  padding-bottom: 0;
+}
 
 /*.reveal .slides {
   width: 90% !important;
@@ -40,13 +40,11 @@
   background-repeat: no-repeat;
 }
 
-
 #tableau-focus table tbody tr:nth-child(1),
 #tableau-focus table tbody tr:nth-child(2) {
   background-color: #fff3cd !important;
   font-weight: bold;
 }
-
 
 .center-text {
   position: absolute;
@@ -82,7 +80,6 @@
 .reveal .callout {
   background-color: white;
 }
-
 
 .reveal .grande-fig img {
   width: 850px !important;
