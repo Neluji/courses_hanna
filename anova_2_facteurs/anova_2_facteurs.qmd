@@ -281,7 +281,7 @@ Quels sont les effets de **chacun des 2 facteurs A et B** et celui de leur **int
 . . .
 
 ::::::::: columns
-::::: {.column width="65%"}
+::::: {.column width="61%"}
 ```{=html}
 <div style="height:30px;"></div>
 ```
@@ -302,7 +302,7 @@ Quels sont les effets de **chacun des 2 facteurs A et B** et celui de leur **int
 :::
 :::::
 
-::::: {.column width="35%"}
+::::: {.column width="39%"}
 :::: columns
 ```{=html}
 <div style="height:10px;"></div>
