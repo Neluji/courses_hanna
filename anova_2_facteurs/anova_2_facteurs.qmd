@@ -401,10 +401,10 @@ p
 ```
 
 ::: callout-note
-L'objectif de l'ANOVA est de comparer les moyennes de $Y$ pour chacun des groupes ($=$ facteur $\times$ modalité) afin de voir si le(s) facteur(s) étudié(s) a(ont) une influence sur $Y$.
+L'objectif de l'ANOVA est de comparer les moyennes de $Y$ pour chacun des groupes ($=$ facteur $\times$ modalité) afin de voir si les facteurs étudiés ont une influence sur $Y$.
 :::
 
-## 🔍 Introduction : L'ANOVA, qu'est-ce que c'est ? {data-visibility="uncounted"}
+## 🔍 Introduction : L'ANOVA, qu'est-ce que c'est ?
 
 ```{=html}
 <div style="height:20px;"></div>
@@ -682,11 +682,6 @@ $$
 :::
 :::::
 
-. . .
-
-::: callout-note
-Les moyennes théoriques sont inconnues. On les estime à partir des données en calculant les moyennes empiriques.
-:::
 
 
 ## 1️⃣ Introduction à l'ANOVA à 1 facteur - Intuition
@@ -832,6 +827,10 @@ p_housing
 
 
 ## 1️⃣ Pourquoi parle-t-on d'analyse de variance ?
+
+```{=html}
+<div style="height:2px;"></div>
+```
 
 > Pourquoi observer des différences entre les moyennes ne suffit-il pas pour conclure à un effet du facteur ?
 
@@ -1446,13 +1445,13 @@ L'ANOVA cherche à déterminer si la variabilité entre les groupes est importan
 ## 1️⃣ 3^ème^ étape : Variabilité expliquée par le facteur *Housing*
 
 ```{=html}
-<div style="height:5px;"></div>
+<div style="height:10px;"></div>
 ```
 
 > On mesure les écarts entre les **moyennes des modalités** et la **moyenne globale**.
 
 ```{=html}
-<div style="height:15px;"></div>
+<div style="height:20px;"></div>
 ```
 
 ::::::::: columns
@@ -1598,10 +1597,14 @@ $\color{#0072B2}{\boldsymbol{SC_H = `r round(SC_H, 2)`}}$
 ## 1️⃣ 3^ème^ étape : Variabilité résiduelle
 
 ```{=html}
-<div style="height:5px;"></div>
+<div style="height:10px;"></div>
 ```
 
 > La **variabilité résiduelle** correspond à la partie de la variabilité des observations qui n'est **pas expliquée par le modèle**.
+
+```{=html}
+<div style="height:20px;"></div>
+```
 
 ::::::::: columns
 ::::: {.column width="50%"}
@@ -1838,7 +1841,7 @@ knitr::kable(
 $$
 F_H =
 \frac{\color{#0072B2}{CM_H}}
-{\color{#E69F00}{CM_{\mathrm{rés}}}}
+{\color{#E69F00}{CM_{\mathrm{res}}}}
 =
 \frac{\color{#0072B2}{`r round(tab_H[1, "Mean Sq"], 3)`}}
 {\color{#E69F00}{`r round(tab_H[2, "Mean Sq"], 3)`}}
@@ -2436,6 +2439,617 @@ $$
 \mu_{i.} = \frac{1}{N_S}\sum_{j=1}^{N_S}\mu_{ij} \qquad \mu_{.j} = \frac{1}{N_H}\sum_{i=1}^{N_H}\mu_{ij} \qquad \mu_{..} = \frac{1}{N_HN_S}\sum_{i=1}^{N_H}\sum_{j=1}^{N_S}\mu_{ij}
 $$
 
+
+## 2️⃣ L'ANOVA à 2 facteurs : Un test d'hyp. - Définition
+
+```{=html}
+<div style="height:10px;"></div>
+```
+
+ANOVA à 2 facteurs
+
+: L'[ANOVA à deux facteurs]{.smallcaps} est une méthode statistique reposant sur des tests d'hypothèses pour déterminer si les facteurs, ainsi que leur interaction, ont un effet significatif sur la variable étudiée.
+
+```{=html}
+<div style="height:20px;"></div>
+```
+
+::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top: 1px;padding-bottom: 5px;"}
+[[Hypothèses :]{.underline}]{.smallcaps}
+
+$$
+\small
+\begin{aligned}
+H_0^H &: \mu_1^H=\mu_2^H
+\qquad H_1^H : \mu_1^H\neq\mu_2^H\\[8pt]
+H_0^S &: \mu_1^S=\mu_2^S
+\qquad H_1^S : \mu_1^S\neq\mu_2^S\\[8pt]
+H_0^{H\times S} &: \mu_{ij}^{HS}-\mu_i^H-\mu_j^S+\mu=0,\ \forall i,j
+\qquad H_1^{H\times S} : \text{au moins une interaction est non nulle}
+\end{aligned}
+$$
+:::
+
+```{=html}
+<div style="height:10px;"></div>
+```
+
+::::::::: columns
+:::: {.column width="33%"}
+::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top: 1px;padding-bottom: 5px;"}
+[[erreurs :]{.underline}]{.smallcaps}
+
+```{=html}
+<div style="height:22.75px;"></div>
+```
+
+$$\small \alpha = P(\text{rejeter }H_0\mid H_0\text{ vraie})$$
+
+$$\small \beta = P(\text{ne pas rejeter }H_0\mid H_0\text{ fausse})$$
+:::
+::::
+
+:::: {.column width="33%"}
+::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top:1px;padding-bottom: 5px;"}
+[[Statistique de test :]{.underline}]{.smallcaps}
+
+```{=html}
+<div style="height:0.03px;"></div>
+```
+
+$$
+\small F= \frac{\text{variabilité expliquée par l'effet}}
+{\text{variabilité résiduelle}}
+$$
+
+$$
+\scriptsize
+\begin{aligned}
+H_0^H &\Longrightarrow F_H\sim\mathcal{F}_{N_H-1,N-N_HN_S}\\
+H_0^S &\Longrightarrow F_S\sim\mathcal{F}_{N_S-1,N-N_HN_S}\\
+H_0^{H\times S} &\Longrightarrow F_{HS}\sim\mathcal{F}_{(N_H-1)(N_S-1),N-N_HN_S}
+\end{aligned}
+$$
+:::
+::::
+
+:::: {.column width="33%"}
+::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top: 1px;padding-bottom: 5px;"}
+[[p-value et décision :]{.underline}]{.smallcaps}
+
+```{=html}
+<div style="height:0.014px;"></div>
+```
+
+$$\small p = P_{H_0} \left( F \geq F_{\mathrm{obs}} \right)$$
+
+$$
+\small
+\begin{cases}
+p < \alpha & \Longrightarrow \text{rejet de } H_0\\
+p \geq \alpha & \Longrightarrow \text{non-rejet de } H_0
+\end{cases}
+$$
+:::
+::::
+:::::::::
+
+
+## 2️⃣ En pratique :  Définir les hypothèses
+
+```{=html}
+<div style="height:5px;"></div>
+```
+
+
+> L'[ANOVA à deux facteurs]{.smallcaps} permet de tester simultanément les effets des deux facteurs ainsi que celui de leur interaction.
+
+[[Hypothèses testées :]{.underline}]{.smallcaps}
+
+**Facteur Housing - Hébergement :**
+
+$$
+H_0^H : \mu_{1.}=\mu_{2.}
+\qquad \text{vs.} \qquad
+H_1^H : \mu_{1.}\neq\mu_{2.}
+$$
+
+**Facteur Sex - Sexe :**
+
+$$
+H_0^S : \mu_{.1}=\mu_{.2}
+\qquad \text{vs.} \qquad
+H_1^S : \mu_{.1}\neq\mu_{.2}
+$$
+
+. . .
+
+**Interaction Housing × Sex :**
+
+$$
+\begin{aligned}
+H_0^{HS} &: \mu_{ij}-\mu_{i.}-\mu_{.j}+\mu_{..}=0
+\quad \forall i,j\\
+H_1^{HS} &: \mu_{ij}-\mu_{i.}-\mu_{.j}+\mu_{..}\neq 0
+\quad \text{pour au moins un couple } (i,j)
+\end{aligned}
+$$
+
+::: {style="font-size: 0.8em;"}
+- $H_0^{HS}$ : l'effet de l'hébergement ne dépend pas du sexe.
+- $H_1^{HS}$ : l'effet de l'hébergement dépend du sexe.
+:::
+
+
+## 2️⃣ En pratique : Décomposer la variabilité des observations
+
+
+```{r}
+#| include: false
+
+data_HS <- data_mice %>%
+  filter(
+    !is.na(Housing),
+    !is.na(Sex),
+    !is.na(contact_time)
+  ) %>%
+  mutate(
+    Groupe = interaction(Housing, Sex, sep = " - ")
+  )
+
+mu_global <- mean(data_HS$contact_time)
+
+means_H <- data_HS %>%
+  group_by(Housing) %>%
+  summarise(mu_H = mean(contact_time), .groups = "drop")
+
+means_S <- data_HS %>%
+  group_by(Sex) %>%
+  summarise(mu_S = mean(contact_time), .groups = "drop")
+
+means_HS <- data_HS %>%
+  group_by(Housing, Sex, Groupe) %>%
+  summarise(
+    mu_HS = mean(contact_time),
+    n_HS = n(),
+    .groups = "drop"
+  ) %>%
+  left_join(means_H, by = "Housing") %>%
+  left_join(means_S, by = "Sex") %>%
+  mutate(
+    mu_add = mu_H + mu_S - mu_global,
+    x = as.numeric(Groupe)
+  )
+
+data_res_HS <- data_HS %>%
+  left_join(
+    means_HS %>% select(Groupe, mu_HS),
+    by = "Groupe"
+  ) %>%
+  group_by(Groupe) %>%
+  mutate(
+    x_groupe = as.numeric(Groupe),
+    x = x_groupe + seq(-0.22, 0.22, length.out = n())
+  ) %>%
+  ungroup()
+
+SC_HS <- sum(
+  means_HS$n_HS *
+    (means_HS$mu_HS - means_HS$mu_add)^2
+)
+
+SC_res_HS <- sum(
+  (data_res_HS$contact_time - data_res_HS$mu_HS)^2
+)
+
+colors_HS <- setNames(
+  c("#0072B2", "#E69F00", "#009E73", "#CC79A7"),
+  levels(data_HS$Groupe)
+)
+```
+
+::::::::: columns
+::::: {.column width="50%"}
+
+::: {style="text-align:center; font-size:0.9em;"}
+[[**Variabilité expliquée par l'interaction**]{.underline}]{.smallcaps}
+:::
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-height: 3.5
+#| fig-width: 6
+
+ggplot(means_HS, aes(x = x)) +
+
+  geom_segment(
+    aes(
+      xend = x,
+      y = mu_add,
+      yend = mu_HS
+    ),
+    colour = "#CC79A7",
+    linewidth = 2.5
+  ) +
+
+  geom_point(
+    aes(y = mu_add),
+    shape = 21,
+    fill = "white",
+    colour = "black",
+    stroke = 1.5,
+    size = 5
+  ) +
+
+  geom_point(
+    aes(y = mu_HS),
+    colour = "#CC79A7",
+    size = 5
+  ) +
+
+  scale_x_continuous(
+    breaks = seq_along(levels(data_HS$Groupe)),
+    labels = levels(data_HS$Groupe)
+  ) +
+
+  scale_y_continuous(
+    expand = expansion(mult = c(0.15, 0.15))
+  ) +
+
+  labs(
+    x = NULL,
+    y = "Durée moyenne de contact"
+  ) +
+
+  theme_minimal(base_size = 20) +
+  theme(
+    axis.text.x = element_text(angle = 30, hjust = 1),
+    axis.title = element_text(size = 20)
+  )
+```
+
+::: {style="font-size:0.65em; text-align:center;"}
+○ Moyennes attendues sans interaction (somme des effets)
+
+[● Moyennes observées]{style="color:#CC79A7;"}
+:::
+
+::: {style="font-size:0.75em;"}
+$$
+\color{#CC79A7}{
+\boxed{
+SC_{HS} =
+n\sum_{i=1}^{N_H}\sum_{j=1}^{N_S}
+\left(
+\widehat{\mu}_{ij}
+-\widehat{\mu}_{i.}
+-\widehat{\mu}_{.j}
++\widehat{\mu}_{..}
+\right)^2
+}}
+$$
+
+$$
+\color{#CC79A7}{
+\boldsymbol{SC_{HS}=`r round(SC_HS, 2)`}
+}
+$$
+:::
+
+:::::
+
+::::: {.column width="50%"}
+
+::: {style="text-align:center; font-size:0.9em;"}
+[[**Variabilité résiduelle**]{.underline}]{.smallcaps}
+:::
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-height: 3.5
+#| fig-width: 6
+
+ggplot() +
+
+  geom_segment(
+    data = data_res_HS,
+    aes(
+      x = x,
+      xend = x,
+      y = mu_HS,
+      yend = contact_time
+    ),
+    colour = "#E69F00",
+    linewidth = 0.9,
+    alpha = 0.8
+  ) +
+
+  geom_point(
+    data = data_res_HS,
+    aes(
+      x = x,
+      y = contact_time,
+      colour = Groupe
+    ),
+    size = 3.5
+  ) +
+
+  geom_segment(
+    data = means_HS,
+    aes(
+      x = x - 0.27,
+      xend = x + 0.27,
+      y = mu_HS,
+      yend = mu_HS
+    ),
+    colour = "black",
+    linewidth = 1.7
+  ) +
+
+  scale_colour_manual(values = colors_HS) +
+
+  scale_x_continuous(
+    breaks = seq_along(levels(data_HS$Groupe)),
+    labels = levels(data_HS$Groupe)
+  ) +
+
+  labs(
+    x = NULL,
+    y = "Durée de contact"
+  ) +
+
+  theme_minimal(base_size = 20) +
+  theme(
+    legend.position = "none",
+    axis.text.x = element_text(angle = 30, hjust = 1),
+    axis.title = element_text(size = 20)
+  )
+```
+
+::: {style="font-size:0.65em; text-align:center;"}
+— Moyennes par combinaison (groupes)
+
+[— Écarts résiduels]{style="color:#E69F00;"}
+:::
+
+::: {style="font-size:0.75em;"}
+$$
+\color{#E69F00}{
+\boxed{
+SC_{\mathrm{res}} =
+\sum_{i=1}^{N_H}\sum_{j=1}^{N_S}
+\sum_{k=1}^{n}
+\left(Y_{ijk}-\widehat{\mu}_{ij}\right)^2
+}}
+$$
+
+$$
+\color{#E69F00}{
+\boldsymbol{SC_{\mathrm{res}}=`r round(SC_res_HS, 2)`}
+}
+$$
+:::
+
+:::::
+:::::::::
+
+::: {style="font-size:0.6em;"}
+$n$ : nombre d'observations par combinaison de modalités ($n = 10$).
+:::
+
+
+## 2️⃣ En pratique : Statistique de Fisher pour l'interaction
+
+```{=html}
+<div style="height:15px;"></div>
+```
+
+::: callout-warning
+Pour comparer les variabilités, on divise chaque somme des carrés (SC) par ses **degrés de liberté**. On obtient ainsi un **carré moyen (CM)**.
+:::
+
+```{=html}
+<div style="height:5px;"></div>
+```
+
+::: {style="font-size: 0.85em;"}
+| Effet | Carré moyen | Statistique de Fisher |
+|:-----------------------|:----------------------:|:----------------------:|
+| Facteur Housing | $\displaystyle CM_H=\frac{\color{#0072B2}{SC_H}}{N_H-1}$ | $\displaystyle F_H=\frac{CM_H}{CM_{\mathrm{res}}}$ |
+| Facteur Sex | $\displaystyle CM_S=\frac{\color{#009E73}{SC_S}}{N_S-1}$ | $\displaystyle F_S=\frac{CM_S}{CM_{\mathrm{res}}}$ |
+| Interaction Housing × Sex | $\displaystyle CM_{HS}=\frac{\color{#CC79A7}{SC_{HS}}}{(N_H-1)(N_S-1)}$ | $\displaystyle F_{HS}=\frac{CM_{HS}}{CM_{\mathrm{res}}}$ |
+| Résidus | $\displaystyle CM_{\mathrm{res}}=\frac{\color{#E69F00}{SC_{\mathrm{res}}}}{N-N_HN_S}$ | |
+:::
+
+::: {style="font-size: 0.55em;"}
+avec $N_H$ et $N_S$ les nombres de modalités des facteurs, $n$ le nombre d'observations par combinaison et $N=N_HN_Sn$ le nombre total d'observations.
+:::
+
+. . .
+
+```{=html}
+<div style="height:15px;"></div>
+```
+
+::: {style="font-size: 0.8em; text-align:center;"}
+La statistique de Fisher compare la **variabilité expliquée par un effet** à la **variabilité résiduelle**.
+:::
+
+$$
+\boxed{
+F_{HS}=
+\frac{\color{#CC79A7}{CM_{HS}}}
+{\color{#E69F00}{CM_{\mathrm{res}}}}
+}
+$$
+
+## 2️⃣ En pratique : Calcul de la p-value et conclusion - Exemple
+
+```{=html}
+<div style="height:3px;"></div>
+```
+
+::::: columns
+::: {.column width="55%"}
+
+[[Résultats de l'ANOVA :]{.underline}]{.smallcaps}
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+# ANOVA à deux facteurs avec interaction
+modele_HS <- aov(
+  contact_time ~ Housing * Sex,
+  data = data_mice
+)
+
+tab_HS <- summary(modele_HS)[[1]]
+
+F_obs_HS <- tab_HS[3, "F value"]
+p_HS <- tab_HS[3, "Pr(>F)"]
+
+tableau_anova_HS <- data.frame(
+  Facteur = c("H", "S", "HS"),
+  `Nom du facteur` = c(
+    "Hébergement",
+    "Sexe",
+    "Interaction"
+  ),
+  ddl = tab_HS[1:3, "Df"],
+  F_obs = round(tab_HS[1:3, "F value"], 3),
+  p_value = format.pval(
+    tab_HS[1:3, "Pr(>F)"],
+    digits = 3,
+    eps = 0.001
+  ),
+  check.names = FALSE
+)
+
+knitr::kable(
+  tableau_anova_HS,
+  align = c("c", "l", "c", "r", "r"),
+  col.names = c(
+    "Facteur",
+    "Nom du facteur",
+    "ddl",
+    "$F_{\\mathrm{obs}}$",
+    "$\\mathbb{P}(F \\geq F_{\\mathrm{obs}})$"
+  ),
+  escape = FALSE
+)
+```
+
+```{=html}
+<div style="height:5px;"></div>
+```
+
+[[Pour l'interaction :]{.underline}]{.smallcaps}
+
+Sous $H_0^{HS}$ $F_{HS}\sim\mathcal{F}_{(N_H-1)(N_S-1),\,N-N_HN_S}$
+
+$$
+p_{HS}>5\%
+\quad\Longrightarrow\quad
+\text{non-rejet de }H_0^{HS}
+$$
+
+:::
+
+::: {.column width="45%"}
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-height: 4
+#| fig-width: 6
+#| fig-align: right
+
+# Degrés de liberté
+ddl1 <- tab_HS[3, "Df"]
+ddl2 <- tab_HS[4, "Df"]
+
+# Distribution de Fisher sous H0
+x <- sort(unique(c(
+  seq(
+    0.01,
+    max(6, F_obs_HS + 3),
+    length.out = 2000
+  ),
+  F_obs_HS
+)))
+
+df_fisher <- data.frame(
+  x = x,
+  density = df(x, df1 = ddl1, df2 = ddl2)
+)
+
+df_pvalue <- df_fisher %>%
+  filter(x >= F_obs_HS)
+
+ggplot(df_fisher, aes(x = x, y = density)) +
+
+  # Aire correspondant à la p-value
+  geom_area(
+    data = df_pvalue,
+    fill = "#CC79A7",
+    alpha = 0.6
+  ) +
+
+  # Loi de Fisher
+  geom_line(
+    colour = "#4D4D4D",
+    linewidth = 1.4
+  ) +
+
+  # Statistique observée
+  geom_vline(
+    xintercept = F_obs_HS,
+    colour = "#CC79A7",
+    linetype = "dashed",
+    linewidth = 1.5
+  ) +
+
+  annotate(
+    "text",
+    x = F_obs_HS,
+    y = max(df_fisher$density) * 0.5,
+    label = paste0(
+      "F[obs] == ", round(F_obs_HS, 3)
+    ),
+    parse = TRUE,
+    colour = "#CC79A7",
+    size = 7,
+    hjust = -0.1
+  ) +
+
+  labs(
+    x = "Statistique F",
+    y = "Densité"
+  ) +
+
+  theme_minimal(base_size = 22) +
+  theme(
+    axis.title = element_text(size = 24),
+    axis.text = element_text(size = 22),
+    panel.grid.minor = element_blank()
+  )
+```
+
+:::
+:::::
+
+. . .
+
+::: small-box
+[[**Conclusion :**]{.underline}]{.smallcaps} Au seuil de 5 %, **aucune interaction significative entre le sexe et le type d'hébergement** n'est mise en évidence. Seul le type d'hébergement présente un **effet significatif** sur la durée moyenne de contact des souris.
+:::
 
 
 ## 📖 Objectifs du cours
@@ -3844,17 +4458,12 @@ Les hypothèses sont bien validés, on peut procéder à l'ANOVA.
 **Le sexe et le type d'hébergement des souris ont-ils un effet sur la durée de leurs interactions sociales ? Existe-t-il un effet combiné de ces deux facteurs ?**
 :::
 
-```{=html}
-<div style="height:15px;"></div>
-```
 
 ::::: columns
 ::: {.column width="50%"}
+
 <br>
 
-```{=html}
-<div style="height:25px;"></div>
-```
 
 ``` r
 aov <- aov(data_mice$contact_time ~ data_mice$Housing*data_mice$Sex)
@@ -3874,11 +4483,7 @@ summary(aov)
 :::
 :::::
 
-```{=html}
-<div style="height:5px;"></div>
-```
-
-::: small-box
+::: {.small-box style="margin-top: -0px;"}
 Au seuil de **5 %**, le **type d'hébergement** a un effet significatif sur le temps de contact des souris ($p < 0.001$). En revanche, **ni le sexe** ($p = 0.712$), **ni l'interaction entre le sexe et l'hébergement** ($p = 0.273$) ne sont significatifs.
 
 $\longrightarrow$ **L'effet de l'hébergement sur le temps de contact ne semble donc pas dépendre du sexe des souris.**
