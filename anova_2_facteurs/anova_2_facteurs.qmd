@@ -27,7 +27,7 @@ library(patchwork)
 library(car)
 ```
 
-## Positionnement du cours dans le module 
+## 🧩 Positionnement du cours dans le module
 
 ```{=html}
 <br>
@@ -37,14 +37,11 @@ library(car)
 
 - Modèle linéaire simple
 
-
 ```{=html}
 <div style="height:5px;"></div>
 ```
 
 - Modèle linéaire multiple
-
-
 
 ```{=html}
 <div style="height:5px;"></div>
@@ -52,12 +49,11 @@ library(car)
 
 - Intervalles de confiance et de fluctuation
 
-
 ```{=html}
 <div style="height:5px;"></div>
 ```
 
-- Tests d'hypothèses 
+- Tests d'hypothèses
 
 . . .
 
@@ -65,42 +61,41 @@ library(car)
 <div style="height:5px;"></div>
 ```
 
-$\longrightarrow$  **ANOVA à 1 et 2 facteurs**
-
+$\longrightarrow$ **ANOVA à 1 et 2 facteurs**
 
 ## 💭 Avant de commencer - Quiz 1
 
-:::: r-stack
-::: {.fragment fragment-index=0}
+::::: r-stack
+::: {.fragment fragment-index="0"}
 ![](figures/quiz_modele_lin.png){fig-align="center" width="80%"}
 :::
 
-::: {.fragment fragment-index=1}
+::: {.fragment fragment-index="1"}
 ![](figures/quiz_modele_lin_reponse.png){fig-align="center" width="80%"}
 :::
-::::
+:::::
 
-::: {.highlight-box .fragment fragment-index=1 style="margin-top:0;"}
+::: {.highlight-box .fragment fragment-index="1" style="margin-top:0;"}
 Un modèle linéaire explique une une variable réponse $Y$ à partir de variables explicatives $X$, en supposant une relation linéaire.
 :::
 
 ## 💭 Avant de commencer - Quiz 2
 
-:::: r-stack
-::: {.fragment fragment-index=1}
+::::: r-stack
+::: {.fragment fragment-index="1"}
 ![](figures/quiz_test_bilateral.png){fig-align="center" width="80%"}
 :::
 
-::: {.fragment fragment-index=2}
+::: {.fragment fragment-index="2"}
 ![](figures/quiz_test_bilateral_reponse.png){fig-align="center" width="80%"}
 :::
-::::
+:::::
 
-::: {.highlight-box .fragment fragment-index=2 style="margin-top:0;"}
+::: {.highlight-box .fragment fragment-index="2" style="margin-top:0;"}
 Le test permet de déterminer si les données apportent suffisamment d'éléments pour rejeter $H_0$ au profit de $\mu\neq10$.
 :::
 
-## 💭 Avant de commencer - Rappels sur les tests 
+## 💭 Avant de commencer - Rappels sur les tests
 
 ```{=html}
 <div style="height:5px;"></div>
@@ -133,10 +128,13 @@ $$\small H_0:\mu=\mu_0 \qquad\qquad\qquad H_1:\mu\neq\mu_0$$
 <div style="height:22.75px;"></div>
 ```
 
-|   | **Ne pas rejeter** $\small H_0$ | **Rejeter** $\small H_0$ |
-|------------------------|------------------------|------------------------|
-| $\small H_0$ **vraie** | ✅ Bonne décision | ❌ **Type I :** $\small \alpha$ |
-| $\small H_0$ **fausse** | ❌ **Type II :** $\small \beta$ | ✅ Bonne décision |
++-------------------------+---------------------------------+---------------------------------+
+|                         | **Ne pas rejeter** $\small H_0$ | **Rejeter** $\small H_0$        |
++=========================+=================================+=================================+
+| $\small H_0$ **vraie**  | ✅ Bonne décision               | ❌ **Type I :** $\small \alpha$ |
++-------------------------+---------------------------------+---------------------------------+
+| $\small H_0$ **fausse** | ❌ **Type II :** $\small \beta$ | ✅ Bonne décision               |
++-------------------------+---------------------------------+---------------------------------+
 
 $$\small    \alpha    =        P(\text{rejeter }H_0\mid H_0\text{ vraie})$$
 
@@ -183,42 +181,46 @@ $$
 ::::
 :::::::::
 
-
 ## 💭 Avant de commencer - Quiz 3
 
-:::: r-stack
-::: {.fragment fragment-index=1}
+::::: r-stack
+::: {.fragment fragment-index="1"}
 ![](figures/quiz_moyennes.png){fig-align="center" width="80%"}
 :::
 
-::: {.fragment fragment-index=2}
+::: {.fragment fragment-index="2"}
 ![](figures/quiz_moyennes_reponse.png){fig-align="center" width="80%"}
 :::
-::::
+:::::
 
-::: {.highlight-box .fragment fragment-index=2 style="margin-top:0; padding:5px 30px;"}
-
+::: {.highlight-box .fragment fragment-index="2" style="margin-top:0; padding:5px 30px;"}
 Soit $X = (x_1, ..., x_N)$ un vecteur de données.
 
 <ul style="margin:0;">
-  <li style="margin:0;">$\mu$ est la *vraie* valeur de la moyenne</li>
-  <li style="margin:0;">$\hat{\mu}$ une *estimation* de la valeur de la moyenne, telle que $\hat{\mu} = \frac{1}{N} \sum_\limits{i = 1}^N x_i$.</li>
+
+<li style="margin:0;">
+
+$\mu$ est la *vraie* valeur de la moyenne
+
+</li>
+
+<li style="margin:0;">
+
+$\hat{\mu}$ une *estimation* de la valeur de la moyenne, telle que $\hat{\mu} = \frac{1}{N} \sum_\limits{i = 1}^N x_i$.
+
+</li>
+
 </ul>
-
 :::
-
 
 ## 💭 Avant de commencer - Combien de temps passez-vous sous la douche ?
 
-:::: columns
+::::: columns
 ::: {.column width="50%"}
-
 ![](figures/sondage.png){fig-align="center" width="100%"}
-
 :::
 
-::: {.column width="50%" .fragment style="margin-top: 5%;"}
-
+::: {.column .fragment width="50%" style="margin-top: 5%;"}
 ```{r}
 
 #| echo: false
@@ -378,11 +380,8 @@ p <- p %>%
 
 p
 ```
-
 :::
-
-::::
-
+:::::
 
 ## 🔍 Introduction : L'ANOVA, qu'est-ce que c'est ?
 
@@ -398,11 +397,15 @@ p
 
 . . .
 
-| Questions de recherche | Facteur(s) {modalités} | $Y$ = variable expliquée |
-|------------------------|------------------------|------------------------|
-| L'espérance de vie d'un animal diffère-t-elle selon son sexe ? | Sexe {M stérilisé ou non / F stérilisé ou non} | Espérance de vie |
-| Le type d'alimentation et le médicament donné influencent-ils la durée de guérison de l'animal ? | Type d'alimentation {granules, foin, ...} & Médicament {A, B} | Durée de guérison |
-| La ville et le quartier ont-ils un effet sur le prix d'un logement ? | Ville {Montpellier, Paris, Toulouse} & Type de quartier {Hyper-centre, Universités, Périphérie} | Prix du logement |
++--------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+--------------------------+
+| Questions de recherche                                                                           | Facteur(s) {modalités}                                                                          | $Y$ = variable expliquée |
++==================================================================================================+=================================================================================================+==========================+
+| L'espérance de vie d'un animal diffère-t-elle selon son sexe ?                                   | Sexe {M stérilisé ou non / F stérilisé ou non}                                                  | Espérance de vie         |
++--------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+--------------------------+
+| Le type d'alimentation et le médicament donné influencent-ils la durée de guérison de l'animal ? | Type d'alimentation {granules, foin, ...} & Médicament {A, B}                                   | Durée de guérison        |
++--------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+--------------------------+
+| La ville et le quartier ont-ils un effet sur le prix d'un logement ?                             | Ville {Montpellier, Paris, Toulouse} & Type de quartier {Hyper-centre, Universités, Périphérie} | Prix du logement         |
++--------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------+--------------------------+
 
 . . .
 
@@ -427,44 +430,24 @@ L'objectif de l'ANOVA est de comparer les moyennes de $Y$ pour chacun des groupe
 ```
 
 ::: {style="text-align: center;"}
-
 *« Je m'intéresse au comportement social des souris. J'ai constitué plusieurs groupes de souris, mâles et femelles, vivant seules ou en communauté, et j'ai mesuré le temps qu'elles passent en contact avec leurs congénères. Comment comprendre influence leur comportement social ? »*
-
 :::
 
 ```{=html}
 <div style="height:10px;"></div>
 ```
 
-<table>
-  <thead>
-    <tr>
-      <th>Facteur</th>
-      <th>Modalité</th>
-      <th>Variable expliquée $Y$</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td rowspan="2">Type d'hébergement </td>
-      <td>Seule</td>
-      <td rowspan="4" style="vertical-align:middle; text-align:center;">
-        Durée de contact avec les congénères
-      </td>
-    </tr>
-    <tr>
-      <td>En communauté</td>
-    </tr>
-    <tr>
-      <td rowspan="2">Sexe </td>
-      <td>Femelle</td>
-    </tr>
-    <tr>
-      <td>Mâle</td>
-    </tr>
-  </tbody>
-</table>
-
++--------------------+----------+--------------------------------------+
+| Facteur            | Modalité | Variable expliquée \$Y\$             |
++====================+==========+======================================+
+| Type d'hébergement | Seule    | Durée de contact avec les congénères |
++--------------------+----------+--------------------------------------+
+| En communauté      |          |                                      |
++--------------------+----------+--------------------------------------+
+| Sexe               | Femelle  |                                      |
++--------------------+----------+--------------------------------------+
+| Mâle               |          |                                      |
++--------------------+----------+--------------------------------------+
 
 ## 🐁 Application : Présentation des données
 
@@ -489,12 +472,17 @@ L'objectif de l'ANOVA est de comparer les moyennes de $Y$ pour chacun des groupe
   - Housing $=$ Type d'hébergement à $2$ modalités
   - Sex $=$ Sexe à $2$ modalités
 
-| Facteur     | Modalité           | Définition                  | Nb. d'individus |
-|-------------|--------------------|-----------------------------|------------|
-| Housing (A) | Group ($k_{A,1}$)  | Souris vivant en communauté | 10         |
-| Housing (A) | Single ($k_{A,2}$) | Souris vivant isolée        | 10         |
-| Sex (B)     | Female ($k_{B,1}$) | Souris femelle              | 10         |
-| Sex (B)     | Male ($k_{B,2}$)   | Souris mâle                 | 10         |
++--------------+--------------------+-----------------------------+-----------------+
+| Facteur      | Modalité           | Définition                  | Nb. d'individus |
++==============+====================+=============================+=================+
+| Housing (A)  | Group ($k_{A,1}$)  | Souris vivant en communauté | 10              |
++--------------+--------------------+-----------------------------+-----------------+
+| Housing (A)  | Single ($k_{A,2}$) | Souris vivant isolée        | 10              |
++--------------+--------------------+-----------------------------+-----------------+
+| Sex (B)      | Female ($k_{B,1}$) | Souris femelle              | 10              |
++--------------+--------------------+-----------------------------+-----------------+
+| Sex (B)      | Male ($k_{B,2}$)   | Souris mâle                 | 10              |
++--------------+--------------------+-----------------------------+-----------------+
 :::
 ::::
 
@@ -556,9 +544,7 @@ knitr::kable(data_mice[c(20:23, 17:19, 38:40), ])
 :::
 ::::
 
-
 ## 📖 Objectifs du cours
-
 
 ```{=html}
 
@@ -596,7 +582,6 @@ knitr::kable(data_mice[c(20:23, 17:19, 38:40), ])
 
 </ol>
 ```
-
 
 ## 📖 Objectifs du cours
 
@@ -650,7 +635,6 @@ knitr::kable(data_mice[c(20:23, 17:19, 38:40), ])
 
 ::::: columns
 ::: {.column width="50%"}
-
 [[**Moyennes théoriques (population) :**]{.underline}]{.smallcaps}
 
 - $\mu^H_i$ : moyenne pour la $i$^ème^ modalité de *Housing*.
@@ -667,11 +651,9 @@ $$
 \sum_{j=1}^{N_S}\mu_j^S
 \right)
 $$
-
 :::
 
 ::: {.column width="50%"}
-
 [[**Moyennes empiriques (échantillon) :**]{.underline}]{.smallcaps}
 
 - $\widehat{\mu}^H_i$ : moyenne empirique pour la $i$^ème^ modalité de *Housing*.
@@ -688,11 +670,8 @@ $$
 \sum_{j=1}^{N_S}\widehat{\mu}_j^S
 \right)
 $$
-
 :::
 :::::
-
-
 
 ## 1️⃣ Introduction à l'ANOVA à 1 facteur - Intuition
 
@@ -702,7 +681,7 @@ $$
 
 [[Questions :]{.underline}]{.smallcaps}
 
-- Y a-t-il un effet du sexe sur la durée de contact ? 
+- Y a-t-il un effet du sexe sur la durée de contact ?
 - Y a-t-il un effet de l'hébergement sur la durée de contact ?
 
 ```{r}
@@ -803,8 +782,7 @@ p_interaction <- ggplot(
 
 ```
 
-
-:::::: columns
+::::: columns
 ::: {.column width="50%"}
 ```{r}
 #| echo: false
@@ -826,15 +804,13 @@ p_sex
 p_housing
 ```
 :::
-
-::::::
+:::::
 
 . . .
 
 ::: {.small-box style="margin-top: -17px;"}
 **Les moyennes entre les groupes sont toutes différentes, mais est-ce suffisant pour conclure à un effet ?**
 :::
-
 
 ## 1️⃣ Pourquoi parle-t-on d'analyse de variance ?
 
@@ -845,7 +821,6 @@ p_housing
 > Pourquoi observer des différences entre les moyennes ne suffit-il pas pour conclure à un effet du facteur ?
 
 . . .
-
 
 ```{r}
 #| echo: false
@@ -1097,9 +1072,7 @@ subplot(
 ```
 
 ::: {style="font-size:0.65em; text-align:center;"}
-<span style="color:#0072B2;">● Mesures d'Inès</span>
-&nbsp;&nbsp;&nbsp;
-<span style="color:#E69F00;">● Mesures de Julien</span>
+[● Mesures d'Inès]{style="color:#0072B2;"}     [● Mesures de Julien]{style="color:#E69F00;"}
 :::
 
 ```{=html}
@@ -1111,8 +1084,6 @@ subplot(
 ::: callout-warning
 [**Comparer uniquement les moyennes ne suffit pas,**]{.smallcaps} il faut également prendre en compte la [variabilité des observations au sein des groupes]{.smallcaps}.
 :::
-
-
 
 ## 1️⃣ L'ANOVA à 1 facteur : Un test d'hyp. - Définition
 
@@ -1207,38 +1178,35 @@ $$
 ::::
 :::::::::
 
-
 ## 1️⃣ Réaliser une ANOVA à 1 facteur
 
-<br>
-<br>
+<br> <br>
+
 ```{=html}
 <div style="height:35px;"></div>
 ```
 
 [[**To Do :**]{.underline}]{.smallcaps}
 
-1. Définir les hypothèses
+1.  Définir les hypothèses
 
 ```{=html}
 <div style="height:10px;"></div>
 ```
 
-2. Calculer la statistique de test 
+2.  Calculer la statistique de test
 
 ```{=html}
 <div style="height:10px;"></div>
 ```
 
-3. Obtenir la p-value
+3.  Obtenir la p-value
 
 ```{=html}
 <div style="height:10px;"></div>
 ```
 
-4. Quid du risque $\alpha$ ? 
-
-
+4.  Quid du risque $\alpha$ ?
 
 ## 1️⃣ 1^ère^ étape : Définir les hypothèses
 
@@ -1282,17 +1250,13 @@ $$
 - $H_1^S$ : la durée moyenne de contact diffère selon le sexe.
 :::
 
-
-
-## 1️⃣ 2^ème^ étape : Décomposer la variabilité des observations 
+## 1️⃣ 2^ème^ étape : Décomposer la variabilité des observations
 
 ```{=html}
 <div style="height:1px;"></div>
 ```
 
 > Les observations varient à la fois **entre les groupes** et **au sein de chaque groupe**.
-
-
 
 ::: grande-fig
 ```{r}
@@ -1441,16 +1405,13 @@ theme(
 
 . . .
 
-
 ```{=html}
 <div style="height:2px;"></div>
 ```
 
-
 ::: small-box
 L'ANOVA cherche à déterminer si la variabilité entre les groupes est importante par rapport à celle au sein des groupes.
 :::
-
 
 ## 1️⃣ 3^ème^ étape : Variabilité expliquée par le facteur *Housing*
 
@@ -1566,7 +1527,6 @@ Plus les moyennes des modalités s'éloignent de la moyenne globale, plus la **v
 :::::
 
 ::::: {.column width="50%"}
-
 . . .
 
 ::: {style="text-align:center; font-size:0.95em;"}
@@ -1588,7 +1548,6 @@ $$
 <div style="height:15px;"></div>
 ```
 
-
 ```{r}
 #| echo: false
 
@@ -1598,11 +1557,8 @@ SC_H <- sum(means_H$n_H * (means_H$mu - mu_global)^2)
 ::: {style="text-align:center;"}
 $\color{#0072B2}{\boldsymbol{SC_H = `r round(SC_H, 2)`}}$
 :::
-
 :::::
 :::::::::
-
-
 
 ## 1️⃣ 3^ème^ étape : Variabilité résiduelle
 
@@ -1618,7 +1574,6 @@ $\color{#0072B2}{\boldsymbol{SC_H = `r round(SC_H, 2)`}}$
 
 ::::::::: columns
 ::::: {.column width="50%"}
-
 ::: {style="text-align:center; font-size:0.95em;"}
 [[Variabilité au sein des groupes :]{.underline}]{.smallcaps}
 :::
@@ -1719,7 +1674,6 @@ Plus les observations s'éloignent de la moyenne de leur groupe, plus la **varia
 :::::
 
 ::::: {.column width="50%"}
-
 . . .
 
 ::: {style="text-align:center; font-size:0.95em;"}
@@ -1742,7 +1696,6 @@ $$
 <div style="height:15px;"></div>
 ```
 
-
 ```{r}
 #| echo: false
 
@@ -1754,11 +1707,8 @@ SC_res <- sum(
 ::: {style="text-align:center;"}
 $\color{#E69F00}{\boldsymbol{SC_{\mathrm{res}} = `r round(SC_res, 2)`}}$
 :::
-
 :::::
 :::::::::
-
-
 
 ## 1️⃣ 3^ème^ étape : Statistique de Fisher
 
@@ -1771,10 +1721,13 @@ Pour comparer les variabilités, on divise chaque somme des carrés (SC) par ses
 ```
 
 ::: {style="font-size: 0.9em;"}
-| Variabilité | Somme des carrés | Degrés de liberté | Carré moyen |
-|:----------------|:----------------:|:----------------:|:----------------:|
-| Expliquée par Housing | $\color{#0072B2}{SC_H}$ | $N_H-1$ | $\displaystyle CM_H=\frac{\color{#0072B2}{SC_H}}{N_H-1}$ |
-| Résiduelle | $\color{#E69F00}{SC_{\mathrm{res}}}$ | $N-N_H$ | $\displaystyle CM_{\mathrm{res}}=\frac{\color{#E69F00}{SC_{\mathrm{res}}}}{N-N_H}$ |
++-----------------------+--------------------------------------+-------------------+------------------------------------------------------------------------------------+
+| Variabilité           | Somme des carrés                     | Degrés de liberté | Carré moyen                                                                        |
++:======================+:====================================:+:=================:+:==================================================================================:+
+| Expliquée par Housing | $\color{#0072B2}{SC_H}$              | $N_H-1$           | $\displaystyle CM_H=\frac{\color{#0072B2}{SC_H}}{N_H-1}$                           |
++-----------------------+--------------------------------------+-------------------+------------------------------------------------------------------------------------+
+| Résiduelle            | $\color{#E69F00}{SC_{\mathrm{res}}}$ | $N-N_H$           | $\displaystyle CM_{\mathrm{res}}=\frac{\color{#E69F00}{SC_{\mathrm{res}}}}{N-N_H}$ |
++-----------------------+--------------------------------------+-------------------+------------------------------------------------------------------------------------+
 :::
 
 ::: {style="font-size: 0.65em;"}
@@ -1800,7 +1753,6 @@ $$
 ::: {style="font-size: 0.85em; text-align:center;"}
 La statistique de Fisher compare la **variabilité expliquée par le facteur Housing** à la **variabilité résiduelle**.
 :::
-
 
 ## 1️⃣ 3^ème^ étape : Calcul de la statistique de Fisher - Exemple
 
@@ -1862,8 +1814,6 @@ $$
 ::: {style="font-size: 0.95em; text-align:center;"}
 $\Longrightarrow$ Si $F_H \gg 1$, la variabilité expliquée par le facteur est grande devant la variabilité résiduelle.
 :::
-
-
 
 ## 1️⃣ 4^ème^ étape : Calcul de la p-value et conclusion - Définition
 
@@ -1986,16 +1936,17 @@ plot_ly(
 
 [[**Conclusion :**]{.underline}]{.smallcaps} Si $p_H < \alpha$ on rejette $H_0^H$, sinon on ne rejette pas $H_0^H$ (on ne peut pas conclure).
 
-
-## 1️⃣ 4^ème^ étape : Calcul de la p-value - Quid de $\alpha$ ? 
-
+## 1️⃣ 4^ème^ étape : Calcul de la p-value - Quid de $\alpha$ ?
 
 <br>
 
-|   | **Ne pas rejeter** $\small H_0$ | **Rejeter** $\small H_0$ |
-|------------------------|------------------------|------------------------|
-| $\small H_0$ **vraie** | ✅ Bonne décision | ❌ **Type I :** $\small \alpha$ |
-| $\small H_0$ **fausse** | ❌ **Type II :** $\small \beta$ | ✅ Bonne décision |
++-------------------------+---------------------------------+---------------------------------+
+|                         | **Ne pas rejeter** $\small H_0$ | **Rejeter** $\small H_0$        |
++=========================+=================================+=================================+
+| $\small H_0$ **vraie**  | ✅ Bonne décision               | ❌ **Type I :** $\small \alpha$ |
++-------------------------+---------------------------------+---------------------------------+
+| $\small H_0$ **fausse** | ❌ **Type II :** $\small \beta$ | ✅ Bonne décision               |
++-------------------------+---------------------------------+---------------------------------+
 
 <br> <br>
 
@@ -2010,7 +1961,6 @@ En pratique, le choix de $\alpha$ dépend des conséquences d'une erreur de prem
 - $\alpha = 0.01 \ (1\%)$ : lorsque les conséquences d'une erreur sont importantes et que l'on souhaite limiter davantage ce risque.
 :::
 
-
 ## 1️⃣ 4^ème^ étape : Calcul de la p-value et conclusion - Exemple
 
 ```{=html}
@@ -2019,8 +1969,6 @@ En pratique, le choix de $\alpha$ dépend des conséquences d'une erreur de prem
 
 ::::: columns
 ::: {.column width="55%"}
-
-
 [[Résultats de l'anova :]{.underline}]{.smallcaps}
 
 ```{r}
@@ -2058,13 +2006,11 @@ knitr::kable(
 )
 ```
 
-
 $$
 p_H < 5\%
 \quad\Longrightarrow\quad
 \text{rejet de } H_0^H
 $$
-
 :::
 
 ::: {.column width="45%"}
@@ -2152,7 +2098,6 @@ ggplot(df_fisher, aes(x = x, y = density)) +
 [[**Conclusion :**]{.underline}]{.smallcaps} Au seuil de 5 %, le type d'hébergement a un **effet significatif** sur le temps de contact des souris.
 :::
 
-
 ```{r}
 #| echo: false
 #| message: false
@@ -2166,14 +2111,11 @@ F_obs_S <- tab_S[1, "F value"]
 p_S <- tab_S[1, "Pr(>F)"]
 ```
 
-
 En réalisant la même démarche pour le facteur Sex, on obtient $F_{S,\mathrm{obs}}=`r round(F_obs_S, 3)`$ et une p-value de $`r round(p_S, 3)`$.
 
 ::: {.small-box style="margin-top: -5px;"}
 [[**Conclusion :**]{.underline}]{.smallcaps} Au seuil de 5 %, **aucun effet significatif** du sexe n'est mis en évidence.
 :::
-
-
 
 ## 📖 Objectifs du cours
 
@@ -2214,18 +2156,14 @@ En réalisant la même démarche pour le facteur Sex, on obtient $F_{S,\mathrm{o
 </ol>
 ```
 
-
-
 ## 2️⃣ Pourquoi tester l'interaction entre deux facteurs ?
 
 ```{=html}
 <div style="height:2px;"></div>
 ```
 
-
 ::::::::: columns
 ::::: {.column width="50%"}
-
 ::: {style="text-align:center; font-size:0.9em;"}
 [[**Détecter un effet qui dépend d'un autre facteur**]{.underline}]{.smallcaps}
 :::
@@ -2285,13 +2223,11 @@ ggplot(
 ```
 
 ::: {style="font-size:0.8em; text-align:center; margin-top: -15px"}
-Le passage de $A_1$ à $A_2$ augmente la moyenne de $Y$ pour les deux modalités de B, mais **davantage pour $B_1$**.
+Le passage de $A_1$ à $A_2$ augmente la moyenne de $Y$ pour les deux modalités de B, mais **davantage pour** $B_1$.
 :::
-
 :::::
 
 ::::: {.column width="50%"}
-
 ::: {style="text-align:center; font-size:0.9em;"}
 [[**Détecter un effet masqué**]{.underline}]{.smallcaps}
 :::
@@ -2392,19 +2328,16 @@ ggplot(
 ```
 
 ::: {style="font-size:0.8em; text-align:center; margin-top: -15px"}
-Sans distinguer les modalités de B, aucun effet de A n'apparaît. Pourtant, A a des **effets opposés pour $B_1$ et $B_2$**.
+Sans distinguer les modalités de B, aucun effet de A n'apparaît. Pourtant, A a des **effets opposés pour** $B_1$ et $B_2$.
 :::
-
 :::::
 :::::::::
 
 . . .
 
-::: {.callout-warning }
+::: callout-warning
 Étudier les facteurs séparément peut conduire à passer à côté de certains effets. Tester l'interaction permet de déterminer si **l'effet d'un facteur dépend des modalités de l'autre**.
 :::
-
-
 
 ## 2️⃣ Notations
 
@@ -2416,7 +2349,6 @@ Sans distinguer les modalités de B, aucun effet de A n'apparaît. Pourtant, A a
 
 ::::: columns
 ::: {.column width="50%"}
-
 [[**Moyennes théoriques (population) :**]{.underline}]{.smallcaps}
 
 - $\mu_{ij}$ : moyenne pour la combinaison des modalités $i$ de *Housing* et $j$ de *Sex*.
@@ -2426,11 +2358,9 @@ Sans distinguer les modalités de B, aucun effet de A n'apparaît. Pourtant, A a
 - $\mu_{.j}$ : moyenne pour la modalité $j$ de *Sex*, tous hébergements confondus.
 
 - $\mu_{..}$ : moyenne globale.
-
 :::
 
 ::: {.column width="50%"}
-
 [[**Moyennes empiriques (échantillon) :**]{.underline}]{.smallcaps}
 
 - $\widehat{\mu}_{ij}$ : moyenne empirique pour la combinaison des modalités $i$ et $j$.
@@ -2440,15 +2370,12 @@ Sans distinguer les modalités de B, aucun effet de A n'apparaît. Pourtant, A a
 - $\widehat{\mu}_{.j}$ : moyenne empirique pour la modalité $j$ de *Sex*.
 
 - $\widehat{\mu}_{..}$ : moyenne globale empirique.
-
 :::
 :::::
-
 
 $$
 \mu_{i.} = \frac{1}{N_S}\sum_{j=1}^{N_S}\mu_{ij} \qquad \mu_{.j} = \frac{1}{N_H}\sum_{i=1}^{N_H}\mu_{ij} \qquad \mu_{..} = \frac{1}{N_HN_S}\sum_{i=1}^{N_H}\sum_{j=1}^{N_S}\mu_{ij}
 $$
-
 
 ## 2️⃣ L'ANOVA à 2 facteurs : Un test d'hyp. - Définition
 
@@ -2544,13 +2471,11 @@ $$
 ::::
 :::::::::
 
-
-## 2️⃣ En pratique :  Définir les hypothèses
+## 2️⃣ En pratique : Définir les hypothèses
 
 ```{=html}
 <div style="height:5px;"></div>
 ```
-
 
 > L'[ANOVA à deux facteurs]{.smallcaps} permet de tester simultanément les effets des deux facteurs ainsi que celui de leur interaction.
 
@@ -2590,9 +2515,7 @@ $$
 - $H_1^{HS}$ : l'effet de l'hébergement dépend du sexe.
 :::
 
-
 ## 2️⃣ En pratique : Décomposer la variabilité des observations
-
 
 ```{r}
 #| include: false
@@ -2658,9 +2581,8 @@ colors_HS <- setNames(
 )
 ```
 
-::::::::: columns
-::::: {.column width="50%"}
-
+::::::::::: columns
+:::::: {.column width="50%"}
 ::: {style="text-align:center; font-size:0.9em;"}
 [[**Variabilité expliquée par l'interaction**]{.underline}]{.smallcaps}
 :::
@@ -2747,11 +2669,9 @@ $$
 }
 $$
 :::
+::::::
 
-:::::
-
-::::: {.column width="50%"}
-
+:::::: {.column width="50%"}
 ::: {style="text-align:center; font-size:0.9em;"}
 [[**Variabilité résiduelle**]{.underline}]{.smallcaps}
 :::
@@ -2843,14 +2763,12 @@ $$
 }
 $$
 :::
-
-:::::
-:::::::::
+::::::
+:::::::::::
 
 ::: {style="font-size:0.6em;"}
 $n$ : nombre d'observations par combinaison de modalités ($n = 10$).
 :::
-
 
 ## 2️⃣ En pratique : Statistique de Fisher pour l'interaction
 
@@ -2867,12 +2785,17 @@ Pour comparer les variabilités, on divise chaque somme des carrés (SC) par ses
 ```
 
 ::: {style="font-size: 0.85em;"}
-| Effet | Carré moyen | Statistique de Fisher |
-|:-----------------------|:----------------------:|:----------------------:|
-| Facteur Housing | $\displaystyle CM_H=\frac{\color{#0072B2}{SC_H}}{N_H-1}$ | $\displaystyle F_H=\frac{CM_H}{CM_{\mathrm{res}}}$ |
-| Facteur Sex | $\displaystyle CM_S=\frac{\color{#009E73}{SC_S}}{N_S-1}$ | $\displaystyle F_S=\frac{CM_S}{CM_{\mathrm{res}}}$ |
-| Interaction Housing × Sex | $\displaystyle CM_{HS}=\frac{\color{#CC79A7}{SC_{HS}}}{(N_H-1)(N_S-1)}$ | $\displaystyle F_{HS}=\frac{CM_{HS}}{CM_{\mathrm{res}}}$ |
-| Résidus | $\displaystyle CM_{\mathrm{res}}=\frac{\color{#E69F00}{SC_{\mathrm{res}}}}{N-N_HN_S}$ | |
++---------------------------+---------------------------------------------------------------------------------------+----------------------------------------------------------+
+| Effet                     | Carré moyen                                                                           | Statistique de Fisher                                    |
++:==========================+:=====================================================================================:+:========================================================:+
+| Facteur Housing           | $\displaystyle CM_H=\frac{\color{#0072B2}{SC_H}}{N_H-1}$                              | $\displaystyle F_H=\frac{CM_H}{CM_{\mathrm{res}}}$       |
++---------------------------+---------------------------------------------------------------------------------------+----------------------------------------------------------+
+| Facteur Sex               | $\displaystyle CM_S=\frac{\color{#009E73}{SC_S}}{N_S-1}$                              | $\displaystyle F_S=\frac{CM_S}{CM_{\mathrm{res}}}$       |
++---------------------------+---------------------------------------------------------------------------------------+----------------------------------------------------------+
+| Interaction Housing × Sex | $\displaystyle CM_{HS}=\frac{\color{#CC79A7}{SC_{HS}}}{(N_H-1)(N_S-1)}$               | $\displaystyle F_{HS}=\frac{CM_{HS}}{CM_{\mathrm{res}}}$ |
++---------------------------+---------------------------------------------------------------------------------------+----------------------------------------------------------+
+| Résidus                   | $\displaystyle CM_{\mathrm{res}}=\frac{\color{#E69F00}{SC_{\mathrm{res}}}}{N-N_HN_S}$ |                                                          |
++---------------------------+---------------------------------------------------------------------------------------+----------------------------------------------------------+
 :::
 
 ::: {style="font-size: 0.55em;"}
@@ -2905,7 +2828,6 @@ $$
 
 ::::: columns
 ::: {.column width="55%"}
-
 [[Résultats de l'ANOVA :]{.underline}]{.smallcaps}
 
 ```{r}
@@ -2968,11 +2890,9 @@ p_{HS}>5\%
 \quad\Longrightarrow\quad
 \text{non-rejet de }H_0^{HS}
 $$
-
 :::
 
 ::: {.column width="45%"}
-
 ```{r}
 #| echo: false
 #| message: false
@@ -3051,7 +2971,6 @@ ggplot(df_fisher, aes(x = x, y = density)) +
     panel.grid.minor = element_blank()
   )
 ```
-
 :::
 :::::
 
@@ -3060,7 +2979,6 @@ ggplot(df_fisher, aes(x = x, y = density)) +
 ::: small-box
 [[**Conclusion :**]{.underline}]{.smallcaps} Au seuil de 5 %, **aucune interaction significative entre le sexe et le type d'hébergement** n'est mise en évidence. Seul le type d'hébergement présente un **effet significatif** sur la durée moyenne de contact des souris.
 :::
-
 
 ## 📖 Objectifs du cours
 
@@ -3100,7 +3018,6 @@ ggplot(df_fisher, aes(x = x, y = density)) +
 
 </ol>
 ```
-
 
 ## 3️⃣ Pourquoi vérifier les hypothèses avant de réaliser une ANOVA ?
 
@@ -3142,9 +3059,11 @@ $\longrightarrow$ **Des différences entre les moyennes ne suffisent pas à gara
 
 <br>
 
-|  |
-|:----------------------------------------------------------------------:|
++----------------------------------------------------------------------------------+
+|                                                                                  |
++:================================================================================:+
 | La mesure prise sur un individu ne doit pas influencer celle prise sur un autre. |
++----------------------------------------------------------------------------------+
 
 <br>
 
@@ -4468,12 +4387,9 @@ Les hypothèses sont bien validés, on peut procéder à l'ANOVA.
 **Le sexe et le type d'hébergement des souris ont-ils un effet sur la durée de leurs interactions sociales ? Existe-t-il un effet combiné de ces deux facteurs ?**
 :::
 
-
 ::::: columns
 ::: {.column width="50%"}
-
 <br>
-
 
 ``` r
 aov <- aov(data_mice$contact_time ~ data_mice$Housing*data_mice$Sex)
@@ -4493,7 +4409,7 @@ summary(aov)
 :::
 :::::
 
-::: {.small-box style="margin-top: -0px;"}
+::: small-box
 Au seuil de **5 %**, le **type d'hébergement** a un effet significatif sur le temps de contact des souris ($p < 0.001$). En revanche, **ni le sexe** ($p = 0.712$), **ni l'interaction entre le sexe et l'hébergement** ($p = 0.273$) ne sont significatifs.
 
 $\longrightarrow$ **L'effet de l'hébergement sur le temps de contact ne semble donc pas dépendre du sexe des souris.**
@@ -4538,52 +4454,41 @@ $\longrightarrow$ **L'effet de l'hébergement sur le temps de contact ne semble 
 </ol>
 ```
 
+## ➕ Bonus : différentes écritures d'un même modèle
 
-## ➕ Bonus : l'ANOVA est en fait un modèle linéaire
-
-```{=html}
-<div style="height:30px;"></div>
-```
-
-[[Modèle d'analyse de variance à deux facteurs]{.underline}]{.smallcaps}
-
-: Considérons une souris $k$ appartenant au groupe défini par le type d'hébergement $i$ et le sexe $j$. Le [modèle d'analyse de variance]{.smallcaps} décrit son temps de contact $Y_{ijk}$ sous la forme :
+[[**1. Modèle linéaire**]{.underline}]{.smallcaps}
 
 $$
-\underbrace{Y_{ijk}}_{\text{valeur observée}}
-=
-\underbrace{\color{#CC79A7}{\mu}}_{\text{moyenne globale}}
+Y_k=
+\underbrace{\mu_{\mathrm{ref}}}_{\text{moyenne de référence}}
++
+\underbrace{\color{#0072B2}{\theta_1 x_{k1}}}_{\text{hébergement}}
++
+\underbrace{\color{#009E73}{\theta_2 x_{k2}}}_{\text{sexe}}
++
+\underbrace{\color{#CC79A7}{\theta_3 x_{k1}x_{k2}}}_{\text{interaction}}
++\varepsilon_k
+$$
+
+Les modalités des facteurs sont codées par des variables binaires ($0$ ou $1$).
+
+. . .
+
+[[**2. Modèle à effets**]{.underline}]{.smallcaps}
+
+$$
+Y_{ijk}=
+\underbrace{\mu_{..}}_{\text{moyenne globale}}
 +
 \underbrace{\color{#0072B2}{\alpha_i}}_{\text{hébergement}}
 +
 \underbrace{\color{#009E73}{\beta_j}}_{\text{sexe}}
 +
 \underbrace{\color{#CC79A7}{(\alpha\beta)_{ij}}}_{\text{interaction}}
-+
-\underbrace{\varepsilon_{ijk}}_{\text{bruit aléatoire}}
++\varepsilon_{ijk}
 $$
 
-La moyenne du temps de contact pour une combinaison hébergement × sexe est :
-
-$$
-\mu_{ij}
-=
-\color{#CC79A7}{\mu}
-+
-\color{#0072B2}{\alpha_i}
-+
-\color{#009E73}{\beta_j}
-+
-\color{#CC79A7}{(\alpha\beta)_{ij}}.
-$$
-
-```{=html}
-<div style="height:25px;"></div>
-```
-
-::: callout-warning
-**Modèle ≠ méthode :** le [modèle ANOVA]{.smallcaps} décrit la structure des données. La [méthode ANOVA]{.smallcaps} permet d'estimer les effets, de décomposer la variabilité et de tester leur significativité.
-:::
+Les effets sont exprimés par rapport à la moyenne globale (contraintes de somme nulle).
 
 ## 📑Exemple d'utilisation en sciences vétérinairess
 
