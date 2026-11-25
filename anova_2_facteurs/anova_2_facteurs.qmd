@@ -30,38 +30,20 @@ library(car)
 ## 🧩 Positionnement du cours dans le module
 
 ```{=html}
-<br>
-<br>
-<div style="height:45px;"></div>
+<div class="tree">
+  <ul>
+    <li><em>Module</em>
+      <ul>
+        <li> Modèle linéaire simple</li>
+        <li> Modèle linéaire multiple</li>
+        <li> Intervalles de confiance et de fluctuation</li>
+        <li> Tests d'hypothèses</li>
+        <li class="fragment"> <strong>Analyse de variance (ANOVA) à 1 et 2 facteurs</strong></li>
+      </ul>
+    </li>
+  </ul>
+</div>
 ```
-
-- Modèle linéaire simple
-
-```{=html}
-<div style="height:5px;"></div>
-```
-
-- Modèle linéaire multiple
-
-```{=html}
-<div style="height:5px;"></div>
-```
-
-- Intervalles de confiance et de fluctuation
-
-```{=html}
-<div style="height:5px;"></div>
-```
-
-- Tests d'hypothèses
-
-. . .
-
-```{=html}
-<div style="height:5px;"></div>
-```
-
-$\longrightarrow$ **Analyse de variance (ANOVA) à 1 et 2 facteurs**
 
 ## 💭 Avant de commencer - Quiz 1
 
@@ -2184,7 +2166,7 @@ ggplot(
   ) +
   labs(
     x = "Type d'hébergement",
-    y = "Durée moyenne de contact"
+    y = "Dur. moy. de contact"
   ) +
   theme_minimal(base_size = 24) +
   theme(
@@ -2208,7 +2190,7 @@ Le passage d'un hébergement en groupe à un hébergement individuel semble modi
 ::::::::: columns
 ::::: {.column width="50%"}
 ::: {style="text-align:center; font-size:0.9em;"}
-[[**Détecter un effet qui dépend d'un autre facteur**]{.underline}]{.smallcaps}
+[[**Détecter un effet lié à un autre facteur**]{.underline}]{.smallcaps}
 :::
 
 ```{r}
@@ -4172,7 +4154,8 @@ ggplot() +
 ``` r
 ggplot(
   data_mice,
-  aes(y = contact_time, x = Housing, colour = Sex, fill = Sex)
+  aes(y = contact_time, x = Housing,
+      colour = Sex, fill = Sex)
 ) +
   geom_boxplot(
     alpha = 0.5,
@@ -4259,7 +4242,8 @@ Les moyennes semblent être différentes d'un groupe à l'autre.
 
 ``` r
 ggplot(data_mice,
-    aes(y = contact_time, x = Housing, colour = Sex, fill = Sex)
+    aes(y = contact_time, x = Housing,
+        colour = Sex, fill = Sex)
 ) +
   stat_summary(
     fun = mean,
@@ -4353,7 +4337,9 @@ On utilise un modèle complet car on va tester l'interaction.
 ```
 
 ``` r
-anova <- aov(data_mice$contact_time ~ data_mice$Housing*data_mice$Sex) 
+anova <- aov(
+  data_mice$contact_time ~ data_mice$Housing*data_mice$Sex
+) 
 
 shapiro.test(anova$residuals)
 ```
@@ -4384,7 +4370,9 @@ shapiro.test(anova$residuals)
 ```
 
 ``` r
-leveneTest(contact_time ~ Housing*Sex, data = data_mice)
+leveneTest(
+  contact_time ~ Housing*Sex, data = data_mice
+)
 ```
 :::
 
@@ -4420,7 +4408,9 @@ Les hypothèses ne sont pas rejetées par les tests réalisés, on peut procéde
 <br>
 
 ``` r
-aov <- aov(data_mice$contact_time ~ data_mice$Housing*data_mice$Sex)
+aov <- aov(
+  data_mice$contact_time ~ data_mice$Housing*data_mice$Sex
+)
 summary(aov)
 ```
 :::
