@@ -70,11 +70,35 @@ $\longrightarrow$  **ANOVA à 1 et 2 facteurs**
 
 ## 💭 Avant de commencer - Quiz 1
 
-(question sur les modèles linéaires)
+:::: r-stack
+::: {.fragment fragment-index=0}
+![](figures/quiz_modele_lin.png){fig-align="center" width="80%"}
+:::
+
+::: {.fragment fragment-index=1}
+![](figures/quiz_modele_lin_reponse.png){fig-align="center" width="80%"}
+:::
+::::
+
+::: {.highlight-box .fragment fragment-index=1 style="margin-top:0;"}
+Un modèle linéaire explique une une variable réponse $Y$ à partir de variables explicatives $X$, en supposant une relation linéaire.
+:::
 
 ## 💭 Avant de commencer - Quiz 2
 
-(question sur les tests)
+:::: r-stack
+::: {.fragment fragment-index=1}
+![](figures/quiz_test_bilateral.png){fig-align="center" width="80%"}
+:::
+
+::: {.fragment fragment-index=2}
+![](figures/quiz_test_bilateral_reponse.png){fig-align="center" width="80%"}
+:::
+::::
+
+::: {.highlight-box .fragment fragment-index=2 style="margin-top:0;"}
+Le test permet de déterminer si les données apportent suffisamment d'éléments pour rejeter $H_0$ au profit de $\mu\neq10$.
+:::
 
 ## 💭 Avant de commencer - Rappels sur les tests 
 
@@ -162,12 +186,26 @@ $$
 
 ## 💭 Avant de commencer - Quiz 3
 
-(question sur les notations)
+:::: r-stack
+::: {.fragment fragment-index=1}
+![](figures/quiz_moyennes.png){fig-align="center" width="80%"}
+:::
 
+::: {.fragment fragment-index=2}
+![](figures/quiz_moyennes_reponse.png){fig-align="center" width="80%"}
+:::
+::::
 
-Soit $X = (x_1, ..., x_N)$ un vecteur de données. 
-- $\mu$ est la *vraie* valeur de la moyenne
-- $\hat{\mu}$ une *estimation* de la valeur de la moyenne, telle que $\hat{\mu} = \frac{1}{N} \sum_\limits{i = 1}^N x_i$.
+::: {.highlight-box .fragment fragment-index=2 style="margin-top:0; padding:5px 30px;"}
+
+Soit $X = (x_1, ..., x_N)$ un vecteur de données.
+
+<ul style="margin:0;">
+  <li style="margin:0;">$\mu$ est la *vraie* valeur de la moyenne</li>
+  <li style="margin:0;">$\hat{\mu}$ une *estimation* de la valeur de la moyenne, telle que $\hat{\mu} = \frac{1}{N} \sum_\limits{i = 1}^N x_i$.</li>
+</ul>
+
+:::
 
 
 ## 💭 Avant de commencer - Combien de temps passez-vous sous la douche ?
