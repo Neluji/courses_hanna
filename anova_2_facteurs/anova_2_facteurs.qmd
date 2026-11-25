@@ -430,12 +430,35 @@ L'objectif de l'ANOVA est de comparer les moyennes de $Y$ pour chacun des groupe
 <div style="height:10px;"></div>
 ```
 
-| Facteur            | Modalité | Variable expliquée $Y$               |
-|--------------------|----------|--------------------------------------|
-| Type d'hébergement | Seule    | Durée de contact avec les congénères |
-| En communauté      |          |                                      |
-| Sexe               | Femelle  |                                      |
-| Mâle               |          |                                      |
+<table>
+  <thead>
+    <tr>
+      <th>Facteur</th>
+      <th>Modalité</th>
+      <th>Variable expliquée $Y$</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="2" class="fragment" data-fragment-index="2" style="vertical-align: middle;">Sexe</td>
+      <td class="fragment" data-fragment-index="3" style="vertical-align:middle; border-left: 1px dashed lightgray;">Femelle</td>
+      <td rowspan="4" style="vertical-align:middle; text-align:center; border-left: 1px solid lightgray" class="fragment" data-fragment-index="1">
+        Durée de contact avec les congénères
+      </td>
+    </tr>
+    <tr>
+      <td class="fragment" data-fragment-index="3" style="vertical-align:middle; border-left: 1px dashed lightgray;">Mâle</td>
+    </tr>
+    <tr>
+      <td rowspan="2" class="fragment" data-fragment-index="4" style="vertical-align: middle;">Type d'hébergement</td>
+      <td class="fragment" data-fragment-index="5" style="vertical-align:middle; border-left: 1px dashed lightgray;">Seule</td>
+    </tr>
+    <tr>
+      <td class="fragment" data-fragment-index="5" style="vertical-align:middle; border-left: 1px dashed lightgray; border-bottom: 1px solid;">En communauté</td>
+    </tr>
+  </tbody>
+</table>
+
 
 ## 🐁 Application : Présentation des données
 
@@ -1103,10 +1126,6 @@ $$
 :::: {.column width="33%"}
 ::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top: 1px;padding-bottom: 5px;"}
 [[erreurs :]{.underline}]{.smallcaps}
-
-```{=html}
-<div style="height:22.75px;"></div>
-```
 
 $$\small \alpha = P(\text{rejeter }H_0\mid H_0\text{ vraie})$$
 
@@ -1809,10 +1828,6 @@ La [p-value]{.smallcaps} correspond à la probabilité, **sous** $H_0^H$, que la
 $$
 p_H=\mathbb P_{H_0^H}\left(F_H\geq F_{H,\mathrm{obs}}\right)
 $$
-
-```{=html}
-<div style="height:10px;"></div>
-```
 
 ::: fragment
 $\longrightarrow$ Graphiquement, la p-value correspond à **l'aire sous la courbe située à droite de** $F_{H,\mathrm{obs}}$
