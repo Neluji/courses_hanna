@@ -79,7 +79,40 @@ $\longrightarrow$ **Analyse de variance (ANOVA) à 1 et 2 facteurs**
 Un modèle linéaire explique une variable réponse $Y$ à partir de variables explicatives $X$, en supposant une relation linéaire.
 :::
 
+
 ## 💭 Avant de commencer - Quiz 2
+
+::::: r-stack
+::: {.fragment fragment-index="1"}
+![](figures/quiz_moyennes.png){fig-align="center" width="80%"}
+:::
+
+::: {.fragment fragment-index="2"}
+![](figures/quiz_moyennes_reponse.png){fig-align="center" width="80%"}
+:::
+:::::
+
+::: {.highlight-box .fragment fragment-index="2" style="margin-top:0; padding:5px 30px;"}
+Soit $Y = (y_1, ..., y_N)$ un vecteur de données.
+
+<ul style="margin:0;">
+
+<li style="margin:0;">
+
+$\mu$ est la *vraie* valeur de la moyenne
+
+</li>
+
+<li style="margin:0;">
+
+$\hat{\mu}$ est une *estimation* de la valeur de la moyenne, telle que $\hat{\mu} = \frac{1}{N} \sum_\limits{i = 1}^N y_i$.
+
+</li>
+
+</ul>
+:::
+
+## 💭 Avant de commencer - Quiz 3
 
 ::::: r-stack
 ::: {.fragment fragment-index="1"}
@@ -112,7 +145,7 @@ Le test permet de déterminer si les données apportent suffisamment d'élément
 ::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top: 1px;padding-bottom: 5px;"}
 [[Hypothèses (test bilatéral):]{.underline}]{.smallcaps}
 
-$$\small H_0:\mu=\mu_0 \qquad\qquad\qquad H_1:\mu\neq\mu_0$$
+$$\small H_0:\mu= 10 \qquad\qquad\qquad H_1:\mu\neq 10$$
 :::
 
 ```{=html}
@@ -177,38 +210,6 @@ $$
 :::
 ::::
 :::::::::
-
-## 💭 Avant de commencer - Quiz 3
-
-::::: r-stack
-::: {.fragment fragment-index="1"}
-![](figures/quiz_moyennes.png){fig-align="center" width="80%"}
-:::
-
-::: {.fragment fragment-index="2"}
-![](figures/quiz_moyennes_reponse.png){fig-align="center" width="80%"}
-:::
-:::::
-
-::: {.highlight-box .fragment fragment-index="2" style="margin-top:0; padding:5px 30px;"}
-Soit $X = (x_1, ..., x_N)$ un vecteur de données.
-
-<ul style="margin:0;">
-
-<li style="margin:0;">
-
-$\mu$ est la *vraie* valeur de la moyenne
-
-</li>
-
-<li style="margin:0;">
-
-$\hat{\mu}$ est une *estimation* de la valeur de la moyenne, telle que $\hat{\mu} = \frac{1}{N} \sum_\limits{i = 1}^N x_i$.
-
-</li>
-
-</ul>
-:::
 
 ## 💭 Avant de commencer - Combien de temps passez-vous sous la douche ?
 
@@ -423,7 +424,7 @@ L'objectif de l'ANOVA est de comparer les moyennes de $Y$ pour chacun des groupe
 ```
 
 ::: {style="text-align: center;"}
-*« Je m'intéresse au comportement social des souris. J'ai constitué plusieurs groupes de souris, mâles et femelles, vivant seules ou en communauté, et j'ai mesuré le temps qu'elles passent en contact avec leurs congénères. Comment comprendre influence leur comportement social ? »*
+*« Je m'intéresse au comportement social des souris. J'ai constitué plusieurs groupes de souris, mâles et femelles, vivant seules ou en communauté, et j'ai mesuré le temps qu'elles passent en contact avec leurs congénères. Comment comprendre ce qui influence leur comportement social ? »*
 :::
 
 ```{=html}
@@ -567,7 +568,7 @@ knitr::kable(data_mice[c(20:23, 17:19, 38:40), ])
   </li>
 
   <li class="fragment" style="margin-bottom:35px;">
-    Comment tester l'interaction entre deux facteurs ?
+    Comment tester l'interaction entre deux facteurs ? (ANOVA à 2 facteurs)
     <ul style="margin-left:40px;">
       <li>Pourquoi tester l'interaction ?</li>
       <li>Définition et conduite de l'ANOVA à 2 facteurs</li>
@@ -606,7 +607,7 @@ knitr::kable(data_mice[c(20:23, 17:19, 38:40), ])
   </li>
 
   <li style="margin-bottom:35px; color:#A1A1AA;">
-    Comment tester l'interaction entre deux facteurs ?
+    Comment tester l'interaction entre deux facteurs ? (ANOVA à 2 facteurs)
     <ul style="margin-left:40px;">
       <li>Pourquoi tester l'interaction ?</li>
       <li>Définition et conduite de l'ANOVA à 2 facteurs</li>
@@ -630,7 +631,11 @@ knitr::kable(data_mice[c(20:23, 17:19, 38:40), ])
 
 ## 1️⃣ Notations
 
-[[**Nombre de modalités par facteur :**]{.underline}]{.smallcaps} - $N = 40$ : nombre total d'observations. - $N_H=2$ : nombre de modalités du facteur *Housing* et $N_S=2$ : nombre de modalités du facteur *Sex*.
+[[**Nombre de modalités par facteur :**]{.underline}]{.smallcaps} 
+
+- $N = 40$ : nombre total d'observations. 
+
+- $N_H=2$ : nombre de modalités du facteur *Housing* et $N_S=2$ : nombre de modalités du facteur *Sex*.
 
 ```{=html}
 <div style="height:20px;"></div>
@@ -1230,8 +1235,8 @@ H_1^H : \mu_1^H\neq\mu_2^H
 $$
 
 ::: {style="font-size: 0.85em;"}
-- $H_0^H$ : la durée moyenne de contact est identique pour les souris hébergées en groupe ou seules.
-- $H_1^H$ : la durée moyenne de contact diffère selon le type d'hébergement.
+- $H_0^H$ : la durée moyenne de contact est la même pour les souris hébergées en groupe ou seules.
+- $H_1^H$ : la durée moyenne de contact n'est pas la même selon le type d'hébergement.
 :::
 
 . . .
@@ -1245,8 +1250,8 @@ H_1^S : \mu_1^S\neq\mu_2^S
 $$
 
 ::: {style="font-size: 0.85em;"}
-- $H_0^S$ : la durée moyenne de contact est identique chez les mâles et les femelles.
-- $H_1^S$ : la durée moyenne de contact diffère selon le sexe.
+- $H_0^S$ : la durée moyenne de contact est la même chez les mâles et les femelles.
+- $H_1^S$ : la durée moyenne de contact n'est pas la même selon le sexe.
 :::
 
 ## 1️⃣ 2^ème^ étape : Décomposer la variabilité des observations
@@ -2123,7 +2128,7 @@ En réalisant la même démarche pour le facteur *Sex*, on obtient $F_{S,\mathrm
   </li>
 
   <li style="margin-bottom:35px; color:black">
-    <strong>Comment tester l'interaction entre deux facteurs ?</strong>
+    <strong>Comment tester l'interaction entre deux facteurs ? (ANOVA à 2 facteurs)</strong>
     <ul style="margin-left:40px;font-weight:normal;">
       <li>Pourquoi tester l'interaction ?</li>
       <li>Définition et conduite de l'ANOVA à 2 facteurs</li>
@@ -2145,7 +2150,56 @@ En réalisant la même démarche pour le facteur *Sex*, on obtient $F_{S,\mathrm
 </ol>
 ```
 
-## 2️⃣ Pourquoi tester l'interaction entre deux facteurs ?
+## 2️⃣ Pourquoi tester l'interaction  ? Intuition
+
+<br>
+
+```{r}
+#| echo: false
+#| fig-width: 9
+#| fig-height: 4.5
+#| fig-align: center
+
+means_interaction <- data_mice %>%
+  group_by(Sex, Housing) %>%
+  summarise(
+    mean_contact = mean(contact_time, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+ggplot(
+  means_interaction,
+  aes(
+    x = Housing,
+    y = mean_contact,
+    colour = Sex,
+    group = Sex
+  )
+) +
+  geom_line(linewidth = 1.8) +
+  geom_point(size = 5) +
+  scale_colour_manual(
+    values = colors_groups,
+    name = NULL
+  ) +
+  labs(
+    x = "Type d'hébergement",
+    y = "Durée moyenne de contact"
+  ) +
+  theme_minimal(base_size = 24) +
+  theme(
+    legend.position = "bottom",
+    legend.text = element_text(size = 19)
+  )
+```
+
+::: {style="font-size:0.8em; text-align:center; margin-top:-15px;"}
+Le passage d'un hébergement en groupe à un hébergement individuel semble modifier différemment la durée moyenne de contact chez les mâles et les femelles.
+:::
+
+
+
+## 2️⃣ Pourquoi tester l'interaction entre deux facteurs  ?
 
 ```{=html}
 <div style="height:2px;"></div>
@@ -2371,7 +2425,7 @@ $$
 
 ANOVA à 2 facteurs
 
-: L'[ANOVA à deux facteurs]{.smallcaps} est une méthode statistique reposant sur des tests d'hypothèses pour déterminer si les facteurs et leur interaction ont un effet significatif sur la variable étudiée.
+: L'[ANOVA à deux facteurs]{.smallcaps} est une méthode statistique reposant sur des tests d'hypothèses pour déterminer si les facteurs **et leur interaction** ont un effet significatif sur la variable étudiée.
 
 
 ::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top: 1px;padding-bottom: 5px;"}
@@ -2414,9 +2468,6 @@ $$\small \beta = P(\text{ne pas rejeter }H_0\mid H_0\text{ fausse})$$
 ::: {style="border: 2px solid #D9E1F2; border-radius: 25px; background: white; box-shadow: 0 2px 8px rgba(100,120,150,0.10); overflow: hidden; padding: 20px;font-size: 0.75em;padding-top:1px;padding-bottom: 5px;"}
 [[Statistique de test :]{.underline}]{.smallcaps}
 
-```{=html}
-<div style="height:0.03px;"></div>
-```
 
 $$
 \small F= \frac{\text{variabilité expliquée par l'effet}}
@@ -2627,7 +2678,7 @@ ggplot(means_HS, aes(x = x)) +
 ```
 
 ::: {style="font-size:0.65em; text-align:center;"}
-○ Moyennes attendues sans interaction (somme des effets)
+○ Moyennes empiriques si pas d'interaction
 
 [● Moyennes observées]{style="color:#CC79A7;"}
 :::
@@ -2976,7 +3027,7 @@ ggplot(df_fisher, aes(x = x, y = density)) +
   </li>
 
   <li style="margin-bottom:35px; color:#A1A1AA">
-    Comment tester l'interaction entre deux facteurs ?
+    Comment tester l'interaction entre deux facteurs ? (ANOVA à 2 facteurs)
     <ul style="margin-left:40px;">
       <li>Pourquoi tester l'interaction ?</li>
       <li>Définition et conduite de l'ANOVA à 2 facteurs</li>
@@ -4042,7 +4093,7 @@ ggplot() +
   </li>
 
   <li style="margin-bottom:35px; color:#A1A1AA">
-    Comment tester l'interaction entre deux facteurs ?
+    Comment tester l'interaction entre deux facteurs ? (ANOVA à 2 facteurs)
     <ul style="margin-left:40px;">
       <li>Pourquoi tester l'interaction ?</li>
       <li>Définition et conduite de l'ANOVA à 2 facteurs</li>
@@ -4071,7 +4122,7 @@ ggplot() +
 ```
 
 ::: small-box
-**Le sexe et le type d'hébergement des souris ont-ils un effet sur la durée de leurs interactions sociales ? Existe-t-il un effet combiné de ces deux facteurs ?**
+**Le sexe et le type d'hébergement des souris ont-ils un effet sur la durée de leurs interactions sociales ? La différence entre les mâles et les femelles dépend-elle du type d'habitat ?**
 :::
 
 ```{=html}
@@ -4388,8 +4439,6 @@ summary(aov)
 
 ::: small-box
 Au seuil de **5 %**, le **type d'hébergement** a un effet significatif sur le temps de contact des souris ($p < 0.001$). En revanche, **ni le sexe** ($p = 0.712$), **ni l'interaction entre le sexe et l'hébergement** ($p = 0.273$) ne sont significatifs.
-
-$\longrightarrow$ **L'effet de l'hébergement sur le temps de contact ne semble donc pas dépendre du sexe des souris.**
 :::
 
 ## 📖 Objectifs du cours
@@ -4409,7 +4458,7 @@ $\longrightarrow$ **L'effet de l'hébergement sur le temps de contact ne semble 
   </li>
 
   <li style="margin-bottom:35px; color:#A1A1AA">
-    Comment tester l'interaction entre deux facteurs ?
+    Comment tester l'interaction entre deux facteurs ? (ANOVA à 2 facteurs)
     <ul style="margin-left:40px;">
       <li>Pourquoi tester l'interaction ?</li>
       <li>Définition et conduite de l'ANOVA à 2 facteurs</li>
@@ -4455,7 +4504,7 @@ $$ où $\theta_H$, $\theta_S$ et $\theta_{HS}$ sont les coefficients à estimer,
 <div style="height:25px;"></div>
 ```
 
-[[**2. Modèle à effets**]{.underline}]{.smallcaps}
+[[**2. Modèle avec décomposition des effets**]{.underline}]{.smallcaps}
 
 $$
 Y_{ijk}=
