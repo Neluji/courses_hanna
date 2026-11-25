@@ -4129,7 +4129,7 @@ ggplot() +
 
 . . .
 
-2.  Vérification des hypothèses de normalité et d'homoscédasticité
+3.  Vérification des hypothèses de normalité et d'homoscédasticité
 
 ```{=html}
 <div style="height:25px;"></div>
@@ -4137,7 +4137,7 @@ ggplot() +
 
 . . .
 
-3.  Déroulé de l'ANOVA et conclusion
+4.  Déroulé de l'ANOVA et conclusion
 
 ## 🐁 Application aux données de souris - Boxplot
 
