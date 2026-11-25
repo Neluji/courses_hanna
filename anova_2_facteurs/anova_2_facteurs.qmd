@@ -1680,7 +1680,7 @@ On note $Y_{ik}$ la $k$^ème^ observation de la $i$^ème^ modalité de Housing.
 $$
 \color{#E69F00}{
 \boxed{
-SC_{\mathrm{rés}} =
+SC_{\mathrm{res}} =
 \sum_{i=1}^{N_H}\sum_{k=1}^{n_i^H}
 \left(Y_{ik}-\widehat{\mu}_i^H\right)^2
 }
@@ -1701,7 +1701,7 @@ SC_res <- sum(
 ```
 
 ::: {style="text-align:center;"}
-$\color{#E69F00}{\boldsymbol{SC_{\mathrm{rés}} = `r round(SC_res, 2)`}}$
+$\color{#E69F00}{\boldsymbol{SC_{\mathrm{res}} = `r round(SC_res, 2)`}}$
 :::
 
 :::::
@@ -1723,7 +1723,7 @@ Pour comparer les variabilités, on divise chaque somme des carrés (SC) par ses
 | Variabilité | Somme des carrés | Degrés de liberté | Carré moyen |
 |:----------------|:----------------:|:----------------:|:----------------:|
 | Expliquée par Housing | $\color{#0072B2}{SC_H}$ | $N_H-1$ | $\displaystyle CM_H=\frac{\color{#0072B2}{SC_H}}{N_H-1}$ |
-| Résiduelle | $\color{#E69F00}{SC_{\mathrm{rés}}}$ | $N-N_H$ | $\displaystyle CM_{\mathrm{rés}}=\frac{\color{#E69F00}{SC_{\mathrm{rés}}}}{N-N_H}$ |
+| Résiduelle | $\color{#E69F00}{SC_{\mathrm{res}}}$ | $N-N_H$ | $\displaystyle CM_{\mathrm{res}}=\frac{\color{#E69F00}{SC_{\mathrm{res}}}}{N-N_H}$ |
 :::
 
 ::: {style="font-size: 0.65em;"}
@@ -1742,7 +1742,7 @@ $$
 \boxed{
 F_H =
 \frac{\color{#0072B2}{CM_H}}
-{\color{#E69F00}{CM_{\mathrm{rés}}}}
+{\color{#E69F00}{CM_{\mathrm{res}}}}
 }
 $$
 
@@ -2376,14 +2376,6 @@ Sans distinguer les modalités de B, aucun effet de A n'apparaît. Pourtant, A a
 
 - $\mu_{..}$ : moyenne globale.
 
-$$
-\begin{aligned}
-\mu_{i.} &= \frac{1}{N_S}\sum_{j=1}^{N_S}\mu_{ij}\\
-\mu_{.j} &= \frac{1}{N_H}\sum_{i=1}^{N_H}\mu_{ij}\\
-\mu_{..} &= \frac{1}{N_HN_S}\sum_{i=1}^{N_H}\sum_{j=1}^{N_S}\mu_{ij}
-\end{aligned}
-$$
-
 :::
 
 ::: {.column width="50%"}
@@ -2398,20 +2390,13 @@ $$
 
 - $\widehat{\mu}_{..}$ : moyenne globale empirique.
 
-$$
-\begin{aligned}
-\widehat{\mu}_{i.} &= \frac{1}{N_S}\sum_{j=1}^{N_S}\widehat{\mu}_{ij}\\
-\widehat{\mu}_{.j} &= \frac{1}{N_H}\sum_{i=1}^{N_H}\widehat{\mu}_{ij}\\
-\widehat{\mu}_{..} &= \frac{1}{N_HN_S}\sum_{i=1}^{N_H}\sum_{j=1}^{N_S}\widehat{\mu}_{ij}
-\end{aligned}
-$$
-
 :::
 :::::
 
-::: small-box
-Le point dans un indice indique que l'on moyenne sur toutes les modalités du facteur correspondant.
-:::
+
+$$
+\mu_{i.} = \frac{1}{N_S}\sum_{j=1}^{N_S}\mu_{ij} \qquad \mu_{.j} = \frac{1}{N_H}\sum_{i=1}^{N_H}\mu_{ij} \qquad \mu_{..} = \frac{1}{N_HN_S}\sum_{i=1}^{N_H}\sum_{j=1}^{N_S}\mu_{ij}
+$$
 
 
 
