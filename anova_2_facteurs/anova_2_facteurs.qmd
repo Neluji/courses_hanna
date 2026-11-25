@@ -210,14 +210,20 @@ Soit $X = (x_1, ..., x_N)$ un vecteur de données.
 
 ## 💭 Avant de commencer - Combien de temps passez-vous sous la douche ?
 
+:::: columns
+::: {.column width="50%"}
+
+![](figures/sondage.png){fig-align="center" width="100%"}
+
+:::
+
+::: {.column width="50%" .fragment style="margin-top: 5%;"}
 
 ```{r}
 
 #| echo: false
 #| message: false
 #| warning: false
-#| fig-height: 3.25
-#| fig-width: 4.25
 
 library(dplyr)
 library(plotly)
@@ -365,13 +371,17 @@ p <- p %>%
       dtick = 5
     ),
     showlegend = FALSE,
-    margin = list(t = 30, b = 90, l = 65, r = 20)
+    margin = list(t = 30, b = 90, l = 65, r = 20),
+    boxgap = 0,
+    width = 500
   )
 
 p
 ```
 
+:::
 
+::::
 
 
 ## 🔍 Introduction : L'ANOVA, qu'est-ce que c'est ?
